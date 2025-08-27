@@ -1,8 +1,6 @@
 import 'package:clashmi/app/extension/colors.dart';
 import 'package:clashmi/screens/theme_define.dart';
-import 'package:clashmi/screens/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SegemntedElevatedButtonItem {
   SegemntedElevatedButtonItem({required this.value, required this.text});

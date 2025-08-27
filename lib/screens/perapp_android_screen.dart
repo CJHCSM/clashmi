@@ -39,7 +39,6 @@ class PackageInfoImpl extends PackageInfo {
 class PackageInfoEx {
   late PackageInfo info;
   String name = "";
-  Image? icon;
 }
 
 class _PerAppAndroidScreenState
@@ -163,7 +162,6 @@ class _PerAppAndroidScreenState
             PackageInfoEx info = PackageInfoEx();
             info.info = PackageInfoImpl(papp);
             info.name = _removed;
-            info.icon = null;
 
             notExists.add(info);
           }
@@ -189,9 +187,6 @@ class _PerAppAndroidScreenState
     }
     for (var app in _applicationInfoList) {
       if (app.info.packageName == packageName) {
-        if (app.icon != null) {
-          return app.icon;
-        }
         if (app.name == _removed) {
           return null;
         }
@@ -199,8 +194,8 @@ class _PerAppAndroidScreenState
         if (!mounted) {
           return null;
         }
-        app.icon = image;
-        return app.icon;
+
+        return image;
       }
     }
     return null;
@@ -319,7 +314,6 @@ class _PerAppAndroidScreenState
                 height: 44,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
                 child: TextFieldEx(
@@ -330,7 +324,6 @@ class _PerAppAndroidScreenState
                     border: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
-                      color: Colors.grey.shade400,
                     ),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
