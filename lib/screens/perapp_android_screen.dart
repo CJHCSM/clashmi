@@ -229,7 +229,11 @@ class _PerAppAndroidScreenState
       if (data == null) {
         return null;
       }
-      return Image.memory(data);
+      return Image.memory(
+        data,
+        cacheHeight: 96,
+        cacheWidth: 96,
+      );
     } catch (err, stacktrace) {
       return null;
     }
@@ -426,8 +430,8 @@ class _PerAppAndroidScreenState
                       children: [
                         Row(children: [
                           SizedBox(
-                            width: ThemeConfig.kListItemHeight2,
-                            height: ThemeConfig.kListItemHeight2,
+                            width: 48,
+                            height: 48,
                             child: FutureBuilder(
                               future: getInstalledPackageIcon(
                                   current.info.packageName!),
@@ -438,8 +442,8 @@ class _PerAppAndroidScreenState
                                   return const SizedBox.shrink();
                                 }
                                 return SizedBox(
-                                    width: ThemeConfig.kListItemHeight2,
-                                    height: ThemeConfig.kListItemHeight2,
+                                    width: 48,
+                                    height: 48,
                                     child: snapshot.data);
                               },
                             ),
