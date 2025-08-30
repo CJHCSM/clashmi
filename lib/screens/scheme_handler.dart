@@ -1,4 +1,5 @@
 import 'package:clashmi/app/runtime/return_result.dart';
+import 'package:clashmi/app/utils/app_scheme_actions.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/app/utils/system_scheme_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
@@ -14,15 +15,46 @@ class SchemeHandler {
   static Future<ReturnResultError?> handle(
       BuildContext context, String url) async {
     //clash://install-config?url=https://xxxxx.com/clash/config
+    //clash://connect
+    //clash://disconnect
+    //clash://reconnect
     Uri? uri = Uri.tryParse(url);
     if (uri == null) {
       return ReturnResultError("parse url failed: $url");
     }
     if (uri.isScheme(SystemSchemeUtils.getClashScheme())) {
-      if (uri.host == "install-config") {
+      if (uri.host == AppSchemeActions.installConfigAction()) {
         return await _installConfig(context, uri);
+      } else if (uri.host == AppSchemeActions.connectAction()) {
+        if (vpnConnect != null) {
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnConnect!.call(background);
+        }
+        return null;
+      } else if (uri.host == AppSchemeActions.disconnectAction()) {
+        if (vpnDisconnect != null) {
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnDisconnect!.call(background);
+        }
+        return null;
+      } else if (uri.host == AppSchemeActions.reconnectAction()) {
+        if (vpnReconnect != null) {
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnReconnect!.call(background);
+        }
+        return null;
       }
     }
+
     return ReturnResultError("unsupport scheme: ${uri.scheme}");
   }
 

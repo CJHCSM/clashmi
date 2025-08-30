@@ -153,6 +153,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get edit => '编辑';
 	@override String get view => '查看';
 	@override String get remark => '备注';
+	@override String get byDefault => '默认';
 	@override String get editRemark => '修改备注';
 	@override String get more => '更多';
 	@override String get tips => '提示';
@@ -279,6 +280,11 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get disableFontScaler => '禁用字体缩放';
 	@override String get autoOrientation => '跟随屏幕旋转';
 	@override String get restartTakesEffect => '重启生效';
+	@override String get runtimeProfile => '运行时配置';
+	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
+	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
+	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展,安装完成后重新连接';
+	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 	@override String get proxy => '代理';
 	@override String get theme => '主题';
 	@override String get tvMode => 'TV模式';
@@ -385,9 +391,11 @@ class _TranslationsDnsZhCn implements TranslationsDnsEn {
 	@override String get enhancedMode => '增强模式';
 	@override String get fakeIPFilterMode => '${_root.dns.fakeIp} 过滤模式';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} 过滤';
-	@override String get defaultNameServer => '默认域名解析服务器';
 	@override String get nameServer => '域名解析服务器';
-	@override String get fallbackNameServer => '${_root.dns.fallback} 域名解析服务器';
+	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
+	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
+	@override String get directNameServer => '${_root.meta.direct} ${_root.dns.nameServer}';
+	@override String get fallbackNameServer => '${_root.dns.fallback} ${_root.dns.nameServer}';
 	@override String get fallbackGeoIp => '${_root.dns.fallback} GeoIp';
 	@override String get fallbackGeoIpCode => '${_root.dns.fallback} GeoIpCode';
 }
@@ -462,6 +470,7 @@ extension on TranslationsZhCn {
 			case 'meta.edit': return '编辑';
 			case 'meta.view': return '查看';
 			case 'meta.remark': return '备注';
+			case 'meta.byDefault': return '默认';
 			case 'meta.editRemark': return '修改备注';
 			case 'meta.more': return '更多';
 			case 'meta.tips': return '提示';
@@ -588,6 +597,11 @@ extension on TranslationsZhCn {
 			case 'meta.disableFontScaler': return '禁用字体缩放';
 			case 'meta.autoOrientation': return '跟随屏幕旋转';
 			case 'meta.restartTakesEffect': return '重启生效';
+			case 'meta.runtimeProfile': return '运行时配置';
+			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
+			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
+			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展,安装完成后重新连接';
+			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 			case 'meta.proxy': return '代理';
 			case 'meta.theme': return '主题';
 			case 'meta.tvMode': return 'TV模式';
@@ -658,9 +672,11 @@ extension on TranslationsZhCn {
 			case 'dns.enhancedMode': return '增强模式';
 			case 'dns.fakeIPFilterMode': return '${_root.dns.fakeIp} 过滤模式';
 			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} 过滤';
-			case 'dns.defaultNameServer': return '默认域名解析服务器';
 			case 'dns.nameServer': return '域名解析服务器';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} 域名解析服务器';
+			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
+			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
+			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
+			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
 			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
 			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
 			case 'sniffer.overrideDest': return '覆盖';

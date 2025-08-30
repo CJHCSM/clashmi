@@ -153,6 +153,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get edit => 'Редактировать';
 	@override String get view => 'Просмотр';
 	@override String get remark => 'Примечание';
+	@override String get byDefault => 'по умолчанию';
 	@override String get editRemark => 'Заметки об изменениях';
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
@@ -213,12 +214,12 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get overwriteTips => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения';
 	@override String get noOverwrite => 'Не перезаписывать';
 	@override String get overwriteSettings => 'Переопределить настройки';
-	@override String get externalController => 'Внешний контроль';
-	@override String get secret => 'Secret';
+	@override String get externalController => 'Внешнее управление';
+	@override String get secret => 'Пароль';
 	@override String get tcpConcurrent => 'Параллельное TCP-подтверждение';
 	@override String get globalClientFingerprint => 'Глобальный отпечаток пальца TLS';
 	@override String get allowLanAccess => 'Доступ к локальной сети устройства';
-	@override String get mixedPort => 'Гибридный прокси-порт';
+	@override String get mixedPort => 'Порт mixed-прокси';
 	@override String get logLevel => 'Уровень журнала';
 	@override String get tcpkeepAliveInterval => 'Интервал проверки активности TCP';
 	@override String get delayTestUrl => 'URL-адрес теста задержки';
@@ -227,9 +228,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get ntp => 'NTP';
 	@override String get tls => 'TLS';
 	@override String get geo => 'GEO';
-	@override String get geoDownloadByProxy => 'Загрузка Geo RuleSet через прокси';
+	@override String get geoDownloadByProxy => 'Загрузка гео-правил через прокси';
 	@override String get geoRulesetTips => 'Geosite/Geoip/Asn будет преобразован в соответствующий RuleSet';
-	@override String get sniffer => 'Обнюхивание';
+	@override String get sniffer => 'Обнаружение доменов';
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'Запуск при включении';
 	@override String get launchAtStartupRunAsAdmin => 'Пожалуйста, перезапустите Clash Mi от имени администратора.';
@@ -267,26 +268,31 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get sendConfirm => 'Подтверждаете передачу?';
 	@override String get termOfUse => 'Условия использования';
 	@override String get privacyPolicy => 'Политика конфиденциальности';
-	@override String get log => 'бревно';
-	@override String get coreLog => 'Журнал керна';
-	@override String get core => 'основной';
-	@override String get help => 'помощь';
+	@override String get log => 'Журнал';
+	@override String get coreLog => 'Журнал ядра';
+	@override String get core => 'Ядро';
+	@override String get help => 'Помощь';
 	@override String get tutorial => 'Руководство';
-	@override String get board => 'панель';
+	@override String get board => 'Панель';
 	@override String get boardOnline => 'Использование онлайн-панели';
 	@override String get boardOnlineUrl => 'URL-адрес онлайн-панели';
 	@override String get boardLocalPort => 'Порт локальной панели';
 	@override String get disableFontScaler => 'Отключить масштабирование шрифта';
 	@override String get autoOrientation => 'Следовать за поворотом экрана';
 	@override String get restartTakesEffect => 'Требуется перезапуск';
-	@override String get proxy => 'действующий';
-	@override String get theme => 'тема';
+	@override String get runtimeProfile => 'Конфигурация времени выполнения';
+	@override String get willCompleteAfterRebootInstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
+	@override String get willCompleteAfterRebootUninstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
+	@override String get requestNeedsUserApproval => 'Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
+	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
+	@override String get proxy => 'Прокси';
+	@override String get theme => 'Тема';
 	@override String get tvMode => 'Режим ТВ';
 	@override String get autoUpdate => 'Автоматические обновления';
 	@override String get updateChannel => 'Канал автоматического обновления';
 	@override String hasNewVersion({required Object p}) => 'Обновить версию ${p}';
 	@override String get devOptions => 'Параметры разработчика';
-	@override String get about => 'О Karing';
+	@override String get about => 'О приложении';
 	@override String get name => 'Название';
 	@override String get version => 'Версия';
 	@override String get notice => 'Уведомления';
@@ -297,10 +303,10 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get importFromClipboard => 'Импорт из буфера обмена';
 	@override String get exportToClipboard => 'Экспорт в буфер обмена';
 	@override String get server => 'Сервер';
-	@override String get port => 'порт';
+	@override String get port => 'Порт';
 	@override String get donate => 'Пожертвовать';
 	@override String get setting => 'Настройки';
-	@override String get settingCore => 'Основные настройки';
+	@override String get settingCore => 'Настройки ядра';
 	@override String get settingApp => 'Настройки приложения';
 	@override String get coreOverwrite => 'Переопределение ядра';
 	@override String get iCloud => 'iCloud';
@@ -363,7 +369,7 @@ class _TranslationsTunRu implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'Сетевой стек';
-	@override String get dnsHijack => 'Взлом DNS';
+	@override String get dnsHijack => 'Перехват DNS';
 	@override String get strictRoute => 'Строгая маршрутизация';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
 	@override String get appendHttpProxy => 'Подключите HTTP-прокси к VPN';
@@ -385,9 +391,11 @@ class _TranslationsDnsRu implements TranslationsDnsEn {
 	@override String get enhancedMode => 'Расширенный режим';
 	@override String get fakeIPFilterMode => '${_root.dns.fakeIp} режим фильтра';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} фильтрация';
-	@override String get defaultNameServer => 'DNS-сервер по умолчанию';
 	@override String get nameServer => 'DNS-сервер';
-	@override String get fallbackNameServer => '${_root.dns.fallback} сервер разрешения доменных имен';
+	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
+	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
+	@override String get directNameServer => '${_root.meta.direct} ${_root.dns.nameServer}';
+	@override String get fallbackNameServer => '${_root.dns.fallback} ${_root.dns.nameServer}';
 	@override String get fallbackGeoIp => '${_root.dns.fallback} GeoIp';
 	@override String get fallbackGeoIpCode => '${_root.dns.fallback} GeoIpCode';
 }
@@ -399,7 +407,7 @@ class _TranslationsSnifferRu implements TranslationsSnifferEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get overrideDest => 'крышка';
+	@override String get overrideDest => 'Переназначить';
 }
 
 // Path: profilePatchMode
@@ -462,6 +470,7 @@ extension on TranslationsRu {
 			case 'meta.edit': return 'Редактировать';
 			case 'meta.view': return 'Просмотр';
 			case 'meta.remark': return 'Примечание';
+			case 'meta.byDefault': return 'по умолчанию';
 			case 'meta.editRemark': return 'Заметки об изменениях';
 			case 'meta.more': return 'Больше';
 			case 'meta.tips': return 'Инфо';
@@ -522,12 +531,12 @@ extension on TranslationsRu {
 			case 'meta.overwriteTips': return 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения';
 			case 'meta.noOverwrite': return 'Не перезаписывать';
 			case 'meta.overwriteSettings': return 'Переопределить настройки';
-			case 'meta.externalController': return 'Внешний контроль';
-			case 'meta.secret': return 'Secret';
+			case 'meta.externalController': return 'Внешнее управление';
+			case 'meta.secret': return 'Пароль';
 			case 'meta.tcpConcurrent': return 'Параллельное TCP-подтверждение';
 			case 'meta.globalClientFingerprint': return 'Глобальный отпечаток пальца TLS';
 			case 'meta.allowLanAccess': return 'Доступ к локальной сети устройства';
-			case 'meta.mixedPort': return 'Гибридный прокси-порт';
+			case 'meta.mixedPort': return 'Порт mixed-прокси';
 			case 'meta.logLevel': return 'Уровень журнала';
 			case 'meta.tcpkeepAliveInterval': return 'Интервал проверки активности TCP';
 			case 'meta.delayTestUrl': return 'URL-адрес теста задержки';
@@ -536,9 +545,9 @@ extension on TranslationsRu {
 			case 'meta.ntp': return 'NTP';
 			case 'meta.tls': return 'TLS';
 			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return 'Загрузка Geo RuleSet через прокси';
+			case 'meta.geoDownloadByProxy': return 'Загрузка гео-правил через прокси';
 			case 'meta.geoRulesetTips': return 'Geosite/Geoip/Asn будет преобразован в соответствующий RuleSet';
-			case 'meta.sniffer': return 'Обнюхивание';
+			case 'meta.sniffer': return 'Обнаружение доменов';
 			case 'meta.userAgent': return 'UserAgent';
 			case 'meta.launchAtStartup': return 'Запуск при включении';
 			case 'meta.launchAtStartupRunAsAdmin': return 'Пожалуйста, перезапустите Clash Mi от имени администратора.';
@@ -576,26 +585,31 @@ extension on TranslationsRu {
 			case 'meta.sendConfirm': return 'Подтверждаете передачу?';
 			case 'meta.termOfUse': return 'Условия использования';
 			case 'meta.privacyPolicy': return 'Политика конфиденциальности';
-			case 'meta.log': return 'бревно';
-			case 'meta.coreLog': return 'Журнал керна';
-			case 'meta.core': return 'основной';
-			case 'meta.help': return 'помощь';
+			case 'meta.log': return 'Журнал';
+			case 'meta.coreLog': return 'Журнал ядра';
+			case 'meta.core': return 'Ядро';
+			case 'meta.help': return 'Помощь';
 			case 'meta.tutorial': return 'Руководство';
-			case 'meta.board': return 'панель';
+			case 'meta.board': return 'Панель';
 			case 'meta.boardOnline': return 'Использование онлайн-панели';
 			case 'meta.boardOnlineUrl': return 'URL-адрес онлайн-панели';
 			case 'meta.boardLocalPort': return 'Порт локальной панели';
 			case 'meta.disableFontScaler': return 'Отключить масштабирование шрифта';
 			case 'meta.autoOrientation': return 'Следовать за поворотом экрана';
 			case 'meta.restartTakesEffect': return 'Требуется перезапуск';
-			case 'meta.proxy': return 'действующий';
-			case 'meta.theme': return 'тема';
+			case 'meta.runtimeProfile': return 'Конфигурация времени выполнения';
+			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
+			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
+			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
+			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
+			case 'meta.proxy': return 'Прокси';
+			case 'meta.theme': return 'Тема';
 			case 'meta.tvMode': return 'Режим ТВ';
 			case 'meta.autoUpdate': return 'Автоматические обновления';
 			case 'meta.updateChannel': return 'Канал автоматического обновления';
 			case 'meta.hasNewVersion': return ({required Object p}) => 'Обновить версию ${p}';
 			case 'meta.devOptions': return 'Параметры разработчика';
-			case 'meta.about': return 'О Karing';
+			case 'meta.about': return 'О приложении';
 			case 'meta.name': return 'Название';
 			case 'meta.version': return 'Версия';
 			case 'meta.notice': return 'Уведомления';
@@ -606,10 +620,10 @@ extension on TranslationsRu {
 			case 'meta.importFromClipboard': return 'Импорт из буфера обмена';
 			case 'meta.exportToClipboard': return 'Экспорт в буфер обмена';
 			case 'meta.server': return 'Сервер';
-			case 'meta.port': return 'порт';
+			case 'meta.port': return 'Порт';
 			case 'meta.donate': return 'Пожертвовать';
 			case 'meta.setting': return 'Настройки';
-			case 'meta.settingCore': return 'Основные настройки';
+			case 'meta.settingCore': return 'Настройки ядра';
 			case 'meta.settingApp': return 'Настройки приложения';
 			case 'meta.coreOverwrite': return 'Переопределение ядра';
 			case 'meta.iCloud': return 'iCloud';
@@ -645,7 +659,7 @@ extension on TranslationsRu {
 			case 'tls.privateKey': return 'Закрытый ключ';
 			case 'tls.customTrustCert': return 'Индивидуальные сертификаты';
 			case 'tun.stack': return 'Сетевой стек';
-			case 'tun.dnsHijack': return 'Взлом DNS';
+			case 'tun.dnsHijack': return 'Перехват DNS';
 			case 'tun.strictRoute': return 'Строгая маршрутизация';
 			case 'tun.allowBypass': return 'Разрешить приложениям обходить VPN';
 			case 'tun.appendHttpProxy': return 'Подключите HTTP-прокси к VPN';
@@ -658,12 +672,14 @@ extension on TranslationsRu {
 			case 'dns.enhancedMode': return 'Расширенный режим';
 			case 'dns.fakeIPFilterMode': return '${_root.dns.fakeIp} режим фильтра';
 			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} фильтрация';
-			case 'dns.defaultNameServer': return 'DNS-сервер по умолчанию';
 			case 'dns.nameServer': return 'DNS-сервер';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} сервер разрешения доменных имен';
+			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
+			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
+			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
+			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
 			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
 			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return 'крышка';
+			case 'sniffer.overrideDest': return 'Переназначить';
 			case 'profilePatchMode.currentSelected': return 'Текущий сервер';
 			case 'profilePatchMode.overwrite': return 'Встроенная функция переопределения';
 			case 'profilePatchMode.noOverwrite': return 'Встроенный - не перезаписывается';

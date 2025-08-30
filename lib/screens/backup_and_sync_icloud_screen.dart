@@ -162,12 +162,17 @@ class _BackupAndSyncIcloudScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _fileList.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             var current = _fileList[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -182,7 +187,7 @@ class _BackupAndSyncIcloudScreenState
             horizontal: 10,
           ),
           width: double.infinity,
-          //height: 66,
+          height: 66,
           child: Row(
             children: [
               Row(

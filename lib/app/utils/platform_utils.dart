@@ -10,11 +10,4 @@ class PlatformUtils {
   static bool isMobile() {
     return Platform.isAndroid || Platform.isIOS;
   }
-
-  static bool maybeTV() {
-    if (Platform.isAndroid) {
-      return true;
-    }
-    return false;
-  }
 }

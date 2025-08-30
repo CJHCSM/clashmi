@@ -37,11 +37,19 @@ class VPNServiceSetServerOptions {
 class VPNService {
   static const localhost = "127.0.0.1";
   static bool _runAsAdmin = false;
+  static final bool _systemExtension = true;
   static List<String> _abis = [];
   static final List<
           void Function(
               FlutterVpnServiceState state, Map<String, String> params)>
       onEventStateChanged = [];
+
+  static initABI() async {
+    if (Platform.isAndroid) {
+      String abisAll = await FlutterVpnService.getABIs();
+      _abis = abisAll.replaceAll("[", "").replaceAll("]", "").split(",");
+    }
+  }
 
   static init() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -57,10 +65,7 @@ class VPNService {
         appName: packageInfo.appName,
         appPath: Platform.resolvedExecutable,
         args: [AppArgs.launchStartup]);
-    if (Platform.isAndroid) {
-      String abisAll = await FlutterVpnService.getABIs();
-      _abis = abisAll.replaceAll("[", "").replaceAll("]", "").split(",");
-    }
+
     FlutterVpnService.onStateChanged(
         (FlutterVpnServiceState state, Map<String, String> params) async {
       if (getSupportSystemProxy()) {
@@ -181,15 +186,24 @@ class VPNService {
             setting.Tun?.OverWrite == true &&
             setting.Tun?.Enable == true) ||
         !overwrite;
+    var bundleIdentifier = AppUtils.getBundleId(_systemExtension);
+    var uiServerAddress = name;
+    var uiLocalizedDescription = vpnName;
+    if (Platform.isMacOS) {
+      if (_systemExtension) {
+        uiServerAddress = "$uiServerAddress (system)";
+        uiLocalizedDescription = "$uiLocalizedDescription (system)";
+      }
+    }
 
     FlutterVpnService.prepareConfig(
       config: config,
       tunnelServicePath: PathUtils.serviceExePath(),
       configFilePath: configFilePath,
-      systemExtension: false,
-      bundleIdentifier: getBundleId(),
-      uiServerAddress: name,
-      uiLocalizedDescription: vpnName,
+      systemExtension: _systemExtension,
+      bundleIdentifier: bundleIdentifier,
+      uiServerAddress: uiServerAddress,
+      uiLocalizedDescription: uiLocalizedDescription,
       excludePorts: excludePorts,
     );
 
@@ -361,6 +375,14 @@ class VPNService {
     if (SettingManager.getConfig().autoSetSystemProxy) {
       await setSystemProxy(true);
     }
+    Future.delayed(const Duration(seconds: 1), () async {
+      final state = await getState();
+      if (state != FlutterVpnServiceState.connected) {
+        for (var callback in onEventStateChanged) {
+          callback(state, {});
+        }
+      }
+    });
 
     return null;
   }
@@ -450,13 +472,6 @@ class VPNService {
 
   static Future<ReturnResultError?> reload(Duration timeout) async {
     return restart(timeout);
-  }
-
-  static String getBundleId() {
-    if (Platform.isIOS || Platform.isMacOS) {
-      return AppUtils.getBundleId();
-    }
-    return "";
   }
 
   static String getLaunchAtStartupTaskName() {

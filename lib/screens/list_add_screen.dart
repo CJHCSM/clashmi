@@ -115,12 +115,17 @@ class _ServerSelectSearchSettingsScreenState
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        child: ListView.builder(
+        child: ListView.separated(
       itemCount: widget.data.length,
-      itemExtent: ThemeConfig.kListItemHeight2,
       itemBuilder: (BuildContext context, int index) {
         var current = widget.data[index];
         return createWidget(index, current, windowSize);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 1,
+          thickness: 0.3,
+        );
       },
     ));
   }
@@ -203,6 +208,7 @@ class _ServerSelectSearchSettingsScreenState
               : tcontext.meta.add,
           "",
           widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
+          null,
           null, (text) {
         text = text.trim();
         if (text.isEmpty) {

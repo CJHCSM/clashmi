@@ -2,16 +2,13 @@
 
 import 'dart:async';
 
-import 'package:clashmi/screens/group_item_options.dart';
-import 'package:clashmi/screens/themes.dart';
-import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
+import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class GroupScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings(String viewTag) {
@@ -69,19 +66,12 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
   @override
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
-    var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: color,
-          ),
-        ),
+        child: AppBar(),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),

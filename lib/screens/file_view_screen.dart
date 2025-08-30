@@ -77,7 +77,6 @@ class _FileViewScreenState extends State<FileViewScreen> {
         preferredSize: Size.zero,
         child: AppBar(),
       ),
-      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -108,25 +107,48 @@ class _FileViewScreenState extends State<FileViewScreen> {
                           fontSize: ThemeConfig.kFontSizeTitle),
                     ),
                   ),
-                  widget.onSave != null
-                      ? InkWell(
-                          onTap: () async {
-                            widget.onSave!(context, _controller.text);
-                          },
-                          child: Tooltip(
-                              message: tcontext.meta.save,
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.done,
-                                  size: 26,
-                                ),
-                              )),
-                        )
-                      : SizedBox(
-                          width: 50,
-                        ),
+                  if (widget.content.isNotEmpty) ...[
+                    InkWell(
+                      onTap: () {
+                        try {
+                          Clipboard.setData(
+                              ClipboardData(text: widget.content));
+                        } catch (e) {}
+                      },
+                      child: Tooltip(
+                          message: tcontext.meta.copy,
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.copy,
+                              size: 26,
+                            ),
+                          )),
+                    )
+                  ],
+                  if (widget.onSave != null) ...[
+                    InkWell(
+                      onTap: () async {
+                        widget.onSave!(context, _controller.text);
+                      },
+                      child: Tooltip(
+                          message: tcontext.meta.save,
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.done,
+                              size: 26,
+                            ),
+                          )),
+                    )
+                  ],
+                  if (widget.content.isEmpty && widget.onSave == null) ...[
+                    const SizedBox(
+                      width: 50,
+                    ),
+                  ],
                 ],
               ),
               const SizedBox(

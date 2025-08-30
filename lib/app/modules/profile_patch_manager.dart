@@ -203,6 +203,8 @@ class ProfilePatchManager {
       } catch (err, stacktrace) {
         Log.w("ProfilePatchManager.load exception ${err.toString()} ");
       }
+    } else {
+      await save();
     }
     Set<String> existProfiles = {};
 
@@ -505,12 +507,30 @@ class ProfilePatchManager {
         });
         return err;
       }
-      try {
-        await File(savePathTmp).rename(savePath);
-      } catch (err) {
-        return ReturnResultError(
-            "rename file from [$savePathTmp] to [$savePath] failed: ${err.toString()}");
+      String renameError = "";
+      for (var i = 0; i < 3; ++i) {
+        try {
+          await File(savePathTmp).rename(savePath);
+          renameError = "";
+          break;
+        } catch (err) {
+          renameError = err.toString();
+          await Future.delayed(const Duration(seconds: 1));
+        }
       }
+      if (renameError.isNotEmpty) {
+        updating.remove(id);
+        await FileUtils.deletePath(savePathTmp);
+
+        Future.delayed(const Duration(milliseconds: 10), () async {
+          for (var event in onEventUpdate) {
+            event(id, true);
+          }
+        });
+        return ReturnResultError(
+            "Rename file from [$savePathTmp] to [$savePath] failed: $renameError");
+      }
+
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
       if (profile.remark.isEmpty) {
         final result = await HttpUtils.httpGetTitle(profile.url, userAgent);

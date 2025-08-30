@@ -153,6 +153,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get edit => 'ویرایش کنید';
 	@override String get view => 'بررسی';
 	@override String get remark => 'ملاحضات';
+	@override String get byDefault => 'پیش‌فرض';
 	@override String get editRemark => 'یادداشت های اصلاحی';
 	@override String get more => 'بیشتر';
 	@override String get tips => 'اطلاعات';
@@ -279,6 +280,11 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get disableFontScaler => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 	@override String get autoOrientation => 'چرخش صفحه را دنبال کنید';
 	@override String get restartTakesEffect => 'با راه‌اندازی مجدد اعمال می‌شود';
+	@override String get runtimeProfile => 'پیکربندی زمان اجرا';
+	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
+	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
+	@override String get requestNeedsUserApproval => 'لطفاً به کلش می اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب، دوباره متصل شوید.';
+	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get proxy => 'بازیگری';
 	@override String get theme => 'موضوع';
 	@override String get tvMode => 'حالت تلویزیون';
@@ -385,9 +391,11 @@ class _TranslationsDnsFa implements TranslationsDnsEn {
 	@override String get enhancedMode => 'حالت پیشرفته';
 	@override String get fakeIPFilterMode => 'حالت فیلتر ${_root.dns.fakeIp}';
 	@override String get fakeIPFilter => 'فیلتر ${_root.dns.fakeIp}';
-	@override String get defaultNameServer => 'سرور DNS پیش فرض';
 	@override String get nameServer => 'سرور DNS';
-	@override String get fallbackNameServer => '${_root.dns.fallback} سرور تفکیک نام دامنه';
+	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
+	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
+	@override String get directNameServer => '${_root.meta.direct} ${_root.dns.nameServer}';
+	@override String get fallbackNameServer => '${_root.dns.fallback} ${_root.dns.nameServer}';
 	@override String get fallbackGeoIp => '${_root.dns.fallback} GeoIp';
 	@override String get fallbackGeoIpCode => '${_root.dns.fallback} GeoIpCode';
 }
@@ -462,6 +470,7 @@ extension on TranslationsFa {
 			case 'meta.edit': return 'ویرایش کنید';
 			case 'meta.view': return 'بررسی';
 			case 'meta.remark': return 'ملاحضات';
+			case 'meta.byDefault': return 'پیش‌فرض';
 			case 'meta.editRemark': return 'یادداشت های اصلاحی';
 			case 'meta.more': return 'بیشتر';
 			case 'meta.tips': return 'اطلاعات';
@@ -588,6 +597,11 @@ extension on TranslationsFa {
 			case 'meta.disableFontScaler': return 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 			case 'meta.autoOrientation': return 'چرخش صفحه را دنبال کنید';
 			case 'meta.restartTakesEffect': return 'با راه‌اندازی مجدد اعمال می‌شود';
+			case 'meta.runtimeProfile': return 'پیکربندی زمان اجرا';
+			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
+			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
+			case 'meta.requestNeedsUserApproval': return 'لطفاً به کلش می اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب، دوباره متصل شوید.';
+			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 			case 'meta.proxy': return 'بازیگری';
 			case 'meta.theme': return 'موضوع';
 			case 'meta.tvMode': return 'حالت تلویزیون';
@@ -658,9 +672,11 @@ extension on TranslationsFa {
 			case 'dns.enhancedMode': return 'حالت پیشرفته';
 			case 'dns.fakeIPFilterMode': return 'حالت فیلتر ${_root.dns.fakeIp}';
 			case 'dns.fakeIPFilter': return 'فیلتر ${_root.dns.fakeIp}';
-			case 'dns.defaultNameServer': return 'سرور DNS پیش فرض';
 			case 'dns.nameServer': return 'سرور DNS';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} سرور تفکیک نام دامنه';
+			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
+			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
+			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
+			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
 			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
 			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
 			case 'sniffer.overrideDest': return 'پوشش';

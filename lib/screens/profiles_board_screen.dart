@@ -6,25 +6,24 @@ import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/add_profile_by_import_from_file_screen.dart';
-import 'package:clashmi/screens/add_profile_by_url_screen.dart';
 import 'package:clashmi/screens/add_profile_by_scan_qrcode_screen.dart';
+import 'package:clashmi/screens/add_profile_by_url_screen.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/profiles_board_screen_widgets.dart';
 import 'package:clashmi/screens/theme_config.dart';
-import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class ProfilesBoardScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
     return const RouteSettings(name: "/");
   }
 
-  const ProfilesBoardScreen({super.key});
+  final bool navigateToAdd;
+  const ProfilesBoardScreen({super.key, this.navigateToAdd = false});
 
   @override
   State<ProfilesBoardScreen> createState() => _ProfilesBoardScreenState();
@@ -41,7 +40,11 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
   }
 
   @override
-  FutureOr<void> afterFirstLayout(BuildContext context) async {}
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    if (widget.navigateToAdd) {
+      onTapAdd();
+    }
+  }
 
   @override
   void dispose() {
@@ -55,19 +58,12 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: color,
-          ),
-        ),
+        child: AppBar(),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -186,7 +182,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
     var widgets = [
       ListTile(
         title: Text(tcontext.meta.getProfile),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           var remoteConfig = RemoteConfigManager.getConfig();
@@ -204,7 +199,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
       ),
       ListTile(
         title: Text(tcontext.meta.profileAddUrlOrContent),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
@@ -216,7 +210,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
       ),
       ListTile(
         title: Text(tcontext.meta.importFromClipboard),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           ClipboardData? data;
@@ -246,7 +239,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
       ),
       ListTile(
         title: Text(tcontext.meta.qrcodeScan),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
@@ -271,7 +263,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
       ),
       ListTile(
         title: Text(tcontext.meta.profileImport),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
@@ -285,7 +276,6 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
     ];
 
     showSheet(
-      title: tcontext.meta.addProfile,
       context: context,
       body: SizedBox(
           height: 400,

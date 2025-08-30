@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
+import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
@@ -22,7 +23,7 @@ class InAppWebViewScreen extends StatefulWidget {
     return RouteSettings(name: "InAppWebViewScreen:$viewTag");
   }
 
-  static bool _inited = false;
+  static bool? _inited;
   static bool _notSupportSubmited = true;
   static bool _available = false;
   static bool _enableWebViewEnvironmentDebug = kDebugMode;
@@ -31,9 +32,10 @@ class InAppWebViewScreen extends StatefulWidget {
   static String? _defaultUserAgent;
   static String _defaultUserAgentWithKaring = "";
   static Future<void> _init() async {
-    if (_inited) {
+    if (_inited != null) {
       return;
     }
+    _inited = false;
     if (!await isSupported()) {
       return;
     }
@@ -156,7 +158,7 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static bool isInited() {
-    return _inited;
+    return _inited == true;
   }
 
   static bool isAvailable() {
@@ -193,8 +195,9 @@ class InAppWebViewScreen extends StatefulWidget {
     this.javaScriptHandlers = const {},
     this.javaScriptHandlerArgument,
   }) {
-    if (!_inited && _notSupportSubmited) {
+    if (_inited != null && _notSupportSubmited) {
       _notSupportSubmited = false;
+      Log.w("webview is not initialized:$title");
     }
   }
 
@@ -315,7 +318,10 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   @override
   void dispose() {
     resetJavaScriptHandler();
-    _webViewController?.dispose();
+    try {
+      _webViewController?.dispose();
+    } catch (err) {}
+
     InAppWebViewScreen.delRef();
     super.dispose();
   }
@@ -365,36 +371,34 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                         ),
                       ),
                       Row(children: [
-                        widget.showGoBackGoForward
-                            ? InkWell(
-                                onTap: () async {
-                                  _webViewController?.goBack();
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        widget.showGoBackGoForward
-                            ? InkWell(
-                                onTap: () async {
-                                  _webViewController?.goForward();
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        if (widget.showGoBackGoForward) ...[
+                          InkWell(
+                            onTap: () async {
+                              _webViewController?.goBack();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 26,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              _webViewController?.goForward();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 26,
+                              ),
+                            ),
+                          )
+                        ],
                         InkWell(
                           onTap: () async {
                             _webViewController?.reload();
@@ -408,21 +412,21 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                             ),
                           ),
                         ),
-                        widget.showOpenExternal
-                            ? InkWell(
-                                onTap: () async {
-                                  UrlLauncherUtils.loadUrl(widget.url);
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.open_in_new_outlined,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        if (widget.showOpenExternal) ...[
+                          InkWell(
+                            onTap: () async {
+                              UrlLauncherUtils.loadUrl(widget.url);
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.open_in_new_outlined,
+                                size: 26,
+                              ),
+                            ),
+                          )
+                        ],
                       ]),
                     ],
                   ),

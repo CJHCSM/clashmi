@@ -12,8 +12,10 @@
 	</array>
 	<key>com.apple.developer.networking.networkextension</key>
 	<array>
-		<string>packet-tunnel-provider</string>
+		<string>packet-tunnel-provider-systemextension</string>
 	</array>
+	<key>com.apple.developer.system-extension.install</key>
+	<true/>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
 	<array>
 		<string>iCloud.com.nebula.clashmi</string>
@@ -25,6 +27,8 @@
 		<string>group.com.nebula.clashmi</string>
 	</array>
 	<key>com.apple.security.files.user-selected.read-only</key>
+	<true/>
+	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>

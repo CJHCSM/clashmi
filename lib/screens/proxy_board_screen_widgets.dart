@@ -23,16 +23,36 @@ class _ProxyScreenProxiesNodeWidget
     for (var node in widget.nodes) {
       if (node.type != ClashProtocolType.urltest.name &&
           node.type != ClashProtocolType.selector.name &&
-          node.type != ClashProtocolType.fallback.name) {
+          node.type != ClashProtocolType.fallback.name &&
+          node.type != ClashProtocolType.loadBalance.name) {
         continue;
+      }
+      String subtitle = "";
+      Color? color;
+      if (node.delay != null && node.delay! > 0) {
+        subtitle = "(${node.delay} ms)";
+        if (node.delay! < 800) {
+          color = ThemeDefine.kColorGreenBright;
+        } else if (node.delay! < 1500) {
+          color = Colors.black;
+        } else {
+          color = Colors.red;
+        }
       }
       widgets.add(
         ListTile(
           title: Text(node.name),
-          subtitle: Text(node.delay != null
-              ? "${node.type} (${node.delay} ms)"
-              : node.type),
-          minLeadingWidth: 40,
+          subtitle: node.delay == null
+              ? Text(node.type)
+              : Row(
+                  children: [
+                    Text(node.type),
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: color),
+                    )
+                  ],
+                ),
           trailing: SizedBox(
             width: windowSize.width * 0.4,
             child: Row(
@@ -80,6 +100,7 @@ class _ProxyScreenProxiesNodeWidget
 
   void showNodeSelect(List<ClashProxiesNode> nodes, ClashProxiesNode node) {
     var widgets = [];
+    final theme = Theme.of(context);
     for (var name in node.all) {
       int? delay;
       for (var n in nodes) {
@@ -88,11 +109,28 @@ class _ProxyScreenProxiesNodeWidget
           break;
         }
       }
+      String subtitle = "";
+      Color? color;
+      if (delay != null && delay > 0) {
+        subtitle = "$delay ms";
+        if (delay < 800) {
+          color = ThemeDefine.kColorGreenBright;
+        } else if (delay < 1500) {
+          color = theme.colorScheme.secondary;
+        } else {
+          color = Colors.red;
+        }
+      }
+
       widgets.add(
         ListTile(
           title: Text(name),
-          subtitle: delay != null && delay != 0 ? Text("$delay ms") : null,
-          minLeadingWidth: 40,
+          subtitle: delay == null
+              ? null
+              : Text(
+                  subtitle,
+                  style: TextStyle(color: color),
+                ),
           selected: node.now == name,
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
@@ -113,7 +151,6 @@ class _ProxyScreenProxiesNodeWidget
       );
     }
     showSheet(
-      title: node.name,
       context: context,
       body: SizedBox(
           height: 400,

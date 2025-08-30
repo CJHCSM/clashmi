@@ -153,6 +153,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get edit => 'يحرر';
 	@override String get view => 'يفحص';
 	@override String get remark => 'ملاحظة';
+	@override String get byDefault => 'تقصير';
 	@override String get editRemark => 'ملاحظات التعديل';
 	@override String get more => 'أكثر';
 	@override String get tips => 'معلومات';
@@ -279,6 +280,11 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get disableFontScaler => 'Disable Font scaling(Restart takes effect)';
 	@override String get autoOrientation => 'Rotate with the screen';
 	@override String get restartTakesEffect => 'Restart takes effect';
+	@override String get runtimeProfile => 'تكوين وقت التشغيل';
+	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
+	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
+	@override String get requestNeedsUserApproval => 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت.';
+	@override String get FullDiskAccessPermissionRequired => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 	@override String get proxy => 'التمثيل';
 	@override String get theme => 'سمة';
 	@override String get tvMode => 'وضع التلفزيون';
@@ -385,9 +391,11 @@ class _TranslationsDnsAr implements TranslationsDnsEn {
 	@override String get enhancedMode => 'الوضع المحسّن';
 	@override String get fakeIPFilterMode => 'وضع التصفية ${_root.dns.fakeIp}';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} التصفية';
-	@override String get defaultNameServer => 'خادم DNS الافتراضي';
 	@override String get nameServer => 'خادم DNS';
-	@override String get fallbackNameServer => 'خادم حل اسم النطاق ${_root.dns.fallback}';
+	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
+	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
+	@override String get directNameServer => '${_root.meta.direct} ${_root.dns.nameServer}';
+	@override String get fallbackNameServer => '${_root.dns.fallback} ${_root.dns.nameServer}';
 	@override String get fallbackGeoIp => '${_root.dns.fallback} GeoIp';
 	@override String get fallbackGeoIpCode => '${_root.dns.fallback} GeoIpCode';
 }
@@ -462,6 +470,7 @@ extension on TranslationsAr {
 			case 'meta.edit': return 'يحرر';
 			case 'meta.view': return 'يفحص';
 			case 'meta.remark': return 'ملاحظة';
+			case 'meta.byDefault': return 'تقصير';
 			case 'meta.editRemark': return 'ملاحظات التعديل';
 			case 'meta.more': return 'أكثر';
 			case 'meta.tips': return 'معلومات';
@@ -588,6 +597,11 @@ extension on TranslationsAr {
 			case 'meta.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
 			case 'meta.autoOrientation': return 'Rotate with the screen';
 			case 'meta.restartTakesEffect': return 'Restart takes effect';
+			case 'meta.runtimeProfile': return 'تكوين وقت التشغيل';
+			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
+			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
+			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت.';
+			case 'meta.FullDiskAccessPermissionRequired': return 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 			case 'meta.proxy': return 'التمثيل';
 			case 'meta.theme': return 'سمة';
 			case 'meta.tvMode': return 'وضع التلفزيون';
@@ -658,9 +672,11 @@ extension on TranslationsAr {
 			case 'dns.enhancedMode': return 'الوضع المحسّن';
 			case 'dns.fakeIPFilterMode': return 'وضع التصفية ${_root.dns.fakeIp}';
 			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} التصفية';
-			case 'dns.defaultNameServer': return 'خادم DNS الافتراضي';
 			case 'dns.nameServer': return 'خادم DNS';
-			case 'dns.fallbackNameServer': return 'خادم حل اسم النطاق ${_root.dns.fallback}';
+			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
+			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
+			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
+			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
 			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
 			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
 			case 'sniffer.overrideDest': return 'غطاء';

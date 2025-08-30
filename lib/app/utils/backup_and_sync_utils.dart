@@ -1,5 +1,7 @@
 // ignore_for_file: unused_catch_stack
 
+import 'dart:io';
+
 import 'package:clashmi/app/extension/datetime.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
@@ -17,7 +19,7 @@ class BackupAndSyncUtils {
     final appName = AppUtils.getName();
     final appVersion = AppUtils.getBuildinVersion();
     var name =
-        '${appName}_${appVersion}_${DateTime.now().formatLikeFileNameTimestamp}.backup.${getZipExtension()}';
+        '${appName}_${appVersion}_${Platform.operatingSystem}_${DateTime.now().formatLikeFileNameTimestamp}.backup.${getZipExtension()}';
     name = name.replaceAll(' ', '');
     return name;
   }

@@ -128,7 +128,6 @@ class _ProfilesSettingsEditScreenState
                                           profile != null && profile.isRemote()
                                               ? TextInputAction.next
                                               : TextInputAction.done,
-                                      cursorColor: Colors.black,
                                       decoration: InputDecoration(
                                         labelText: tcontext.meta.remark,
                                         hintText: tcontext.meta.remark,
@@ -143,7 +142,6 @@ class _ProfilesSettingsEditScreenState
                                         ? TextFieldEx(
                                             maxLines: 4,
                                             controller: _textControllerUrl,
-                                            cursorColor: Colors.black,
                                             decoration: InputDecoration(
                                               labelText: tcontext.meta.url,
                                               hintText: tcontext.meta.url,

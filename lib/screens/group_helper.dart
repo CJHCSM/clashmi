@@ -51,7 +51,10 @@ class GroupHelper {
     if (!versionCheck.newVersion) {
       return;
     }
-
+    var remoteConfig = RemoteConfigManager.getConfig();
+    String url = remoteConfig.download.isEmpty
+        ? versionCheck.url
+        : remoteConfig.download;
     if (AutoUpdateManager.isSupport()) {
       String? installerNew = await AutoUpdateManager.checkReplace();
       if (!context.mounted) {
@@ -65,17 +68,11 @@ class GroupHelper {
                 fullscreenDialog: true,
                 builder: (context) => const VersionUpdateScreen(force: false)));
       } else {
-        if (Platform.isAndroid) {
-          await UrlLauncherUtils.loadUrl(versionCheck.url,
-              mode: LaunchMode.externalApplication);
-        } else {
-          await WebviewHelper.loadUrl(
-              context, versionCheck.url, "newVersionUpdate");
-        }
+        await UrlLauncherUtils.loadUrl(url,
+            mode: LaunchMode.externalApplication);
       }
     } else {
-      await WebviewHelper.loadUrl(
-          context, versionCheck.url, "newVersionUpdate");
+      await UrlLauncherUtils.loadUrl(url, mode: LaunchMode.externalApplication);
     }
   }
 
@@ -213,7 +210,7 @@ class GroupHelper {
   static Future<void> onTapImportFromUrl(BuildContext context) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.url, "", null, null, (text) {
+        context, tcontext.meta.url, "", null, null, null, (text) {
       text = text.trim();
 
       Uri? uri = Uri.tryParse(text);
@@ -353,8 +350,8 @@ class GroupHelper {
                 name: tcontext.meta.download,
                 onPush: () async {
                   var remoteConfig = RemoteConfigManager.getConfig();
-                  await WebviewHelper.loadUrl(
-                      context, remoteConfig.download, tcontext.meta.download);
+                  await UrlLauncherUtils.loadUrl(remoteConfig.download,
+                      mode: LaunchMode.externalApplication);
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -709,6 +706,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.externalController,
+                tips: "external-controller",
                 text: setting.ExternalController,
                 textWidthPercent: 0.5,
                 onChanged: (String value) {
@@ -717,6 +715,7 @@ class GroupHelper {
         GroupItemOptions(
             textOptions: GroupItemTextOptions(
                 name: tcontext.meta.secret,
+                tips: "secret",
                 text: setting.Secret,
                 textWidthPercent: 0.5,
                 onPush: () async {
@@ -728,6 +727,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.mixedPort,
+                tips: "mixed-port",
                 text: setting.MixedPort?.toString() ?? "",
                 textWidthPercent: 0.5,
                 hint: tcontext.meta.required,
@@ -738,6 +738,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.meta.logLevel,
+                tips: "log-level",
                 selected: logLevels.contains(setting.LogLevel)
                     ? setting.LogLevel
                     : logLevels.last,
@@ -784,14 +785,17 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: "IPv6",
+                tips: "ipv6\ndns.ipv6",
                 selected: ipv6Selected,
                 tupleStrings: ipv6Tuple,
                 onPicker: (String? selected) async {
                   setting.IPv6 = BoolToTuple.getSelectedKey(context, selected);
+                  setting.DNS?.IPv6 = setting.IPv6;
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.tun,
+                tips: "tun",
                 onPush: () async {
                   showClashSettingsTUN(context);
                 })),
@@ -834,6 +838,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.meta.tcpConcurrent,
+                tips: "tcp-concurrent",
                 selected: tcpConcurrentSelected,
                 tupleStrings: tcpConcurrentTuple,
                 onPicker: (String? selected) async {
@@ -843,6 +848,8 @@ class GroupHelper {
         GroupItemOptions(
             timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                 name: tcontext.meta.tcpkeepAliveInterval,
+                tips:
+                    "disable-keep-alive\nkeep-alive-idle\nkeep-alive-interval",
                 duration: setting.DisableKeepAlive == true
                     ? null
                     : Duration(seconds: setting.KeepAliveInterval ?? 30),
@@ -862,6 +869,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.meta.globalClientFingerprint,
+                tips: "global-client-fingerprint",
                 selected: setting.GlobalClientFingerprint,
                 tupleStrings: globalFingerprintsTuple,
                 textWidthPercent: 0.3,
@@ -882,24 +890,28 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.dns,
+                tips: "dns",
                 onPush: () async {
                   showClashSettingsDNS(context);
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.ntp,
+                tips: "ntp",
                 onPush: () async {
                   showClashSettingsNTP(context);
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.tls,
+                tips: "tls",
                 onPush: () async {
                   showClashSettingsTLS(context);
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.sniffer,
+                tips: "sniffer",
                 onPush: () async {
                   showClashSettingsSniffer(context);
                 })),
@@ -970,6 +982,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.enable,
+                tips: "allow-lan",
                 switchValue: setting.AllowLan == true,
                 onSwitch: setting.AllowLan == null
                     ? null
@@ -979,6 +992,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.authentication,
+                tips: "authentication",
                 text: setting.Authentication?.first,
                 hint: "username:password",
                 readOnly: setting.AllowLan != true,
@@ -1024,6 +1038,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.enable,
+                tips: "enable",
                 switchValue: tun.Enable,
                 onSwitch: tun.OverWrite != true
                     ? null
@@ -1033,6 +1048,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.tun.stack,
+                tips: "stack",
                 selected:
                     tunStacks.contains(tun.Stack) ? tun.Stack : tunStacks.first,
                 strings: tunStacks,
@@ -1044,6 +1060,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.tun.dnsHijack,
+                tips: "dns-hijack",
                 switchValue: tun.DNSHijack?.isNotEmpty,
                 onSwitch: tun.OverWrite != true || tun.Enable != true
                     ? null
@@ -1054,6 +1071,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.tun.strictRoute,
+                tips: "strict-route",
                 switchValue: tun.StrictRoute,
                 onSwitch: tun.OverWrite != true || tun.Enable != true
                     ? null
@@ -1148,6 +1166,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.enable,
+                tips: "enable",
                 switchValue: dns.Enable,
                 onSwitch: dns.OverWrite != true
                     ? null
@@ -1157,6 +1176,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.dns.preferH3,
+                tips: "prefer-h3",
                 switchValue: dns.PreferH3,
                 onSwitch: dns.OverWrite != true || dns.Enable != true
                     ? null
@@ -1166,6 +1186,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.dns.useHosts,
+                tips: "use-hosts",
                 switchValue: dns.UseHosts,
                 onSwitch: dns.OverWrite != true || dns.Enable != true
                     ? null
@@ -1175,6 +1196,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.dns.useSystemHosts,
+                tips: "use-system-hosts",
                 switchValue: dns.UseSystemHosts,
                 onSwitch: dns.OverWrite != true || dns.Enable != true
                     ? null
@@ -1204,6 +1226,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.dns.enhancedMode,
+                tips: "enhanced-mode",
                 selected: enhancedModes.contains(dns.EnhancedMode)
                     ? dns.EnhancedMode
                     : enhancedModes.last,
@@ -1216,6 +1239,7 @@ class GroupHelper {
         GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
                 name: tcontext.dns.fakeIPFilterMode,
+                tips: "fake-ip-filter-mode",
                 selected: fakeIPFilterModes.contains(dns.FakeIPFilterMode)
                     ? dns.FakeIPFilterMode
                     : fakeIPFilterModes.last,
@@ -1228,6 +1252,7 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.dns.fakeIPFilter,
+                tips: "fake-ip-filter",
                 onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
@@ -1247,6 +1272,7 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.dns.defaultNameServer,
+                tips: "default-nameserver",
                 onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
@@ -1264,6 +1290,7 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.dns.nameServer,
+                tips: "nameserver",
                 onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
@@ -1278,44 +1305,46 @@ class GroupHelper {
                                       data: dns.NameServer!,
                                     )));
                       })),
-
-        /*GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: "ProxyServerNameserver",
-              onPush: dns.OverWrite != true || dns.Enable != true
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.dns.proxyNameServer,
+                tips: "proxy-server-nameserver",
+                onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
-                dns.ProxyServerNameserver ??= [];
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings:
-                            ListAddScreen.routSettings("ProxyServerNameserver"),
-                        builder: (context) => ListAddScreen(
-                              title: "ProxyServerNameserver",
-                              data: dns.ProxyServerNameserver!,
-                            )));
-              })),
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: "DirectNameServer",
-              onPush: dns.OverWrite != true || dns.Enable != true
+                        dns.ProxyServerNameserver ??= [];
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: ListAddScreen.routSettings(
+                                    "ProxyServerNameserver"),
+                                builder: (context) => ListAddScreen(
+                                      title: tcontext.dns.proxyNameServer,
+                                      data: dns.ProxyServerNameserver!,
+                                    )));
+                      })),
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.dns.directNameServer,
+                tips: "direct-nameserver",
+                onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
-                dns.DirectNameServer ??= [];
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings:
-                            ListAddScreen.routSettings("DirectNameServer"),
-                        builder: (context) => ListAddScreen(
-                              title: "DirectNameServer",
-                              data: dns.DirectNameServer!,
-                            )));
-              })),*/
+                        dns.DirectNameServer ??= [];
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: ListAddScreen.routSettings(
+                                    "DirectNameServer"),
+                                builder: (context) => ListAddScreen(
+                                      title: tcontext.dns.directNameServer,
+                                      data: dns.DirectNameServer!,
+                                    )));
+                      })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.dns.fallbackNameServer,
+                tips: "fallback",
                 onPush: dns.OverWrite != true || dns.Enable != true
                     ? null
                     : () async {
@@ -1333,6 +1362,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.dns.fallbackGeoIp,
+                tips: "geoip",
                 switchValue: dns.FallbackFilter?.GeoIP,
                 onSwitch: dns.OverWrite != true || dns.Enable != true
                     ? null
@@ -1346,6 +1376,7 @@ class GroupHelper {
                 text: dns.FallbackFilter?.GeoIPCode,
                 textWidthPercent: 0.5,
                 readOnly: dns.OverWrite != true || dns.Enable != true,
+                tips: "geoip-code",
                 onChanged: (String value) {
                   dns.FallbackFilter ??= RawFallbackFilter.by();
                   dns.FallbackFilter?.GeoIPCode = value;
@@ -1387,6 +1418,7 @@ class GroupHelper {
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.enable,
                 switchValue: ntp.Enable,
+                tips: "enable",
                 onSwitch: ntp.OverWrite != true
                     ? null
                     : (bool value) async {
@@ -1395,6 +1427,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.server,
+                tips: "server",
                 text: ntp.Server,
                 textWidthPercent: 0.5,
                 hint: tcontext.meta.required,
@@ -1405,6 +1438,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.port,
+                tips: "port",
                 text: ntp.Port?.toString() ?? "",
                 textWidthPercent: 0.5,
                 hint: tcontext.meta.required,
@@ -1447,6 +1481,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.tls.certificate,
+                tips: "certificate",
                 text: tls.Certificate,
                 textWidthPercent: 0.5,
                 readOnly: tls.OverWrite != true,
@@ -1456,6 +1491,7 @@ class GroupHelper {
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.tls.privateKey,
+                tips: "private-key",
                 text: tls.PrivateKey,
                 textWidthPercent: 0.5,
                 readOnly: tls.OverWrite != true,
@@ -1465,6 +1501,7 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.tls.customTrustCert,
+                tips: "custom-certifactes",
                 onPush: tls.OverWrite != true
                     ? null
                     : () async {
@@ -1513,6 +1550,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.enable,
+                tips: "enable",
                 switchValue: sniffer.Enable,
                 onSwitch: sniffer.OverWrite != true
                     ? null
@@ -1522,6 +1560,7 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.sniffer.overrideDest,
+                tips: "override-destination",
                 switchValue: sniffer.OverrideDest,
                 onSwitch: sniffer.OverWrite != true || sniffer.Enable != true
                     ? null

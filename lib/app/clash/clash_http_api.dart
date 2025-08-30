@@ -170,6 +170,7 @@ class ClashProxiesNode {
   String now = "";
   String type = "";
   int? delay;
+  bool hidden = false;
 
   Map<String, dynamic> toJson() => {
         'all': all,
@@ -177,6 +178,7 @@ class ClashProxiesNode {
         'now': now,
         'type': type,
         'delay': delay,
+        'hidden': hidden,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -192,6 +194,7 @@ class ClashProxiesNode {
     name = map['name'] ?? "";
     now = map['now'] ?? "";
     type = map['type'] ?? "";
+    hidden = map['hidden'] ?? false;
     var history = map['history'];
     if (history is List) {
       if (history.isNotEmpty) {
@@ -233,7 +236,8 @@ class ClashProxies {
       Map<String, ClashProxiesNode> proxies, ClashProxiesNode node) {
     if (node.type != ClashProtocolType.urltest.name &&
         node.type != ClashProtocolType.selector.name &&
-        node.type != ClashProtocolType.fallback.name) {
+        node.type != ClashProtocolType.fallback.name &&
+        node.type != ClashProtocolType.loadBalance.name) {
       return node.delay;
     }
     if (node.now.isEmpty) {
@@ -397,7 +401,8 @@ class ClashHttpApi {
     for (var node in result.data!) {
       if (node.type == ClashProtocolType.urltest.name ||
           node.type == ClashProtocolType.selector.name ||
-          node.type == ClashProtocolType.fallback.name) {
+          node.type == ClashProtocolType.fallback.name ||
+          node.type == ClashProtocolType.loadBalance.name) {
         filtered.add(node);
       }
     }

@@ -39,7 +39,6 @@ class PackageInfoImpl extends PackageInfo {
 class PackageInfoEx {
   late PackageInfo info;
   String name = "";
-  Image? icon;
 }
 
 class _PerAppAndroidScreenState
@@ -142,6 +141,11 @@ class _PerAppAndroidScreenState
         PackageInfoEx info = PackageInfoEx();
         info.info = app;
         info.name = await getAppName(app.packageName!);
+        if (info.name.contains("{") &&
+            info.name.contains(":") &&
+            info.name.contains("\"")) {
+          continue;
+        }
         if (!mounted) {
           return;
         }
@@ -158,7 +162,6 @@ class _PerAppAndroidScreenState
             PackageInfoEx info = PackageInfoEx();
             info.info = PackageInfoImpl(papp);
             info.name = _removed;
-            info.icon = null;
 
             notExists.add(info);
           }
@@ -184,9 +187,6 @@ class _PerAppAndroidScreenState
     }
     for (var app in _applicationInfoList) {
       if (app.info.packageName == packageName) {
-        if (app.icon != null) {
-          return app.icon;
-        }
         if (app.name == _removed) {
           return null;
         }
@@ -194,8 +194,8 @@ class _PerAppAndroidScreenState
         if (!mounted) {
           return null;
         }
-        app.icon = image;
-        return app.icon;
+
+        return image;
       }
     }
     return null;
@@ -229,7 +229,11 @@ class _PerAppAndroidScreenState
       if (data == null) {
         return null;
       }
-      return Image.memory(data);
+      return Image.memory(
+        data,
+        cacheHeight: 96,
+        cacheWidth: 96,
+      );
     } catch (err, stacktrace) {
       return null;
     }
@@ -314,19 +318,16 @@ class _PerAppAndroidScreenState
                 height: 44,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
                 child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
-                      color: Colors.grey.shade400,
                     ),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
@@ -380,12 +381,17 @@ class _PerAppAndroidScreenState
           ]);
     }
     Size windowSize = MediaQuery.of(context).size;
-    return ListView.builder(
+    return ListView.separated(
       itemCount: _searchedData.length,
-      itemExtent: 66,
       itemBuilder: (BuildContext context, int index) {
         PackageInfoEx current = _searchedData[index];
         return createWidget(current, windowSize);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 1,
+          thickness: 0.3,
+        );
       },
     );
   }
@@ -397,13 +403,23 @@ class _PerAppAndroidScreenState
       child: Material(
         borderRadius: ThemeDefine.kBorderRadius,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            bool value = perapp.PackageIds != null &&
+                perapp.PackageIds!.contains(current.info.packageName!);
+            if (value != true) {
+              perapp.PackageIds!.add(current.info.packageName!);
+            } else {
+              perapp.PackageIds!.remove(current.info.packageName!);
+            }
+
+            setState(() {});
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             width: double.infinity,
-            //height: 66,
+            height: 66,
             child: Row(
               children: [
                 Row(
@@ -414,8 +430,8 @@ class _PerAppAndroidScreenState
                       children: [
                         Row(children: [
                           SizedBox(
-                            width: ThemeConfig.kListItemHeight2,
-                            height: ThemeConfig.kListItemHeight2,
+                            width: 48,
+                            height: 48,
                             child: FutureBuilder(
                               future: getInstalledPackageIcon(
                                   current.info.packageName!),
@@ -426,8 +442,8 @@ class _PerAppAndroidScreenState
                                   return const SizedBox.shrink();
                                 }
                                 return SizedBox(
-                                    width: ThemeConfig.kListItemHeight2,
-                                    height: ThemeConfig.kListItemHeight2,
+                                    width: 48,
+                                    height: 48,
                                     child: snapshot.data);
                               },
                             ),

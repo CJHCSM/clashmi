@@ -2,7 +2,7 @@ name: clashmi
 description: clashmi
 
 publish_to: none 
-version: 1.0.3+71
+version: 1.0.8+123
 environment:
   sdk: ">=3.2.3 <4.0.0"
   flutter: ">=3.24.0"
@@ -52,7 +52,7 @@ dependencies:
   flutter_install_referrer: 2.0.2
   windows_single_instance: 1.0.1 #windows only
   flutter_plugin_android_lifecycle: 2.0.24 #file_picker image_picker
-  file_picker: 9.2.1
+  file_picker: 10.2.0
   image_picker: 1.1.2
   tray_manager: 0.4.0 # pc only
   hotkey_manager: 0.2.3  # pc only

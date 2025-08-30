@@ -135,7 +135,9 @@ class ProfilesBoardItem extends StatelessWidget {
                         child: Text(
                           tranfficExpire.item2,
                           style: TextStyle(
-                              color: selected ? ThemeDefine.kColorBlue : null,
+                              color: tranfficExpire.item1
+                                  ? Colors.red
+                                  : (selected ? ThemeDefine.kColorBlue : null),
                               fontSize: 12),
                         ))
                     : SizedBox.shrink(),
@@ -224,7 +226,7 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       var setting = widget.settings[i];
       final isCurrent = current?.id == setting.id;
 
-      widgets.add(Material(
+      widgets.add(SizedBox(
           key: Key(setting.id),
           child: ProfilesBoardItem(
               setting: setting,
@@ -261,7 +263,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       ListTile(
         title:
             Text(setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           final path = await ProfileManager.getProfilePath(setting.id);
@@ -287,7 +288,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       setting.isRemote()
           ? ListTile(
               title: Text(tcontext.meta.update),
-              minLeadingWidth: 40,
               onTap: () async {
                 Navigator.of(context).pop();
                 ReturnResultError? err =
@@ -305,7 +305,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       setting.isRemote()
           ? ListTile(
               title: Text(tcontext.meta.copyUrl),
-              minLeadingWidth: 40,
               onTap: () async {
                 Navigator.of(context).pop();
                 try {
@@ -316,7 +315,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
           : const SizedBox.shrink(),
       ListTile(
         title: Text(tcontext.meta.profileEdit),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
@@ -331,7 +329,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       ),
       ListTile(
         title: Text(tcontext.meta.remove),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           ProfileManager.remove(setting.id);
@@ -340,7 +337,6 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
     ];
 
     showSheet(
-      title: setting.id,
       context: context,
       body: SizedBox(
           height: 400,

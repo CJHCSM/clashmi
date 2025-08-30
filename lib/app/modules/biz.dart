@@ -32,7 +32,6 @@ class Biz {
     initAllFinish();
 
     AppLifecycleStateNofity.init();
-    AutoUpdateManager.init();
   }
 
   static Future<void> uninit() async {

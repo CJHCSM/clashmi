@@ -20,6 +20,7 @@ class TileService : TileService() {
         const val service_class_name = "io.nebula.vpn_service.ClashVpnServiceImpl"
         const val ACTION_START = "vpn.service.START"
         const val ACTION_STOP = "vpn.service.STOP"
+        const val ACTION_STOPED = "vpn.service.STOPED"
         const val ACTION_START_RESULT = "vpn.service.START_RESULT"
     }
 
@@ -35,6 +36,9 @@ class TileService : TileService() {
                             val err = intent.getStringExtra("err")
                             updateTile(err == "")
                         }
+                        ACTION_STOPED -> {
+                            updateTile(false)
+                        }
                     }
                 }
             }
@@ -43,6 +47,7 @@ class TileService : TileService() {
         if (!receiverRegistered) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 var intentFilter = IntentFilter()
+                intentFilter.addAction(ACTION_STOPED)
                 intentFilter.addAction(ACTION_START_RESULT)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED)

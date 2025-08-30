@@ -14,21 +14,25 @@ import 'package:clashmi/app/modules/zashboard.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
+import 'package:clashmi/app/utils/move_to_background_utils.dart';
 import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/about_screen.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
+import 'package:clashmi/screens/file_view_screen.dart';
 import 'package:clashmi/screens/group_helper.dart';
 import 'package:clashmi/screens/profiles_board_screen.dart';
 import 'package:clashmi/screens/proxy_board_screen.dart';
 import 'package:clashmi/screens/richtext_viewer.screen.dart';
+import 'package:clashmi/screens/scheme_handler.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/segmented_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 import 'package:libclash_vpn_service/state.dart';
 import 'package:libclash_vpn_service/vpn_service.dart';
 
@@ -44,7 +48,6 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   static final String _kNoTrafficTotal = "↑ 0 B   ↓ 0 B";
   //static final String _kNoMemory = "0 B   0 B";
   final FocusNode _focusNodeConnect = FocusNode();
-  bool _working = false;
   FlutterVpnServiceState _state = FlutterVpnServiceState.disconnected;
   Timer? _timerStateChecker;
   Timer? _timerConnectToCore;
@@ -84,7 +87,25 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     bool connected = _state == FlutterVpnServiceState.connected;
     final currentProfile = ProfileManager.getCurrent();
     final currentProfileName = currentProfile?.getShowName() ?? "";
-
+    final settings = SettingManager.getConfig();
+    String tranffic = "";
+    Tuple2<bool, String>? tranfficExpire;
+    if (currentProfile != null && currentProfile.isRemote()) {
+      if (currentProfile.upload != 0 ||
+          currentProfile.download != 0 ||
+          currentProfile.total != 0) {
+        String upload =
+            ClashHttpApi.convertTrafficToStringDouble(currentProfile.upload);
+        String download =
+            ClashHttpApi.convertTrafficToStringDouble(currentProfile.download);
+        String total =
+            ClashHttpApi.convertTrafficToStringDouble(currentProfile.total);
+        tranffic = "↑ $upload ↓ $download/$total";
+      }
+      if (currentProfile.expire.isNotEmpty) {
+        tranfficExpire = currentProfile.getExpireTime(settings.languageTag);
+      }
+    }
     var widgets = [
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -119,37 +140,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                       value: _state == FlutterVpnServiceState.connected,
                       focusNode: _focusNodeConnect,
                       onChanged: (bool value) async {
-                        if (currentProfile == null) {
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  settings: ProfilesBoardScreen.routSettings(),
-                                  builder: (context) => ProfilesBoardScreen()));
-                          setState(() {});
-                          return;
-                        }
-                        if (_working ||
-                            _state == FlutterVpnServiceState.connecting ||
-                            _state == FlutterVpnServiceState.disconnecting ||
-                            _state == FlutterVpnServiceState.reasserting) {
-                          return;
-                        }
-                        _working = true;
-
                         if (value) {
-                          var err = await VPNService.start(
-                              const Duration(seconds: 60));
-                          if (!context.mounted) {
-                            return;
-                          }
-                          if (err != null) {
-                            DialogUtils.showAlertDialog(context, err.message);
-                          }
+                          await start("switch");
                         } else {
-                          await VPNService.stop();
+                          await stop();
                         }
-                        _working = false;
-                        setState(() {});
                       },
                     ),
                   ),
@@ -160,8 +155,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                     child: SizedBox(
                         width: 25,
                         height: 25,
-                        child: _working ||
-                                _state == FlutterVpnServiceState.connecting ||
+                        child: _state == FlutterVpnServiceState.connecting ||
                                 _state ==
                                     FlutterVpnServiceState.disconnecting ||
                                 _state == FlutterVpnServiceState.reasserting
@@ -197,7 +191,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                 ])
               : const SizedBox.shrink(),
           SizedBox(
-            height: 10,
+            height: connected ? 10 : 0,
           ),
         ],
       ),
@@ -232,11 +226,103 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         ),
       ),
       ListTile(
-        title: Text(tcontext.meta.myProfiles),
-        subtitle: Text(currentProfileName,
-            style: TextStyle(
-              color: ThemeDefine.kColorBlue,
-            )),
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(tcontext.meta.myProfiles),
+          Row(children: [
+            /*currentProfile != null && currentProfile.isRemote()
+                ? (ProfileManager.updating.contains(currentProfile.id)
+                    ? const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: RepaintBoundary(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                          ),
+                        ],
+                      )
+                    : InkWell(
+                        onTap: () async {
+                          ReturnResultError? err =
+                              await ProfileManager.update(currentProfile.id);
+                          if (err != null) {
+                            if (!context.mounted) {
+                              return;
+                            }
+                            DialogUtils.showAlertDialog(context, err.message,
+                                showCopy: true,
+                                showFAQ: true,
+                                withVersion: true);
+                          }
+                        },
+                        child: Container(
+                          width: 50,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.cloud_download_outlined,
+                            size: 30,
+                          ),
+                        )))
+                : const SizedBox.shrink(),
+            SizedBox(
+              width: 5,
+            ),*/
+            InkWell(
+              onTap: () async {
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        settings: ProfilesBoardScreen.routSettings(),
+                        builder: (context) => ProfilesBoardScreen(
+                              navigateToAdd: true,
+                            )));
+                setState(() {});
+              },
+              child: Container(
+                  width: 50,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                  )),
+            ),
+          ])
+        ]),
+        subtitle: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              currentProfile != null
+                  ? Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(currentProfileName,
+                          style: TextStyle(
+                            color: ThemeDefine.kColorBlue,
+                          )))
+                  : SizedBox.shrink(),
+              tranffic.isNotEmpty
+                  ? Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(tranffic,
+                          style: TextStyle(
+                            color: ThemeDefine.kColorBlue,
+                          )))
+                  : SizedBox.shrink(),
+              tranfficExpire != null
+                  ? Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        tranfficExpire.item2,
+                        style: TextStyle(
+                            color: tranfficExpire.item1
+                                ? Colors.red
+                                : ThemeDefine.kColorBlue,
+                            fontSize: 12),
+                      ))
+                  : SizedBox.shrink(),
+            ]),
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -254,6 +340,40 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     ];
 
     if (connected) {
+      widgets.add(ListTile(
+        title: Text(tcontext.meta.runtimeProfile),
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          size: 20,
+        ),
+        minVerticalPadding: 20,
+        onTap: () async {
+          late String content;
+          try {
+            final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
+            content = await File(path).readAsString();
+          } catch (err) {
+            if (!context.mounted) {
+              return;
+            }
+            DialogUtils.showAlertDialog(context, err.toString(),
+                showCopy: true, showFAQ: true, withVersion: true);
+            return;
+          }
+          if (!context.mounted) {
+            return;
+          }
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: FileViewScreen.routSettings(),
+                  builder: (context) => FileViewScreen(
+                        title: tcontext.meta.runtimeProfile,
+                        content: content,
+                      )));
+        },
+      ));
+
       widgets.add(ListTile(
         title: Text(tcontext.meta.proxy),
         subtitle: ValueListenableBuilder<String>(
@@ -309,15 +429,15 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                 title: tcontext.meta.board, inappWebViewOpenExternal: false);
             return;
           }
-          ReturnResultError? err = await Zashboard.start();
-          if (err != null) {
+          ReturnResult result = await Zashboard.start();
+          if (result.error != null) {
             if (!context.mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.message);
+            DialogUtils.showAlertDialog(context, result.error!.message);
             return;
           }
-          String url = await Zashboard.getUrl();
+          String url = result.data!;
           if (!context.mounted) {
             return;
           }
@@ -391,20 +511,93 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   }
 
   Future<void> _onInitAllFinish() async {
+    SchemeHandler.vpnConnect = _vpnSchemeConnect;
+    SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
+    SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
     if (PlatformUtils.isPC()) {
       if (SettingManager.getConfig().autoConnectAfterLaunch) {
-        if (ProfileManager.getCurrent() != null) {
-          var state = await VPNService.getState();
-          if (state == FlutterVpnServiceState.invalid ||
-              state == FlutterVpnServiceState.disconnected) {
-            _working = true;
-            await VPNService.start(const Duration(seconds: 60));
-            _working = false;
-            setState(() {});
-          }
-        }
+        await start("launch");
       }
     }
+  }
+
+  Future<void> stop() async {
+    await VPNService.stop();
+  }
+
+  Future<bool> start(String from) async {
+    final currentProfile = ProfileManager.getCurrent();
+    if (currentProfile == null) {
+      await Navigator.push(
+          context,
+          MaterialPageRoute(
+              settings: ProfilesBoardScreen.routSettings(),
+              builder: (context) => ProfilesBoardScreen()));
+      setState(() {});
+      return false;
+    }
+    var state = await VPNService.getState();
+    if (state == FlutterVpnServiceState.connecting ||
+        state == FlutterVpnServiceState.disconnecting ||
+        state == FlutterVpnServiceState.reasserting) {
+      setState(() {});
+      return false;
+    }
+
+    var err = await VPNService.start(const Duration(seconds: 60));
+    if (!mounted) {
+      return false;
+    }
+    setState(() {});
+    if (err != null) {
+      if (err.message == "willCompleteAfterRebootInstall") {
+        err.message = t.meta.willCompleteAfterRebootInstall;
+      } else if (err.message == "requestNeedsUserApproval") {
+        err.message = t.meta.requestNeedsUserApproval;
+      } else if (err.message.contains("FullDiskAccessPermissionRequired")) {
+        err.message = t.meta.FullDiskAccessPermissionRequired;
+      }
+
+      DialogUtils.showAlertDialog(context, err.message);
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> _vpnSchemeConnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      bool ok = await start("scheme");
+      if (ok) {
+        if (background) {
+          MoveToBackgroundUtils.moveToBackground(
+              duration: const Duration(milliseconds: 300));
+        }
+      }
+    });
+  }
+
+  Future<void> _vpnSchemeDisconnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      await stop();
+      if (background) {
+        MoveToBackgroundUtils.moveToBackground(
+            duration: const Duration(milliseconds: 300));
+      }
+    });
+  }
+
+  Future<void> _vpnSchemeReconnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      await stop();
+      bool ok = await start("scheme");
+      if (ok) {
+        if (background) {
+          MoveToBackgroundUtils.moveToBackground(
+              duration: const Duration(milliseconds: 300));
+        }
+      }
+    });
   }
 
   Future<void> _onStateChanged(
@@ -412,15 +605,16 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     if (_state == state) {
       return;
     }
-    //print("_onStateChanged $_state->$state");
     _state = state;
     if (state == FlutterVpnServiceState.disconnected) {
       _disconnectToCore();
+      Biz.vpnStateChanged(false);
     } else if (state == FlutterVpnServiceState.connecting) {
     } else if (state == FlutterVpnServiceState.connected) {
       if (!AppLifecycleStateNofity.isPaused()) {
         _connectToCore();
       }
+      Biz.vpnStateChanged(true);
     } else if (state == FlutterVpnServiceState.reasserting) {
       _disconnectToCore();
     } else if (state == FlutterVpnServiceState.disconnecting) {
@@ -428,8 +622,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       Zashboard.stop();
     } else {
       _disconnectToCore();
+      Biz.vpnStateChanged(false);
     }
-
+    if (!mounted) {
+      return;
+    }
     setState(() {});
   }
 
@@ -461,7 +658,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     }
   }
 
-  Future<void> _onUpdate(String id, bool finish) async {}
+  Future<void> _onUpdate(String id, bool finish) async {
+    setState(() {});
+  }
+
   Future<void> _checkState() async {
     var state = await VPNService.getState();
     await _onStateChanged(state, {});
@@ -470,16 +670,20 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   void _startStateCheckTimer() {
     const Duration duration = Duration(seconds: 1);
     _timerStateChecker ??= Timer.periodic(duration, (timer) async {
-      if (AppLifecycleStateNofity.isPaused()) {
-        return;
+      if (!Platform.isMacOS) {
+        if (AppLifecycleStateNofity.isPaused()) {
+          return;
+        }
       }
       await _checkState();
     });
   }
 
   void _stopStateCheckTimer() {
-    _timerStateChecker?.cancel();
-    _timerStateChecker = null;
+    if (!Platform.isMacOS) {
+      _timerStateChecker?.cancel();
+      _timerStateChecker = null;
+    }
   }
 
   Future<void> _connectToCore() async {
@@ -589,7 +793,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.settings,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -605,7 +808,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.settings,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -621,7 +823,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.set_meal,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -654,7 +855,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.backup,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -674,7 +874,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
             size: 20,
             color: Colors.red,
           ),
-          minLeadingWidth: 40,
           trailing: Icon(
             Icons.keyboard_arrow_right,
             size: 20,
@@ -694,7 +893,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.help,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,
@@ -710,7 +908,6 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
           Icons.info,
           size: 20,
         ),
-        minLeadingWidth: 40,
         trailing: Icon(
           Icons.keyboard_arrow_right,
           size: 20,

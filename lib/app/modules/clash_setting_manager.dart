@@ -18,7 +18,7 @@ import 'package:path/path.dart' as path;
 class ClashSettingManager {
   static const _gateWay = "172.19.0";
   static const _gateWay6 = "fdfe:dcbe:9876::1";
-  static const dnsHijack = "$_gateWay.2:53";
+  static const dnsHijack = "0.0.0.0:53";
   static RawConfig _setting = defaultConfig();
 
   static Future<void> init() async {
@@ -31,22 +31,27 @@ class ClashSettingManager {
 
   static Future<void> initGeo() async {
     final homePath = await PathUtils.profileDir();
-    const geoFileNameList = [
+    const fileNameList = [
       "geosite.zip",
       "geoip.zip",
     ];
     try {
-      for (final fileName in geoFileNameList) {
-        final geoFile = File(
+      for (final fileName in fileNameList) {
+        final filePath = File(
           path.join(homePath, fileName),
         );
-        final isExists = await geoFile.exists();
+        final isExists = await filePath.exists();
         if (isExists) {
-          continue;
+          final stat = await filePath.stat();
+          final dur = DateTime.now().difference(stat.modified);
+          if (dur.inDays < 7) {
+            continue;
+          }
         }
+
         final data = await rootBundle.load('assets/datas/$fileName');
         List<int> bytes = data.buffer.asUint8List();
-        await geoFile.writeAsBytes(bytes, flush: true);
+        await filePath.writeAsBytes(bytes, flush: true);
       }
     } catch (err) {
       Log.w("ClashSettingManager.initGeo exception ${err.toString()} ");
@@ -146,7 +151,7 @@ class ClashSettingManager {
         OverWrite: true,
         Enable: !Platform.isWindows,
         Stack: ClashTunStack.gvisor.name,
-        MTU: 9000,
+        MTU: 4064,
         Inet4Address: ["$_gateWay.1/30"],
         Inet6Address: ["$_gateWay6/126"],
         //RouteAddress: routeAddress,
@@ -235,6 +240,10 @@ class ClashSettingManager {
       "*.msftncsi.com",
       "*.msftconnecttest.com",
       "*.mcdn.bilivideo.cn",
+      "+.bilibili.com",
+      "+.bilicdn.com",
+      "+.bilivideo.com",
+      "+.market.xiaomi.com",
       "WORKGROUP",
     ];
     return RawDNS.by(
@@ -286,7 +295,7 @@ class ClashSettingManager {
       GeoIpUrl:
           "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip",
       AsnUrl:
-          "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/asn",
+          "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn",
       UpdateInterval: 2 * 24 * 3600,
       EnableProxy: true,
     );
@@ -322,16 +331,16 @@ class ClashSettingManager {
       LogLevel: ClashLogLevel.error.name,
       ExternalController: "127.0.0.1:9090",
       IPv6: false,
+      DNS: defaultDNS(),
+      NTP: defaultNTP(),
+      Sniffer: defaultSniffer(),
+      TLS: defaultTLS(),
+      Tun: defaultTun(),
+      Extension: defaultExtension(),
       GlobalClientFingerprint: ClashGlobalClientFingerprint.chrome.name,
       DisableKeepAlive: false,
       KeepAliveIdle: 30,
       KeepAliveInterval: 30,
-      DNS: defaultDNS(),
-      NTP: defaultNTP(),
-      Tun: defaultTun(),
-      Sniffer: defaultSniffer(),
-      TLS: defaultTLS(),
-      Extension: defaultExtension(),
     );
   }
 
@@ -343,24 +352,15 @@ class ClashSettingManager {
       ExternalController: _setting.ExternalController,
       Secret: _setting.Secret,
       IPv6: _setting.IPv6,
-      DNS: RawDNS.by(
-        OverWrite: false,
-        Enable: false,
-      ),
-      NTP: RawNTP.by(OverWrite: false, Enable: false),
+      DNS: null,
+      NTP: null,
+      Sniffer: null,
+      TLS: null,
       Tun: _setting.Tun,
-      Sniffer: RawSniffer.by(OverWrite: false, Enable: false),
-      TLS: RawTLS.by(OverWrite: false),
-      Extension: RawExtension.by(
-        Ruleset: defaultRawExtensionRuleset(),
-        Tun: RawExtensionTun.by(
-          httpProxy: _setting.Extension?.Tun.httpProxy ??
-              RawExtensionTunHttpProxy.by(Enable: false),
-          perApp: _setting.Extension?.Tun.perApp ??
-              RawExtensionTunPerApp.by(Enable: false),
-        ),
-        PprofAddr: _setting.Extension?.PprofAddr,
-      ),
+      Extension: _setting.Extension,
+      UnifiedDelay: _setting.UnifiedDelay,
+      FindProcessMode: _setting.FindProcessMode,
+      Profile: _setting.Profile,
     );
   }
 
@@ -383,11 +383,13 @@ class ClashSettingManager {
     if (Platform.isIOS || Platform.isMacOS) {
       _setting.Tun?.Stack = ClashTunStack.gvisor.name;
     }
+    _setting.DNS?.IPv6 = _setting.IPv6;
     if (_setting.IPv6 == true) {
       _setting.Tun?.Inet6Address = ["$_gateWay6/126"];
     } else {
       _setting.Tun?.Inet6Address = null;
     }
+
     if (overwrite) {
       final map = _setting.toJson();
       MapHelper.removeNullOrEmpty(map, true, true);
@@ -428,6 +430,8 @@ class ClashSettingManager {
       } catch (err, stacktrace) {
         Log.w("ClashSettingManager.load exception ${err.toString()} ");
       }
+    } else {
+      await save();
     }
     await _initFixed();
   }
@@ -449,6 +453,12 @@ class ClashSettingManager {
     _setting.Sniffer ??= defaultSniffer();
     _setting.TLS ??= defaultTLS();
     _setting.Extension ??= defaultExtension();
+    if (_setting.Extension?.Ruleset.AsnUrl ==
+        "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/asn") {
+      _setting.Extension?.Ruleset.AsnUrl =
+          "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn";
+      save();
+    }
   }
 
   static Future<void> _initFixed() async {
@@ -466,6 +476,8 @@ class ClashSettingManager {
     _setting.FindProcessMode = Platform.isIOS
         ? ClashFindProcessMode.off.name
         : ClashFindProcessMode.always.name;
+    _setting.Extension?.RuntimeProfileSavePath =
+        await PathUtils.serviceCoreRuntimeProfileFilePath();
   }
 
   static Future<ReturnResultError?> setConfigsMode(

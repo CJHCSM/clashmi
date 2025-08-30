@@ -43,20 +43,6 @@ class Themes with ChangeNotifier {
         : ThemeDataLight.theme(context);
   }
 
-  Color? getThemeHomeColor(BuildContext context) {
-    var brightness = MediaQuery.platformBrightnessOf(context);
-    switch (_theme) {
-      case ThemeDefine.kThemeLight:
-        return ThemeDataLight.mainBgColor;
-      case ThemeDefine.kThemeDark:
-        return ThemeDataDark.mainBgColor;
-    }
-    // ThemeDefine.kThemeSystem:
-    return brightness == Brightness.dark
-        ? ThemeDataDark.mainBgColor
-        : ThemeDataLight.mainBgColor;
-  }
-
   Color? getThemeIconColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {

@@ -14,7 +14,7 @@ import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VersionUpdateScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -107,7 +107,7 @@ class _VersionUpdateScreenState
   }
 
   Future<void> checkReplace() async {
-    if (!Platform.isWindows && !Platform.isAndroid) {
+    if (!Platform.isWindows && !Platform.isAndroid && !Platform.isMacOS) {
       return;
     }
     String? installer = await AutoUpdateManager.checkReplace();
@@ -120,9 +120,12 @@ class _VersionUpdateScreenState
     }
 
     try {
+      await VPNService.stop();
       if (Platform.isWindows) {
-        await VPNService.uninit();
-        await OpenFile.open(installer, type: "application/octet-stream");
+        await launchUrl(Uri(path: installer, scheme: 'file'));
+        await ServicesBinding.instance.exitApplication(AppExitType.required);
+      } else if (Platform.isMacOS) {
+        await launchUrl(Uri(path: installer, scheme: 'file'));
         await ServicesBinding.instance.exitApplication(AppExitType.required);
       } else if (Platform.isAndroid) {
         await AppInstaller.installApk(installer);

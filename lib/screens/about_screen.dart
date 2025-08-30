@@ -13,12 +13,9 @@ import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/group_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
-import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class AboutScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -46,19 +43,12 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: color,
-          ),
-        ),
+        child: AppBar(),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -142,7 +132,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       GroupItemOptions(
           textOptions: GroupItemTextOptions(
         name: tcontext.meta.core,
-        text: "mihomo 1.19.10",
+        text: "mihomo 1.19.12",
       )),
     ];
 

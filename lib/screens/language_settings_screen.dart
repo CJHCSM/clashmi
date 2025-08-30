@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
-import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LanguageSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -78,6 +77,7 @@ class _LanguageSettingsScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    var setting = SettingManager.getConfig();
     return PopScope(
         canPop: widget.canPop,
         child: Scaffold(
@@ -130,7 +130,7 @@ class _LanguageSettingsScreenState
                                     width: 65,
                                     height: 30,
                                     child: InkWell(
-                                      autofocus: PlatformUtils.maybeTV(),
+                                      autofocus: setting.ui.tvMode,
                                       focusNode: _focusNodeNext,
                                       onTap: () {
                                         Navigator.pop(context);
@@ -160,20 +160,17 @@ class _LanguageSettingsScreenState
                         height: 44,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                          color: Colors.white,
                           borderRadius: ThemeDefine.kBorderRadius,
                         ),
                         child: TextFieldEx(
                           controller: _searchController,
                           textInputAction: TextInputAction.done,
                           onChanged: _loadSearch,
-                          cursorColor: Colors.black,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             icon: Icon(
                               Icons.search_outlined,
-                              color: Colors.grey.shade400,
                             ),
                             hintText: tcontext.search,
                             suffixIcon: _searchController.text.isNotEmpty
@@ -214,12 +211,17 @@ class _LanguageSettingsScreenState
   Widget _loadListView() {
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = _searchedData[index];
             return createWidget(current);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -241,7 +243,7 @@ class _LanguageSettingsScreenState
               horizontal: 10,
             ),
             width: double.infinity,
-            //height: ThemeConfig.kListItemHeight2,
+            height: ThemeConfig.kListItemHeight2,
             child: Row(
               children: [
                 Row(

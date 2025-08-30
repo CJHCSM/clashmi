@@ -272,6 +272,8 @@ class ProfileManager {
       } catch (err, stacktrace) {
         Log.w("ProfileManager.load exception ${err.toString()} ");
       }
+    } else {
+      await save();
     }
 
     Map<String, String?> existProfiles = {};
@@ -410,15 +412,17 @@ class ProfileManager {
 
   static Future<ReturnResultError?> validFileContentFormat(
       String filepath) async {
-    String? content = await FileUtils.readAsStringWithMaxLength(filepath, 100);
-    if (content != null) {
-      content = content.trim();
-      final filename = path.basename(filepath);
-      if (content.startsWith("<!DOCTYPE html>") ||
-          content.startsWith("<html")) {
-        return ReturnResultError(
-            "$filename:invalid content format:\n\n$content");
-      }
+    var file = File(filepath);
+    if (!await file.exists()) {
+      return ReturnResultError("$file not exists:\n\n$filepath");
+    }
+    final content = await file.readAsString();
+    if (content.startsWith("<!DOCTYPE html>") || content.startsWith("<html")) {
+      return ReturnResultError("Invalid format: html");
+    }
+    if (!content.contains("proxies") && !content.contains("proxy-providers")) {
+      return ReturnResultError(
+          "Invalid Clash Yaml file: proxies and proxy-providers not found");
     }
     return null;
   }
@@ -536,12 +540,32 @@ class ProfileManager {
         });
         return err;
       }
-      try {
-        await File(savePathTmp).rename(savePath);
-      } catch (err) {
-        return ReturnResultError(
-            "rename file from [$savePathTmp] to [$savePath] failed: ${err.toString()}");
+
+      String renameError = "";
+      for (var i = 0; i < 3; ++i) {
+        try {
+          var file = File(savePathTmp);
+          await file.rename(savePath);
+          renameError = "";
+          break;
+        } catch (err) {
+          renameError = err.toString();
+          await Future.delayed(const Duration(seconds: 1));
+        }
       }
+      if (renameError.isNotEmpty) {
+        updating.remove(id);
+        await FileUtils.deletePath(savePathTmp);
+
+        Future.delayed(const Duration(milliseconds: 10), () async {
+          for (var event in onEventUpdate) {
+            event(id, true);
+          }
+        });
+        return ReturnResultError(
+            "Rename file from [$savePathTmp] to [$savePath] failed: $renameError");
+      }
+
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
       if (profile.remark.isEmpty) {
         final result = await HttpUtils.httpGetTitle(profile.url, userAgent);
@@ -551,10 +575,8 @@ class ProfileManager {
           profile.remark = result.data!;
         }
       }
-
       profile.updateSubscriptionTraffic(result.data);
     }
-
     await save();
     updating.remove(id);
     Future.delayed(const Duration(milliseconds: 10), () async {

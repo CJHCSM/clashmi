@@ -44,21 +44,23 @@ enum VpnError: Error {
 open class ExtensionProvider: NEPacketTunnelProvider {
     public static let controlKind = "com.nebula.clashmi.widget.ServiceToggle"
     private var config: VpnServiceConfig?
- 
+    private var writeErr: Bool = false
     override open func startTunnel(
         options: [String: NSObject]?
     ) async throws {
-         do {
+        writeErr = true
+        do {
             try await start()
         }
         catch let VpnError.Error(err) {
-            writeError(err)
+            writeError("startTunnel vpnError:\(err)")
             exit(EXIT_FAILURE)
         }
         catch let err {
-            writeError(err.localizedDescription)
+            writeError("startTunnel error:\(err.localizedDescription)")
             exit(EXIT_FAILURE)
         }
+        writeErr = false
     }
 
     override open func stopTunnel(
@@ -151,6 +153,13 @@ extension ExtensionProvider {
 
     fileprivate func writeError(_ message: String) {
         NSLog(message)
+        if writeErr && config != nil && !config!.err_path.isEmpty {
+            do {
+                let fileUrl = URL(fileURLWithPath: config!.err_path)
+                try message.write(to: fileUrl, atomically: true, encoding: String.Encoding.utf8)
+            } catch {
+            }
+        }
     }
 
     fileprivate func start() async throws {

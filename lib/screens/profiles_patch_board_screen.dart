@@ -3,19 +3,16 @@ import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
-import 'package:clashmi/screens/add_profile_by_import_from_file_screen.dart';
 import 'package:clashmi/screens/add_profile_by_scan_qrcode_screen.dart';
 import 'package:clashmi/screens/add_profile_patch_by_import_from_file_screen.dart';
 import 'package:clashmi/screens/add_profile_patch_by_url_screen.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen_widgets.dart';
 import 'package:clashmi/screens/theme_config.dart';
-import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class ProfilesPatchBoardScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -55,19 +52,12 @@ class _ProfilesPatchBoardScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: color,
-          ),
-        ),
+        child: AppBar(),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -186,7 +176,6 @@ class _ProfilesPatchBoardScreenState
     var widgets = [
       ListTile(
         title: Text(tcontext.meta.profileAddUrlOrContent),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
@@ -198,7 +187,6 @@ class _ProfilesPatchBoardScreenState
       ),
       ListTile(
         title: Text(tcontext.meta.importFromClipboard),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           ClipboardData? data;
@@ -228,7 +216,6 @@ class _ProfilesPatchBoardScreenState
       ),
       ListTile(
         title: Text(tcontext.meta.qrcodeScan),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
@@ -253,7 +240,6 @@ class _ProfilesPatchBoardScreenState
       ),
       ListTile(
         title: Text(tcontext.meta.profileImport),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
@@ -268,7 +254,6 @@ class _ProfilesPatchBoardScreenState
     ];
 
     showSheet(
-      title: tcontext.meta.addProfile,
       context: context,
       body: SizedBox(
           height: 400,

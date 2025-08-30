@@ -177,7 +177,7 @@ class _ProfilesPatchBoardScreenWidget
       id: kProfilePatchBuildinNoOverwrite,
     );
     List<Widget> widgets = [];
-    widgets.add(Material(
+    widgets.add(SizedBox(
         key: Key(buildinOverwrite.id),
         child: ProfilesPatchBoardItem(
           setting: buildinOverwrite,
@@ -189,7 +189,7 @@ class _ProfilesPatchBoardScreenWidget
           },
           onTapMore: null,
         )));
-    widgets.add(Material(
+    widgets.add(SizedBox(
         key: Key(buildinNoOverwrite.id),
         child: ProfilesPatchBoardItem(
           setting: buildinNoOverwrite,
@@ -206,7 +206,7 @@ class _ProfilesPatchBoardScreenWidget
       var setting = widget.settings[i];
       final isCurrent = current.id == setting.id;
 
-      widgets.add(Material(
+      widgets.add(SizedBox(
           key: Key(setting.id),
           child: ProfilesPatchBoardItem(
               setting: setting,
@@ -243,7 +243,6 @@ class _ProfilesPatchBoardScreenWidget
       ListTile(
         title:
             Text(setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           final path =
@@ -270,7 +269,6 @@ class _ProfilesPatchBoardScreenWidget
       setting.isRemote()
           ? ListTile(
               title: Text(tcontext.meta.update),
-              minLeadingWidth: 40,
               onTap: () async {
                 Navigator.of(context).pop();
                 ReturnResultError? err =
@@ -288,7 +286,6 @@ class _ProfilesPatchBoardScreenWidget
       setting.isRemote()
           ? ListTile(
               title: Text(tcontext.meta.copyUrl),
-              minLeadingWidth: 40,
               onTap: () async {
                 Navigator.of(context).pop();
                 try {
@@ -299,7 +296,6 @@ class _ProfilesPatchBoardScreenWidget
           : const SizedBox.shrink(),
       ListTile(
         title: Text(tcontext.meta.profileEdit),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
@@ -314,7 +310,6 @@ class _ProfilesPatchBoardScreenWidget
       ),
       ListTile(
         title: Text(tcontext.meta.remove),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.of(context).pop();
           ProfilePatchManager.remove(setting.id);
@@ -323,7 +318,6 @@ class _ProfilesPatchBoardScreenWidget
     ];
 
     showSheet(
-      title: setting.id,
       context: context,
       body: SizedBox(
           height: 400,

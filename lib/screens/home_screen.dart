@@ -7,16 +7,12 @@ import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
-import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
-import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/error_reporter_utils.dart';
-import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/local_storage.dart';
 import 'package:clashmi/app/utils/log.dart';
-import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/system_scheme_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
@@ -153,27 +149,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 )));
   }
 
-  void _updateWanIP() async {
-    return;
-    final mixedPort = ClashSettingManager.getMixedPort();
-    if (mixedPort == null) {
-      return;
-    }
-    ReturnResult<String> result = await HttpUtils.httpGetRequest(
-        "https://checkip.amazonaws.com/",
-        mixedPort,
-        null,
-        const Duration(seconds: 3),
-        null,
-        null);
-
-    if (result.error != null) {
-      return;
-    }
-    String ip = result.data!.trim();
-    if (NetworkUtils.isIpv4(ip) || NetworkUtils.isIpv6(ip)) {}
-  }
-
   void _init() async {
     Biz.onEventInitAllFinish.add(() async {
       await _onInitAllFinish();
@@ -184,7 +159,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     AutoUpdateManager.onEventCheck.add(() {
       setState(() {});
     });
-    DialogUtils.faqCallback = (String text) async {
+    DialogUtils.faqCallback = (BuildContext context, String text) async {
       final tcontext = Translations.of(context);
       var remoteConfig = RemoteConfigManager.getConfig();
       await WebviewHelper.loadUrl(context, remoteConfig.faq, "faqCallback",
@@ -224,9 +199,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       Biz.vpnStateChanged(false);
     } else if (state == FlutterVpnServiceState.connecting) {
     } else if (state == FlutterVpnServiceState.connected) {
-      if (!AppLifecycleStateNofity.isPaused()) {
-        _updateWanIP();
-      }
+      if (!AppLifecycleStateNofity.isPaused()) {}
 
       Biz.vpnStateChanged(true);
     } else if (state == FlutterVpnServiceState.reasserting) {
@@ -236,9 +209,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  Future<void> _onStateResumed() async {
-    _updateWanIP();
-  }
+  Future<void> _onStateResumed() async {}
 
   Future<void> _onStatePaused() async {}
 
@@ -265,25 +236,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
         child: AppBar(
-          backgroundColor: color,
           systemOverlayStyle: SystemUiOverlayStyle(
             systemNavigationBarIconBrightness:
                 themes.getStatusBarIconBrightness(context),
-            systemNavigationBarColor: color,
             systemNavigationBarDividerColor: Colors.transparent,
-            statusBarColor: color,
             statusBarBrightness: themes.getStatusBarBrightness(context),
             statusBarIconBrightness: themes.getStatusBarIconBrightness(context),
           ),
         ),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Column(
           children: [

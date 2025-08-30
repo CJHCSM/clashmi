@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
@@ -41,6 +43,7 @@ String? startFailedReasonDesc;
 void main(List<String> args) async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
+  await VPNService.initABI();
   await RemoteConfigManager.init();
   await LocaleSettings.useDeviceLocale();
 
@@ -138,6 +141,7 @@ Future<void> run(List<String> args) async {
     }
 
     await SettingManager.init();
+    await AutoUpdateManager.init();
     if (PlatformUtils.isMobile()) {
       if (SettingManager.getConfig().ui.autoOrientation) {
         SystemChrome.setPreferredOrientations([
@@ -156,10 +160,6 @@ Future<void> run(List<String> args) async {
     String cmdline = args.toString();
     Log.w("main.run exception: ${err.toString()}, $cmdline");
   }
-
-  runApp(TranslationProvider(
-    child: const MyApp(),
-  ));
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -167,6 +167,9 @@ Future<void> run(List<String> args) async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
+  runApp(TranslationProvider(
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
