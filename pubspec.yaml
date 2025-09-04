@@ -62,10 +62,9 @@ dependencies:
   tuple: 2.0.2
   crypto: 3.0.6
   cryptography: 2.7.0
-  cryptography_flutter: 2.3.2
   open_dir: 0.0.2+1 #pc only
-  path: 1.9.0 #flutter_test
-  characters: 1.3.0 #flutter_test
+  path: 1.9.1 #flutter_test
+  characters: 1.4.0 #flutter_test
   win32_registry: 1.1.5 #flutter_test
   share_plus: 10.1.4 
   open_file: 3.5.10 
@@ -105,7 +104,7 @@ dev_dependencies:
 
   flutter_lints: 5.0.0
   build_runner: 2.4.13
-  json_serializable: 6.9.0 #dart run build_runner build --delete-conflicting-outputs
+  json_serializable: 6.8.0 #dart run build_runner build --delete-conflicting-outputs
 
 
 flutter:

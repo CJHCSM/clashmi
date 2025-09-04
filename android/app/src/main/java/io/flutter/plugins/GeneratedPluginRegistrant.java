@@ -31,11 +31,6 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin app_settings, com.spencerccf.app_settings.AppSettingsPlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new dev.dint.cryptography_flutter.CryptographyFlutterPlugin());
-    } catch (Exception e) {
-      Log.e(TAG, "Error registering plugin cryptography_flutter, dev.dint.cryptography_flutter.CryptographyFlutterPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.mr.flutter.plugin.filepicker.FilePickerPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin file_picker, com.mr.flutter.plugin.filepicker.FilePickerPlugin", e);
