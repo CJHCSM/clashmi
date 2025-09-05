@@ -21,8 +21,8 @@ if (project.hasProperty("dart-defines")) {
 
 android {
     namespace = "com.nebula.clashmi"
-    compileSdkVersion = "android-35"
-    buildToolsVersion = "35.0.0"
+    compileSdkVersion = "android-36"
+    buildToolsVersion = "36.0.0"
     ndkVersion = "27.0.12077973" // flutter.ndkVersion
 
     compileOptions {
@@ -35,8 +35,8 @@ android {
 
     defaultConfig {
         applicationId = "com.nebula.clashmi"
-        minSdk = 22
-        targetSdk = 35
+        minSdk = 26
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }

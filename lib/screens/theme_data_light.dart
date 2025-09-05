@@ -17,7 +17,7 @@ class ThemeDataLight {
       colorScheme: scheme,
       platform: TargetPlatform.iOS,
       scaffoldBackgroundColor: scheme.surface,
-      cardTheme: const CardTheme(color: Colors.white),
+      cardTheme: const CardThemeData(color: Colors.white),
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),
