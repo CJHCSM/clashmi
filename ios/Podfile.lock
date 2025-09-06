@@ -3,8 +3,6 @@ PODS:
     - Flutter
   - app_settings (5.1.1):
     - Flutter
-  - cryptography_flutter (0.2.0):
-    - Flutter
   - DKImagePickerController/Core (4.3.9):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -85,7 +83,6 @@ PODS:
 DEPENDENCIES:
   - app_installer (from `.symlinks/plugins/app_installer/ios`)
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
-  - cryptography_flutter (from `.symlinks/plugins/cryptography_flutter/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
@@ -117,8 +114,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/app_installer/ios"
   app_settings:
     :path: ".symlinks/plugins/app_settings/ios"
-  cryptography_flutter:
-    :path: ".symlinks/plugins/cryptography_flutter/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -155,11 +150,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   app_installer: 087516293c5a0a1ad15f8c021f9a947e23e2dacf
   app_settings: 5127ae0678de1dcc19f2293271c51d37c89428b2
-  cryptography_flutter: 70166b3780db39960caf51fd90fe308bec22d3f1
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
   flutter_install_referrer: bde5ff9b9a8a64dbb7956b0f6683a86d64eedb58
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13

@@ -3,8 +3,6 @@ PODS:
     - FlutterMacOS
   - app_settings (5.1.1):
     - FlutterMacOS
-  - cryptography_flutter (0.2.0):
-    - FlutterMacOS
   - file_picker (0.0.1):
     - FlutterMacOS
   - file_selector_macos (0.0.1):
@@ -51,7 +49,6 @@ PODS:
 DEPENDENCIES:
   - app_installer (from `Flutter/ephemeral/.symlinks/plugins/app_installer/macos`)
   - app_settings (from `Flutter/ephemeral/.symlinks/plugins/app_settings/macos`)
-  - cryptography_flutter (from `Flutter/ephemeral/.symlinks/plugins/cryptography_flutter/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - flutter_inappwebview_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_inappwebview_macos/macos`)
@@ -82,8 +79,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/app_installer/macos
   app_settings:
     :path: Flutter/ephemeral/.symlinks/plugins/app_settings/macos
-  cryptography_flutter:
-    :path: Flutter/ephemeral/.symlinks/plugins/cryptography_flutter/macos
   file_picker:
     :path: Flutter/ephemeral/.symlinks/plugins/file_picker/macos
   file_selector_macos:
@@ -126,12 +121,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   app_installer: 9a51509d3e3526fad6fb3d615c5e78621a1b08a1
   app_settings: cd21e176b56f8172043640ade81322a98896bff4
-  cryptography_flutter: 33e8726fef117a6f306382f6fa34e173642cc64f
   file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
   file_selector_macos: 6280b52b459ae6c590af5d78fc35c7267a3c4b31
   flutter_inappwebview_macos: c2d68649f9f8f1831bfcd98d73fd6256366d9d1d
   flutter_secure_storage_macos: 7f45e30f838cf2659862a4e4e3ee1c347c2b3b54
-  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
   HotKey: 400beb7caa29054ea8d864c96f5ba7e5b4852277
   hotkey_manager_macos: a4317849af96d2430fa89944d3c58977ca089fbe
   icloud_storage: eb5b0f20687cf5a4fabc0b541f3b079cd6df7dcb
