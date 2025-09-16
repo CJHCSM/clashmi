@@ -177,7 +177,7 @@ class PathUtils {
       return "Clash Mi";
     }
     if (Platform.isLinux) {
-      return "Clash Mi";
+      return "clashmi";
     }
     return "";
   }
