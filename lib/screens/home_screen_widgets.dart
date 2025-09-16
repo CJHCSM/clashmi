@@ -546,7 +546,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       if (installer != null) {
         return true;
       }
-      if (!await FlutterVpnService.isServiceAuthorized()) {
+      final servicePath = PathUtils.serviceExePath();
+      if (!await FlutterVpnService.isServiceAuthorized(servicePath)) {
         if (!mounted) {
           return false;
         }
@@ -555,7 +556,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           setState(() {});
           return true;
         }
-        final result = await FlutterVpnService.authorizeService(password);
+        final result =
+            await FlutterVpnService.authorizeService(servicePath, password);
         if (result != null) {
           if (!mounted) {
             return false;
