@@ -1,4 +1,3 @@
-import 'package:clashmi/app/extension/colors.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:flutter/material.dart';
 

@@ -199,6 +199,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get account => '账号';
 	@override String get password => '密码';
 	@override String get required => '必填';
+	@override String get sudoPassword => 'sudo 密码(TUN模式需要)';
 	@override String get other => '其他';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -241,6 +242,11 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
 	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
+	@override String get excludeFromRecent => '从[最近任务]中隐藏';
+	@override String get wakeLock => '唤醒锁';
+	@override String get hideVpn => '隐藏VPN图标';
+	@override String get hideVpnTips => '开启IPv6会导致此功能失效';
+	@override String get hideDockIcon => '隐藏Dock图标';
 	@override String get website => '官网';
 	@override String get rule => '规则';
 	@override String get global => '全局';
@@ -516,6 +522,7 @@ extension on TranslationsZhCn {
 			case 'meta.account': return '账号';
 			case 'meta.password': return '密码';
 			case 'meta.required': return '必填';
+			case 'meta.sudoPassword': return 'sudo 密码(TUN模式需要)';
 			case 'meta.other': return '其他';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -558,6 +565,11 @@ extension on TranslationsZhCn {
 			case 'meta.hideAfterLaunch': return '启动后隐藏窗口';
 			case 'meta.autoSetSystemProxy': return '连接后自动设置系统代理';
 			case 'meta.bypassSystemProxy': return '允许绕过系统代理的域名';
+			case 'meta.excludeFromRecent': return '从[最近任务]中隐藏';
+			case 'meta.wakeLock': return '唤醒锁';
+			case 'meta.hideVpn': return '隐藏VPN图标';
+			case 'meta.hideVpnTips': return '开启IPv6会导致此功能失效';
+			case 'meta.hideDockIcon': return '隐藏Dock图标';
 			case 'meta.website': return '官网';
 			case 'meta.rule': return '规则';
 			case 'meta.global': return '全局';

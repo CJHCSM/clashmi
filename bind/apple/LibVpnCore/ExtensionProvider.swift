@@ -1,4 +1,5 @@
 import Foundation
+import System
 import Libclash
 
 import NetworkExtension
@@ -42,41 +43,46 @@ enum VpnError: Error {
 }
 
 open class ExtensionProvider: NEPacketTunnelProvider {
-    public static let controlKind = "com.nebula.clashmi.widget.ServiceToggle"
+    private static let systemExtension = true
+    private static let controlKind = "com.nebula.clashmi.widget.ControlCenterToggle"
     private var config: VpnServiceConfig?
-    private var writeErr: Bool = false
+
     override open func startTunnel(
         options: [String: NSObject]?
     ) async throws {
-        writeErr = true
+        // if options != nil && options!["fromApp"] is NSString {
+        //
+        // }
+        
         do {
             try await start()
         }
         catch let VpnError.Error(err) {
-            writeError("startTunnel vpnError:\(err)")
-            exit(EXIT_FAILURE)
+            throw NSError(domain: "VpnError:\(err),", code: 0)
         }
         catch let err {
-            writeError("startTunnel error:\(err.localizedDescription)")
-            exit(EXIT_FAILURE)
+            throw err
         }
-        writeErr = false
+#if os(iOS)
+        if #available(iOS 18.0, *) {
+            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+        }
+#endif
     }
 
     override open func stopTunnel(
         with reason: NEProviderStopReason, completionHandler: @escaping () -> Void
     ) {
-        completionHandler()
-        exit(EXIT_SUCCESS)
+#if os(iOS)
+        if #available(iOS 18.0, *) {
+            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+        }
+#endif
+        completionHandler() // completionHandler faster than syn
+        exit(EXIT_FAILURE)
     }
 
     override open func handleAppMessage(_ messageData: Data) async -> Data? {
-        var messageResponse = ProviderMessageResponse()
-#if os(iOS)
-        if #available(iOS 18.0, *) {
-            // ControlCenter.shared.reloadControls(ofKind: ExtensionProfile.controlKind)
-        }
-#endif
         do {
             let message = try! JSONDecoder().decode(ProviderMessage.self, from: messageData)
             if message.messageId == "restart" {
@@ -101,7 +107,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         }
 #if os(iOS)
         if #available(iOS 18.0, *) {
-            // ControlCenter.shared.reloadControls(ofKind: ExtensionProfile.controlKind)
+           ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
         if messageResponse.err != nil {
@@ -129,8 +135,13 @@ extension ExtensionProvider {
         else {
             throw VpnError.Error("providerConfiguration invalid")
         }
-
         let configFilePath = conf["configFilePath"] as! String
+#if os(macOS) 
+        if !FileManager.default.isReadableFile(atPath: configFilePath) {
+            try await Task.sleep(nanoseconds: NSEC_PER_MSEC * 100)
+            throw VpnError.Error("FullDiskAccessPermissionRequired")
+        }
+#endif
         if !FileManager.default.fileExists(atPath: configFilePath) {
             throw VpnError.Error("file not exist \(configFilePath)")
         }

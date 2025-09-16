@@ -19,7 +19,7 @@ abstract class AppleUtils {
   }
 
   static Future<String> getRateUrl() async {
-    if (Platform.isIOS || Platform.isMacOS) {
+    if (Platform.isIOS) {
       final config = RemoteConfigManager.getConfig();
       final channelName = await InstallReferrerUtils.getString();
       return _findChannelByNameAndPlatfom(

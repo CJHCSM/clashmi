@@ -199,6 +199,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
 	@override String get required => 'الزامی';
+	@override String get sudoPassword => 'رمز عبور sudo (برای حالت TUN لازم است)';
 	@override String get other => 'دیگر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -241,6 +242,11 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
+	@override String get excludeFromRecent => 'پنهان شدن از وظایف اخیر';
+	@override String get hideDockIcon => 'پنهان کردن آیکون داک';
+	@override String get wakeLock => 'قفل بیدارباش';
+	@override String get hideVpn => 'مخفی کردن آیکون VPN';
+	@override String get hideVpnTips => 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
 	@override String get website => 'وبسایت';
 	@override String get rule => 'قانون';
 	@override String get global => 'عمومی';
@@ -516,6 +522,7 @@ extension on TranslationsFa {
 			case 'meta.account': return 'نام‌کاربری';
 			case 'meta.password': return 'رمز‌عبور';
 			case 'meta.required': return 'الزامی';
+			case 'meta.sudoPassword': return 'رمز عبور sudo (برای حالت TUN لازم است)';
 			case 'meta.other': return 'دیگر';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -558,6 +565,11 @@ extension on TranslationsFa {
 			case 'meta.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
 			case 'meta.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 			case 'meta.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
+			case 'meta.excludeFromRecent': return 'پنهان شدن از وظایف اخیر';
+			case 'meta.hideDockIcon': return 'پنهان کردن آیکون داک';
+			case 'meta.wakeLock': return 'قفل بیدارباش';
+			case 'meta.hideVpn': return 'مخفی کردن آیکون VPN';
+			case 'meta.hideVpnTips': return 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
 			case 'meta.website': return 'وبسایت';
 			case 'meta.rule': return 'قانون';
 			case 'meta.global': return 'عمومی';

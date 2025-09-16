@@ -85,10 +85,12 @@ class NetworkUtils {
             String name = netinterface.name.toLowerCase();
             if (name.startsWith("pdp_") ||
                 name.startsWith("ipsec") ||
+                name.startsWith("vmware") ||
+                name.startsWith("vethernet") ||
                 name.startsWith("utun") ||
                 name.startsWith("tun") ||
-                name.contains(" tun ") ||
-                name.startsWith("vmware")) {
+                name.contains("wintun") ||
+                name.contains(" tun ")) {
               continue;
             }
           }

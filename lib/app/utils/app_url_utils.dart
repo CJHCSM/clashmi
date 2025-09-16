@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/private/app_url_utils_private.dart';
@@ -14,8 +14,8 @@ abstract final class AppUrlUtils {
 
   static Future<String> getQueryParamsForUrl(int bodyLen) async {
     String planguageTag = [
-      PlatformDispatcher.instance.locale.languageCode,
-      PlatformDispatcher.instance.locale.countryCode ?? ""
+      WidgetsBinding.instance.platformDispatcher.locale.languageCode,
+      WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
     ].join("-");
     var config = SettingManager.getConfig();
 
@@ -25,7 +25,8 @@ abstract final class AppUrlUtils {
 
     installRefer = installRefer.replaceAll(" ", "").toLowerCase();
     String src =
-        (PlatformDispatcher.instance.locale.countryCode ?? "").toLowerCase();
+        (WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? "")
+            .toLowerCase();
 
     Map<String, dynamic> params = {
       "s_r_c": Uri.encodeComponent(src),

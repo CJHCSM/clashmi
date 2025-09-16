@@ -199,6 +199,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
 	@override String get required => 'Необходимо';
+	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
 	@override String get other => 'Другой';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -241,6 +242,11 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
+	@override String get excludeFromRecent => 'Скрыть из недавних задач';
+	@override String get wakeLock => 'Блокировка пробуждения';
+	@override String get hideVpn => 'Скрыть значок VPN';
+	@override String get hideVpnTips => 'Включение IPv6 приведет к сбою этой функции.';
+	@override String get hideDockIcon => 'Скрыть значок дока';
 	@override String get website => 'Веб-сайт';
 	@override String get rule => 'Правила';
 	@override String get global => 'Глобально';
@@ -516,6 +522,7 @@ extension on TranslationsRu {
 			case 'meta.account': return 'Аккаунт';
 			case 'meta.password': return 'Пароль';
 			case 'meta.required': return 'Необходимо';
+			case 'meta.sudoPassword': return 'Пароль sudo (требуется для режима TUN)';
 			case 'meta.other': return 'Другой';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -558,6 +565,11 @@ extension on TranslationsRu {
 			case 'meta.hideAfterLaunch': return 'Скрыть окно после запуска';
 			case 'meta.autoSetSystemProxy': return 'Установить системный прокси после подключения';
 			case 'meta.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
+			case 'meta.excludeFromRecent': return 'Скрыть из недавних задач';
+			case 'meta.wakeLock': return 'Блокировка пробуждения';
+			case 'meta.hideVpn': return 'Скрыть значок VPN';
+			case 'meta.hideVpnTips': return 'Включение IPv6 приведет к сбою этой функции.';
+			case 'meta.hideDockIcon': return 'Скрыть значок дока';
 			case 'meta.website': return 'Веб-сайт';
 			case 'meta.rule': return 'Правила';
 			case 'meta.global': return 'Глобально';

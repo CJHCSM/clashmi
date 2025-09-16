@@ -480,7 +480,7 @@ abstract final class HttpUtils {
             error: ReturnResultError(
                 "http response timeout after ${timeout.inSeconds} seconds"));
       }
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 204) {
         return ReturnResult(
             error:
                 ReturnResultError("http statusCode: ${response.statusCode}"));

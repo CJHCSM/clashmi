@@ -9,10 +9,27 @@ import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:path/path.dart' as path;
 
 class ZipUtils {
+  static Future<ReturnResult<Uint8List>> zipContentToBytes(
+      Map<String, String> filePathAndContent) async {
+    try {
+      if (filePathAndContent.isEmpty) {
+        return ReturnResult(error: ReturnResultError("no files to zip"));
+      }
+      final archive = Archive();
+      filePathAndContent.forEach((filePath, content) {
+        archive.addFile(ArchiveFile.string(path.basename(filePath), content));
+      });
+
+      final zipBytes = ZipEncoder().encodeBytes(archive);
+      return ReturnResult(data: zipBytes);
+    } catch (err, stacktrace) {
+      return ReturnResult(error: ReturnResultError(err.toString()));
+    }
+  }
+
   static Future<ReturnResult<Uint8List>> zipToBytes(
       List<String> filePaths) async {
     try {
-      final archive = Archive();
       List<String> newFilePaths = [];
       for (var filePath in filePaths) {
         var file = io.File(filePath);
@@ -26,6 +43,7 @@ class ZipUtils {
       if (newFilePaths.isEmpty) {
         return ReturnResult(error: ReturnResultError("no files to zip"));
       }
+      final archive = Archive();
       for (var filePath in newFilePaths) {
         archive.addFile(ArchiveFile.stream(
             path.basename(filePath), InputFileStream(filePath)));

@@ -15,6 +15,7 @@ class VersionCompareUtils {
       }
     }
 
-    return 0;
+    return ver1.compareTo(ver2);
   }
+
 }

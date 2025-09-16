@@ -44,9 +44,22 @@ abstract final class InstallReferrerUtils {
     return "Apple - App Store";
   }
 
+  static String getBuildChannelName() {
+    final channel = const String.fromEnvironment('CHANNEL');
+    if (channel.isNotEmpty) {
+      return channel;
+    }
+    return "";
+  }
+
   static Future<String> getString() async {
     var referrer = await get();
     if (referrer == null) {
+      final channel = getBuildChannelName();
+      if (channel.isNotEmpty) {
+        return channel;
+      }
+
       return Platform.operatingSystem;
     }
     switch (referrer) {

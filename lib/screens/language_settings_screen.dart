@@ -86,7 +86,6 @@ class _LanguageSettingsScreenState
               child: AppBar(),
             ),
             body: Focus(
-              includeSemantics: true,
               onKeyEvent: onKeyEvent,
               child: SafeArea(
                 child: Padding(
