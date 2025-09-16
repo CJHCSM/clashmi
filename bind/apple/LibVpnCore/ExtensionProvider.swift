@@ -65,7 +65,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         }
 #if os(iOS)
         if #available(iOS 18.0, *) {
-            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+            //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
     }
@@ -75,7 +75,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
     ) {
 #if os(iOS)
         if #available(iOS 18.0, *) {
-            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+            //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
         completionHandler() // completionHandler faster than syn
@@ -83,6 +83,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
     }
 
     override open func handleAppMessage(_ messageData: Data) async -> Data? {
+        var messageResponse = ProviderMessageResponse()
         do {
             let message = try! JSONDecoder().decode(ProviderMessage.self, from: messageData)
             if message.messageId == "restart" {
@@ -107,7 +108,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         }
 #if os(iOS)
         if #available(iOS 18.0, *) {
-           ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+           //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
         if messageResponse.err != nil {
@@ -164,7 +165,7 @@ extension ExtensionProvider {
 
     fileprivate func writeError(_ message: String) {
         NSLog(message)
-        if writeErr && config != nil && !config!.err_path.isEmpty {
+        if config != nil && !config!.err_path.isEmpty {
             do {
                 let fileUrl = URL(fileURLWithPath: config!.err_path)
                 try message.write(to: fileUrl, atomically: true, encoding: String.Encoding.utf8)
