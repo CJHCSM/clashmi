@@ -5,11 +5,11 @@ import 'package:win32_registry/win32_registry.dart';
 
 class SystemSchemeUtils {
   static const String _kClashScheme = "clash";
-
+  static const String _kClashMiScheme = "clashmi";
   static String getClashScheme() => _kClashScheme;
-
+  static String getClashMiScheme() => _kClashMiScheme;
   static String getClashSchemeWith() => "$_kClashScheme://";
-
+  static String getClashMiSchemeWith() => "$_kClashMiScheme://";
   static bool isRegistered(String scheme) {
     return _isRegistered(scheme);
   }
