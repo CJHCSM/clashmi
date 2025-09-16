@@ -227,6 +227,7 @@ class DialogUtils {
                     labelText: labelText,
                   ),
                   textAlign: TextAlign.end,
+                  obscureText: obscureText,
                 ),
               ),
               const SizedBox(
