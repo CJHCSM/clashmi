@@ -182,7 +182,7 @@
         "runtimeProfile": "运行时配置",
         "willCompleteAfterRebootInstall": "请重启设备,以便完成系统扩展安装",
         "willCompleteAfterRebootUninstall": "请重启设备,以便完成系统扩展卸载",
-        "requestNeedsUserApproval": "请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展,安装完成后重新连接",
+        "requestNeedsUserApproval": "请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展(低版本操作系统:[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]系统扩展),完成后重新连接",
         "FullDiskAccessPermissionRequired": "请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接",
         "proxy": "代理",
         "theme": "主题",

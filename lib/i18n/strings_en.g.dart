@@ -632,8 +632,8 @@ class TranslationsMetaEn {
 	/// en: 'Please restart your device to complete the the system extension uninstallation'
 	String get willCompleteAfterRebootUninstall => 'Please restart your device to complete the the system extension uninstallation';
 
-	/// en: 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security], and reconnect after installation is complete.'
-	String get requestNeedsUserApproval => 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security], and reconnect after installation is complete.';
+	/// en: 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion'
+	String get requestNeedsUserApproval => 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion';
 
 	/// en: 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.'
 	String get FullDiskAccessPermissionRequired => 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.';
@@ -1124,7 +1124,7 @@ extension on Translations {
 			case 'meta.runtimeProfile': return 'Runtime Profile';
 			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
-			case 'meta.requestNeedsUserApproval': return 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security], and reconnect after installation is complete.';
+			case 'meta.requestNeedsUserApproval': return 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion';
 			case 'meta.FullDiskAccessPermissionRequired': return 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.';
 			case 'meta.proxy': return 'Proxy';
 			case 'meta.theme': return 'Theme';

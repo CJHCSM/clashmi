@@ -289,7 +289,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get runtimeProfile => '运行时配置';
 	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
 	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
-	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展,安装完成后重新连接';
+	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展(低版本操作系统:[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]系统扩展),完成后重新连接';
 	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 	@override String get proxy => '代理';
 	@override String get theme => '主题';
@@ -612,7 +612,7 @@ extension on TranslationsZhCn {
 			case 'meta.runtimeProfile': return '运行时配置';
 			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
 			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
-			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展,安装完成后重新连接';
+			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展(低版本操作系统:[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]系统扩展),完成后重新连接';
 			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 			case 'meta.proxy': return '代理';
 			case 'meta.theme': return '主题';
