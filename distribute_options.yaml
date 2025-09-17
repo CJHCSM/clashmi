@@ -20,10 +20,14 @@ releases:
         package:
           platform: linux
           target: deb
+          dart-define:
+            PACKAGE_TARGET: deb
       - name: linux-rpm
         package:
           platform: linux
           target: rpm
+          dart-define:
+            PACKAGE_TARGET: rpm
       - name: macos-dmg
         package:
           platform: macos

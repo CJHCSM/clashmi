@@ -45,9 +45,12 @@ abstract final class InstallReferrerUtils {
   }
 
   static String getBuildChannelName() {
-    final channel = const String.fromEnvironment('CHANNEL');
-    if (channel.isNotEmpty) {
-      return channel;
+    String channel = const String.fromEnvironment('PACKAGE_TARGET');
+    if (channel.isEmpty) {
+      channel = const String.fromEnvironment('CHANNEL');
+      if (channel.isNotEmpty) {
+        return channel;
+      }
     }
     return "";
   }
