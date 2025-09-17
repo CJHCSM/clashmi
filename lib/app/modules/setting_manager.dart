@@ -132,6 +132,11 @@ class SettingConfig {
   int boardLocalPort = kDefaultBoardPort;
   String delayTestUrl = kDefaultDelayTestUrl;
   int delayTestTimeout = 5000;
+  bool hideDockIcon = false; //macos
+  bool hideAfterLaunch = false; //linux
+  bool excludeFromRecent = false; //android
+  bool wakeLock = false; //android
+  bool hideVpn = false; //ios
 
   Map<String, dynamic> toJson() => {
         'language_tag': languageTag,
@@ -148,6 +153,11 @@ class SettingConfig {
         'board_port': boardLocalPort,
         'delay_test_url': delayTestUrl,
         'delay_test_url_timeout': delayTestTimeout,
+        'hide_dock_icon': hideDockIcon,
+        'hide_after_launch': hideAfterLaunch,
+        'exclude_from_recent': excludeFromRecent,
+        'wake_lock': wakeLock,
+        'hide_vpn': hideVpn,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -177,6 +187,11 @@ class SettingConfig {
     boardLocalPort = map["board_port"] ?? kDefaultBoardUrl;
     delayTestUrl = map["delay_test_url"] ?? kDefaultDelayTestUrl;
     delayTestTimeout = map["delay_test_url_timeout"] ?? 5000;
+    hideDockIcon = map["hide_dock_icon"] ?? false;
+    hideAfterLaunch = map["hide_after_launch"] ?? false;
+    excludeFromRecent = map["exclude_from_recent"] ?? false;
+    wakeLock = map["wake_lock"] ?? false;
+    hideVpn = map["hide_vpn"] ?? false;
   }
 
   String userAgent() {

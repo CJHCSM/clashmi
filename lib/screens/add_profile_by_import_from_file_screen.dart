@@ -44,6 +44,7 @@ class _AddProfileByImportFromFileScreenState
 
   Future<void> onAdd(BuildContext context) async {
     final tcontext = Translations.of(context);
+
     String text = _textControllerRemark.text.trim();
 
     final error = await ProfileManager.addLocal(_filePath, remark: text);
@@ -53,6 +54,7 @@ class _AddProfileByImportFromFileScreenState
     }
     _loading = false;
     setState(() {});
+
     if (error == null) {
       await DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess);
       if (!mounted) {
@@ -214,6 +216,7 @@ class _AddProfileByImportFromFileScreenState
           return;
         }
         _filePath = fresult.files.first.path!;
+
         if (_textControllerRemark.text.isEmpty) {
           _textControllerRemark.value = _textControllerRemark.value.copyWith(
             text: fresult.files.first.name,

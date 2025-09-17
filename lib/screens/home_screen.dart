@@ -244,6 +244,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           systemOverlayStyle: SystemUiOverlayStyle(
             systemNavigationBarIconBrightness:
                 themes.getStatusBarIconBrightness(context),
+            systemNavigationBarColor: Colors.transparent,
             systemNavigationBarDividerColor: Colors.transparent,
             statusBarBrightness: themes.getStatusBarBrightness(context),
             statusBarIconBrightness: themes.getStatusBarIconBrightness(context),

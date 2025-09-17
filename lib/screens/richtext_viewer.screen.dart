@@ -183,9 +183,17 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
           try {
             await File(savePath).writeAsString(_content ?? "", flush: true);
           } catch (err) {}
-
+          if (!mounted) {
+            return;
+          }
           try {
-            await Share.shareXFiles([XFile(savePath)]);
+            final box = context.findRenderObject() as RenderBox?;
+            final rect =
+                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            await Share.shareXFiles(
+              [XFile(savePath)],
+              sharePositionOrigin: rect,
+            );
           } catch (err) {
             if (!mounted) {
               return;

@@ -47,8 +47,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
       String languageTag = "";
 
       String planguageTag = [
-        PlatformDispatcher.instance.locale.languageCode,
-        PlatformDispatcher.instance.locale.countryCode ?? ""
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode,
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {

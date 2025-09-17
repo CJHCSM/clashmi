@@ -244,10 +244,6 @@ class MyAppState extends State<MyApp>
 
   @override
   Future<AppExitResponse> didRequestAppExit() async {
-    if (Platform.isWindows) {
-      windowManager.hide();
-      return AppExitResponse.cancel;
-    }
     await _quit();
     return AppExitResponse.cancel;
   }
@@ -349,11 +345,6 @@ class MyAppState extends State<MyApp>
   }
 
   @override
-  void onWindowTaskbarCreated() {
-    _setTray(_trayGrey, true, true);
-  }
-
-  @override
   void onWindowDeviceShutdown() {
     Log.d("main.dart onWindowDeviceShutdown");
     _quit();
@@ -367,16 +358,19 @@ class MyAppState extends State<MyApp>
   }
 
   void firstShowWindow(bool forceShow) {
-    if (PlatformUtils.isPC()) {
-      windowManager.waitUntilReadyToShow(null, () async {
-        if (forceShow ||
-            (Platform.isWindows &&
-                !SettingManager.getConfig().ui.hideAfterLaunch)) {
-          await windowManager.show();
-          onWindowRestore();
-        }
-      });
+    if (!PlatformUtils.isPC()) {
+      return;
     }
+    windowManager.waitUntilReadyToShow(null, () async {
+      if (Platform.isMacOS && SettingManager.getConfig().hideDockIcon) {
+        FlutterVpnService.hideDockIcon(true);
+      }
+      if (forceShow ||
+          (Platform.isWindows && !SettingManager.getConfig().hideAfterLaunch)) {
+        await windowManager.show();
+        onWindowRestore();
+      }
+    });
   }
 
   Future<void> _init() async {
@@ -425,7 +419,7 @@ class MyAppState extends State<MyApp>
 
   void _setTray(bool grey, bool destroy, bool quitIfFailed) {
     Future.delayed(const Duration(milliseconds: 300), () async {
-      if (destroy) {
+      if (destroy || Platform.isLinux) {
         await trayManager.destroy();
       }
 
@@ -433,10 +427,12 @@ class MyAppState extends State<MyApp>
         if (Platform.isWindows) {
           await trayManager.setIcon(
             grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
+            isTemplate: false,
           );
         } else {
           await trayManager.setIcon(
             grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
+            isTemplate: false,
           );
         }
         _trayGrey = grey;
@@ -450,8 +446,31 @@ class MyAppState extends State<MyApp>
       }
       if (!Platform.isLinux) {
         await trayManager.setToolTip(AppUtils.getName());
+      } else {
+        _setTrayMenu();
       }
     });
+  }
+
+  void _setTrayMenu() async {
+    if (!PlatformUtils.isPC()) {
+      return;
+    }
+    List<MenuItem> items = [
+      MenuItem(
+        key: kMenuOpen,
+        label: t.main.tray.menuOpen,
+      ),
+      MenuItem(
+        key: kMenuExit,
+        label: t.main.tray.menuExit,
+      )
+    ];
+
+    await trayManager.setContextMenu(Menu(items: items));
+    if (!Platform.isLinux) {
+      await trayManager.popUpContextMenu(bringAppToFront: true);
+    }
   }
 
   @override
@@ -466,20 +485,7 @@ class MyAppState extends State<MyApp>
 
   @override
   void onTrayIconRightMouseDown() async {
-    if (Platform.isWindows || Platform.isLinux /*|| Platform.isMacOS*/) {
-      List<MenuItem> items = [
-        MenuItem(
-          key: kMenuOpen,
-          label: t.main.tray.menuOpen,
-        ),
-        MenuItem(
-          key: kMenuExit,
-          label: t.main.tray.menuExit,
-        ),
-      ];
-      await trayManager.setContextMenu(Menu(items: items));
-      await trayManager.popUpContextMenu(bringAppToFront: true);
-    }
+    _setTrayMenu();
   }
 
   @override

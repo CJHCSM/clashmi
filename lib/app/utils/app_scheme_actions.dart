@@ -3,6 +3,10 @@ abstract final class AppSchemeActions {
     return "clash";
   }
 
+  static String miScheme() {
+    return "clashmi";
+  }
+
   static String installConfigAction() {
     return "install-config";
   }

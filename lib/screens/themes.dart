@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:clashmi/app/extension/colors.dart';
 
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/theme_data_light.dart';

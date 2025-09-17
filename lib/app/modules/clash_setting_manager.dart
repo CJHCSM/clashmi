@@ -446,6 +446,7 @@ class ClashSettingManager {
       return;
     }
     _setting = setting;
+    _setting.MixedPort ??= 7890;
     _setting.DNS ??= defaultDNS();
     _setting.NTP ??= defaultNTP();
     _setting.Tun ??= defaultTun();
@@ -453,6 +454,11 @@ class ClashSettingManager {
     _setting.Sniffer ??= defaultSniffer();
     _setting.TLS ??= defaultTLS();
     _setting.Extension ??= defaultExtension();
+    if (_setting.Extension?.Tun.perApp.PackageIds != null) {
+      _setting.Extension?.Tun.perApp.PackageIds!
+          .removeWhere((element) => element == AppUtils.getId());
+    }
+
     if (_setting.Extension?.Ruleset.AsnUrl ==
         "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/asn") {
       _setting.Extension?.Ruleset.AsnUrl =
@@ -520,7 +526,7 @@ class ClashSettingManager {
     return 0;
   }
 
-  static int? getMixedPort() {
-    return _setting.MixedPort;
+  static int getMixedPort() {
+    return _setting.MixedPort ?? 7890;
   }
 }

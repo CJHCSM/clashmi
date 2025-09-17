@@ -175,6 +175,17 @@ class DialogUtils {
         });
   }
 
+  static Future<String?> showPasswordInputDialog(
+    BuildContext context,
+  ) async {
+    final tcontext = Translations.of(context);
+    String? password = await DialogUtils.showTextInputDialog(
+        context, tcontext.meta.sudoPassword, "", null, null, null, (text) {
+      return text.isNotEmpty;
+    }, obscureText: true);
+    return password;
+  }
+
   static Future<String?> showTextInputDialog(
       BuildContext context,
       String title,
@@ -182,7 +193,8 @@ class DialogUtils {
       String? labelText,
       TextInputType? keyboardType,
       List<TextInputFormatter>? inputFormatters,
-      bool Function(String) callback) async {
+      bool Function(String) callback,
+      {bool obscureText = false}) async {
     if (!context.mounted) {
       return null;
     }
@@ -215,6 +227,7 @@ class DialogUtils {
                     labelText: labelText,
                   ),
                   textAlign: TextAlign.end,
+                  obscureText: obscureText,
                 ),
               ),
               const SizedBox(

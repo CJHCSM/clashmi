@@ -199,6 +199,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
 	@override String get required => 'مطلوب';
+	@override String get sudoPassword => 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 	@override String get other => 'آخر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -241,6 +242,11 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
 	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
+	@override String get excludeFromRecent => 'إخفاء من المهام الأخيرة';
+	@override String get wakeLock => 'قفل الاستيقاظ';
+	@override String get hideVpn => 'إخفاء أيقونة VPN';
+	@override String get hideVpnTips => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
+	@override String get hideDockIcon => 'إخفاء أيقونة Dock';
 	@override String get website => 'موقع إلكتروني';
 	@override String get rule => 'قاعدة';
 	@override String get global => 'عالمي';
@@ -516,6 +522,7 @@ extension on TranslationsAr {
 			case 'meta.account': return 'حساب';
 			case 'meta.password': return 'كلمة المرور';
 			case 'meta.required': return 'مطلوب';
+			case 'meta.sudoPassword': return 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 			case 'meta.other': return 'آخر';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -558,6 +565,11 @@ extension on TranslationsAr {
 			case 'meta.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
 			case 'meta.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
 			case 'meta.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
+			case 'meta.excludeFromRecent': return 'إخفاء من المهام الأخيرة';
+			case 'meta.wakeLock': return 'قفل الاستيقاظ';
+			case 'meta.hideVpn': return 'إخفاء أيقونة VPN';
+			case 'meta.hideVpnTips': return 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
+			case 'meta.hideDockIcon': return 'إخفاء أيقونة Dock';
 			case 'meta.website': return 'موقع إلكتروني';
 			case 'meta.rule': return 'قاعدة';
 			case 'meta.global': return 'عالمي';

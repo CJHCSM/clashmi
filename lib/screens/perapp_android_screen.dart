@@ -39,6 +39,7 @@ class PackageInfoImpl extends PackageInfo {
 class PackageInfoEx {
   late PackageInfo info;
   String name = "";
+  Image? icon;
 }
 
 class _PerAppAndroidScreenState
@@ -46,7 +47,6 @@ class _PerAppAndroidScreenState
   //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
   static const int FLAG_SYSTEM = 1;
   static const _removed = "[removed]";
-
   AndroidPackageManager? _pkgMgr;
   bool _loading = true;
   final List<PackageInfoEx> _applicationInfoList = [];
@@ -162,6 +162,7 @@ class _PerAppAndroidScreenState
             PackageInfoEx info = PackageInfoEx();
             info.info = PackageInfoImpl(papp);
             info.name = _removed;
+            info.icon = null;
 
             notExists.add(info);
           }
@@ -187,6 +188,9 @@ class _PerAppAndroidScreenState
     }
     for (var app in _applicationInfoList) {
       if (app.info.packageName == packageName) {
+        if (app.icon != null) {
+          return app.icon;
+        }
         if (app.name == _removed) {
           return null;
         }
@@ -194,8 +198,8 @@ class _PerAppAndroidScreenState
         if (!mounted) {
           return null;
         }
-
-        return image;
+        app.icon = image;
+        return app.icon;
       }
     }
     return null;

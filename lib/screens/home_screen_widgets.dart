@@ -71,6 +71,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       _onStateResumed();
     }
     Biz.onEventInitAllFinish.add(() async {
+      if (Platform.isAndroid) {
+        if (SettingManager.getConfig().excludeFromRecent) {
+          FlutterVpnService.setExcludeFromRecents(true);
+        }
+      }
       await _onInitAllFinish();
     });
   }
@@ -535,6 +540,33 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
               builder: (context) => ProfilesBoardScreen()));
       setState(() {});
       return false;
+    }
+    if (Platform.isLinux) {
+      String? installer = await AutoUpdateManager.checkReplace();
+      if (installer != null) {
+        return true;
+      }
+      final servicePath = PathUtils.serviceExePath();
+      if (!await FlutterVpnService.isServiceAuthorized(servicePath)) {
+        if (!mounted) {
+          return false;
+        }
+        String? password = await DialogUtils.showPasswordInputDialog(context);
+        if (password == null || password.isEmpty) {
+          setState(() {});
+          return true;
+        }
+        final result =
+            await FlutterVpnService.authorizeService(servicePath, password);
+        if (result != null) {
+          if (!mounted) {
+            return false;
+          }
+          DialogUtils.showAlertDialog(context, result.message);
+          setState(() {});
+          return false;
+        }
+      }
     }
     var state = await VPNService.getState();
     if (state == FlutterVpnServiceState.connecting ||

@@ -30,7 +30,7 @@ class PathUtils {
       _appAssetsDir = "";
     } else if (Platform.isLinux) {
       _appAssetsDir = frameworkDir();
-      _appAssetsDir = path.join(_appAssetsDir, "assets");
+      _appAssetsDir = path.join(_appAssetsDir, "data");
     } else if (Platform.isWindows) {
       _appAssetsDir = frameworkDir();
       _appAssetsDir = path.join(_appAssetsDir, "data");
@@ -177,14 +177,14 @@ class PathUtils {
       return "Clash Mi";
     }
     if (Platform.isLinux) {
-      return "Clash Mi";
+      return "clashmi";
     }
     return "";
   }
 
   static String serviceExeName() {
     if (Platform.isLinux) {
-      return "clashmiService.so";
+      return "clashmiService";
     } else if (Platform.isWindows) {
       return "clashmiService.exe";
     }
@@ -192,14 +192,11 @@ class PathUtils {
   }
 
   static String serviceExePath() {
-    String filePath = "";
-    if (Platform.isLinux) {
-      filePath = path.join(filePath, serviceExeName());
-    } else if (Platform.isWindows) {
-      filePath = exeDir();
-      filePath = path.join(filePath, serviceExeName());
+    if (Platform.isLinux || Platform.isWindows) {
+      String filePath = exeDir();
+      return path.join(filePath, serviceExeName());
     }
-    return filePath;
+    return "";
   }
 
   static String logFileName() {

@@ -22,7 +22,8 @@ class SchemeHandler {
     if (uri == null) {
       return ReturnResultError("parse url failed: $url");
     }
-    if (uri.isScheme(SystemSchemeUtils.getClashScheme())) {
+    if (uri.isScheme(SystemSchemeUtils.getClashScheme()) ||
+        uri.isScheme(SystemSchemeUtils.getClashMiScheme())) {
       if (uri.host == AppSchemeActions.installConfigAction()) {
         return await _installConfig(context, uri);
       } else if (uri.host == AppSchemeActions.connectAction()) {

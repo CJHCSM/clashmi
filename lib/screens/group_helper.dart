@@ -40,6 +40,7 @@ import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -631,6 +632,42 @@ class GroupHelper {
                 },
         )),
       ];
+      List<GroupItemOptions> options6 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.excludeFromRecent,
+                switchValue: setting.excludeFromRecent,
+                onSwitch: (bool value) async {
+                  setting.excludeFromRecent = value;
+                  final err =
+                      await FlutterVpnService.setExcludeFromRecents(value);
+                  if (err != null) {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    DialogUtils.showAlertDialog(context, err,
+                        showCopy: true, showFAQ: true, withVersion: true);
+                  }
+                })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.wakeLock,
+                switchValue: setting.wakeLock,
+                onSwitch: (bool value) async {
+                  setting.wakeLock = value;
+                })),
+      ];
+      List<GroupItemOptions> options7 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.hideDockIcon,
+                tips: tcontext.meta.restartTakesEffect,
+                switchValue: setting.hideDockIcon,
+                onSwitch: (bool value) async {
+                  setting.hideDockIcon = value;
+                })),
+      ];
+
       List<GroupItem> gitems = [
         GroupItem(options: options),
         GroupItem(options: options0),
@@ -646,6 +683,13 @@ class GroupHelper {
       if (Platform.isWindows) {
         gitems.add(GroupItem(options: options5));
       }
+      if (Platform.isAndroid) {
+        gitems.add(GroupItem(options: options6));
+      }
+      if (Platform.isMacOS) {
+        gitems.add(GroupItem(options: options7));
+      }
+
       return gitems;
     }
 
@@ -1024,6 +1068,7 @@ class GroupHelper {
     Future<List<GroupItem>> getOptions(
         BuildContext context, SetStateCallback? setstate) async {
       var setting = ClashSettingManager.getConfig();
+
       var tun = setting.Tun!;
       var extensions = setting.Extension!;
       final tunStacks = ClashTunStack.toList();
@@ -1127,6 +1172,18 @@ class GroupHelper {
                                             .Tun.httpProxy.BypassDomain!,
                                       )));
                         }))
+        ]);
+      }
+      if (Platform.isIOS) {
+        options1.addAll([
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.hideVpn,
+                  tips: tcontext.meta.hideVpnTips,
+                  switchValue: tun.RouteExcludeAddress?.contains("0.0.0.0/31"),
+                  onSwitch: (bool value) async {
+                    tun.RouteExcludeAddress = ["0.0.0.0/31"];
+                  })),
         ]);
       }
 
