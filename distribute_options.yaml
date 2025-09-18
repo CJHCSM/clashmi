@@ -1,10 +1,3 @@
-#https://pub.dev/packages/fastforge
-#fastforge package --platform=windows --targets=exe,zip --skip-clean
-#fastforge package --platform=macos   --targets=dmg     --skip-clean
-#fastforge package --platform=linux   --targets=deb     --skip-clean --build-dart-define=CHANNEL=deb
-#fastforge package --platform=linux   --targets=rpm     --skip-clean --build-dart-define=CHANNEL=rpm
-#fastforge package --platform=android --targets=apk     --skip-clean
-#fastforge package --platform=android --targets=aab     --skip-clean
 app_name: Clash Mi
 output: dist/
 variables:
@@ -17,20 +10,18 @@ releases:
           target: apk
           build_args:
             target-platform: android-arm,android-arm64
-      - name: android-aab
-        package:
-          platform: android
-          target: aab
-          build_args:
-            target-platform: android-arm,android-arm64
       - name: linux-deb
         package:
           platform: linux
           target: deb
+          dart-define:
+            PACKAGE_TARGET: deb
       - name: linux-rpm
         package:
           platform: linux
           target: rpm
+          dart-define:
+            PACKAGE_TARGET: rpm
       - name: macos-dmg
         package:
           platform: macos

@@ -289,7 +289,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get runtimeProfile => 'تكوين وقت التشغيل';
 	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-	@override String get requestNeedsUserApproval => 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت.';
+	@override String get requestNeedsUserApproval => 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام]-[الخصوصية والأمان] (إصدار نظام التشغيل الأقل: [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] تمكين ملحق نظام [clashmiServiceSE])، وإعادة الاتصال بعد الانتهاء';
 	@override String get FullDiskAccessPermissionRequired => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 	@override String get proxy => 'التمثيل';
 	@override String get theme => 'سمة';
@@ -612,7 +612,7 @@ extension on TranslationsAr {
 			case 'meta.runtimeProfile': return 'تكوين وقت التشغيل';
 			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت.';
+			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام]-[الخصوصية والأمان] (إصدار نظام التشغيل الأقل: [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] تمكين ملحق نظام [clashmiServiceSE])، وإعادة الاتصال بعد الانتهاء';
 			case 'meta.FullDiskAccessPermissionRequired': return 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 			case 'meta.proxy': return 'التمثيل';
 			case 'meta.theme': return 'سمة';

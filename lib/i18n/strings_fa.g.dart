@@ -289,7 +289,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get runtimeProfile => 'پیکربندی زمان اجرا';
 	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-	@override String get requestNeedsUserApproval => 'لطفاً به کلش می اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب، دوباره متصل شوید.';
+	@override String get requestNeedsUserApproval => 'لطفاً [اجازه دهید] کلش می افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند (سیستم عامل نسخه پایین‌تر: [تنظیمات سیستم]-[عمومی]-[موارد ورود و افزونه‌ها-افزونه‌های شبکه] افزونه سیستمی [clashmiServiceSE] را فعال کنید) و پس از اتمام دوباره متصل شوید.';
 	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get proxy => 'بازیگری';
 	@override String get theme => 'موضوع';
@@ -612,7 +612,7 @@ extension on TranslationsFa {
 			case 'meta.runtimeProfile': return 'پیکربندی زمان اجرا';
 			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return 'لطفاً به کلش می اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب، دوباره متصل شوید.';
+			case 'meta.requestNeedsUserApproval': return 'لطفاً [اجازه دهید] کلش می افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند (سیستم عامل نسخه پایین‌تر: [تنظیمات سیستم]-[عمومی]-[موارد ورود و افزونه‌ها-افزونه‌های شبکه] افزونه سیستمی [clashmiServiceSE] را فعال کنید) و پس از اتمام دوباره متصل شوید.';
 			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 			case 'meta.proxy': return 'بازیگری';
 			case 'meta.theme': return 'موضوع';
