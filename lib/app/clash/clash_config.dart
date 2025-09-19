@@ -114,8 +114,7 @@ enum ClashProtocolType {
 enum ClashDnsEnhancedMode {
   fakeIp(name: "fake-ip"),
   redirHost(name: "redir-host"),
-  normal(name: "");
-  //hosts(name: "");
+  normal(name: "normal");
 
   const ClashDnsEnhancedMode({required this.name});
   final String name;
