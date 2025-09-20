@@ -8,13 +8,14 @@ installed_size: 6604
 essential: false
 icon: assets/images/app_icon_256.png
 
-#dependencies:
-#  - libayatana-appindicator3-1 
+dependencies:
+  - libgtk-3-0
+  - libayatana-appindicator3-1 
 #  - libcurl4t64 
 #  - libglib2.0-dev
 #  - libjpeg-turbo8
-#  - libkeybinder-3.0-0
-#  - libsecret-1-0 
+  - libkeybinder-3.0-0
+  - libsecret-1-0 
 #  - libstdc++6
 keywords:
   - Clash Mi
