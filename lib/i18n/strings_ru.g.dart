@@ -230,7 +230,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get geo => 'GEO';
 	@override String get geoDownloadByProxy => 'Загрузка гео-правил через прокси';
-	@override String get geoRulesetTips => 'Geosite/Geoip/Asn будет преобразован в соответствующий RuleSet';
+	@override String get geoRulesetTips => 'Geosite/Geoip будет преобразован в соответствующий RuleSet';
+	@override String get asnNotSupportInIosTips => 'Из-за ограничений памяти системы iOS правила IP-ASN и SRC-IP-ASN будут игнорироваться в iOS.';
 	@override String get sniffer => 'Обнаружение доменов';
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'Запуск при включении';
@@ -553,7 +554,8 @@ extension on TranslationsRu {
 			case 'meta.tls': return 'TLS';
 			case 'meta.geo': return 'GEO';
 			case 'meta.geoDownloadByProxy': return 'Загрузка гео-правил через прокси';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip/Asn будет преобразован в соответствующий RuleSet';
+			case 'meta.geoRulesetTips': return 'Geosite/Geoip будет преобразован в соответствующий RuleSet';
+			case 'meta.asnNotSupportInIosTips': return 'Из-за ограничений памяти системы iOS правила IP-ASN и SRC-IP-ASN будут игнорироваться в iOS.';
 			case 'meta.sniffer': return 'Обнаружение доменов';
 			case 'meta.userAgent': return 'UserAgent';
 			case 'meta.launchAtStartup': return 'Запуск при включении';
