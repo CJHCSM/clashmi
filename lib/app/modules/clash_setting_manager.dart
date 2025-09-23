@@ -34,7 +34,7 @@ class ClashSettingManager {
     const fileNameList = [
       "geosite.zip",
       "geoip.zip",
-      "asn.zip",
+      "ASN.mmdb",
     ];
     try {
       for (final fileName in fileNameList) {

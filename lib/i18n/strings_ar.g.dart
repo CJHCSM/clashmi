@@ -230,7 +230,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get geo => 'GEO';
 	@override String get geoDownloadByProxy => 'تنزيل Geo RuleSet باستخدام وكيل';
-	@override String get geoRulesetTips => 'سيتم تحويل Geosite/Geoip/Asn إلى مجموعة القواعد المقابلة';
+	@override String get geoRulesetTips => 'سيتم تحويل Geosite/Geoip إلى مجموعة القواعد المقابلة';
+	@override String get asnNotSupportInIosTips => 'بسبب قيود ذاكرة نظام iOS، سيتم تجاهل قواعد IP-ASN وSRC-IP-ASN على نظام iOS.';
 	@override String get sniffer => 'شم';
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'إطلاق عند بدء التشغيل';
@@ -553,7 +554,8 @@ extension on TranslationsAr {
 			case 'meta.tls': return 'TLS';
 			case 'meta.geo': return 'GEO';
 			case 'meta.geoDownloadByProxy': return 'تنزيل Geo RuleSet باستخدام وكيل';
-			case 'meta.geoRulesetTips': return 'سيتم تحويل Geosite/Geoip/Asn إلى مجموعة القواعد المقابلة';
+			case 'meta.geoRulesetTips': return 'سيتم تحويل Geosite/Geoip إلى مجموعة القواعد المقابلة';
+			case 'meta.asnNotSupportInIosTips': return 'بسبب قيود ذاكرة نظام iOS، سيتم تجاهل قواعد IP-ASN وSRC-IP-ASN على نظام iOS.';
 			case 'meta.sniffer': return 'شم';
 			case 'meta.userAgent': return 'UserAgent';
 			case 'meta.launchAtStartup': return 'إطلاق عند بدء التشغيل';

@@ -455,8 +455,11 @@ class TranslationsMetaEn {
 	/// en: 'Downloading Geo RuleSet by proxy'
 	String get geoDownloadByProxy => 'Downloading Geo RuleSet by proxy';
 
-	/// en: 'Geosite/Geoip/Asn will be converted into the corresponding RuleSet'
-	String get geoRulesetTips => 'Geosite/Geoip/Asn will be converted into the corresponding RuleSet';
+	/// en: 'Geosite/Geoip will be converted into the corresponding RuleSet'
+	String get geoRulesetTips => 'Geosite/Geoip will be converted into the corresponding RuleSet';
+
+	/// en: 'Due to iOS system memory limitations, IP-ASN and SRC-IP-ASN rules will be ignored on iOS.'
+	String get asnNotSupportInIosTips => 'Due to iOS system memory limitations, IP-ASN and SRC-IP-ASN rules will be ignored on iOS.';
 
 	/// en: 'Sniffer'
 	String get sniffer => 'Sniffer';
@@ -1065,7 +1068,8 @@ extension on Translations {
 			case 'meta.tls': return 'TLS';
 			case 'meta.geo': return 'GEO';
 			case 'meta.geoDownloadByProxy': return 'Downloading Geo RuleSet by proxy';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip/Asn will be converted into the corresponding RuleSet';
+			case 'meta.geoRulesetTips': return 'Geosite/Geoip will be converted into the corresponding RuleSet';
+			case 'meta.asnNotSupportInIosTips': return 'Due to iOS system memory limitations, IP-ASN and SRC-IP-ASN rules will be ignored on iOS.';
 			case 'meta.sniffer': return 'Sniffer';
 			case 'meta.userAgent': return 'UserAgent';
 			case 'meta.launchAtStartup': return 'Launch at Startup';

@@ -846,7 +846,9 @@ class GroupHelper {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: "Geo RuleSet",
-                tips: tcontext.meta.geoRulesetTips,
+                tips: Platform.isIOS
+                    ? "${tcontext.meta.geoRulesetTips}\n${tcontext.meta.asnNotSupportInIosTips}"
+                    : tcontext.meta.geoRulesetTips,
                 onPush: () async {
                   showClashSettingsGEORuleset(context);
                 })),
@@ -1690,14 +1692,14 @@ class GroupHelper {
                 onChanged: (String value) {
                   ruleset.GeoIpUrl = value;
                 })),
-        GroupItemOptions(
+        /*GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: "ASN",
                 text: ruleset.AsnUrl,
                 textWidthPercent: 0.6,
                 onChanged: (String value) {
                   ruleset.AsnUrl = value;
-                })),
+                })),*/
       ];
 
       return [

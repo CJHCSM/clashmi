@@ -230,7 +230,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get geo => 'GEO';
 	@override String get geoDownloadByProxy => 'دانلود Geo RuleSet با استفاده از یک پروکسی';
-	@override String get geoRulesetTips => 'Geosite/Geoip/Asn به RuleSet مربوطه تبدیل می شود';
+	@override String get geoRulesetTips => 'Geosite/Geoip به RuleSet مربوطه تبدیل می شود';
+	@override String get asnNotSupportInIosTips => 'با توجه به محدودیت‌های حافظه سیستم iOS، قوانین IP-ASN و SRC-IP-ASN در iOS نادیده گرفته می‌شوند.';
 	@override String get sniffer => 'بو کشیدن';
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'اجرا در راه‌اندازی';
@@ -553,7 +554,8 @@ extension on TranslationsFa {
 			case 'meta.tls': return 'TLS';
 			case 'meta.geo': return 'GEO';
 			case 'meta.geoDownloadByProxy': return 'دانلود Geo RuleSet با استفاده از یک پروکسی';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip/Asn به RuleSet مربوطه تبدیل می شود';
+			case 'meta.geoRulesetTips': return 'Geosite/Geoip به RuleSet مربوطه تبدیل می شود';
+			case 'meta.asnNotSupportInIosTips': return 'با توجه به محدودیت‌های حافظه سیستم iOS، قوانین IP-ASN و SRC-IP-ASN در iOS نادیده گرفته می‌شوند.';
 			case 'meta.sniffer': return 'بو کشیدن';
 			case 'meta.userAgent': return 'UserAgent';
 			case 'meta.launchAtStartup': return 'اجرا در راه‌اندازی';
