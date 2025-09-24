@@ -52,13 +52,17 @@
 
 
 ## 安装
-- **IOS/MacOS AppStore**: （搜索关键词：clash mi）
+- **IOS AppStore**: （搜索关键词：clash mi）
   - https://apps.apple.com/us/app/clash-mi/id6744321968
-- **IOS/MacOS TestFlight**:
+- **IOS TestFlight**:
   - https://testflight.apple.com/join/bjHXktB3
+- **MacOS**:
+  - https://github.com/KaringX/clashmi/releases/latest
 - **Android**:
   - https://github.com/KaringX/clashmi/releases/latest
 - **Windows**:
+  - https://github.com/KaringX/clashmi/releases/latest
+- **Linux**:
   - https://github.com/KaringX/clashmi/releases/latest
 
 
