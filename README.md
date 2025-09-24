@@ -67,6 +67,7 @@
 - MacOS >= 12
 - Android >= 8  (arm64-v8a, armeabi-v7a)
 - Windows >= 10 （仅支持64位）
+- Linux （仅支持64位）
 
 ### 常见问题
 
