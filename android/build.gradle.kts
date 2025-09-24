@@ -13,7 +13,7 @@ allprojects {
                 extensions.findByType(com.android.build.gradle.BaseExtension::class.java)?.let {
                         androidExt ->
                     androidExt.compileSdkVersion = "android-35"
-                    androidExt.ndkVersion = "27.0.12077973"
+                    androidExt.ndkVersion = "28.2.13676358"
 
                     if (androidExt.namespace == null) {
                         androidExt.namespace = project.group.toString()
