@@ -56,13 +56,8 @@
   - https://apps.apple.com/us/app/clash-mi/id6744321968
 - **IOS TestFlight**:
   - https://testflight.apple.com/join/bjHXktB3
-- **MacOS**:
-  - https://github.com/KaringX/clashmi/releases/latest
-- **Android**:
-  - https://github.com/KaringX/clashmi/releases/latest
-- **Windows**:
-  - https://github.com/KaringX/clashmi/releases/latest
-- **Linux**:
+- **MacOS/Android/Windows/Linux**:
+  - https://clashmi.app/download
   - https://github.com/KaringX/clashmi/releases/latest
 
 
