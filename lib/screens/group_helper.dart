@@ -125,9 +125,9 @@ class GroupHelper {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            settings: GroupScreen.routSettings("help"),
+            settings: GroupScreen.routSettings("backupAndSync"),
             builder: (context) => GroupScreen(
-                  title: tcontext.meta.help,
+                  title: tcontext.meta.backupAndSync,
                   getOptions: getOptions,
                 )));
     SettingManager.save();
