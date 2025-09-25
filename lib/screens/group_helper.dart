@@ -402,6 +402,18 @@ class GroupHelper {
         BuildContext context, SetStateCallback? setstate) async {
       final tcontext = Translations.of(context);
       var setting = SettingManager.getConfig();
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.meta.reset,
+                onPush: () async {
+                  SettingManager.reset();
+
+                  Provider.of<Themes>(context, listen: false)
+                      .setTheme(setting.ui.theme, true);
+                  TextFieldEx.popupEdit = setting.ui.tvMode;
+                })),
+      ];
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -482,7 +494,7 @@ class GroupHelper {
                     }))
             : GroupItemOptions(),
       ];
-      List<GroupItemOptions> options0 = [
+      List<GroupItemOptions> options1 = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.userAgent,
@@ -493,7 +505,7 @@ class GroupHelper {
                 })),
       ];
 
-      List<GroupItemOptions> options1 = [
+      List<GroupItemOptions> options2 = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.meta.delayTestUrl,
@@ -513,7 +525,7 @@ class GroupHelper {
                 })),
       ];
 
-      List<GroupItemOptions> options2 = [
+      List<GroupItemOptions> options3 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.meta.boardOnline,
@@ -549,7 +561,7 @@ class GroupHelper {
             : GroupItemOptions(),
       ];
 
-      List<GroupItemOptions> options3 = [
+      List<GroupItemOptions> options4 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.meta.launchAtStartup,
@@ -572,7 +584,7 @@ class GroupHelper {
           },
         )),
       ];
-      List<GroupItemOptions> options4 = [
+      List<GroupItemOptions> options5 = [
         Platform.isWindows
             ? GroupItemOptions(
                 switchOptions: GroupItemSwitchOptions(
@@ -617,7 +629,7 @@ class GroupHelper {
                           }))
             : GroupItemOptions(),
       ];
-      List<GroupItemOptions> options5 = [
+      List<GroupItemOptions> options6 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.meta.portableMode,
@@ -632,7 +644,7 @@ class GroupHelper {
                 },
         )),
       ];
-      List<GroupItemOptions> options6 = [
+      List<GroupItemOptions> options7 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.excludeFromRecent,
@@ -657,7 +669,7 @@ class GroupHelper {
                   setting.wakeLock = value;
                 })),
       ];
-      List<GroupItemOptions> options7 = [
+      List<GroupItemOptions> options8 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.hideDockIcon,
@@ -669,25 +681,26 @@ class GroupHelper {
       ];
 
       List<GroupItem> gitems = [
-        GroupItem(options: options),
         GroupItem(options: options0),
+        GroupItem(options: options),
         GroupItem(options: options1),
-        GroupItem(options: options2)
+        GroupItem(options: options2),
+        GroupItem(options: options3)
       ];
       if (Platform.isWindows) {
-        gitems.add(GroupItem(options: options3));
-      }
-      if (PlatformUtils.isPC()) {
         gitems.add(GroupItem(options: options4));
       }
-      if (Platform.isWindows) {
+      if (PlatformUtils.isPC()) {
         gitems.add(GroupItem(options: options5));
       }
-      if (Platform.isAndroid) {
+      if (Platform.isWindows) {
         gitems.add(GroupItem(options: options6));
       }
-      if (Platform.isMacOS) {
+      if (Platform.isAndroid) {
         gitems.add(GroupItem(options: options7));
+      }
+      if (Platform.isMacOS) {
+        gitems.add(GroupItem(options: options8));
       }
 
       return gitems;
