@@ -48,11 +48,8 @@ abstract final class InstallReferrerUtils {
     String channel = const String.fromEnvironment('PACKAGE_TARGET');
     if (channel.isEmpty) {
       channel = const String.fromEnvironment('CHANNEL');
-      if (channel.isNotEmpty) {
-        return channel;
-      }
     }
-    return "";
+    return channel;
   }
 
   static Future<String> getString() async {
