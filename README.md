@@ -64,7 +64,7 @@
 ### 系统要求
 
 - IOS >= 15
-- MacOS >= 12
+- MacOS >= 12 (Intel, Apple Silicon)
 - Android >= 8  (arm64-v8a, armeabi-v7a)
 - Windows >= 10 （仅支持64位）
 - Linux （仅支持64位）
