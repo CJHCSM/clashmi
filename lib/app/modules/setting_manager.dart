@@ -125,7 +125,7 @@ class SettingConfig {
   String autoUpdateChannel = "stable"; //stable, beta
   bool autoConnectAfterLaunch = false;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
-  List<String> systemProxyBypassDomain = [];
+  List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   String _userAgent = "";
   bool boardOnline = false;
   String boardUrl = kDefaultBoardUrl;
@@ -183,8 +183,8 @@ class SettingConfig {
     _userAgent = map["user_agent"] ?? "";
 
     boardOnline = map["board_online"] ?? false;
-    boardUrl = map["board_url"] ?? kDefaultBoardPort;
-    boardLocalPort = map["board_port"] ?? kDefaultBoardUrl;
+    boardUrl = map["board_url"] ?? kDefaultBoardUrl;
+    boardLocalPort = map["board_port"] ?? kDefaultBoardPort;
     delayTestUrl = map["delay_test_url"] ?? kDefaultDelayTestUrl;
     delayTestTimeout = map["delay_test_url_timeout"] ?? 5000;
     hideDockIcon = map["hide_dock_icon"] ?? false;
@@ -237,7 +237,7 @@ class SettingConfig {
 
 class SettingManager {
   static bool _saving = false;
-  static final SettingConfig _config = SettingConfig();
+  static SettingConfig _config = SettingConfig();
   static Future<void> init({bool fromBackupRestore = false}) async {
     await load();
     bool needSave = await parseConfig();
@@ -328,6 +328,12 @@ class SettingManager {
       Log.w("SettingManager.save exception  $filePath ${err.toString()}");
     }
     _saving = false;
+  }
+
+  static void reset() async {
+    final languageTag = _config.languageTag;
+    _config = SettingConfig();
+    _config.languageTag = languageTag;
   }
 
   static SettingConfig getConfig() {
