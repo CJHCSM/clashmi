@@ -111,7 +111,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     } catch (e) {}
 
     if (agreement != null) {
-      String? installer = await AutoUpdateManager.checkReplace();
+      /*String? installer = await AutoUpdateManager.checkReplace();
       if (installer != null) {
         await Navigator.push(
             context,
@@ -121,7 +121,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 builder: (context) => const VersionUpdateScreen(
                       force: true,
                     )));
-      }
+      }*/
       return;
     }
     if (Platform.isIOS || Platform.isMacOS) {
