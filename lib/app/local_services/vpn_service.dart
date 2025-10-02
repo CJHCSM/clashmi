@@ -82,6 +82,14 @@ class VPNService {
       }
     });
 
+    final profile = ProfileManager.getCurrent();
+    if (profile != null) {
+      final prepareResult = await ProfileManager.prepare(profile);
+      if (prepareResult == null) {
+        await _prepareConfig(profile);
+      }
+    }
+
     if (Platform.isWindows) {
       await stop();
     }
