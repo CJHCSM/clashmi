@@ -362,11 +362,11 @@ class MyAppState extends State<MyApp>
       return;
     }
     windowManager.waitUntilReadyToShow(null, () async {
-      if (Platform.isMacOS && SettingManager.getConfig().hideDockIcon) {
+      final settings = SettingManager.getConfig();
+      if (Platform.isMacOS && settings.hideDockIcon) {
         FlutterVpnService.hideDockIcon(true);
       }
-      if (forceShow ||
-          (Platform.isWindows && !SettingManager.getConfig().hideAfterLaunch)) {
+      if (forceShow || (Platform.isWindows && !settings.ui.hideAfterLaunch)) {
         await windowManager.show();
         onWindowRestore();
       }
