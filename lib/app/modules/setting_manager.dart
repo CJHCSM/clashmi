@@ -133,7 +133,6 @@ class SettingConfig {
   String delayTestUrl = kDefaultDelayTestUrl;
   int delayTestTimeout = 5000;
   bool hideDockIcon = false; //macos
-  bool hideAfterLaunch = false; //linux
   bool excludeFromRecent = false; //android
   bool wakeLock = false; //android
   bool hideVpn = false; //ios
@@ -154,7 +153,6 @@ class SettingConfig {
         'delay_test_url': delayTestUrl,
         'delay_test_url_timeout': delayTestTimeout,
         'hide_dock_icon': hideDockIcon,
-        'hide_after_launch': hideAfterLaunch,
         'exclude_from_recent': excludeFromRecent,
         'wake_lock': wakeLock,
         'hide_vpn': hideVpn,
@@ -188,7 +186,6 @@ class SettingConfig {
     delayTestUrl = map["delay_test_url"] ?? kDefaultDelayTestUrl;
     delayTestTimeout = map["delay_test_url_timeout"] ?? 5000;
     hideDockIcon = map["hide_dock_icon"] ?? false;
-    hideAfterLaunch = map["hide_after_launch"] ?? false;
     excludeFromRecent = map["exclude_from_recent"] ?? false;
     wakeLock = map["wake_lock"] ?? false;
     hideVpn = map["hide_vpn"] ?? false;
@@ -196,7 +193,7 @@ class SettingConfig {
 
   String userAgent() {
     if (_userAgent.isEmpty) {
-      return "ClashMeta/1.19.13; mihomo/1.19.13";
+      return "ClashMeta/1.19.14; mihomo/1.19.14";
     }
     return _userAgent;
   }

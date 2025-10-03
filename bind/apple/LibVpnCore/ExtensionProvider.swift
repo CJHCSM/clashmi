@@ -44,7 +44,7 @@ enum VpnError: Error {
 
 open class ExtensionProvider: NEPacketTunnelProvider {
     private static let systemExtension = true
-    private static let controlKind = "com.nebula.clashmi.widget.ControlCenterToggle"
+    private static let controlKind = "com.nebula.clashmi.clashmiWidget.ControlCenterToggle"
     private var config: VpnServiceConfig?
 
     override open func startTunnel(
