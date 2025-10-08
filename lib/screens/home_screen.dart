@@ -22,7 +22,6 @@ import 'package:clashmi/screens/scheme_handler.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/user_agreement_screen.dart';
-import 'package:clashmi/screens/version_update_screen.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
