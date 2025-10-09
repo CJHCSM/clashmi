@@ -231,71 +231,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         ),
       ),
       ListTile(
-        title:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(tcontext.meta.myProfiles),
-          Row(children: [
-            /*currentProfile != null && currentProfile.isRemote()
-                ? (ProfileManager.updating.contains(currentProfile.id)
-                    ? const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: RepaintBoundary(
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
-                          ),
-                        ],
-                      )
-                    : InkWell(
-                        onTap: () async {
-                          ReturnResultError? err =
-                              await ProfileManager.update(currentProfile.id);
-                          if (err != null) {
-                            if (!context.mounted) {
-                              return;
-                            }
-                            DialogUtils.showAlertDialog(context, err.message,
-                                showCopy: true,
-                                showFAQ: true,
-                                withVersion: true);
-                          }
-                        },
-                        child: Container(
-                          width: 50,
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.cloud_download_outlined,
-                            size: 30,
-                          ),
-                        )))
-                : const SizedBox.shrink(),
-            SizedBox(
-              width: 5,
-            ),*/
-            InkWell(
-              onTap: () async {
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings: ProfilesBoardScreen.routSettings(),
-                        builder: (context) => ProfilesBoardScreen(
-                              navigateToAdd: true,
-                            )));
-                setState(() {});
-              },
-              child: Container(
-                  width: 50,
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.add,
-                    size: 30,
-                  )),
-            ),
-          ])
-        ]),
+        title: Text(tcontext.meta.myProfiles),
         subtitle: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -328,10 +264,34 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                       ))
                   : SizedBox.shrink(),
             ]),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        trailing: SizedBox(
+            width: 70,
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              SizedBox(
+                width: 45,
+                height: 45,
+                child: InkWell(
+                    onTap: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              settings: ProfilesBoardScreen.routSettings(),
+                              builder: (context) => ProfilesBoardScreen(
+                                    navigateToAdd: true,
+                                  )));
+                      setState(() {});
+                    },
+                    child: Icon(
+                      Icons.add,
+                      size: 30,
+                    )),
+              ),
+              SizedBox(width: 5),
+              Icon(
+                Icons.keyboard_arrow_right,
+                size: 20,
+              )
+            ])),
         minVerticalPadding: 20,
         onTap: () async {
           await Navigator.push(
@@ -345,40 +305,6 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     ];
 
     if (connected) {
-      widgets.add(ListTile(
-        title: Text(tcontext.meta.runtimeProfile),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
-        minVerticalPadding: 20,
-        onTap: () async {
-          late String content;
-          try {
-            final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
-            content = await File(path).readAsString();
-          } catch (err) {
-            if (!context.mounted) {
-              return;
-            }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
-            return;
-          }
-          if (!context.mounted) {
-            return;
-          }
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: FileViewScreen.routSettings(),
-                  builder: (context) => FileViewScreen(
-                        title: tcontext.meta.runtimeProfile,
-                        content: content,
-                      )));
-        },
-      ));
-
       widgets.add(ListTile(
         title: Text(tcontext.meta.proxy),
         subtitle: ValueListenableBuilder<String>(
@@ -399,7 +325,6 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           _updateProxyNow();
         },
       ));
-
       widgets.add(ListTile(
         title: Text(tcontext.meta.board),
         trailing: Icon(
@@ -452,6 +377,40 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
             await Zashboard.stop();
           }
           _updateProxyNow();
+        },
+      ));
+
+      widgets.add(ListTile(
+        title: Text(tcontext.meta.runtimeProfile),
+        trailing: Icon(
+          Icons.keyboard_arrow_right,
+          size: 20,
+        ),
+        minVerticalPadding: 20,
+        onTap: () async {
+          late String content;
+          try {
+            final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
+            content = await File(path).readAsString();
+          } catch (err) {
+            if (!context.mounted) {
+              return;
+            }
+            DialogUtils.showAlertDialog(context, err.toString(),
+                showCopy: true, showFAQ: true, withVersion: true);
+            return;
+          }
+          if (!context.mounted) {
+            return;
+          }
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: FileViewScreen.routSettings(),
+                  builder: (context) => FileViewScreen(
+                        title: tcontext.meta.runtimeProfile,
+                        content: content,
+                      )));
         },
       ));
     }
