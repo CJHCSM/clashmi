@@ -183,7 +183,7 @@
         "runtimeProfile": "Runtime Profile",
         "willCompleteAfterRebootInstall": "Please restart your device to complete the system extension installation",
         "willCompleteAfterRebootUninstall": "Please restart your device to complete the the system extension uninstallation",
-        "requestNeedsUserApproval": "Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion",
+        "requestNeedsUserApproval": "1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion",
         "FullDiskAccessPermissionRequired": "Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.",
         "proxy": "Proxy",
         "theme": "Theme",
