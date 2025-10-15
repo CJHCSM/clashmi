@@ -86,7 +86,7 @@ Future<void> run(List<String> args) async {
         var tmp = await getTemporaryDirectory();
         if (exePath.contains("UNC/") ||
             exePath.contains("UNC\\") ||
-            exePath.startsWith(tmp.absolute.path.toUpperCase())) {
+            path.isWithin(tmp.absolute.path, exePath)) {
           startFailedReason = StartFailedReason.invalidInstallPath;
           break;
         }
