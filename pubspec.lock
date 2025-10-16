@@ -28,10 +28,11 @@ packages:
   android_package_manager:
     dependency: "direct main"
     description:
-      name: android_package_manager
-      sha256: "2de859fae7226a7de1c1ff9a2308f1967599408800330501a1ce97927c051153"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: "7b6be178b17c55e715a3575330d2330cbc812b1d"
+      resolved-ref: "7b6be178b17c55e715a3575330d2330cbc812b1d"
+      url: "https://github.com/KaringX/android_package_manager.git"
+    source: git
     version: "0.7.1"
   animations:
     dependency: transitive

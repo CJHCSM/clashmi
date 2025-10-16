@@ -20,7 +20,8 @@ abstract final class HttpUtils {
 
   static Future<String> getUserAgent() async {
     String version = AppUtils.getBuildinVersion();
-    return "ClashMi/$version platform/${Platform.operatingSystem} ClashMeta/1.19.15; mihomo/1.19.15";
+    final coreVersion = AppUtils.getCoreVersion();
+    return "ClashMi/$version platform/${Platform.operatingSystem} ClashMeta/$coreVersion; mihomo/$coreVersion";
   }
 
   static Future<ReturnResult<Tuple2<int, HttpHeaders>>> httpHeadRequest(

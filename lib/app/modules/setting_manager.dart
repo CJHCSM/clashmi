@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/convert_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
@@ -193,7 +194,8 @@ class SettingConfig {
 
   String userAgent() {
     if (_userAgent.isEmpty) {
-      return "ClashMeta/1.19.15; mihomo/1.19.15";
+      final coreVersion = AppUtils.getCoreVersion();
+      return "ClashMeta/$coreVersion; mihomo/$coreVersion";
     }
     return _userAgent;
   }
