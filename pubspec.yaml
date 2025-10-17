@@ -58,7 +58,6 @@ dependencies:
   tray_manager: 0.5.1 # pc only
   hotkey_manager: 0.2.3  # pc only
   #accessibility_tools: 2.2.2
-  android_package_manager: 0.7.1
   logger: 2.6.1
   tuple: 2.0.2
   crypto: 3.0.6
@@ -76,6 +75,11 @@ dependencies:
   http: 1.4.0
   icloud_storage: 2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
   archive: 4.0.7
+  android_package_manager: #0.7.1
+    #path: ../android_package_manager
+    git:
+      url: https://github.com/KaringX/android_package_manager.git
+      ref: 7b6be178b17c55e715a3575330d2330cbc812b1d
   move_to_background: #1.0.2
     #path: ../move_to_background/
     git:

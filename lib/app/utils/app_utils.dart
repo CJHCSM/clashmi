@@ -46,4 +46,8 @@ abstract final class AppUtils {
   static String getICloudContainerId() {
     return "iCloud.com.nebula.clashmi";
   }
+
+  static String getCoreVersion() {
+    return "1.19.15";
+  }
 }

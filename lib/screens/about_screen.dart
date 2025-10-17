@@ -116,6 +116,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
+    final coreVersion = AppUtils.getCoreVersion();
     List<GroupItem> groupOptions = [];
 
     List<GroupItemOptions> options = [
@@ -132,7 +133,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       GroupItemOptions(
           textOptions: GroupItemTextOptions(
         name: tcontext.meta.core,
-        text: "mihomo 1.19.15",
+        text: "mihomo $coreVersion",
       )),
     ];
 
