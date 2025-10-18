@@ -87,6 +87,8 @@ class _LanguageSettingsScreenState
             ),
             body: Focus(
               onKeyEvent: onKeyEvent,
+              canRequestFocus: false,
+              skipTraversal: true,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
