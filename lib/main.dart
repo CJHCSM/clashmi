@@ -82,6 +82,15 @@ Future<void> run(List<String> args) async {
           break;
         }
       }
+      const inProduction = bool.fromEnvironment("dart.vm.product");
+      if (inProduction) {
+        if (Platform.isMacOS){
+          if(!path.isWithin("/Applications", exePath)){
+            startFailedReason = StartFailedReason.invalidInstallPath;
+            break;
+          }
+        }
+      }
       if (Platform.isWindows) {
         var tmp = await getTemporaryDirectory();
         if (exePath.contains("UNC/") ||

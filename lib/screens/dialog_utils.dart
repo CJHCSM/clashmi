@@ -137,13 +137,20 @@ class DialogUtils {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text(
-              text,
-              style: const TextStyle(
-                fontSize: ThemeConfig.kFontSizeListSubItem,
-              ),
-            ),
             children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Text(
+                  text,
+                  maxLines: 20,
+                  style: const TextStyle(
+                    fontSize: ThemeConfig.kFontSizeListSubItem,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
