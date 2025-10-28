@@ -245,7 +245,7 @@ class _ProxyScreenProxiesNodeWidget
     for (var node in _nodes) {
       _nodesTesting.add(node.name);
     }
-    setState(() {});
+    widget.controller?.onTesting?.call();
 
     for (var i = 0; i < _nodes.length; ++i) {
       final result = await ClashHttpApi.getDelay(
