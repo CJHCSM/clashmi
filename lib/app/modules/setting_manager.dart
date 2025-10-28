@@ -23,6 +23,7 @@ class SettingConfigItemUI {
   bool tvMode = maybeTv();
   bool perAppHideSystemApp = true;
   bool perAppHideAppIcon = false;
+  bool delayTestSort = false;
   Map<String, dynamic> toJson() => {
         'theme': theme,
         'auto_orientation': autoOrientation,
@@ -31,6 +32,7 @@ class SettingConfigItemUI {
         'tv_mode': tvMode,
         'perapp_hide_system_app': perAppHideSystemApp,
         'perapp_hide_app_icon': perAppHideAppIcon,
+        'delay_test_sort': delayTestSort,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -42,6 +44,7 @@ class SettingConfigItemUI {
     hideAfterLaunch = map["hide_after_launch"] ?? false;
     perAppHideSystemApp = map["perapp_hide_system_app"] ?? true;
     perAppHideAppIcon = map["perapp_hide_app_icon"] ?? false;
+    delayTestSort = map["delay_test_sort"] ?? false;
     if (Platform.isAndroid) {
       tvMode = map["tv_mode"] ?? maybeTv();
       TextFieldEx.popupEdit = tvMode;

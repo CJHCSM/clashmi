@@ -247,7 +247,11 @@ class ClashProxies {
     if (nextNode == null) {
       return node.delay;
     }
-    return updateGroupDelay(proxies, nextNode);
+    final delay = updateGroupDelay(proxies, nextNode);
+    if (delay != null) {
+      return delay;
+    }
+    return node.delay;
   }
 
   List<ClashProxiesNode> toList() {
