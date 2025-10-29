@@ -22,10 +22,16 @@ class ProxyBoardScreen extends LasyRenderingStatefulWidget {
 
 class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
     with WidgetsBindingObserver, AfterLayoutMixin {
-  List<ClashProxiesNode> _nodes = [];
-  int _testing = 0;
+  late ProxyScreenProxiesNodeWidgetController _controller;
+
   @override
   void initState() {
+    _controller = ProxyScreenProxiesNodeWidgetController(onTesting: () {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -34,6 +40,7 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
 
   @override
   void dispose() {
+    SettingManager.save();
     super.dispose();
   }
 
@@ -67,7 +74,7 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                     ),
                   ),
                   SizedBox(
-                    width: windowSize.width - 50 * 2,
+                    width: windowSize.width - 50 * 3,
                     child: Text(
                       tcontext.meta.proxy,
                       textAlign: TextAlign.center,
@@ -77,7 +84,27 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                           fontSize: ThemeConfig.kFontSizeTitle),
                     ),
                   ),
-                  _testing > 0
+                  Tooltip(
+                      message: tcontext.meta.sort,
+                      child: SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: InkWell(
+                          child: Icon(
+                            Icons.sort,
+                            size: 26,
+                            color: SettingManager.getConfig().ui.delayTestSort
+                                ? Colors.green
+                                : null,
+                          ),
+                          onTap: () {
+                            SettingManager.getConfig().ui.delayTestSort =
+                                !SettingManager.getConfig().ui.delayTestSort;
+                            setState(() {});
+                          },
+                        ),
+                      )),
+                  _controller.delayTesting() != 0
                       ? Row(
                           children: [
                             SizedBox(
@@ -99,10 +126,12 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                                   height: 20,
                                   width: 26,
                                   child: Text(
-                                    _testing.toString(),
+                                    _controller.delayTesting().toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: _testing > 999 ? 8 : 10,
+                                      fontSize: _controller.delayTesting() > 999
+                                          ? 8
+                                          : 10,
                                     ),
                                   ),
                                 )
@@ -142,7 +171,12 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                         AsyncSnapshot<List<ClashProxiesNode>> snapshot) {
                       List<ClashProxiesNode> data =
                           snapshot.hasData ? snapshot.data! : [];
-                      return ProxyScreenProxiesNodeWidget(nodes: data);
+                      return data.isEmpty
+                          ? SizedBox.shrink()
+                          : ProxyScreenProxiesNodeWidget(
+                              nodes: data,
+                              controller: _controller,
+                            );
                     },
                   ),
                 ),
@@ -165,26 +199,11 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
         nodes.add(node);
       }
     }
-    _nodes = nodes;
+
     return nodes;
   }
 
   Future<void> onTapTestDelay() async {
-    final setting = SettingManager.getConfig();
-    _testing = _nodes.length;
-    setState(() {});
-    for (var node in _nodes) {
-      final result = await ClashHttpApi.getDelay(
-        node.name,
-        url: setting.delayTestUrl,
-        timeout: Duration(milliseconds: setting.delayTestTimeout),
-      );
-      node.delay = result.data;
-      if (!mounted) {
-        return;
-      }
-      --_testing;
-      setState(() {});
-    }
+    return _controller.delayTest();
   }
 }
