@@ -678,24 +678,27 @@ class DialogUtils {
       context: context,
       routeSettings: const RouteSettings(name: "showLoadingDialog"),
       barrierDismissible: false,
+      fullscreenDialog: true,
       builder: (context) {
-        return SimpleDialog(children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 20,
+        return PopScope(
+            canPop: false,
+            child: SimpleDialog(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const RepaintBoundary(
+                    child: CircularProgressIndicator(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 26.0),
+                    child: Text(text ?? tcontext.meta.loading),
+                  )
+                ],
               ),
-              const RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 26.0),
-                child: Text(text ?? tcontext.meta.loading),
-              )
-            ],
-          ),
-        ]);
+            ]));
       },
     );
   }

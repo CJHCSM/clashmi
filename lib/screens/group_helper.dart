@@ -66,7 +66,6 @@ class GroupHelper {
             context,
             MaterialPageRoute(
                 settings: VersionUpdateScreen.routSettings(),
-                fullscreenDialog: true,
                 builder: (context) => const VersionUpdateScreen(force: false)));
       } else {
         await UrlLauncherUtils.loadUrl(url,
