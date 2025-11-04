@@ -64,6 +64,19 @@ class ThemeDataLight {
           ),
         ),
       ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return Colors.white;
+        }),
+        checkColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return ThemeDefine.kColorGreenBright;
+        }),
+        overlayColor:
+            WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+          return Colors.grey;
+        }),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(strokeWidth: 2),
     );
   }
 }

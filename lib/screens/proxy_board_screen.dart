@@ -116,8 +116,7 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                                   height: 26,
                                   width: 26,
                                   child: RepaintBoundary(
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 2),
+                                    child: CircularProgressIndicator(),
                                   ),
                                 ),
                                 Positioned(
