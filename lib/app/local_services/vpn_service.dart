@@ -195,6 +195,7 @@ class VPNService {
             setting.Tun?.Enable == true) ||
         !overwrite;
     config.wake_lock = appSetting.wakeLock;
+    config.auto_connect_at_boot = appSetting.autoConnectAtBoot;
     var bundleIdentifier = AppUtils.getBundleId(_systemExtension);
     var uiServerAddress = name;
     var uiLocalizedDescription = vpnName;

@@ -667,6 +667,15 @@ class GroupHelper {
                 onSwitch: (bool value) async {
                   setting.wakeLock = value;
                 })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.autoConnectAtBoot,
+                switchValue: setting.autoConnectAtBoot,
+                tips:
+                    "${tcontext.meta.reconnectTakesEffect};${tcontext.meta.autoConnectAtBootTips}",
+                onSwitch: (bool value) async {
+                  setting.autoConnectAtBoot = value;
+                })),
       ];
       List<GroupItemOptions> options8 = [
         GroupItemOptions(

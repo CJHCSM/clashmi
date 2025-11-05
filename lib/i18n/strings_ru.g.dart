@@ -240,6 +240,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get portableModeDisableTips => 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]';
 	@override String get systemProxy => 'Системный прокси';
 	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
+	@override String get autoConnectAtBoot => 'Автоматическое подключение после запуска системы';
+	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
@@ -287,10 +289,11 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get disableFontScaler => 'Отключить масштабирование шрифта';
 	@override String get autoOrientation => 'Следовать за поворотом экрана';
 	@override String get restartTakesEffect => 'Требуется перезапуск';
+	@override String get reconnectTakesEffect => 'Изменения вступят в силу после повторного подключения.';
 	@override String get runtimeProfile => 'Конфигурация времени выполнения';
 	@override String get willCompleteAfterRebootInstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 	@override String get willCompleteAfterRebootUninstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-	@override String get requestNeedsUserApproval => 'Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки]-[Конфиденциальность и безопасность] (в более ранней версии операционной системы: [Системные настройки]-[Основные]-[Элементы входа и расширения-Сетевые расширения] включите системное расширение [clashmiServiceSE]), и переподключитесь после завершения.';
+	@override String get requestNeedsUserApproval => '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.';
 	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
 	@override String get proxy => 'Прокси';
 	@override String get theme => 'Тема';
@@ -440,10 +443,17 @@ class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 	@override String get menuExit => '    Выйти    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ru>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Не может быть пустым';
@@ -564,6 +574,8 @@ extension on TranslationsRu {
 			case 'meta.portableModeDisableTips': return 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]';
 			case 'meta.systemProxy': return 'Системный прокси';
 			case 'meta.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
+			case 'meta.autoConnectAtBoot': return 'Автоматическое подключение после запуска системы';
+			case 'meta.autoConnectAtBootTips': return 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
 			case 'meta.hideAfterLaunch': return 'Скрыть окно после запуска';
 			case 'meta.autoSetSystemProxy': return 'Установить системный прокси после подключения';
 			case 'meta.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
@@ -611,10 +623,11 @@ extension on TranslationsRu {
 			case 'meta.disableFontScaler': return 'Отключить масштабирование шрифта';
 			case 'meta.autoOrientation': return 'Следовать за поворотом экрана';
 			case 'meta.restartTakesEffect': return 'Требуется перезапуск';
+			case 'meta.reconnectTakesEffect': return 'Изменения вступят в силу после повторного подключения.';
 			case 'meta.runtimeProfile': return 'Конфигурация времени выполнения';
 			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки]-[Конфиденциальность и безопасность] (в более ранней версии операционной системы: [Системные настройки]-[Основные]-[Элементы входа и расширения-Сетевые расширения] включите системное расширение [clashmiServiceSE]), и переподключитесь после завершения.';
+			case 'meta.requestNeedsUserApproval': return '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.';
 			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
 			case 'meta.proxy': return 'Прокси';
 			case 'meta.theme': return 'Тема';

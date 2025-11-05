@@ -485,6 +485,12 @@ class TranslationsMetaEn {
 	/// en: 'Auto Connection after Launch'
 	String get autoConnectAfterLaunch => 'Auto Connection after Launch';
 
+	/// en: 'Auto Connection after System Startup'
+	String get autoConnectAtBoot => 'Auto Connection after System Startup';
+
+	/// en: 'System support is required; some systems may also require [auto-start] to be enabled.'
+	String get autoConnectAtBootTips => 'System support is required; some systems may also require [auto-start] to be enabled.';
+
 	/// en: 'Hide window after startup'
 	String get hideAfterLaunch => 'Hide window after startup';
 
@@ -626,6 +632,9 @@ class TranslationsMetaEn {
 	/// en: 'Restart takes effect'
 	String get restartTakesEffect => 'Restart takes effect';
 
+	/// en: 'Reconnect takes effect'
+	String get reconnectTakesEffect => 'Reconnect takes effect';
+
 	/// en: 'Runtime Profile'
 	String get runtimeProfile => 'Runtime Profile';
 
@@ -635,8 +644,8 @@ class TranslationsMetaEn {
 	/// en: 'Please restart your device to complete the the system extension uninstallation'
 	String get willCompleteAfterRebootUninstall => 'Please restart your device to complete the the system extension uninstallation';
 
-	/// en: 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion'
-	String get requestNeedsUserApproval => 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion';
+	/// en: '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] 2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] reconnect after completion'
+	String get requestNeedsUserApproval => '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion';
 
 	/// en: 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.'
 	String get FullDiskAccessPermissionRequired => 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.';
@@ -954,10 +963,17 @@ class TranslationsMainTrayEn {
 	String get menuExit => '    Exit    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Server Url';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Can not be empty';
@@ -1078,6 +1094,8 @@ extension on Translations {
 			case 'meta.portableModeDisableTips': return 'If you need to exit portable mode, please exit [clashmi] and manually delete the [portable] folder in the same directory as [clashmi.exe]';
 			case 'meta.systemProxy': return 'System Proxy';
 			case 'meta.autoConnectAfterLaunch': return 'Auto Connection after Launch';
+			case 'meta.autoConnectAtBoot': return 'Auto Connection after System Startup';
+			case 'meta.autoConnectAtBootTips': return 'System support is required; some systems may also require [auto-start] to be enabled.';
 			case 'meta.hideAfterLaunch': return 'Hide window after startup';
 			case 'meta.autoSetSystemProxy': return 'Auto Set System Proxy when Connected';
 			case 'meta.bypassSystemProxy': return 'Domain names that are allowed to bypass the system proxy';
@@ -1125,10 +1143,11 @@ extension on Translations {
 			case 'meta.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
 			case 'meta.autoOrientation': return 'Rotate with the screen';
 			case 'meta.restartTakesEffect': return 'Restart takes effect';
+			case 'meta.reconnectTakesEffect': return 'Reconnect takes effect';
 			case 'meta.runtimeProfile': return 'Runtime Profile';
 			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
-			case 'meta.requestNeedsUserApproval': return 'Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security] (lower version operating systems: [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE] system extensions), and reconnect after completion';
+			case 'meta.requestNeedsUserApproval': return '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion';
 			case 'meta.FullDiskAccessPermissionRequired': return 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.';
 			case 'meta.proxy': return 'Proxy';
 			case 'meta.theme': return 'Theme';

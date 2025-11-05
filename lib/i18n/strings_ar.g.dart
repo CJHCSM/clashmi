@@ -240,6 +240,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get portableModeDisableTips => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]';
 	@override String get systemProxy => 'وكيل النظام';
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
+	@override String get autoConnectAtBoot => 'الاتصال التلقائي بعد بدء تشغيل النظام';
+	@override String get autoConnectAtBootTips => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
 	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
@@ -287,10 +289,11 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get disableFontScaler => 'Disable Font scaling(Restart takes effect)';
 	@override String get autoOrientation => 'Rotate with the screen';
 	@override String get restartTakesEffect => 'Restart takes effect';
+	@override String get reconnectTakesEffect => 'سيتم تطبيقه بعد إعادة الاتصال.';
 	@override String get runtimeProfile => 'تكوين وقت التشغيل';
 	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-	@override String get requestNeedsUserApproval => 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام]-[الخصوصية والأمان] (إصدار نظام التشغيل الأقل: [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] تمكين ملحق نظام [clashmiServiceSE])، وإعادة الاتصال بعد الانتهاء';
+	@override String get requestNeedsUserApproval => '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.';
 	@override String get FullDiskAccessPermissionRequired => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 	@override String get proxy => 'التمثيل';
 	@override String get theme => 'سمة';
@@ -440,10 +443,17 @@ class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 	@override String get menuExit => '    مخرج    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'لايمكن ان يكون فارغا';
@@ -564,6 +574,8 @@ extension on TranslationsAr {
 			case 'meta.portableModeDisableTips': return 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]';
 			case 'meta.systemProxy': return 'وكيل النظام';
 			case 'meta.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
+			case 'meta.autoConnectAtBoot': return 'الاتصال التلقائي بعد بدء تشغيل النظام';
+			case 'meta.autoConnectAtBootTips': return 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
 			case 'meta.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
 			case 'meta.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
 			case 'meta.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
@@ -611,10 +623,11 @@ extension on TranslationsAr {
 			case 'meta.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
 			case 'meta.autoOrientation': return 'Rotate with the screen';
 			case 'meta.restartTakesEffect': return 'Restart takes effect';
+			case 'meta.reconnectTakesEffect': return 'سيتم تطبيقه بعد إعادة الاتصال.';
 			case 'meta.runtimeProfile': return 'تكوين وقت التشغيل';
 			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لـ Clash Mi بتثبيت ملحقات النظام في [إعدادات النظام]-[الخصوصية والأمان] (إصدار نظام التشغيل الأقل: [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] تمكين ملحق نظام [clashmiServiceSE])، وإعادة الاتصال بعد الانتهاء';
+			case 'meta.requestNeedsUserApproval': return '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.';
 			case 'meta.FullDiskAccessPermissionRequired': return 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
 			case 'meta.proxy': return 'التمثيل';
 			case 'meta.theme': return 'سمة';
