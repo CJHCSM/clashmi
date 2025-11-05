@@ -7,8 +7,10 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/remote_config.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
+import 'package:clashmi/app/utils/app_url_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
+import 'package:clashmi/app/utils/url_launcher_utils.dart';
 
 class ClashMiAutoupdateItem {
   String platform = "";
@@ -48,9 +50,14 @@ class ClashMiAutoupdateItem {
 }
 
 abstract final class ClashMiUtils {
-  static Future<ReturnResult<List<ClashMiAutoupdateItem>>>
-      getAutoupdate() async {
+  static Future<ReturnResult<List<ClashMiAutoupdateItem>>> getAutoupdate(
+      bool withQueryParams) async {
     String url = RemoteConfigManager.getConfig().autoUpdate;
+    if (withQueryParams) {
+      String queryParams = await AppUrlUtils.getQueryParamsForUrl(body: true);
+      url = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
+    }
+
     late ReturnResult<String> response;
     List<int?> ports = await VPNService.getPortsByPrefer(false);
     for (var port in ports) {

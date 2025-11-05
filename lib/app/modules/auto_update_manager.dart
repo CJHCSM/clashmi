@@ -88,6 +88,7 @@ class AutoUpdateManager {
   static bool _checking = false;
   static bool _downloading = false;
   static Duration _duration = const Duration(hours: 3);
+  static DateTime? _lastCheck;
   static final AutoUpdateCheckVersion _versionCheck = AutoUpdateCheckVersion();
 
   static bool isSupport() {
@@ -227,8 +228,14 @@ class AutoUpdateManager {
         return;
       }
       String dir = await PathUtils.cacheDir();
-      var files =
-          FileUtils.recursionFile(dir, extensionFilter: {".exe", ".apk"});
+      var files = FileUtils.recursionFile(dir, extensionFilter: {
+        ".exe",
+        ".apk",
+        ".dmg",
+        ".deb",
+        ".rpm",
+        ".appImage"
+      });
       for (var file in files) {
         await FileUtils.deletePath(file);
       }
@@ -281,8 +288,11 @@ class AutoUpdateManager {
     _versionCheck.latestCheck = now.toString();
     _checking = true;
     try {
+      bool body = _lastCheck == null ||
+          DateTime.now().difference(_lastCheck!).inHours > 12;
       ReturnResult<List<ClashMiAutoupdateItem>> items =
-          await ClashMiUtils.getAutoupdate();
+          await ClashMiUtils.getAutoupdate(body);
+      _lastCheck = DateTime.now();
       if (items.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);
