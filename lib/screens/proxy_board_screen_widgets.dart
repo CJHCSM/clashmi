@@ -103,7 +103,7 @@ class _ProxyScreenProxiesNodeWidget
                       height: 16,
                       width: 16,
                       child: RepaintBoundary(
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: CircularProgressIndicator(),
                       ),
                     )
                   ],

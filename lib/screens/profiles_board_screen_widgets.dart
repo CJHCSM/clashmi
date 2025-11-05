@@ -172,7 +172,7 @@ class ProfilesBoardItem extends StatelessWidget {
                         width: 20,
                         height: 20,
                         child: RepaintBoundary(
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          child: CircularProgressIndicator(),
                         ),
                       ),
                     ],

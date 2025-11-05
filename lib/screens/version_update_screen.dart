@@ -89,8 +89,8 @@ class _VersionUpdateScreenState
                                   height: 26,
                                   child: RepaintBoundary(
                                     child: CircularProgressIndicator(
-                                        color: ThemeDefine.kColorGreenBright,
-                                        strokeWidth: 2),
+                                      color: ThemeDefine.kColorGreenBright,
+                                    ),
                                   ),
                                 )
                               : Text(tcontext.VersionUpdateScreen.update),

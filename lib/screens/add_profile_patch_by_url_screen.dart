@@ -140,8 +140,7 @@ class _AddProfilePatchByUrlScreenState
                                 width: 26,
                                 height: 26,
                                 child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(),
                                 ),
                               ),
                               SizedBox(
