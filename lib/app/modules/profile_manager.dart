@@ -438,7 +438,7 @@ class ProfileManager {
     final userAgent = SettingManager.getConfig().userAgent();
     final result = await DownloadUtils.downloadWithPort(
         uri, savePath, userAgent, null,
-        timeout: const Duration(seconds: 20));
+        timeout: const Duration(seconds: 30));
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -525,7 +525,7 @@ class ProfileManager {
     final savePathTmp = "$savePath.tmp";
     final result = await DownloadUtils.downloadWithPort(
         uri, savePathTmp, userAgent, null,
-        timeout: const Duration(seconds: 20));
+        timeout: const Duration(seconds: 30));
     profile.update = DateTime.now();
     if (result.error == null) {
       final err = await validFileContentFormat(savePathTmp);
