@@ -139,6 +139,7 @@ class SettingConfig {
   bool hideDockIcon = false; //macos
   bool excludeFromRecent = false; //android
   bool wakeLock = false; //android
+  bool autoConnectAtBoot = false; //android
   bool hideVpn = false; //ios
 
   Map<String, dynamic> toJson() => {
@@ -159,6 +160,7 @@ class SettingConfig {
         'hide_dock_icon': hideDockIcon,
         'exclude_from_recent': excludeFromRecent,
         'wake_lock': wakeLock,
+        'auto_connect_at_boot': autoConnectAtBoot,
         'hide_vpn': hideVpn,
       };
   void fromJson(Map<String, dynamic>? map) {
@@ -192,6 +194,7 @@ class SettingConfig {
     hideDockIcon = map["hide_dock_icon"] ?? false;
     excludeFromRecent = map["exclude_from_recent"] ?? false;
     wakeLock = map["wake_lock"] ?? false;
+    autoConnectAtBoot = map["auto_connect_at_boot"] ?? false;
     hideVpn = map["hide_vpn"] ?? false;
   }
 

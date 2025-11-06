@@ -40,6 +40,12 @@ allprojects {
     }
 }
 
+allprojects {
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.plusAssign("-Xlint:unchecked")
+        options.compilerArgs.plusAssign("-Xlint:deprecation")
+    }
+}
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")

@@ -40,8 +40,8 @@ class UrlLauncherUtils {
   }
 
   static Future<String> reorganizationUrlWithAnchor(String url,
-      {String anchor = "", int bodyLen = 0}) async {
-    String queryParams = await AppUrlUtils.getQueryParamsForUrl(bodyLen);
+      {String anchor = ""}) async {
+    String queryParams = await AppUrlUtils.getQueryParamsForUrl();
     String newUrl = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
     String arpha = newUrl.endsWith("#") ? "" : "#";
     newUrl = "$newUrl$arpha$anchor";

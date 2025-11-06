@@ -240,6 +240,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get portableModeDisableTips => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید';
 	@override String get systemProxy => 'پروکسی سیستم';
 	@override String get autoConnectAfterLaunch => 'اتصال خودکار پس‌از راه‌اندازی';
+	@override String get autoConnectAtBoot => 'اتصال خودکار پس از روشن شدن سیستم';
+	@override String get autoConnectAtBootTips => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
@@ -287,10 +289,11 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get disableFontScaler => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 	@override String get autoOrientation => 'چرخش صفحه را دنبال کنید';
 	@override String get restartTakesEffect => 'با راه‌اندازی مجدد اعمال می‌شود';
+	@override String get reconnectTakesEffect => 'پس از اتصال مجدد، اعمال خواهد شد.';
 	@override String get runtimeProfile => 'پیکربندی زمان اجرا';
 	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-	@override String get requestNeedsUserApproval => 'لطفاً [اجازه دهید] کلش می افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند (سیستم عامل نسخه پایین‌تر: [تنظیمات سیستم]-[عمومی]-[موارد ورود و افزونه‌ها-افزونه‌های شبکه] افزونه سیستمی [clashmiServiceSE] را فعال کنید) و پس از اتمام دوباره متصل شوید.';
+	@override String get requestNeedsUserApproval => '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.';
 	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get proxy => 'بازیگری';
 	@override String get theme => 'موضوع';
@@ -440,10 +443,17 @@ class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 	@override String get menuExit => '    بستن    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <fa>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsFa {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'آدرس URL سرور';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'نمی‌تواند خالی باشد';
@@ -564,6 +574,8 @@ extension on TranslationsFa {
 			case 'meta.portableModeDisableTips': return 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید';
 			case 'meta.systemProxy': return 'پروکسی سیستم';
 			case 'meta.autoConnectAfterLaunch': return 'اتصال خودکار پس‌از راه‌اندازی';
+			case 'meta.autoConnectAtBoot': return 'اتصال خودکار پس از روشن شدن سیستم';
+			case 'meta.autoConnectAtBootTips': return 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
 			case 'meta.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
 			case 'meta.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 			case 'meta.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
@@ -611,10 +623,11 @@ extension on TranslationsFa {
 			case 'meta.disableFontScaler': return 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 			case 'meta.autoOrientation': return 'چرخش صفحه را دنبال کنید';
 			case 'meta.restartTakesEffect': return 'با راه‌اندازی مجدد اعمال می‌شود';
+			case 'meta.reconnectTakesEffect': return 'پس از اتصال مجدد، اعمال خواهد شد.';
 			case 'meta.runtimeProfile': return 'پیکربندی زمان اجرا';
 			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return 'لطفاً [اجازه دهید] کلش می افزونه‌های سیستمی را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند (سیستم عامل نسخه پایین‌تر: [تنظیمات سیستم]-[عمومی]-[موارد ورود و افزونه‌ها-افزونه‌های شبکه] افزونه سیستمی [clashmiServiceSE] را فعال کنید) و پس از اتمام دوباره متصل شوید.';
+			case 'meta.requestNeedsUserApproval': return '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.';
 			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 			case 'meta.proxy': return 'بازیگری';
 			case 'meta.theme': return 'موضوع';

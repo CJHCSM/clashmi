@@ -13,7 +13,9 @@ import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/modules/zashboard.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
+import 'package:clashmi/app/utils/app_scheme_actions.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
+import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/move_to_background_utils.dart';
 import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
@@ -35,6 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:libclash_vpn_service/state.dart';
 import 'package:libclash_vpn_service/vpn_service.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class HomeScreenWidgetPart1 extends StatefulWidget {
   const HomeScreenWidgetPart1({super.key});
@@ -51,6 +54,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   FlutterVpnServiceState _state = FlutterVpnServiceState.disconnected;
   Timer? _timerStateChecker;
   Timer? _timerConnectToCore;
+  QuickActions? _quickActions;
+  bool _quickActionWorking = false;
 
   //final ValueNotifier<String> _memory = ValueNotifier<String>(_kNoMemory);
   final ValueNotifier<String> _trafficSpeed = ValueNotifier<String>(_kNoSpeed);
@@ -84,6 +89,61 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   void dispose() {
     _focusNodeConnect.dispose();
     super.dispose();
+  }
+
+  void initQuickAction() async {
+    if (!Platform.isIOS && !Platform.isAndroid) {
+      return;
+    }
+    String connect = AppSchemeActions.connectAction();
+    String disconnect = AppSchemeActions.disconnectAction();
+    try {
+      _quickActions ??= QuickActions();
+      await _quickActions!.initialize((String shortcutType) async {
+        if (_quickActionWorking) {
+          return;
+        }
+        _quickActionWorking = true;
+        var state = await VPNService.getState();
+        if (shortcutType == connect) {
+          if (state != FlutterVpnServiceState.invalid &&
+              state != FlutterVpnServiceState.disconnected) {
+            MoveToBackgroundUtils.moveToBackground(
+                duration: const Duration(milliseconds: 300));
+            _quickActionWorking = false;
+            return;
+          }
+
+          bool ok = await start("quickAction");
+          if (ok) {
+            MoveToBackgroundUtils.moveToBackground(
+                duration: const Duration(milliseconds: 300));
+          }
+        } else if (shortcutType == disconnect) {
+          if (state == FlutterVpnServiceState.connected) {
+            await stop();
+          }
+          MoveToBackgroundUtils.moveToBackground(
+              duration: const Duration(milliseconds: 300));
+        }
+        _quickActionWorking = false;
+      });
+
+      await _quickActions!.setShortcutItems(<ShortcutItem>[
+        ShortcutItem(
+          type: connect,
+          localizedTitle: 'ON',
+          icon: 'ic_launcher',
+        ),
+        ShortcutItem(
+          type: disconnect,
+          localizedTitle: 'OFF',
+          icon: 'ic_launcher',
+        ),
+      ]);
+    } catch (err, stacktrace) {
+      Log.w("initQuickAction exception ${err.toString()}");
+    }
   }
 
   @override
@@ -478,6 +538,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     SchemeHandler.vpnConnect = _vpnSchemeConnect;
     SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
     SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
+    initQuickAction();
     if (PlatformUtils.isPC()) {
       if (SettingManager.getConfig().autoConnectAfterLaunch) {
         await start("launch");

@@ -240,6 +240,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get portableModeDisableTips => '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可';
 	@override String get systemProxy => '系统代理';
 	@override String get autoConnectAfterLaunch => '启动后自动连接';
+	@override String get autoConnectAtBoot => '系统启动后自动连接';
+	@override String get autoConnectAtBootTips => '需要系统支持,部分系统可能还需要开启[自启动]';
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
 	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
@@ -287,10 +289,11 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get disableFontScaler => '禁用字体缩放';
 	@override String get autoOrientation => '跟随屏幕旋转';
 	@override String get restartTakesEffect => '重启生效';
+	@override String get reconnectTakesEffect => '重新连接后生效';
 	@override String get runtimeProfile => '运行时配置';
 	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
 	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
-	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展(低版本操作系统:[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]系统扩展),完成后重新连接';
+	@override String get requestNeedsUserApproval => '1. 请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展\n2. :[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]\n完成后重新连接';
 	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 	@override String get proxy => '代理';
 	@override String get theme => '主题';
@@ -440,10 +443,17 @@ class _TranslationsMainTrayZhCn implements TranslationsMainTrayEn {
 	@override String get menuExit => '    退出    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <zh-CN>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return '服务器地址';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return '不能为空';
@@ -564,6 +574,8 @@ extension on TranslationsZhCn {
 			case 'meta.portableModeDisableTips': return '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可';
 			case 'meta.systemProxy': return '系统代理';
 			case 'meta.autoConnectAfterLaunch': return '启动后自动连接';
+			case 'meta.autoConnectAtBoot': return '系统启动后自动连接';
+			case 'meta.autoConnectAtBootTips': return '需要系统支持,部分系统可能还需要开启[自启动]';
 			case 'meta.hideAfterLaunch': return '启动后隐藏窗口';
 			case 'meta.autoSetSystemProxy': return '连接后自动设置系统代理';
 			case 'meta.bypassSystemProxy': return '允许绕过系统代理的域名';
@@ -611,10 +623,11 @@ extension on TranslationsZhCn {
 			case 'meta.disableFontScaler': return '禁用字体缩放';
 			case 'meta.autoOrientation': return '跟随屏幕旋转';
 			case 'meta.restartTakesEffect': return '重启生效';
+			case 'meta.reconnectTakesEffect': return '重新连接后生效';
 			case 'meta.runtimeProfile': return '运行时配置';
 			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
 			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
-			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展(低版本操作系统:[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]系统扩展),完成后重新连接';
+			case 'meta.requestNeedsUserApproval': return '1. 请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展\n2. :[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]\n完成后重新连接';
 			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
 			case 'meta.proxy': return '代理';
 			case 'meta.theme': return '主题';
