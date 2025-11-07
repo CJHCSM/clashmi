@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 
 import 'package:clashmi/app/modules/setting_manager.dart';
@@ -7,12 +9,14 @@ import 'package:clashmi/app/utils/did.dart';
 import 'package:clashmi/app/utils/install_referrer_utils.dart';
 
 abstract final class AppUrlUtils {
+  static String? _operatingSystem;
   static String getQueryParamsForAnalytics(int bodyLen) {
     return AppUrlUtilsPrivate.signQueryParams(
         AppUtils.getBuildinVersion(), bodyLen, {});
   }
 
   static Future<String> getQueryParamsForUrl({bool body = false}) async {
+    _operatingSystem ??= Platform.operatingSystem;
     String planguageTag = [
       WidgetsBinding.instance.platformDispatcher.locale.languageCode,
       WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
@@ -34,6 +38,8 @@ abstract final class AppUrlUtils {
       "s_l_t": Uri.encodeComponent(planguageTag),
       "t_z_o":
           Uri.encodeComponent(DateTime.now().timeZoneOffset.inHours.toString()),
+      "p": Uri.encodeComponent(_operatingSystem!),
+      "v": AppUtils.getBuildinVersion(),
       "did": Uri.encodeComponent(did),
       "new": Uri.encodeComponent(firstTime.toString()),
       "from": Uri.encodeComponent("clashmi"),
