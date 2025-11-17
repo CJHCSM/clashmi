@@ -320,7 +320,17 @@ class GroupHelper {
         }
         if (PlatformUtils.isMobile()) {
           try {
-            await Share.shareXFiles([XFile(filePath)]);
+            final box = context.findRenderObject() as RenderBox?;
+            final rect =
+                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            await SharePlus.instance.share(
+              ShareParams(
+                files: [
+                  XFile(filePath),
+                ],
+                sharePositionOrigin: rect,
+              ),
+            );
           } catch (err) {
             if (!context.mounted) {
               return;

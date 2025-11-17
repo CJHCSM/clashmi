@@ -32,7 +32,8 @@ class DialogUtils {
       width = 20;
     }
     if (withVersion) {
-      text = "${AppUtils.getBuildinVersion()}\n$text";
+      text =
+          "${AppUtils.getBuildinVersion()} ${Platform.operatingSystem}\n$text";
     }
 
     const int kMaxLength = 1024;
