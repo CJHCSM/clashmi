@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsZhCn implements Translations {
+class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -450,276 +451,271 @@ class _TranslationsMainTrayZhCn implements TranslationsMainTrayEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return '服务器地址';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return '不能为空';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return '登录失败:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return '获取文件列表失败:';
-			case 'LaunchFailedScreen.invalidProcess': return '应用启动失败[无效的进程名称],请重新安装应用到独立目录';
-			case 'LaunchFailedScreen.invalidProfile': return '应用启动失败[访问配置文件失败],请重新安装应用';
-			case 'LaunchFailedScreen.invalidVersion': return '应用启动失败[无效版本],请重新安装应用';
-			case 'LaunchFailedScreen.systemVersionLow': return '应用启动失败[系统版本过低]';
-			case 'LaunchFailedScreen.invalidInstallPath': return '无效的安装路径,请重新安装到有效路径';
-			case 'PerAppAndroidScreen.title': return '分应用代理';
-			case 'PerAppAndroidScreen.whiteListMode': return '白名单模式';
-			case 'PerAppAndroidScreen.whiteListModeTip': return '启用后:仅代理已勾选的App;未启用:仅代理未勾选的App';
-			case 'UserAgreementScreen.privacyFirst': return '您的隐私很重要';
-			case 'UserAgreementScreen.agreeAndContinue': return '接受并继续';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => '新版本[${p}]已就绪';
-			case 'VersionUpdateScreen.update': return '重启更新';
-			case 'VersionUpdateScreen.cancel': return '暂不更新';
-			case 'main.tray.menuOpen': return '    打开    ';
-			case 'main.tray.menuExit': return '    退出    ';
-			case 'meta.enable': return '启用';
-			case 'meta.disable': return '禁用';
-			case 'meta.open': return '打开';
-			case 'meta.close': return '关闭';
-			case 'meta.quit': return '退出';
-			case 'meta.add': return '添加';
-			case 'meta.addSuccess': return '添加成功';
-			case 'meta.addFailed': return ({required Object p}) => '添加失败:${p}';
-			case 'meta.remove': return '删除';
-			case 'meta.removeConfirm': return '确认删除?';
-			case 'meta.edit': return '编辑';
-			case 'meta.view': return '查看';
-			case 'meta.remark': return '备注';
-			case 'meta.byDefault': return '默认';
-			case 'meta.editRemark': return '修改备注';
-			case 'meta.more': return '更多';
-			case 'meta.tips': return '提示';
-			case 'meta.copy': return '拷贝';
-			case 'meta.save': return '保存';
-			case 'meta.ok': return '确定';
-			case 'meta.cancel': return '取消';
-			case 'meta.faq': return '常见问题';
-			case 'meta.download': return '下载';
-			case 'meta.loading': return '加载中...';
-			case 'meta.days': return '天';
-			case 'meta.hours': return '时';
-			case 'meta.minutes': return '分';
-			case 'meta.seconds': return '秒';
-			case 'meta.protocol': return '协议';
-			case 'meta.search': return '搜索';
-			case 'meta.custom': return '自定义';
-			case 'meta.connect': return '连接';
-			case 'meta.disconnect': return '断开';
-			case 'meta.connected': return '已连接';
-			case 'meta.disconnected': return '未连接';
-			case 'meta.connecting': return '连接中';
-			case 'meta.connectTimeout': return '连接超时';
-			case 'meta.timeout': return '超时';
-			case 'meta.timeoutDuration': return '超时时长';
-			case 'meta.latency': return '延迟';
-			case 'meta.latencyTest': return '延迟检测';
-			case 'meta.language': return '语言';
-			case 'meta.next': return '下一步';
-			case 'meta.done': return '完成';
-			case 'meta.apply': return '应用';
-			case 'meta.refresh': return '刷新';
-			case 'meta.retry': return '是否重试?';
-			case 'meta.update': return '更新';
-			case 'meta.updateInterval': return '更新时间间隔';
-			case 'meta.updateInterval5mTips': return '最小:5m';
-			case 'meta.updateFailed': return ({required Object p}) => '更新失败:${p}';
-			case 'meta.none': return '无';
-			case 'meta.reset': return '重置';
-			case 'meta.authentication': return '授权';
-			case 'meta.submit': return '提交';
-			case 'meta.user': return '用户';
-			case 'meta.account': return '账号';
-			case 'meta.password': return '密码';
-			case 'meta.required': return '必填';
-			case 'meta.sudoPassword': return 'sudo 密码(TUN模式需要)';
-			case 'meta.other': return '其他';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'URL无效';
-			case 'meta.urlCannotEmpty': return 'URL不能为空';
-			case 'meta.urlTooLong': return 'URL过长(>8182)';
-			case 'meta.copyUrl': return '拷贝链接';
-			case 'meta.openUrl': return '打开链接';
-			case 'meta.shareUrl': return '分享链接';
-			case 'meta.coreSettingTips': return '注意:修改配置后,需要重新连接才会生效';
-			case 'meta.overwrite': return '覆写';
-			case 'meta.overwriteCustom': return '自定义覆写';
-			case 'meta.overwriteTips': return '原始配置<-自定义覆写<-App覆写';
-			case 'meta.noOverwrite': return '不覆写';
-			case 'meta.overwriteSettings': return '覆写设置';
-			case 'meta.externalController': return '外部控制';
-			case 'meta.secret': return 'Secret';
-			case 'meta.tcpConcurrent': return 'TCP并发握手';
-			case 'meta.globalClientFingerprint': return 'TLS全局指纹';
-			case 'meta.allowLanAccess': return '局域网设备接入';
-			case 'meta.mixedPort': return '混合代理端口';
-			case 'meta.logLevel': return '日志等级';
-			case 'meta.tcpkeepAliveInterval': return 'TCP保活时间间隔';
-			case 'meta.delayTestUrl': return '延迟测试URL';
-			case 'meta.delayTestTimeout': return '延迟测试超时(ms)';
-			case 'meta.tun': return 'TUN';
-			case 'meta.ntp': return 'NTP';
-			case 'meta.tls': return 'TLS';
-			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return '使用代理下载Geo RuleSet';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip 会被转换成 对应的RuleSet';
-			case 'meta.asnNotSupportInIosTips': return '由于iOS系统内存限制,IP-ASN及SRC-IP-ASN规则在iOS上将被忽略';
-			case 'meta.sniffer': return '嗅探';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.launchAtStartup': return '开机启动';
-			case 'meta.launchAtStartupRunAsAdmin': return '请以管理员身份重新启动Clash Mi';
-			case 'meta.portableMode': return '便携模式';
-			case 'meta.portableModeDisableTips': return '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可';
-			case 'meta.systemProxy': return '系统代理';
-			case 'meta.autoConnectAfterLaunch': return '启动后自动连接';
-			case 'meta.autoConnectAtBoot': return '系统启动后自动连接';
-			case 'meta.autoConnectAtBootTips': return '需要系统支持,部分系统可能还需要开启[自启动]';
-			case 'meta.hideAfterLaunch': return '启动后隐藏窗口';
-			case 'meta.autoSetSystemProxy': return '连接后自动设置系统代理';
-			case 'meta.bypassSystemProxy': return '允许绕过系统代理的域名';
-			case 'meta.excludeFromRecent': return '从[最近任务]中隐藏';
-			case 'meta.wakeLock': return '唤醒锁';
-			case 'meta.hideVpn': return '隐藏VPN图标';
-			case 'meta.hideVpnTips': return '开启IPv6会导致此功能失效';
-			case 'meta.hideDockIcon': return '隐藏Dock图标';
-			case 'meta.website': return '官网';
-			case 'meta.rule': return '规则';
-			case 'meta.global': return '全局';
-			case 'meta.direct': return '直连';
-			case 'meta.block': return '拦截';
-			case 'meta.qrcode': return '二维码';
-			case 'meta.qrcodeTooLong': return '文本过长,无法展示';
-			case 'meta.qrcodeShare': return '分享二维码';
-			case 'meta.textToQrcode': return '文本转二维码';
-			case 'meta.qrcodeScan': return '扫描二维码';
-			case 'meta.qrcodeScanResult': return '扫描结果';
-			case 'meta.qrcodeScanFromImage': return '打开二维码图片';
-			case 'meta.qrcodeScanResultFailed': return '解析图片失败,请确保截图为有效的二维码';
-			case 'meta.qrcodeScanResultEmpty': return '扫描结果为空';
-			case 'meta.screenshot': return '截图';
-			case 'meta.backupAndSync': return '备份与同步';
-			case 'meta.importSuccess': return '导入成功';
-			case 'meta.rewriteConfirm': return '该文件将覆盖本地已有配置,是否继续?';
-			case 'meta.importAndExport': return '导入/导出';
-			case 'meta.import': return '导入';
-			case 'meta.importFromUrl': return '从URL导入';
-			case 'meta.export': return '导出';
-			case 'meta.send': return '发送';
-			case 'meta.receive': return '接收';
-			case 'meta.sendConfirm': return '确认发送?';
-			case 'meta.termOfUse': return '使用条款';
-			case 'meta.privacyPolicy': return '隐私政策';
-			case 'meta.log': return '日志';
-			case 'meta.coreLog': return '核心日志';
-			case 'meta.core': return '核心';
-			case 'meta.help': return '帮助';
-			case 'meta.tutorial': return '使用教程';
-			case 'meta.board': return '面板';
-			case 'meta.boardOnline': return '使用在线面板';
-			case 'meta.boardOnlineUrl': return '在线面板URL';
-			case 'meta.boardLocalPort': return '本地面板端口';
-			case 'meta.disableFontScaler': return '禁用字体缩放';
-			case 'meta.autoOrientation': return '跟随屏幕旋转';
-			case 'meta.restartTakesEffect': return '重启生效';
-			case 'meta.reconnectTakesEffect': return '重新连接后生效';
-			case 'meta.runtimeProfile': return '运行时配置';
-			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
-			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
-			case 'meta.requestNeedsUserApproval': return '1. 请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展\n2. :[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]\n完成后重新连接';
-			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接';
-			case 'meta.proxy': return '代理';
-			case 'meta.theme': return '主题';
-			case 'meta.tvMode': return 'TV模式';
-			case 'meta.autoUpdate': return '自动更新';
-			case 'meta.updateChannel': return '自动更新通道';
-			case 'meta.hasNewVersion': return ({required Object p}) => '更新版本 ${p}';
-			case 'meta.devOptions': return '开发者选项';
-			case 'meta.about': return '关于';
-			case 'meta.name': return '名称';
-			case 'meta.version': return '版本';
-			case 'meta.notice': return '通知';
-			case 'meta.sort': return '排序';
-			case 'meta.recommended': return '推荐';
-			case 'meta.innerError': return ({required Object p}) => '内部错误:${p}';
-			case 'meta.share': return '分享';
-			case 'meta.importFromClipboard': return '从剪贴板导入';
-			case 'meta.exportToClipboard': return '导出到剪贴板';
-			case 'meta.server': return '服务器';
-			case 'meta.port': return '端口';
-			case 'meta.donate': return '捐助';
-			case 'meta.setting': return '设置';
-			case 'meta.settingCore': return '核心设置';
-			case 'meta.settingApp': return '应用设置';
-			case 'meta.coreOverwrite': return '核心覆写';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return '局域网同步';
-			case 'meta.lanSyncNotQuitTips': return '同步完成前请勿退出此界面';
-			case 'meta.deviceNoSpace': return '磁盘空间不足';
-			case 'meta.hideSystemApp': return '隐藏系统应用';
-			case 'meta.hideAppIcon': return '隐藏应用图标';
-			case 'meta.openDir': return '打开文件目录';
-			case 'meta.fileChoose': return '选择文件';
-			case 'meta.filePathCannotEmpty': return '文件路径不能为空';
-			case 'meta.fileNotExist': return ({required Object p}) => '文件不存在:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => '无效的文件类型:${p}';
-			case 'meta.uwpExemption': return 'UWP网络隔离豁免';
-			case 'meta.getProfile': return '获取配置';
-			case 'meta.addProfile': return '添加配置';
-			case 'meta.myProfiles': return '我的配置';
-			case 'meta.profileEdit': return '编辑配置';
-			case 'meta.profileEditReloadAfterProfileUpdate': return '配置更新后重新加载';
-			case 'meta.profileImport': return '导入配置文件';
-			case 'meta.profileAddUrlOrContent': return '添加配置链接';
-			case 'meta.profileUrlOrContent': return '配置链接/内容';
-			case 'meta.profileUrlOrContentHit': return 'Clash配置链接/内容[必填]';
-			case 'meta.profileUrlOrContentCannotEmpty': return '配置链接不能为空';
-			case 'permission.camera': return '摄像头';
-			case 'permission.screen': return '屏幕录制';
-			case 'permission.appQuery': return '获取应用列表';
-			case 'permission.request': return ({required Object p}) => '开启[${p}]权限';
-			case 'permission.requestNeed': return ({required Object p}) => '请开启[${p}]权限';
-			case 'tls.insecure': return '跳过证书验证';
-			case 'tls.certificate': return '证书';
-			case 'tls.privateKey': return '私钥';
-			case 'tls.customTrustCert': return '自定义证书';
-			case 'tun.stack': return '网络栈';
-			case 'tun.dnsHijack': return 'DNS劫持';
-			case 'tun.strictRoute': return '严格路由';
-			case 'tun.allowBypass': return '允许应用绕过VPN';
-			case 'tun.appendHttpProxy': return '附加HTTP代理到VPN';
-			case 'tun.bypassHttpProxyDomain': return '允许绕过HTTP代理的域名';
-			case 'dns.fakeIp': return 'fake-ip';
-			case 'dns.fallback': return 'Fallback';
-			case 'dns.preferH3': return 'DoH H3优先';
-			case 'dns.useHosts': return '使用Hosts';
-			case 'dns.useSystemHosts': return '使用系统Hosts';
-			case 'dns.enhancedMode': return '增强模式';
-			case 'dns.fakeIPFilterMode': return '${_root.dns.fakeIp} 过滤模式';
-			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} 过滤';
-			case 'dns.nameServer': return '域名解析服务器';
-			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
-			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
-			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
-			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
-			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return '覆盖';
-			case 'profilePatchMode.currentSelected': return '当前选择';
-			case 'profilePatchMode.overwrite': return '内置-覆写';
-			case 'profilePatchMode.noOverwrite': return '内置-不覆写';
-			case 'protocolSniff': return '协议探测';
-			case 'protocolSniffOverrideDestination': return '探测的域名覆盖连接目标地址';
-			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => '服务器地址',
+			'BackupAndSyncWebdavScreen.webdavRequired' => '不能为空',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => '登录失败:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => '获取文件列表失败:',
+			'LaunchFailedScreen.invalidProcess' => '应用启动失败[无效的进程名称],请重新安装应用到独立目录',
+			'LaunchFailedScreen.invalidProfile' => '应用启动失败[访问配置文件失败],请重新安装应用',
+			'LaunchFailedScreen.invalidVersion' => '应用启动失败[无效版本],请重新安装应用',
+			'LaunchFailedScreen.systemVersionLow' => '应用启动失败[系统版本过低]',
+			'LaunchFailedScreen.invalidInstallPath' => '无效的安装路径,请重新安装到有效路径',
+			'PerAppAndroidScreen.title' => '分应用代理',
+			'PerAppAndroidScreen.whiteListMode' => '白名单模式',
+			'PerAppAndroidScreen.whiteListModeTip' => '启用后:仅代理已勾选的App;未启用:仅代理未勾选的App',
+			'UserAgreementScreen.privacyFirst' => '您的隐私很重要',
+			'UserAgreementScreen.agreeAndContinue' => '接受并继续',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => '新版本[${p}]已就绪',
+			'VersionUpdateScreen.update' => '重启更新',
+			'VersionUpdateScreen.cancel' => '暂不更新',
+			'main.tray.menuOpen' => '    打开    ',
+			'main.tray.menuExit' => '    退出    ',
+			'meta.enable' => '启用',
+			'meta.disable' => '禁用',
+			'meta.open' => '打开',
+			'meta.close' => '关闭',
+			'meta.quit' => '退出',
+			'meta.add' => '添加',
+			'meta.addSuccess' => '添加成功',
+			'meta.addFailed' => ({required Object p}) => '添加失败:${p}',
+			'meta.remove' => '删除',
+			'meta.removeConfirm' => '确认删除?',
+			'meta.edit' => '编辑',
+			'meta.view' => '查看',
+			'meta.remark' => '备注',
+			'meta.byDefault' => '默认',
+			'meta.editRemark' => '修改备注',
+			'meta.more' => '更多',
+			'meta.tips' => '提示',
+			'meta.copy' => '拷贝',
+			'meta.save' => '保存',
+			'meta.ok' => '确定',
+			'meta.cancel' => '取消',
+			'meta.faq' => '常见问题',
+			'meta.download' => '下载',
+			'meta.loading' => '加载中...',
+			'meta.days' => '天',
+			'meta.hours' => '时',
+			'meta.minutes' => '分',
+			'meta.seconds' => '秒',
+			'meta.protocol' => '协议',
+			'meta.search' => '搜索',
+			'meta.custom' => '自定义',
+			'meta.connect' => '连接',
+			'meta.disconnect' => '断开',
+			'meta.connected' => '已连接',
+			'meta.disconnected' => '未连接',
+			'meta.connecting' => '连接中',
+			'meta.connectTimeout' => '连接超时',
+			'meta.timeout' => '超时',
+			'meta.timeoutDuration' => '超时时长',
+			'meta.latency' => '延迟',
+			'meta.latencyTest' => '延迟检测',
+			'meta.language' => '语言',
+			'meta.next' => '下一步',
+			'meta.done' => '完成',
+			'meta.apply' => '应用',
+			'meta.refresh' => '刷新',
+			'meta.retry' => '是否重试?',
+			'meta.update' => '更新',
+			'meta.updateInterval' => '更新时间间隔',
+			'meta.updateInterval5mTips' => '最小:5m',
+			'meta.updateFailed' => ({required Object p}) => '更新失败:${p}',
+			'meta.none' => '无',
+			'meta.reset' => '重置',
+			'meta.authentication' => '授权',
+			'meta.submit' => '提交',
+			'meta.user' => '用户',
+			'meta.account' => '账号',
+			'meta.password' => '密码',
+			'meta.required' => '必填',
+			'meta.sudoPassword' => 'sudo 密码(TUN模式需要)',
+			'meta.other' => '其他',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'URL无效',
+			'meta.urlCannotEmpty' => 'URL不能为空',
+			'meta.urlTooLong' => 'URL过长(>8182)',
+			'meta.copyUrl' => '拷贝链接',
+			'meta.openUrl' => '打开链接',
+			'meta.shareUrl' => '分享链接',
+			'meta.coreSettingTips' => '注意:修改配置后,需要重新连接才会生效',
+			'meta.overwrite' => '覆写',
+			'meta.overwriteCustom' => '自定义覆写',
+			'meta.overwriteTips' => '原始配置<-自定义覆写<-App覆写',
+			'meta.noOverwrite' => '不覆写',
+			'meta.overwriteSettings' => '覆写设置',
+			'meta.externalController' => '外部控制',
+			'meta.secret' => 'Secret',
+			'meta.tcpConcurrent' => 'TCP并发握手',
+			'meta.globalClientFingerprint' => 'TLS全局指纹',
+			'meta.allowLanAccess' => '局域网设备接入',
+			'meta.mixedPort' => '混合代理端口',
+			'meta.logLevel' => '日志等级',
+			'meta.tcpkeepAliveInterval' => 'TCP保活时间间隔',
+			'meta.delayTestUrl' => '延迟测试URL',
+			'meta.delayTestTimeout' => '延迟测试超时(ms)',
+			'meta.tun' => 'TUN',
+			'meta.ntp' => 'NTP',
+			'meta.tls' => 'TLS',
+			'meta.geo' => 'GEO',
+			'meta.geoDownloadByProxy' => '使用代理下载Geo RuleSet',
+			'meta.geoRulesetTips' => 'Geosite/Geoip 会被转换成 对应的RuleSet',
+			'meta.asnNotSupportInIosTips' => '由于iOS系统内存限制,IP-ASN及SRC-IP-ASN规则在iOS上将被忽略',
+			'meta.sniffer' => '嗅探',
+			'meta.userAgent' => 'UserAgent',
+			'meta.launchAtStartup' => '开机启动',
+			'meta.launchAtStartupRunAsAdmin' => '请以管理员身份重新启动Clash Mi',
+			'meta.portableMode' => '便携模式',
+			'meta.portableModeDisableTips' => '如需退出便携模式,请退出[clashmi]后,手动删除[clashmi.exe]同目录下的[portable]文件夹即可',
+			'meta.systemProxy' => '系统代理',
+			'meta.autoConnectAfterLaunch' => '启动后自动连接',
+			'meta.autoConnectAtBoot' => '系统启动后自动连接',
+			'meta.autoConnectAtBootTips' => '需要系统支持,部分系统可能还需要开启[自启动]',
+			'meta.hideAfterLaunch' => '启动后隐藏窗口',
+			'meta.autoSetSystemProxy' => '连接后自动设置系统代理',
+			'meta.bypassSystemProxy' => '允许绕过系统代理的域名',
+			'meta.excludeFromRecent' => '从[最近任务]中隐藏',
+			'meta.wakeLock' => '唤醒锁',
+			'meta.hideVpn' => '隐藏VPN图标',
+			'meta.hideVpnTips' => '开启IPv6会导致此功能失效',
+			'meta.hideDockIcon' => '隐藏Dock图标',
+			'meta.website' => '官网',
+			'meta.rule' => '规则',
+			'meta.global' => '全局',
+			'meta.direct' => '直连',
+			'meta.block' => '拦截',
+			'meta.qrcode' => '二维码',
+			'meta.qrcodeTooLong' => '文本过长,无法展示',
+			'meta.qrcodeShare' => '分享二维码',
+			'meta.textToQrcode' => '文本转二维码',
+			'meta.qrcodeScan' => '扫描二维码',
+			'meta.qrcodeScanResult' => '扫描结果',
+			'meta.qrcodeScanFromImage' => '打开二维码图片',
+			'meta.qrcodeScanResultFailed' => '解析图片失败,请确保截图为有效的二维码',
+			'meta.qrcodeScanResultEmpty' => '扫描结果为空',
+			'meta.screenshot' => '截图',
+			'meta.backupAndSync' => '备份与同步',
+			'meta.importSuccess' => '导入成功',
+			'meta.rewriteConfirm' => '该文件将覆盖本地已有配置,是否继续?',
+			'meta.importAndExport' => '导入/导出',
+			'meta.import' => '导入',
+			'meta.importFromUrl' => '从URL导入',
+			'meta.export' => '导出',
+			'meta.send' => '发送',
+			'meta.receive' => '接收',
+			'meta.sendConfirm' => '确认发送?',
+			'meta.termOfUse' => '使用条款',
+			'meta.privacyPolicy' => '隐私政策',
+			'meta.log' => '日志',
+			'meta.coreLog' => '核心日志',
+			'meta.core' => '核心',
+			'meta.help' => '帮助',
+			'meta.tutorial' => '使用教程',
+			'meta.board' => '面板',
+			'meta.boardOnline' => '使用在线面板',
+			'meta.boardOnlineUrl' => '在线面板URL',
+			'meta.boardLocalPort' => '本地面板端口',
+			'meta.disableFontScaler' => '禁用字体缩放',
+			'meta.autoOrientation' => '跟随屏幕旋转',
+			'meta.restartTakesEffect' => '重启生效',
+			'meta.reconnectTakesEffect' => '重新连接后生效',
+			'meta.runtimeProfile' => '运行时配置',
+			'meta.willCompleteAfterRebootInstall' => '请重启设备,以便完成系统扩展安装',
+			'meta.willCompleteAfterRebootUninstall' => '请重启设备,以便完成系统扩展卸载',
+			'meta.requestNeedsUserApproval' => '1. 请在[系统设置]-[隐私与安全性]里[允许] Clash Mi安装系统扩展\n2. :[系统设置]-[通用]-[登录项与扩展-网络扩展]启用[clashmiServiceSE]\n完成后重新连接',
+			'meta.FullDiskAccessPermissionRequired' => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启clashmiServiceSE权限后,重新连接',
+			'meta.proxy' => '代理',
+			'meta.theme' => '主题',
+			'meta.tvMode' => 'TV模式',
+			'meta.autoUpdate' => '自动更新',
+			'meta.updateChannel' => '自动更新通道',
+			'meta.hasNewVersion' => ({required Object p}) => '更新版本 ${p}',
+			'meta.devOptions' => '开发者选项',
+			'meta.about' => '关于',
+			'meta.name' => '名称',
+			'meta.version' => '版本',
+			'meta.notice' => '通知',
+			'meta.sort' => '排序',
+			'meta.recommended' => '推荐',
+			'meta.innerError' => ({required Object p}) => '内部错误:${p}',
+			'meta.share' => '分享',
+			'meta.importFromClipboard' => '从剪贴板导入',
+			'meta.exportToClipboard' => '导出到剪贴板',
+			'meta.server' => '服务器',
+			'meta.port' => '端口',
+			'meta.donate' => '捐助',
+			'meta.setting' => '设置',
+			'meta.settingCore' => '核心设置',
+			'meta.settingApp' => '应用设置',
+			'meta.coreOverwrite' => '核心覆写',
+			'meta.iCloud' => 'iCloud',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => '局域网同步',
+			'meta.lanSyncNotQuitTips' => '同步完成前请勿退出此界面',
+			'meta.deviceNoSpace' => '磁盘空间不足',
+			'meta.hideSystemApp' => '隐藏系统应用',
+			'meta.hideAppIcon' => '隐藏应用图标',
+			'meta.openDir' => '打开文件目录',
+			'meta.fileChoose' => '选择文件',
+			'meta.filePathCannotEmpty' => '文件路径不能为空',
+			'meta.fileNotExist' => ({required Object p}) => '文件不存在:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => '无效的文件类型:${p}',
+			'meta.uwpExemption' => 'UWP网络隔离豁免',
+			'meta.getProfile' => '获取配置',
+			'meta.addProfile' => '添加配置',
+			'meta.myProfiles' => '我的配置',
+			'meta.profileEdit' => '编辑配置',
+			'meta.profileEditReloadAfterProfileUpdate' => '配置更新后重新加载',
+			'meta.profileImport' => '导入配置文件',
+			'meta.profileAddUrlOrContent' => '添加配置链接',
+			'meta.profileUrlOrContent' => '配置链接/内容',
+			'meta.profileUrlOrContentHit' => 'Clash配置链接/内容[必填]',
+			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
+			'permission.camera' => '摄像头',
+			'permission.screen' => '屏幕录制',
+			'permission.appQuery' => '获取应用列表',
+			'permission.request' => ({required Object p}) => '开启[${p}]权限',
+			'permission.requestNeed' => ({required Object p}) => '请开启[${p}]权限',
+			'tls.insecure' => '跳过证书验证',
+			'tls.certificate' => '证书',
+			'tls.privateKey' => '私钥',
+			'tls.customTrustCert' => '自定义证书',
+			'tun.stack' => '网络栈',
+			'tun.dnsHijack' => 'DNS劫持',
+			'tun.strictRoute' => '严格路由',
+			'tun.allowBypass' => '允许应用绕过VPN',
+			'tun.appendHttpProxy' => '附加HTTP代理到VPN',
+			'tun.bypassHttpProxyDomain' => '允许绕过HTTP代理的域名',
+			'dns.fakeIp' => 'fake-ip',
+			'dns.fallback' => 'Fallback',
+			'dns.preferH3' => 'DoH H3优先',
+			'dns.useHosts' => '使用Hosts',
+			'dns.useSystemHosts' => '使用系统Hosts',
+			'dns.enhancedMode' => '增强模式',
+			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} 过滤模式',
+			'dns.fakeIPFilter' => '${_root.dns.fakeIp} 过滤',
+			'dns.nameServer' => '域名解析服务器',
+			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
+			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
+			'dns.directNameServer' => '${_root.meta.direct} ${_root.dns.nameServer}',
+			'dns.fallbackNameServer' => '${_root.dns.fallback} ${_root.dns.nameServer}',
+			'dns.fallbackGeoIp' => '${_root.dns.fallback} GeoIp',
+			'dns.fallbackGeoIpCode' => '${_root.dns.fallback} GeoIpCode',
+			'sniffer.overrideDest' => '覆盖',
+			'profilePatchMode.currentSelected' => '当前选择',
+			'profilePatchMode.overwrite' => '内置-覆写',
+			'profilePatchMode.noOverwrite' => '内置-不覆写',
+			'protocolSniff' => '协议探测',
+			'protocolSniffOverrideDestination' => '探测的域名覆盖连接目标地址',
+			'edgeRuntimeNotInstalled' => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsAr implements Translations {
+class TranslationsAr with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -450,276 +451,271 @@ class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'لايمكن ان يكون فارغا';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'فشل تسجيل الدخول:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'فشل في الحصول على قائمة الملفات:';
-			case 'LaunchFailedScreen.invalidProcess': return 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل';
-			case 'LaunchFailedScreen.invalidProfile': return 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق';
-			case 'LaunchFailedScreen.invalidVersion': return 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق';
-			case 'LaunchFailedScreen.systemVersionLow': return 'فشل بدء تشغيل التطبيق [إصدار النظام منخفض جدًا]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح';
-			case 'PerAppAndroidScreen.title': return 'لكل وكيل تطبيق';
-			case 'PerAppAndroidScreen.whiteListMode': return 'وضع القائمة البيضاء';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء';
-			case 'UserAgreementScreen.privacyFirst': return 'خصوصيتك تأتي أولا';
-			case 'UserAgreementScreen.agreeAndContinue': return 'قبول ومتابعة';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'الإصدار الجديد [${p}] جاهز';
-			case 'VersionUpdateScreen.update': return 'أعد التشغيل للتحديث';
-			case 'VersionUpdateScreen.cancel': return 'ليس الآن';
-			case 'main.tray.menuOpen': return '    يفتح    ';
-			case 'main.tray.menuExit': return '    مخرج    ';
-			case 'meta.enable': return 'يُمكَِن';
-			case 'meta.disable': return 'إبطال';
-			case 'meta.open': return 'يفتح';
-			case 'meta.close': return 'إنهاء';
-			case 'meta.quit': return 'يترك';
-			case 'meta.add': return 'اضف إليه';
-			case 'meta.addSuccess': return 'اضيف بنجاح';
-			case 'meta.addFailed': return ({required Object p}) => 'إضافة فشل:${p}';
-			case 'meta.remove': return 'يمسح';
-			case 'meta.removeConfirm': return 'هل انت متأكد من الحذف؟';
-			case 'meta.edit': return 'يحرر';
-			case 'meta.view': return 'يفحص';
-			case 'meta.remark': return 'ملاحظة';
-			case 'meta.byDefault': return 'تقصير';
-			case 'meta.editRemark': return 'ملاحظات التعديل';
-			case 'meta.more': return 'أكثر';
-			case 'meta.tips': return 'معلومات';
-			case 'meta.copy': return 'ينسخ';
-			case 'meta.save': return 'يحفظ';
-			case 'meta.ok': return 'نعم';
-			case 'meta.cancel': return 'يلغي';
-			case 'meta.faq': return 'أسئلة مكررة';
-			case 'meta.download': return 'تحميل';
-			case 'meta.loading': return 'تحميل...';
-			case 'meta.days': return 'أيام';
-			case 'meta.hours': return 'ساعات';
-			case 'meta.minutes': return 'دقائق';
-			case 'meta.seconds': return 'ثانية';
-			case 'meta.protocol': return 'بروتوكول';
-			case 'meta.search': return 'يبحث';
-			case 'meta.custom': return 'مخصص';
-			case 'meta.connect': return 'يتصل';
-			case 'meta.disconnect': return 'قطع الاتصال';
-			case 'meta.connected': return 'متصل';
-			case 'meta.disconnected': return 'انقطع الاتصال';
-			case 'meta.connecting': return 'توصيل';
-			case 'meta.connectTimeout': return 'ربط مهلة';
-			case 'meta.timeout': return 'نفذ الوقت';
-			case 'meta.timeoutDuration': return 'مدة مهلة الانتظار';
-			case 'meta.latency': return 'تأخير';
-			case 'meta.latencyTest': return 'كشف التأخير';
-			case 'meta.language': return 'لغة';
-			case 'meta.next': return 'التالي';
-			case 'meta.done': return 'منتهي';
-			case 'meta.apply': return 'يتقدم';
-			case 'meta.refresh': return 'ينعش';
-			case 'meta.retry': return 'إعادة المحاولة?';
-			case 'meta.update': return 'تجديد';
-			case 'meta.updateInterval': return 'الفاصل الزمني للتحديث';
-			case 'meta.updateInterval5mTips': return 'الحد الأدنى: 5 م';
-			case 'meta.updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
-			case 'meta.none': return 'لا أحد';
-			case 'meta.reset': return 'إعادة ضبط';
-			case 'meta.authentication': return 'التفويض';
-			case 'meta.submit': return 'يُقدِّم';
-			case 'meta.user': return 'مستخدم';
-			case 'meta.account': return 'حساب';
-			case 'meta.password': return 'كلمة المرور';
-			case 'meta.required': return 'مطلوب';
-			case 'meta.sudoPassword': return 'كلمة مرور sudo (مطلوبة لوضع TUN)';
-			case 'meta.other': return 'آخر';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'URL غير صالح';
-			case 'meta.urlCannotEmpty': return 'لا يمكن أن يكون الرابط فارغًا';
-			case 'meta.urlTooLong': return 'عنوان URL طويل جدًا (>8182)';
-			case 'meta.copyUrl': return 'Copy Link';
-			case 'meta.openUrl': return 'Open Link';
-			case 'meta.shareUrl': return 'شارك الرابط';
-			case 'meta.coreSettingTips': return 'ملاحظة: بعد تعديل التكوين، تحتاج إلى إعادة الاتصال حتى يسري مفعوله';
-			case 'meta.overwrite': return 'تجاوز';
-			case 'meta.overwriteCustom': return 'تجاوزات مخصصة';
-			case 'meta.overwriteTips': return 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق';
-			case 'meta.noOverwrite': return 'لا تكتب فوق';
-			case 'meta.overwriteSettings': return 'تجاوز الإعدادات';
-			case 'meta.externalController': return 'الرقابة الخارجية';
-			case 'meta.secret': return 'Secret';
-			case 'meta.tcpConcurrent': return 'مصافحة TCP المتزامنة';
-			case 'meta.globalClientFingerprint': return 'بصمة TLS العالمية';
-			case 'meta.allowLanAccess': return 'الوصول إلى جهاز LAN';
-			case 'meta.mixedPort': return 'منفذ الوكيل الهجين';
-			case 'meta.logLevel': return 'مستوى السجل';
-			case 'meta.tcpkeepAliveInterval': return 'فترة الحفاظ على اتصال TCP';
-			case 'meta.delayTestUrl': return 'عنوان URL لاختبار زمن الوصول';
-			case 'meta.delayTestTimeout': return 'تأخير مهلة الاختبار (مللي ثانية)';
-			case 'meta.tun': return 'TUN';
-			case 'meta.ntp': return 'NTP';
-			case 'meta.tls': return 'TLS';
-			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return 'تنزيل Geo RuleSet باستخدام وكيل';
-			case 'meta.geoRulesetTips': return 'سيتم تحويل Geosite/Geoip إلى مجموعة القواعد المقابلة';
-			case 'meta.asnNotSupportInIosTips': return 'بسبب قيود ذاكرة نظام iOS، سيتم تجاهل قواعد IP-ASN وSRC-IP-ASN على نظام iOS.';
-			case 'meta.sniffer': return 'شم';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.launchAtStartup': return 'إطلاق عند بدء التشغيل';
-			case 'meta.launchAtStartupRunAsAdmin': return 'يرجى إعادة تشغيل Clash Mi كمسؤول';
-			case 'meta.portableMode': return 'الوضع المحمول';
-			case 'meta.portableModeDisableTips': return 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]';
-			case 'meta.systemProxy': return 'وكيل النظام';
-			case 'meta.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
-			case 'meta.autoConnectAtBoot': return 'الاتصال التلقائي بعد بدء تشغيل النظام';
-			case 'meta.autoConnectAtBootTips': return 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
-			case 'meta.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
-			case 'meta.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
-			case 'meta.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
-			case 'meta.excludeFromRecent': return 'إخفاء من المهام الأخيرة';
-			case 'meta.wakeLock': return 'قفل الاستيقاظ';
-			case 'meta.hideVpn': return 'إخفاء أيقونة VPN';
-			case 'meta.hideVpnTips': return 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
-			case 'meta.hideDockIcon': return 'إخفاء أيقونة Dock';
-			case 'meta.website': return 'موقع إلكتروني';
-			case 'meta.rule': return 'قاعدة';
-			case 'meta.global': return 'عالمي';
-			case 'meta.direct': return 'مباشر';
-			case 'meta.block': return 'حاجز';
-			case 'meta.qrcode': return 'رمز الاستجابة السريعة';
-			case 'meta.qrcodeTooLong': return 'النص طويل جدًا لعرضه';
-			case 'meta.qrcodeShare': return 'شارك رمز الاستجابة السريعة';
-			case 'meta.textToQrcode': return 'رسالة نصية إلى رمز الاستجابة السريعة';
-			case 'meta.qrcodeScan': return 'مسح رمز الاستجابة السريعة';
-			case 'meta.qrcodeScanResult': return 'نتيجة المسح';
-			case 'meta.qrcodeScanFromImage': return 'مسح من الصورة';
-			case 'meta.qrcodeScanResultFailed': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
-			case 'meta.qrcodeScanResultEmpty': return 'نتيجة الفحص فارغة';
-			case 'meta.screenshot': return 'لقطة شاشة';
-			case 'meta.backupAndSync': return 'النسخ الاحتياطي والمزامنة';
-			case 'meta.importSuccess': return 'استيراد نجاح ';
-			case 'meta.rewriteConfirm': return 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
-			case 'meta.importAndExport': return 'استيراد وتصدير';
-			case 'meta.import': return 'يستورد';
-			case 'meta.importFromUrl': return 'الاستيراد من عنوان URL';
-			case 'meta.export': return 'يصدّر';
-			case 'meta.send': return 'يرسل';
-			case 'meta.receive': return 'تولي';
-			case 'meta.sendConfirm': return 'تأكيد الإرسال؟';
-			case 'meta.termOfUse': return 'شرط الخدمة';
-			case 'meta.privacyPolicy': return 'سياسة الخصوصية';
-			case 'meta.log': return 'سجل';
-			case 'meta.coreLog': return 'سجل النواة';
-			case 'meta.core': return 'جوهر';
-			case 'meta.help': return 'يساعد';
-			case 'meta.tutorial': return 'درس تعليمي';
-			case 'meta.board': return 'لوحة';
-			case 'meta.boardOnline': return 'استخدام اللوحة عبر الإنترنت';
-			case 'meta.boardOnlineUrl': return 'عنوان URL للوحة عبر الإنترنت';
-			case 'meta.boardLocalPort': return 'منفذ اللوحة المحلية';
-			case 'meta.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
-			case 'meta.autoOrientation': return 'Rotate with the screen';
-			case 'meta.restartTakesEffect': return 'Restart takes effect';
-			case 'meta.reconnectTakesEffect': return 'سيتم تطبيقه بعد إعادة الاتصال.';
-			case 'meta.runtimeProfile': return 'تكوين وقت التشغيل';
-			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
-			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.';
-			case 'meta.FullDiskAccessPermissionRequired': return 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.';
-			case 'meta.proxy': return 'التمثيل';
-			case 'meta.theme': return 'سمة';
-			case 'meta.tvMode': return 'وضع التلفزيون';
-			case 'meta.autoUpdate': return 'التحديثات التلقائية';
-			case 'meta.updateChannel': return 'تحديث القنوات تلقائيا';
-			case 'meta.hasNewVersion': return ({required Object p}) => 'تحديث الإصدار ${p}';
-			case 'meta.devOptions': return 'خيارات للمطور';
-			case 'meta.about': return 'عن';
-			case 'meta.name': return 'اسم';
-			case 'meta.version': return 'إصدار';
-			case 'meta.notice': return 'يلاحظ';
-			case 'meta.sort': return 'إعادة ترتيب';
-			case 'meta.recommended': return 'يوصي';
-			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
-			case 'meta.share': return 'يشارك';
-			case 'meta.importFromClipboard': return 'استيراد من الحافظة';
-			case 'meta.exportToClipboard': return 'تصدير إلى الحافظة';
-			case 'meta.server': return 'الخادم';
-			case 'meta.port': return 'ميناء';
-			case 'meta.donate': return 'يتبرع';
-			case 'meta.setting': return 'إعدادات';
-			case 'meta.settingCore': return 'الإعدادات الأساسية';
-			case 'meta.settingApp': return 'إعدادات التطبيق';
-			case 'meta.coreOverwrite': return 'تجاوز النواة';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN SYNC';
-			case 'meta.lanSyncNotQuitTips': return 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
-			case 'meta.deviceNoSpace': return 'مساحة غير كافيه في القرص';
-			case 'meta.hideSystemApp': return 'إخفاء تطبيقات النظام';
-			case 'meta.hideAppIcon': return 'إخفاء أيقونة التطبيق';
-			case 'meta.openDir': return 'فتح دليل الملف';
-			case 'meta.fileChoose': return 'حدد الملف';
-			case 'meta.filePathCannotEmpty': return 'لا يمكن أن يكون مسار الملف فارغًا';
-			case 'meta.fileNotExist': return ({required Object p}) => 'الملف غير موجود: ${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'نوع الملف غير صالح:${p}';
-			case 'meta.uwpExemption': return 'إعفاء عزل شبكة UWP';
-			case 'meta.getProfile': return 'احصل على التكوين';
-			case 'meta.addProfile': return 'إضافة ملف تعريف';
-			case 'meta.myProfiles': return 'مظهر';
-			case 'meta.profileEdit': return 'تحرير الملف الشخصي';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'إعادة التحميل بعد تحديث الملف الشخصي';
-			case 'meta.profileImport': return 'استيراد ملف الملف الشخصي';
-			case 'meta.profileAddUrlOrContent': return 'إضافة رابط ملف التعريف';
-			case 'meta.profileUrlOrContent': return 'رابط/محتوى الملف الشخصي';
-			case 'meta.profileUrlOrContentHit': return 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، clashmi ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
-			case 'permission.camera': return 'الكاميرا';
-			case 'permission.screen': return 'تسجيل الشاشة';
-			case 'permission.appQuery': return 'الحصول على قائمة التطبيقات';
-			case 'permission.request': return ({required Object p}) => 'تمكين أذونات [${p}]';
-			case 'permission.requestNeed': return ({required Object p}) => 'الرجاء تفعيل إذن [${p}]';
-			case 'tls.insecure': return 'تخطي التحقق من الشهادة';
-			case 'tls.certificate': return 'شهادة';
-			case 'tls.privateKey': return 'المفتاح الخاص';
-			case 'tls.customTrustCert': return 'شهادات مخصصة';
-			case 'tun.stack': return 'مكدس الشبكة';
-			case 'tun.dnsHijack': return 'اختطاف DNS';
-			case 'tun.strictRoute': return 'التوجيه الصارم';
-			case 'tun.allowBypass': return 'السماح للتطبيقات بتجاوز VPN';
-			case 'tun.appendHttpProxy': return 'إلحاق وكيل HTTP إلى VPN';
-			case 'tun.bypassHttpProxyDomain': return 'المجالات المسموح لها بتجاوز وكيل HTTP';
-			case 'dns.fakeIp': return 'fake-ip';
-			case 'dns.fallback': return 'Fallback';
-			case 'dns.preferH3': return 'أولوية DoH H3';
-			case 'dns.useHosts': return 'استخدام المضيفين';
-			case 'dns.useSystemHosts': return 'استخدام مضيفات النظام';
-			case 'dns.enhancedMode': return 'الوضع المحسّن';
-			case 'dns.fakeIPFilterMode': return 'وضع التصفية ${_root.dns.fakeIp}';
-			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} التصفية';
-			case 'dns.nameServer': return 'خادم DNS';
-			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
-			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
-			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
-			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
-			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return 'غطاء';
-			case 'profilePatchMode.currentSelected': return 'المحدد الحالي';
-			case 'profilePatchMode.overwrite': return 'التجاوز المدمج';
-			case 'profilePatchMode.noOverwrite': return 'مُدمج - غير قابل للكتابة فوقه';
-			case 'protocolSniff': return 'الكشف عن البروتوكول';
-			case 'protocolSniffOverrideDestination': return 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
-			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'عنوان URL الخادم',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'لايمكن ان يكون فارغا',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'فشل تسجيل الدخول:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'فشل في الحصول على قائمة الملفات:',
+			'LaunchFailedScreen.invalidProcess' => 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل',
+			'LaunchFailedScreen.invalidProfile' => 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق',
+			'LaunchFailedScreen.invalidVersion' => 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق',
+			'LaunchFailedScreen.systemVersionLow' => 'فشل بدء تشغيل التطبيق [إصدار النظام منخفض جدًا]',
+			'LaunchFailedScreen.invalidInstallPath' => 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح',
+			'PerAppAndroidScreen.title' => 'لكل وكيل تطبيق',
+			'PerAppAndroidScreen.whiteListMode' => 'وضع القائمة البيضاء',
+			'PerAppAndroidScreen.whiteListModeTip' => 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء',
+			'UserAgreementScreen.privacyFirst' => 'خصوصيتك تأتي أولا',
+			'UserAgreementScreen.agreeAndContinue' => 'قبول ومتابعة',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'الإصدار الجديد [${p}] جاهز',
+			'VersionUpdateScreen.update' => 'أعد التشغيل للتحديث',
+			'VersionUpdateScreen.cancel' => 'ليس الآن',
+			'main.tray.menuOpen' => '    يفتح    ',
+			'main.tray.menuExit' => '    مخرج    ',
+			'meta.enable' => 'يُمكَِن',
+			'meta.disable' => 'إبطال',
+			'meta.open' => 'يفتح',
+			'meta.close' => 'إنهاء',
+			'meta.quit' => 'يترك',
+			'meta.add' => 'اضف إليه',
+			'meta.addSuccess' => 'اضيف بنجاح',
+			'meta.addFailed' => ({required Object p}) => 'إضافة فشل:${p}',
+			'meta.remove' => 'يمسح',
+			'meta.removeConfirm' => 'هل انت متأكد من الحذف؟',
+			'meta.edit' => 'يحرر',
+			'meta.view' => 'يفحص',
+			'meta.remark' => 'ملاحظة',
+			'meta.byDefault' => 'تقصير',
+			'meta.editRemark' => 'ملاحظات التعديل',
+			'meta.more' => 'أكثر',
+			'meta.tips' => 'معلومات',
+			'meta.copy' => 'ينسخ',
+			'meta.save' => 'يحفظ',
+			'meta.ok' => 'نعم',
+			'meta.cancel' => 'يلغي',
+			'meta.faq' => 'أسئلة مكررة',
+			'meta.download' => 'تحميل',
+			'meta.loading' => 'تحميل...',
+			'meta.days' => 'أيام',
+			'meta.hours' => 'ساعات',
+			'meta.minutes' => 'دقائق',
+			'meta.seconds' => 'ثانية',
+			'meta.protocol' => 'بروتوكول',
+			'meta.search' => 'يبحث',
+			'meta.custom' => 'مخصص',
+			'meta.connect' => 'يتصل',
+			'meta.disconnect' => 'قطع الاتصال',
+			'meta.connected' => 'متصل',
+			'meta.disconnected' => 'انقطع الاتصال',
+			'meta.connecting' => 'توصيل',
+			'meta.connectTimeout' => 'ربط مهلة',
+			'meta.timeout' => 'نفذ الوقت',
+			'meta.timeoutDuration' => 'مدة مهلة الانتظار',
+			'meta.latency' => 'تأخير',
+			'meta.latencyTest' => 'كشف التأخير',
+			'meta.language' => 'لغة',
+			'meta.next' => 'التالي',
+			'meta.done' => 'منتهي',
+			'meta.apply' => 'يتقدم',
+			'meta.refresh' => 'ينعش',
+			'meta.retry' => 'إعادة المحاولة?',
+			'meta.update' => 'تجديد',
+			'meta.updateInterval' => 'الفاصل الزمني للتحديث',
+			'meta.updateInterval5mTips' => 'الحد الأدنى: 5 م',
+			'meta.updateFailed' => ({required Object p}) => 'فشل التحديث:${p}',
+			'meta.none' => 'لا أحد',
+			'meta.reset' => 'إعادة ضبط',
+			'meta.authentication' => 'التفويض',
+			'meta.submit' => 'يُقدِّم',
+			'meta.user' => 'مستخدم',
+			'meta.account' => 'حساب',
+			'meta.password' => 'كلمة المرور',
+			'meta.required' => 'مطلوب',
+			'meta.sudoPassword' => 'كلمة مرور sudo (مطلوبة لوضع TUN)',
+			'meta.other' => 'آخر',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'URL غير صالح',
+			'meta.urlCannotEmpty' => 'لا يمكن أن يكون الرابط فارغًا',
+			'meta.urlTooLong' => 'عنوان URL طويل جدًا (>8182)',
+			'meta.copyUrl' => 'Copy Link',
+			'meta.openUrl' => 'Open Link',
+			'meta.shareUrl' => 'شارك الرابط',
+			'meta.coreSettingTips' => 'ملاحظة: بعد تعديل التكوين، تحتاج إلى إعادة الاتصال حتى يسري مفعوله',
+			'meta.overwrite' => 'تجاوز',
+			'meta.overwriteCustom' => 'تجاوزات مخصصة',
+			'meta.overwriteTips' => 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق',
+			'meta.noOverwrite' => 'لا تكتب فوق',
+			'meta.overwriteSettings' => 'تجاوز الإعدادات',
+			'meta.externalController' => 'الرقابة الخارجية',
+			'meta.secret' => 'Secret',
+			'meta.tcpConcurrent' => 'مصافحة TCP المتزامنة',
+			'meta.globalClientFingerprint' => 'بصمة TLS العالمية',
+			'meta.allowLanAccess' => 'الوصول إلى جهاز LAN',
+			'meta.mixedPort' => 'منفذ الوكيل الهجين',
+			'meta.logLevel' => 'مستوى السجل',
+			'meta.tcpkeepAliveInterval' => 'فترة الحفاظ على اتصال TCP',
+			'meta.delayTestUrl' => 'عنوان URL لاختبار زمن الوصول',
+			'meta.delayTestTimeout' => 'تأخير مهلة الاختبار (مللي ثانية)',
+			'meta.tun' => 'TUN',
+			'meta.ntp' => 'NTP',
+			'meta.tls' => 'TLS',
+			'meta.geo' => 'GEO',
+			'meta.geoDownloadByProxy' => 'تنزيل Geo RuleSet باستخدام وكيل',
+			'meta.geoRulesetTips' => 'سيتم تحويل Geosite/Geoip إلى مجموعة القواعد المقابلة',
+			'meta.asnNotSupportInIosTips' => 'بسبب قيود ذاكرة نظام iOS، سيتم تجاهل قواعد IP-ASN وSRC-IP-ASN على نظام iOS.',
+			'meta.sniffer' => 'شم',
+			'meta.userAgent' => 'UserAgent',
+			'meta.launchAtStartup' => 'إطلاق عند بدء التشغيل',
+			'meta.launchAtStartupRunAsAdmin' => 'يرجى إعادة تشغيل Clash Mi كمسؤول',
+			'meta.portableMode' => 'الوضع المحمول',
+			'meta.portableModeDisableTips' => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]',
+			'meta.systemProxy' => 'وكيل النظام',
+			'meta.autoConnectAfterLaunch' => 'اتصال السيارات بعد الإطلاق',
+			'meta.autoConnectAtBoot' => 'الاتصال التلقائي بعد بدء تشغيل النظام',
+			'meta.autoConnectAtBootTips' => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].',
+			'meta.hideAfterLaunch' => 'إخفاء النافذة بعد بدء التشغيل',
+			'meta.autoSetSystemProxy' => 'وكيل نظام تعيين تلقائي عند الاتصال',
+			'meta.bypassSystemProxy' => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام',
+			'meta.excludeFromRecent' => 'إخفاء من المهام الأخيرة',
+			'meta.wakeLock' => 'قفل الاستيقاظ',
+			'meta.hideVpn' => 'إخفاء أيقونة VPN',
+			'meta.hideVpnTips' => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة',
+			'meta.hideDockIcon' => 'إخفاء أيقونة Dock',
+			'meta.website' => 'موقع إلكتروني',
+			'meta.rule' => 'قاعدة',
+			'meta.global' => 'عالمي',
+			'meta.direct' => 'مباشر',
+			'meta.block' => 'حاجز',
+			'meta.qrcode' => 'رمز الاستجابة السريعة',
+			'meta.qrcodeTooLong' => 'النص طويل جدًا لعرضه',
+			'meta.qrcodeShare' => 'شارك رمز الاستجابة السريعة',
+			'meta.textToQrcode' => 'رسالة نصية إلى رمز الاستجابة السريعة',
+			'meta.qrcodeScan' => 'مسح رمز الاستجابة السريعة',
+			'meta.qrcodeScanResult' => 'نتيجة المسح',
+			'meta.qrcodeScanFromImage' => 'مسح من الصورة',
+			'meta.qrcodeScanResultFailed' => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح',
+			'meta.qrcodeScanResultEmpty' => 'نتيجة الفحص فارغة',
+			'meta.screenshot' => 'لقطة شاشة',
+			'meta.backupAndSync' => 'النسخ الاحتياطي والمزامنة',
+			'meta.importSuccess' => 'استيراد نجاح ',
+			'meta.rewriteConfirm' => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟',
+			'meta.importAndExport' => 'استيراد وتصدير',
+			'meta.import' => 'يستورد',
+			'meta.importFromUrl' => 'الاستيراد من عنوان URL',
+			'meta.export' => 'يصدّر',
+			'meta.send' => 'يرسل',
+			'meta.receive' => 'تولي',
+			'meta.sendConfirm' => 'تأكيد الإرسال؟',
+			'meta.termOfUse' => 'شرط الخدمة',
+			'meta.privacyPolicy' => 'سياسة الخصوصية',
+			'meta.log' => 'سجل',
+			'meta.coreLog' => 'سجل النواة',
+			'meta.core' => 'جوهر',
+			'meta.help' => 'يساعد',
+			'meta.tutorial' => 'درس تعليمي',
+			'meta.board' => 'لوحة',
+			'meta.boardOnline' => 'استخدام اللوحة عبر الإنترنت',
+			'meta.boardOnlineUrl' => 'عنوان URL للوحة عبر الإنترنت',
+			'meta.boardLocalPort' => 'منفذ اللوحة المحلية',
+			'meta.disableFontScaler' => 'Disable Font scaling(Restart takes effect)',
+			'meta.autoOrientation' => 'Rotate with the screen',
+			'meta.restartTakesEffect' => 'Restart takes effect',
+			'meta.reconnectTakesEffect' => 'سيتم تطبيقه بعد إعادة الاتصال.',
+			'meta.runtimeProfile' => 'تكوين وقت التشغيل',
+			'meta.willCompleteAfterRebootInstall' => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام',
+			'meta.willCompleteAfterRebootUninstall' => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام',
+			'meta.requestNeedsUserApproval' => '١. يُرجى السماح لـ Clash Mi بتثبيت ملحقات النظام من [إعدادات النظام] - [الخصوصية والأمان]. ٢. : [إعدادات النظام] - [عام] - [عناصر تسجيل الدخول والملحقات - ملحقات الشبكة] فعّل [clashmiServiceSE]. أعد الاتصال بعد الانتهاء.',
+			'meta.FullDiskAccessPermissionRequired' => 'يرجى تمكين إذن clashmiServiceSE في [إعدادات النظام]-[الخصوصية والأمان]-[الوصول الكامل للقرص] وإعادة الاتصال.',
+			'meta.proxy' => 'التمثيل',
+			'meta.theme' => 'سمة',
+			'meta.tvMode' => 'وضع التلفزيون',
+			'meta.autoUpdate' => 'التحديثات التلقائية',
+			'meta.updateChannel' => 'تحديث القنوات تلقائيا',
+			'meta.hasNewVersion' => ({required Object p}) => 'تحديث الإصدار ${p}',
+			'meta.devOptions' => 'خيارات للمطور',
+			'meta.about' => 'عن',
+			'meta.name' => 'اسم',
+			'meta.version' => 'إصدار',
+			'meta.notice' => 'يلاحظ',
+			'meta.sort' => 'إعادة ترتيب',
+			'meta.recommended' => 'يوصي',
+			'meta.innerError' => ({required Object p}) => 'خطأ داخلي: ${p}',
+			'meta.share' => 'يشارك',
+			'meta.importFromClipboard' => 'استيراد من الحافظة',
+			'meta.exportToClipboard' => 'تصدير إلى الحافظة',
+			'meta.server' => 'الخادم',
+			'meta.port' => 'ميناء',
+			'meta.donate' => 'يتبرع',
+			'meta.setting' => 'إعدادات',
+			'meta.settingCore' => 'الإعدادات الأساسية',
+			'meta.settingApp' => 'إعدادات التطبيق',
+			'meta.coreOverwrite' => 'تجاوز النواة',
+			'meta.iCloud' => 'iCloud',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN SYNC',
+			'meta.lanSyncNotQuitTips' => 'لا تخرج من هذه الواجهة قبل اكتمال التزامن',
+			'meta.deviceNoSpace' => 'مساحة غير كافيه في القرص',
+			'meta.hideSystemApp' => 'إخفاء تطبيقات النظام',
+			'meta.hideAppIcon' => 'إخفاء أيقونة التطبيق',
+			'meta.openDir' => 'فتح دليل الملف',
+			'meta.fileChoose' => 'حدد الملف',
+			'meta.filePathCannotEmpty' => 'لا يمكن أن يكون مسار الملف فارغًا',
+			'meta.fileNotExist' => ({required Object p}) => 'الملف غير موجود: ${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'نوع الملف غير صالح:${p}',
+			'meta.uwpExemption' => 'إعفاء عزل شبكة UWP',
+			'meta.getProfile' => 'احصل على التكوين',
+			'meta.addProfile' => 'إضافة ملف تعريف',
+			'meta.myProfiles' => 'مظهر',
+			'meta.profileEdit' => 'تحرير الملف الشخصي',
+			'meta.profileEditReloadAfterProfileUpdate' => 'إعادة التحميل بعد تحديث الملف الشخصي',
+			'meta.profileImport' => 'استيراد ملف الملف الشخصي',
+			'meta.profileAddUrlOrContent' => 'إضافة رابط ملف التعريف',
+			'meta.profileUrlOrContent' => 'رابط/محتوى الملف الشخصي',
+			'meta.profileUrlOrContentHit' => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، clashmi ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)',
+			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
+			'permission.camera' => 'الكاميرا',
+			'permission.screen' => 'تسجيل الشاشة',
+			'permission.appQuery' => 'الحصول على قائمة التطبيقات',
+			'permission.request' => ({required Object p}) => 'تمكين أذونات [${p}]',
+			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
+			'tls.insecure' => 'تخطي التحقق من الشهادة',
+			'tls.certificate' => 'شهادة',
+			'tls.privateKey' => 'المفتاح الخاص',
+			'tls.customTrustCert' => 'شهادات مخصصة',
+			'tun.stack' => 'مكدس الشبكة',
+			'tun.dnsHijack' => 'اختطاف DNS',
+			'tun.strictRoute' => 'التوجيه الصارم',
+			'tun.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
+			'tun.appendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
+			'tun.bypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',
+			'dns.fakeIp' => 'fake-ip',
+			'dns.fallback' => 'Fallback',
+			'dns.preferH3' => 'أولوية DoH H3',
+			'dns.useHosts' => 'استخدام المضيفين',
+			'dns.useSystemHosts' => 'استخدام مضيفات النظام',
+			'dns.enhancedMode' => 'الوضع المحسّن',
+			'dns.fakeIPFilterMode' => 'وضع التصفية ${_root.dns.fakeIp}',
+			'dns.fakeIPFilter' => '${_root.dns.fakeIp} التصفية',
+			'dns.nameServer' => 'خادم DNS',
+			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
+			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
+			'dns.directNameServer' => '${_root.meta.direct} ${_root.dns.nameServer}',
+			'dns.fallbackNameServer' => '${_root.dns.fallback} ${_root.dns.nameServer}',
+			'dns.fallbackGeoIp' => '${_root.dns.fallback} GeoIp',
+			'dns.fallbackGeoIpCode' => '${_root.dns.fallback} GeoIpCode',
+			'sniffer.overrideDest' => 'غطاء',
+			'profilePatchMode.currentSelected' => 'المحدد الحالي',
+			'profilePatchMode.overwrite' => 'التجاوز المدمج',
+			'profilePatchMode.noOverwrite' => 'مُدمج - غير قابل للكتابة فوقه',
+			'protocolSniff' => 'الكشف عن البروتوكول',
+			'protocolSniffOverrideDestination' => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال',
+			'edgeRuntimeNotInstalled' => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

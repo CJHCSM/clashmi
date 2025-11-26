@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsRu implements Translations {
+class TranslationsRu with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -450,276 +451,271 @@ class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Не может быть пустым';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'Ошибка входа:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'Не удалось получить список файлов:';
-			case 'LaunchFailedScreen.invalidProcess': return 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку';
-			case 'LaunchFailedScreen.invalidProfile': return 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение';
-			case 'LaunchFailedScreen.invalidVersion': return 'Не удалось запустить приложение [Неверная версия], переустановите приложение';
-			case 'LaunchFailedScreen.systemVersionLow': return 'Не удалось запустить приложение [Слишком низкая версия системы]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'Путь установки недействителен, переустановите его по допустимому пути';
-			case 'PerAppAndroidScreen.title': return 'Проксируемые приложения';
-			case 'PerAppAndroidScreen.whiteListMode': return 'Режим белого списка';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.';
-			case 'UserAgreementScreen.privacyFirst': return 'Ваша конфиденциальность превыше всего';
-			case 'UserAgreementScreen.agreeAndContinue': return 'Принять и продолжить';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'Новая версия [${p}] доступна';
-			case 'VersionUpdateScreen.update': return 'Перезапустить';
-			case 'VersionUpdateScreen.cancel': return 'Не сейчас';
-			case 'main.tray.menuOpen': return '    Открыть    ';
-			case 'main.tray.menuExit': return '    Выйти    ';
-			case 'meta.enable': return 'Включить';
-			case 'meta.disable': return 'Запретить';
-			case 'meta.open': return 'Открыть';
-			case 'meta.close': return 'Закрыть';
-			case 'meta.quit': return 'Выйти';
-			case 'meta.add': return 'Добавить';
-			case 'meta.addSuccess': return 'Добавлено успешно';
-			case 'meta.addFailed': return ({required Object p}) => 'Ошибка при добавлении:${p}';
-			case 'meta.remove': return 'Удалить';
-			case 'meta.removeConfirm': return 'Подтверждаете удаление?';
-			case 'meta.edit': return 'Редактировать';
-			case 'meta.view': return 'Просмотр';
-			case 'meta.remark': return 'Примечание';
-			case 'meta.byDefault': return 'по умолчанию';
-			case 'meta.editRemark': return 'Заметки об изменениях';
-			case 'meta.more': return 'Больше';
-			case 'meta.tips': return 'Инфо';
-			case 'meta.copy': return 'Скопировать';
-			case 'meta.save': return 'сохранять';
-			case 'meta.ok': return 'Ок';
-			case 'meta.cancel': return 'Закрыть';
-			case 'meta.faq': return 'Часто задаваемые вопросы (FAQ)';
-			case 'meta.download': return 'Скачать';
-			case 'meta.loading': return 'Загрузка...';
-			case 'meta.days': return 'дни';
-			case 'meta.hours': return 'часы';
-			case 'meta.minutes': return 'минуты';
-			case 'meta.seconds': return 'Второй';
-			case 'meta.protocol': return 'Протокол';
-			case 'meta.search': return 'Поиск';
-			case 'meta.custom': return 'Настроить самостоятельно';
-			case 'meta.connect': return 'Соединить';
-			case 'meta.disconnect': return 'Отключить';
-			case 'meta.connected': return 'Подключено';
-			case 'meta.disconnected': return 'Отключено';
-			case 'meta.connecting': return 'Подключение';
-			case 'meta.connectTimeout': return 'Таймаут при соединении';
-			case 'meta.timeout': return 'Тайм-аут';
-			case 'meta.timeoutDuration': return 'Длительность тайм-аута';
-			case 'meta.latency': return 'Задерживать';
-			case 'meta.latencyTest': return 'Обнаружение задержки';
-			case 'meta.language': return 'Язык';
-			case 'meta.next': return 'Дальше';
-			case 'meta.done': return 'Готово';
-			case 'meta.apply': return 'Применить';
-			case 'meta.refresh': return 'Обновить';
-			case 'meta.retry': return 'Хотите попробовать еще раз?';
-			case 'meta.update': return 'Обновить';
-			case 'meta.updateInterval': return 'Интервал обновления';
-			case 'meta.updateInterval5mTips': return 'Минимум: 5 м';
-			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
-			case 'meta.none': return 'Ничего не делать';
-			case 'meta.reset': return 'Перезагрузить';
-			case 'meta.authentication': return 'Авторизация';
-			case 'meta.submit': return 'Отправить';
-			case 'meta.user': return 'Пользователь';
-			case 'meta.account': return 'Аккаунт';
-			case 'meta.password': return 'Пароль';
-			case 'meta.required': return 'Необходимо';
-			case 'meta.sudoPassword': return 'Пароль sudo (требуется для режима TUN)';
-			case 'meta.other': return 'Другой';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'Неверный URL';
-			case 'meta.urlCannotEmpty': return 'Ссылка не может быть пустой';
-			case 'meta.urlTooLong': return 'URL слишком длинный (>8182)';
-			case 'meta.copyUrl': return 'Скопировать ссылку';
-			case 'meta.openUrl': return 'Открыть ссылку';
-			case 'meta.shareUrl': return 'Поделиться ссылкой';
-			case 'meta.coreSettingTips': return 'Примечание: После изменения конфигурации необходимо повторно подключиться, чтобы изменения вступили в силу.';
-			case 'meta.overwrite': return 'Переопределить';
-			case 'meta.overwriteCustom': return 'Пользовательские переопределения';
-			case 'meta.overwriteTips': return 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения';
-			case 'meta.noOverwrite': return 'Не перезаписывать';
-			case 'meta.overwriteSettings': return 'Переопределить настройки';
-			case 'meta.externalController': return 'Внешнее управление';
-			case 'meta.secret': return 'Пароль';
-			case 'meta.tcpConcurrent': return 'Параллельное TCP-подтверждение';
-			case 'meta.globalClientFingerprint': return 'Глобальный отпечаток пальца TLS';
-			case 'meta.allowLanAccess': return 'Доступ к локальной сети устройства';
-			case 'meta.mixedPort': return 'Порт mixed-прокси';
-			case 'meta.logLevel': return 'Уровень журнала';
-			case 'meta.tcpkeepAliveInterval': return 'Интервал проверки активности TCP';
-			case 'meta.delayTestUrl': return 'URL-адрес теста задержки';
-			case 'meta.delayTestTimeout': return 'Время ожидания теста задержки (мс)';
-			case 'meta.tun': return 'TUN';
-			case 'meta.ntp': return 'NTP';
-			case 'meta.tls': return 'TLS';
-			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return 'Загрузка гео-правил через прокси';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip будет преобразован в соответствующий RuleSet';
-			case 'meta.asnNotSupportInIosTips': return 'Из-за ограничений памяти системы iOS правила IP-ASN и SRC-IP-ASN будут игнорироваться в iOS.';
-			case 'meta.sniffer': return 'Обнаружение доменов';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.launchAtStartup': return 'Запуск при включении';
-			case 'meta.launchAtStartupRunAsAdmin': return 'Пожалуйста, перезапустите Clash Mi от имени администратора.';
-			case 'meta.portableMode': return 'Портативный режим';
-			case 'meta.portableModeDisableTips': return 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]';
-			case 'meta.systemProxy': return 'Системный прокси';
-			case 'meta.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
-			case 'meta.autoConnectAtBoot': return 'Автоматическое подключение после запуска системы';
-			case 'meta.autoConnectAtBootTips': return 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
-			case 'meta.hideAfterLaunch': return 'Скрыть окно после запуска';
-			case 'meta.autoSetSystemProxy': return 'Установить системный прокси после подключения';
-			case 'meta.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
-			case 'meta.excludeFromRecent': return 'Скрыть из недавних задач';
-			case 'meta.wakeLock': return 'Блокировка пробуждения';
-			case 'meta.hideVpn': return 'Скрыть значок VPN';
-			case 'meta.hideVpnTips': return 'Включение IPv6 приведет к сбою этой функции.';
-			case 'meta.hideDockIcon': return 'Скрыть значок дока';
-			case 'meta.website': return 'Веб-сайт';
-			case 'meta.rule': return 'Правила';
-			case 'meta.global': return 'Глобально';
-			case 'meta.direct': return 'Напрямую';
-			case 'meta.block': return 'Блокировать';
-			case 'meta.qrcode': return 'QR-код';
-			case 'meta.qrcodeTooLong': return 'Слишком большой текст для отображения';
-			case 'meta.qrcodeShare': return 'Поделиться QR-кодом';
-			case 'meta.textToQrcode': return 'Преобразование текста в QR-код';
-			case 'meta.qrcodeScan': return 'Сканировать QR-код';
-			case 'meta.qrcodeScanResult': return 'Результат сканирования';
-			case 'meta.qrcodeScanFromImage': return 'Открыть';
-			case 'meta.qrcodeScanResultFailed': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
-			case 'meta.qrcodeScanResultEmpty': return 'Пустой результат сканирования.';
-			case 'meta.screenshot': return 'Скриншот';
-			case 'meta.backupAndSync': return 'Резервное копирование и синхронизация';
-			case 'meta.importSuccess': return 'Импорт выполнен успешно';
-			case 'meta.rewriteConfirm': return 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
-			case 'meta.importAndExport': return 'Импорт и экспорт';
-			case 'meta.import': return 'Импорт';
-			case 'meta.importFromUrl': return 'Импорт из URL';
-			case 'meta.export': return 'Экспорт';
-			case 'meta.send': return 'Передать';
-			case 'meta.receive': return 'Принять';
-			case 'meta.sendConfirm': return 'Подтверждаете передачу?';
-			case 'meta.termOfUse': return 'Условия использования';
-			case 'meta.privacyPolicy': return 'Политика конфиденциальности';
-			case 'meta.log': return 'Журнал';
-			case 'meta.coreLog': return 'Журнал ядра';
-			case 'meta.core': return 'Ядро';
-			case 'meta.help': return 'Помощь';
-			case 'meta.tutorial': return 'Руководство';
-			case 'meta.board': return 'Панель';
-			case 'meta.boardOnline': return 'Использование онлайн-панели';
-			case 'meta.boardOnlineUrl': return 'URL-адрес онлайн-панели';
-			case 'meta.boardLocalPort': return 'Порт локальной панели';
-			case 'meta.disableFontScaler': return 'Отключить масштабирование шрифта';
-			case 'meta.autoOrientation': return 'Следовать за поворотом экрана';
-			case 'meta.restartTakesEffect': return 'Требуется перезапуск';
-			case 'meta.reconnectTakesEffect': return 'Изменения вступят в силу после повторного подключения.';
-			case 'meta.runtimeProfile': return 'Конфигурация времени выполнения';
-			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
-			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-			case 'meta.requestNeedsUserApproval': return '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.';
-			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.';
-			case 'meta.proxy': return 'Прокси';
-			case 'meta.theme': return 'Тема';
-			case 'meta.tvMode': return 'Режим ТВ';
-			case 'meta.autoUpdate': return 'Автоматические обновления';
-			case 'meta.updateChannel': return 'Канал автоматического обновления';
-			case 'meta.hasNewVersion': return ({required Object p}) => 'Обновить версию ${p}';
-			case 'meta.devOptions': return 'Параметры разработчика';
-			case 'meta.about': return 'О приложении';
-			case 'meta.name': return 'Название';
-			case 'meta.version': return 'Версия';
-			case 'meta.notice': return 'Уведомления';
-			case 'meta.sort': return 'Отсортировать';
-			case 'meta.recommended': return 'Рекомендуемые';
-			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
-			case 'meta.share': return 'Поделиться';
-			case 'meta.importFromClipboard': return 'Импорт из буфера обмена';
-			case 'meta.exportToClipboard': return 'Экспорт в буфер обмена';
-			case 'meta.server': return 'Сервер';
-			case 'meta.port': return 'Порт';
-			case 'meta.donate': return 'Пожертвовать';
-			case 'meta.setting': return 'Настройки';
-			case 'meta.settingCore': return 'Настройки ядра';
-			case 'meta.settingApp': return 'Настройки приложения';
-			case 'meta.coreOverwrite': return 'Переопределение ядра';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'Синхронизация по локальной сети';
-			case 'meta.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
-			case 'meta.deviceNoSpace': return 'Недостаточно места на диске';
-			case 'meta.hideSystemApp': return 'Скрыть системные приложения';
-			case 'meta.hideAppIcon': return 'Скрыть значок приложения';
-			case 'meta.openDir': return 'Открыть каталог файлов';
-			case 'meta.fileChoose': return 'Выбрать файл';
-			case 'meta.filePathCannotEmpty': return 'Путь к файлу не может быть пустым';
-			case 'meta.fileNotExist': return ({required Object p}) => 'Файла не существует:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'Неверный тип файла:${p}';
-			case 'meta.uwpExemption': return 'Исключение из изоляции сети UWP';
-			case 'meta.getProfile': return 'Получить конфигурацию';
-			case 'meta.addProfile': return 'Добавить профиль';
-			case 'meta.myProfiles': return 'Профили';
-			case 'meta.profileEdit': return 'Редактирование профилей';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'Перезагрузить после обновления профиля';
-			case 'meta.profileImport': return 'Импорт файла конфигурации';
-			case 'meta.profileAddUrlOrContent': return 'Добавление подписки';
-			case 'meta.profileUrlOrContent': return 'Ссылка на подписку/содержание';
-			case 'meta.profileUrlOrContentHit': return 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'Ссылка на подписку не может быть пустой';
-			case 'permission.camera': return 'Камера';
-			case 'permission.screen': return 'Запись экрана';
-			case 'permission.appQuery': return 'Получить список приложений';
-			case 'permission.request': return ({required Object p}) => 'Включить разрешения [${p}]';
-			case 'permission.requestNeed': return ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]';
-			case 'tls.insecure': return 'Пропустить проверку сертификата';
-			case 'tls.certificate': return 'Сертификат';
-			case 'tls.privateKey': return 'Закрытый ключ';
-			case 'tls.customTrustCert': return 'Индивидуальные сертификаты';
-			case 'tun.stack': return 'Сетевой стек';
-			case 'tun.dnsHijack': return 'Перехват DNS';
-			case 'tun.strictRoute': return 'Строгая маршрутизация';
-			case 'tun.allowBypass': return 'Разрешить приложениям обходить VPN';
-			case 'tun.appendHttpProxy': return 'Подключите HTTP-прокси к VPN';
-			case 'tun.bypassHttpProxyDomain': return 'Домены, которым разрешено обходить HTTP-прокси';
-			case 'dns.fakeIp': return 'fake-ip';
-			case 'dns.fallback': return 'Fallback';
-			case 'dns.preferH3': return 'Приоритет DoH H3';
-			case 'dns.useHosts': return 'Использование хостов';
-			case 'dns.useSystemHosts': return 'Использование системных хостов';
-			case 'dns.enhancedMode': return 'Расширенный режим';
-			case 'dns.fakeIPFilterMode': return '${_root.dns.fakeIp} режим фильтра';
-			case 'dns.fakeIPFilter': return '${_root.dns.fakeIp} фильтрация';
-			case 'dns.nameServer': return 'DNS-сервер';
-			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
-			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
-			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
-			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
-			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return 'Переназначить';
-			case 'profilePatchMode.currentSelected': return 'Текущий сервер';
-			case 'profilePatchMode.overwrite': return 'Встроенная функция переопределения';
-			case 'profilePatchMode.noOverwrite': return 'Встроенный - не перезаписывается';
-			case 'protocolSniff': return 'Определение протокола';
-			case 'protocolSniffOverrideDestination': return 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
-			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'Адрес сервера',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'Не может быть пустым',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Ошибка входа:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Не удалось получить список файлов:',
+			'LaunchFailedScreen.invalidProcess' => 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку',
+			'LaunchFailedScreen.invalidProfile' => 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение',
+			'LaunchFailedScreen.invalidVersion' => 'Не удалось запустить приложение [Неверная версия], переустановите приложение',
+			'LaunchFailedScreen.systemVersionLow' => 'Не удалось запустить приложение [Слишком низкая версия системы]',
+			'LaunchFailedScreen.invalidInstallPath' => 'Путь установки недействителен, переустановите его по допустимому пути',
+			'PerAppAndroidScreen.title' => 'Проксируемые приложения',
+			'PerAppAndroidScreen.whiteListMode' => 'Режим белого списка',
+			'PerAppAndroidScreen.whiteListModeTip' => 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.',
+			'UserAgreementScreen.privacyFirst' => 'Ваша конфиденциальность превыше всего',
+			'UserAgreementScreen.agreeAndContinue' => 'Принять и продолжить',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
+			'VersionUpdateScreen.update' => 'Перезапустить',
+			'VersionUpdateScreen.cancel' => 'Не сейчас',
+			'main.tray.menuOpen' => '    Открыть    ',
+			'main.tray.menuExit' => '    Выйти    ',
+			'meta.enable' => 'Включить',
+			'meta.disable' => 'Запретить',
+			'meta.open' => 'Открыть',
+			'meta.close' => 'Закрыть',
+			'meta.quit' => 'Выйти',
+			'meta.add' => 'Добавить',
+			'meta.addSuccess' => 'Добавлено успешно',
+			'meta.addFailed' => ({required Object p}) => 'Ошибка при добавлении:${p}',
+			'meta.remove' => 'Удалить',
+			'meta.removeConfirm' => 'Подтверждаете удаление?',
+			'meta.edit' => 'Редактировать',
+			'meta.view' => 'Просмотр',
+			'meta.remark' => 'Примечание',
+			'meta.byDefault' => 'по умолчанию',
+			'meta.editRemark' => 'Заметки об изменениях',
+			'meta.more' => 'Больше',
+			'meta.tips' => 'Инфо',
+			'meta.copy' => 'Скопировать',
+			'meta.save' => 'сохранять',
+			'meta.ok' => 'Ок',
+			'meta.cancel' => 'Закрыть',
+			'meta.faq' => 'Часто задаваемые вопросы (FAQ)',
+			'meta.download' => 'Скачать',
+			'meta.loading' => 'Загрузка...',
+			'meta.days' => 'дни',
+			'meta.hours' => 'часы',
+			'meta.minutes' => 'минуты',
+			'meta.seconds' => 'Второй',
+			'meta.protocol' => 'Протокол',
+			'meta.search' => 'Поиск',
+			'meta.custom' => 'Настроить самостоятельно',
+			'meta.connect' => 'Соединить',
+			'meta.disconnect' => 'Отключить',
+			'meta.connected' => 'Подключено',
+			'meta.disconnected' => 'Отключено',
+			'meta.connecting' => 'Подключение',
+			'meta.connectTimeout' => 'Таймаут при соединении',
+			'meta.timeout' => 'Тайм-аут',
+			'meta.timeoutDuration' => 'Длительность тайм-аута',
+			'meta.latency' => 'Задерживать',
+			'meta.latencyTest' => 'Обнаружение задержки',
+			'meta.language' => 'Язык',
+			'meta.next' => 'Дальше',
+			'meta.done' => 'Готово',
+			'meta.apply' => 'Применить',
+			'meta.refresh' => 'Обновить',
+			'meta.retry' => 'Хотите попробовать еще раз?',
+			'meta.update' => 'Обновить',
+			'meta.updateInterval' => 'Интервал обновления',
+			'meta.updateInterval5mTips' => 'Минимум: 5 м',
+			'meta.updateFailed' => ({required Object p}) => 'Не удалось обновить:${p}',
+			'meta.none' => 'Ничего не делать',
+			'meta.reset' => 'Перезагрузить',
+			'meta.authentication' => 'Авторизация',
+			'meta.submit' => 'Отправить',
+			'meta.user' => 'Пользователь',
+			'meta.account' => 'Аккаунт',
+			'meta.password' => 'Пароль',
+			'meta.required' => 'Необходимо',
+			'meta.sudoPassword' => 'Пароль sudo (требуется для режима TUN)',
+			'meta.other' => 'Другой',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'Неверный URL',
+			'meta.urlCannotEmpty' => 'Ссылка не может быть пустой',
+			'meta.urlTooLong' => 'URL слишком длинный (>8182)',
+			'meta.copyUrl' => 'Скопировать ссылку',
+			'meta.openUrl' => 'Открыть ссылку',
+			'meta.shareUrl' => 'Поделиться ссылкой',
+			'meta.coreSettingTips' => 'Примечание: После изменения конфигурации необходимо повторно подключиться, чтобы изменения вступили в силу.',
+			'meta.overwrite' => 'Переопределить',
+			'meta.overwriteCustom' => 'Пользовательские переопределения',
+			'meta.overwriteTips' => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения',
+			'meta.noOverwrite' => 'Не перезаписывать',
+			'meta.overwriteSettings' => 'Переопределить настройки',
+			'meta.externalController' => 'Внешнее управление',
+			'meta.secret' => 'Пароль',
+			'meta.tcpConcurrent' => 'Параллельное TCP-подтверждение',
+			'meta.globalClientFingerprint' => 'Глобальный отпечаток пальца TLS',
+			'meta.allowLanAccess' => 'Доступ к локальной сети устройства',
+			'meta.mixedPort' => 'Порт mixed-прокси',
+			'meta.logLevel' => 'Уровень журнала',
+			'meta.tcpkeepAliveInterval' => 'Интервал проверки активности TCP',
+			'meta.delayTestUrl' => 'URL-адрес теста задержки',
+			'meta.delayTestTimeout' => 'Время ожидания теста задержки (мс)',
+			'meta.tun' => 'TUN',
+			'meta.ntp' => 'NTP',
+			'meta.tls' => 'TLS',
+			'meta.geo' => 'GEO',
+			'meta.geoDownloadByProxy' => 'Загрузка гео-правил через прокси',
+			'meta.geoRulesetTips' => 'Geosite/Geoip будет преобразован в соответствующий RuleSet',
+			'meta.asnNotSupportInIosTips' => 'Из-за ограничений памяти системы iOS правила IP-ASN и SRC-IP-ASN будут игнорироваться в iOS.',
+			'meta.sniffer' => 'Обнаружение доменов',
+			'meta.userAgent' => 'UserAgent',
+			'meta.launchAtStartup' => 'Запуск при включении',
+			'meta.launchAtStartupRunAsAdmin' => 'Пожалуйста, перезапустите Clash Mi от имени администратора.',
+			'meta.portableMode' => 'Портативный режим',
+			'meta.portableModeDisableTips' => 'Если вам нужно выйти из портативного режима, выйдите из [clashmi] и вручную удалите папку [portable] в том же каталоге, что и [clashmi.exe]',
+			'meta.systemProxy' => 'Системный прокси',
+			'meta.autoConnectAfterLaunch' => 'Автоматическое подключение после запуска',
+			'meta.autoConnectAtBoot' => 'Автоматическое подключение после запуска системы',
+			'meta.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].',
+			'meta.hideAfterLaunch' => 'Скрыть окно после запуска',
+			'meta.autoSetSystemProxy' => 'Установить системный прокси после подключения',
+			'meta.bypassSystemProxy' => 'Доменные имена, которым разрешено обходить системный прокси-сервер',
+			'meta.excludeFromRecent' => 'Скрыть из недавних задач',
+			'meta.wakeLock' => 'Блокировка пробуждения',
+			'meta.hideVpn' => 'Скрыть значок VPN',
+			'meta.hideVpnTips' => 'Включение IPv6 приведет к сбою этой функции.',
+			'meta.hideDockIcon' => 'Скрыть значок дока',
+			'meta.website' => 'Веб-сайт',
+			'meta.rule' => 'Правила',
+			'meta.global' => 'Глобально',
+			'meta.direct' => 'Напрямую',
+			'meta.block' => 'Блокировать',
+			'meta.qrcode' => 'QR-код',
+			'meta.qrcodeTooLong' => 'Слишком большой текст для отображения',
+			'meta.qrcodeShare' => 'Поделиться QR-кодом',
+			'meta.textToQrcode' => 'Преобразование текста в QR-код',
+			'meta.qrcodeScan' => 'Сканировать QR-код',
+			'meta.qrcodeScanResult' => 'Результат сканирования',
+			'meta.qrcodeScanFromImage' => 'Открыть',
+			'meta.qrcodeScanResultFailed' => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.',
+			'meta.qrcodeScanResultEmpty' => 'Пустой результат сканирования.',
+			'meta.screenshot' => 'Скриншот',
+			'meta.backupAndSync' => 'Резервное копирование и синхронизация',
+			'meta.importSuccess' => 'Импорт выполнен успешно',
+			'meta.rewriteConfirm' => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?',
+			'meta.importAndExport' => 'Импорт и экспорт',
+			'meta.import' => 'Импорт',
+			'meta.importFromUrl' => 'Импорт из URL',
+			'meta.export' => 'Экспорт',
+			'meta.send' => 'Передать',
+			'meta.receive' => 'Принять',
+			'meta.sendConfirm' => 'Подтверждаете передачу?',
+			'meta.termOfUse' => 'Условия использования',
+			'meta.privacyPolicy' => 'Политика конфиденциальности',
+			'meta.log' => 'Журнал',
+			'meta.coreLog' => 'Журнал ядра',
+			'meta.core' => 'Ядро',
+			'meta.help' => 'Помощь',
+			'meta.tutorial' => 'Руководство',
+			'meta.board' => 'Панель',
+			'meta.boardOnline' => 'Использование онлайн-панели',
+			'meta.boardOnlineUrl' => 'URL-адрес онлайн-панели',
+			'meta.boardLocalPort' => 'Порт локальной панели',
+			'meta.disableFontScaler' => 'Отключить масштабирование шрифта',
+			'meta.autoOrientation' => 'Следовать за поворотом экрана',
+			'meta.restartTakesEffect' => 'Требуется перезапуск',
+			'meta.reconnectTakesEffect' => 'Изменения вступят в силу после повторного подключения.',
+			'meta.runtimeProfile' => 'Конфигурация времени выполнения',
+			'meta.willCompleteAfterRebootInstall' => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.',
+			'meta.willCompleteAfterRebootUninstall' => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.',
+			'meta.requestNeedsUserApproval' => '1. Пожалуйста, [разрешите] Clash Mi устанавливать системные расширения в [Системные настройки] - [Конфиденциальность и безопасность]. 2. : [Системные настройки] - [Основные] - [Элементы входа и расширения - Сетевые расширения] Включите [clashmiServiceSE]. После завершения подключитесь снова.',
+			'meta.FullDiskAccessPermissionRequired' => 'Включите разрешение clashmiServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Полный доступ к диску] и переподключитесь.',
+			'meta.proxy' => 'Прокси',
+			'meta.theme' => 'Тема',
+			'meta.tvMode' => 'Режим ТВ',
+			'meta.autoUpdate' => 'Автоматические обновления',
+			'meta.updateChannel' => 'Канал автоматического обновления',
+			'meta.hasNewVersion' => ({required Object p}) => 'Обновить версию ${p}',
+			'meta.devOptions' => 'Параметры разработчика',
+			'meta.about' => 'О приложении',
+			'meta.name' => 'Название',
+			'meta.version' => 'Версия',
+			'meta.notice' => 'Уведомления',
+			'meta.sort' => 'Отсортировать',
+			'meta.recommended' => 'Рекомендуемые',
+			'meta.innerError' => ({required Object p}) => 'Внутренняя ошибка:${p}',
+			'meta.share' => 'Поделиться',
+			'meta.importFromClipboard' => 'Импорт из буфера обмена',
+			'meta.exportToClipboard' => 'Экспорт в буфер обмена',
+			'meta.server' => 'Сервер',
+			'meta.port' => 'Порт',
+			'meta.donate' => 'Пожертвовать',
+			'meta.setting' => 'Настройки',
+			'meta.settingCore' => 'Настройки ядра',
+			'meta.settingApp' => 'Настройки приложения',
+			'meta.coreOverwrite' => 'Переопределение ядра',
+			'meta.iCloud' => 'iCloud',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'Синхронизация по локальной сети',
+			'meta.lanSyncNotQuitTips' => 'Не выходите из этого окна до завершения синхронизации.',
+			'meta.deviceNoSpace' => 'Недостаточно места на диске',
+			'meta.hideSystemApp' => 'Скрыть системные приложения',
+			'meta.hideAppIcon' => 'Скрыть значок приложения',
+			'meta.openDir' => 'Открыть каталог файлов',
+			'meta.fileChoose' => 'Выбрать файл',
+			'meta.filePathCannotEmpty' => 'Путь к файлу не может быть пустым',
+			'meta.fileNotExist' => ({required Object p}) => 'Файла не существует:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'Неверный тип файла:${p}',
+			'meta.uwpExemption' => 'Исключение из изоляции сети UWP',
+			'meta.getProfile' => 'Получить конфигурацию',
+			'meta.addProfile' => 'Добавить профиль',
+			'meta.myProfiles' => 'Профили',
+			'meta.profileEdit' => 'Редактирование профилей',
+			'meta.profileEditReloadAfterProfileUpdate' => 'Перезагрузить после обновления профиля',
+			'meta.profileImport' => 'Импорт файла конфигурации',
+			'meta.profileAddUrlOrContent' => 'Добавление подписки',
+			'meta.profileUrlOrContent' => 'Ссылка на подписку/содержание',
+			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).',
+			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
+			'permission.camera' => 'Камера',
+			'permission.screen' => 'Запись экрана',
+			'permission.appQuery' => 'Получить список приложений',
+			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
+			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
+			'tls.insecure' => 'Пропустить проверку сертификата',
+			'tls.certificate' => 'Сертификат',
+			'tls.privateKey' => 'Закрытый ключ',
+			'tls.customTrustCert' => 'Индивидуальные сертификаты',
+			'tun.stack' => 'Сетевой стек',
+			'tun.dnsHijack' => 'Перехват DNS',
+			'tun.strictRoute' => 'Строгая маршрутизация',
+			'tun.allowBypass' => 'Разрешить приложениям обходить VPN',
+			'tun.appendHttpProxy' => 'Подключите HTTP-прокси к VPN',
+			'tun.bypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
+			'dns.fakeIp' => 'fake-ip',
+			'dns.fallback' => 'Fallback',
+			'dns.preferH3' => 'Приоритет DoH H3',
+			'dns.useHosts' => 'Использование хостов',
+			'dns.useSystemHosts' => 'Использование системных хостов',
+			'dns.enhancedMode' => 'Расширенный режим',
+			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} режим фильтра',
+			'dns.fakeIPFilter' => '${_root.dns.fakeIp} фильтрация',
+			'dns.nameServer' => 'DNS-сервер',
+			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
+			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
+			'dns.directNameServer' => '${_root.meta.direct} ${_root.dns.nameServer}',
+			'dns.fallbackNameServer' => '${_root.dns.fallback} ${_root.dns.nameServer}',
+			'dns.fallbackGeoIp' => '${_root.dns.fallback} GeoIp',
+			'dns.fallbackGeoIpCode' => '${_root.dns.fallback} GeoIpCode',
+			'sniffer.overrideDest' => 'Переназначить',
+			'profilePatchMode.currentSelected' => 'Текущий сервер',
+			'profilePatchMode.overwrite' => 'Встроенная функция переопределения',
+			'profilePatchMode.noOverwrite' => 'Встроенный - не перезаписывается',
+			'protocolSniff' => 'Определение протокола',
+			'protocolSniffOverrideDestination' => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.',
+			'edgeRuntimeNotInstalled' => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

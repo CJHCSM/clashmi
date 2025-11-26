@@ -22,7 +22,7 @@ abstract final class AppUtils {
   }
 
   static String getBuildinVersion() {
-    return "1.0.13.171";
+    return "1.0.14.180";
   }
 
   static String getId() {
