@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsFa implements Translations {
+class TranslationsFa with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -450,276 +451,271 @@ class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsFa {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'آدرس URL سرور';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'نمی‌تواند خالی باشد';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'ورود ناموفق بود:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'دریافت لیست فایل ناموفق بود:';
-			case 'LaunchFailedScreen.invalidProcess': return 'اجرای نرم‌افزار ناموفق بود [نام‌ اجرایی پروسه نامعتبر]، لطفا مجدد نرم‌افزار را در دایرکتوری دیگری نصب کنید';
-			case 'LaunchFailedScreen.invalidProfile': return 'اجرای نرم‌افزار ناموفق بود [دسترسی به پروفایل ناموفق بود]، لطفا مجدد نرم افزار را نصب کنید';
-			case 'LaunchFailedScreen.invalidVersion': return 'اجرای نرم‌افزار ناموفق بود [ورژن نامعتبر]، لطفا مجدد نرم‌افزار را نصب کنید';
-			case 'LaunchFailedScreen.systemVersionLow': return 'راه اندازی برنامه ناموفق بود [نسخه سیستم خیلی کم است]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'مسیر نصب نامعتبر است، لطفا مجدد در مسیر معتبر نصب کنید';
-			case 'PerAppAndroidScreen.title': return 'پروکسی به‌تفکیک برنامه';
-			case 'PerAppAndroidScreen.whiteListMode': return 'حالت لیست سفید';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'وقتی فعال باشد: فقط برنامه‌هایی که انتخاب شده‌اند پروکسی می‌شوند؛ وقتی فعال نباشد: فقط برنامه‌هایی که انتخاب نشده‌اند پروکسی می‌شوند';
-			case 'UserAgreementScreen.privacyFirst': return 'حریم‌خصوصی شما اولویت دارد';
-			case 'UserAgreementScreen.agreeAndContinue': return 'پذیرفتن و ادامه';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'نسخه جدید [${p}] آماده است';
-			case 'VersionUpdateScreen.update': return 'راه‌اندازی مجدد برای به‌روزرسانی';
-			case 'VersionUpdateScreen.cancel': return 'الان‌ نه';
-			case 'main.tray.menuOpen': return '    بازکردن    ';
-			case 'main.tray.menuExit': return '    بستن    ';
-			case 'meta.enable': return 'فعال‌سازی';
-			case 'meta.disable': return 'غیرفعال';
-			case 'meta.open': return 'باز کن';
-			case 'meta.close': return 'بسته';
-			case 'meta.quit': return 'خروج';
-			case 'meta.add': return 'افزودن';
-			case 'meta.addSuccess': return 'با‌موفقیت اضافه شد';
-			case 'meta.addFailed': return ({required Object p}) => 'افزودن ناموفق بود:${p}';
-			case 'meta.remove': return 'حذف';
-			case 'meta.removeConfirm': return 'آیا از حذف اطمینان دارین؟';
-			case 'meta.edit': return 'ویرایش کنید';
-			case 'meta.view': return 'بررسی';
-			case 'meta.remark': return 'ملاحضات';
-			case 'meta.byDefault': return 'پیش‌فرض';
-			case 'meta.editRemark': return 'یادداشت های اصلاحی';
-			case 'meta.more': return 'بیشتر';
-			case 'meta.tips': return 'اطلاعات';
-			case 'meta.copy': return 'کپی';
-			case 'meta.save': return 'ذخیره کنید';
-			case 'meta.ok': return 'خُب';
-			case 'meta.cancel': return 'لغو';
-			case 'meta.faq': return 'سوالات متداول';
-			case 'meta.download': return 'دانلود';
-			case 'meta.loading': return 'درحال بارگذاری…';
-			case 'meta.days': return 'روز';
-			case 'meta.hours': return 'ساعت';
-			case 'meta.minutes': return 'دقیقه';
-			case 'meta.seconds': return 'دومین';
-			case 'meta.protocol': return 'پروتکل';
-			case 'meta.search': return 'جستجو';
-			case 'meta.custom': return 'سفارشی';
-			case 'meta.connect': return 'اتصال';
-			case 'meta.disconnect': return 'قطع‌ اتصال';
-			case 'meta.connected': return 'وصل شد';
-			case 'meta.disconnected': return 'قطع شد';
-			case 'meta.connecting': return 'درحال اتصال';
-			case 'meta.connectTimeout': return 'اتمام مهلت اتصال';
-			case 'meta.timeout': return 'تایم اوت';
-			case 'meta.timeoutDuration': return 'مدت زمان وقفه';
-			case 'meta.latency': return 'تاخیر';
-			case 'meta.latencyTest': return 'بررسی تاخیر';
-			case 'meta.language': return 'زبان';
-			case 'meta.next': return 'بعدی';
-			case 'meta.done': return 'انجام‌شد';
-			case 'meta.apply': return 'درخواست دادن';
-			case 'meta.refresh': return 'بارگذاری مجدد';
-			case 'meta.retry': return 'دوباره امتحان کنید؟';
-			case 'meta.update': return 'تجدید';
-			case 'meta.updateInterval': return 'فاصله‌ی به‌روزرسانی';
-			case 'meta.updateInterval5mTips': return 'حداقل: 5 متر';
-			case 'meta.updateFailed': return ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
-			case 'meta.none': return 'هیچ‌کدام';
-			case 'meta.reset': return 'ریست';
-			case 'meta.authentication': return 'مجوز';
-			case 'meta.submit': return 'ارسال';
-			case 'meta.user': return 'کاربر';
-			case 'meta.account': return 'نام‌کاربری';
-			case 'meta.password': return 'رمز‌عبور';
-			case 'meta.required': return 'الزامی';
-			case 'meta.sudoPassword': return 'رمز عبور sudo (برای حالت TUN لازم است)';
-			case 'meta.other': return 'دیگر';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'URL نامعتبر';
-			case 'meta.urlCannotEmpty': return 'لینک نمی‌تواند خالی باشد';
-			case 'meta.urlTooLong': return 'URL خیلی طولانی است (>8182)';
-			case 'meta.copyUrl': return 'کپی‌کردن لینک';
-			case 'meta.openUrl': return 'بازکردن لینک';
-			case 'meta.shareUrl': return 'اشتراک لینک';
-			case 'meta.coreSettingTips': return 'توجه: پس از تغییر پیکربندی، باید دوباره وصل شوید تا اعمال شود';
-			case 'meta.overwrite': return 'لغو';
-			case 'meta.overwriteCustom': return 'لغوهای سفارشی';
-			case 'meta.overwriteTips': return 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه';
-			case 'meta.noOverwrite': return 'رونویسی نکنید';
-			case 'meta.overwriteSettings': return 'لغو تنظیمات';
-			case 'meta.externalController': return 'کنترل خارجی';
-			case 'meta.secret': return 'Secret';
-			case 'meta.tcpConcurrent': return 'دست دادن همزمان TCP';
-			case 'meta.globalClientFingerprint': return 'اثر انگشت جهانی TLS';
-			case 'meta.allowLanAccess': return 'دسترسی به دستگاه LAN';
-			case 'meta.mixedPort': return 'پورت پروکسی هیبریدی';
-			case 'meta.logLevel': return 'سطح ورود به سیستم';
-			case 'meta.tcpkeepAliveInterval': return 'فاصله حفظ زنده TCP';
-			case 'meta.delayTestUrl': return 'URL تست تأخیر';
-			case 'meta.delayTestTimeout': return 'مهلت زمانی تست تاخیری (میلی‌ثانیه)';
-			case 'meta.tun': return 'TUN';
-			case 'meta.ntp': return 'NTP';
-			case 'meta.tls': return 'TLS';
-			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return 'دانلود Geo RuleSet با استفاده از یک پروکسی';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip به RuleSet مربوطه تبدیل می شود';
-			case 'meta.asnNotSupportInIosTips': return 'با توجه به محدودیت‌های حافظه سیستم iOS، قوانین IP-ASN و SRC-IP-ASN در iOS نادیده گرفته می‌شوند.';
-			case 'meta.sniffer': return 'بو کشیدن';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.launchAtStartup': return 'اجرا در راه‌اندازی';
-			case 'meta.launchAtStartupRunAsAdmin': return 'لطفاً Clash Mi را به عنوان مدیر راه اندازی مجدد کنید';
-			case 'meta.portableMode': return 'حالت قابل‌حمل';
-			case 'meta.portableModeDisableTips': return 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید';
-			case 'meta.systemProxy': return 'پروکسی سیستم';
-			case 'meta.autoConnectAfterLaunch': return 'اتصال خودکار پس‌از راه‌اندازی';
-			case 'meta.autoConnectAtBoot': return 'اتصال خودکار پس از روشن شدن سیستم';
-			case 'meta.autoConnectAtBootTips': return 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
-			case 'meta.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
-			case 'meta.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
-			case 'meta.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
-			case 'meta.excludeFromRecent': return 'پنهان شدن از وظایف اخیر';
-			case 'meta.hideDockIcon': return 'پنهان کردن آیکون داک';
-			case 'meta.wakeLock': return 'قفل بیدارباش';
-			case 'meta.hideVpn': return 'مخفی کردن آیکون VPN';
-			case 'meta.hideVpnTips': return 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
-			case 'meta.website': return 'وبسایت';
-			case 'meta.rule': return 'قانون';
-			case 'meta.global': return 'عمومی';
-			case 'meta.direct': return 'مستقیم';
-			case 'meta.block': return 'مسدود';
-			case 'meta.qrcode': return 'کد QR';
-			case 'meta.qrcodeTooLong': return 'متن برای نمایش خیلی طولانی است';
-			case 'meta.qrcodeShare': return 'اشتراک کدQR';
-			case 'meta.textToQrcode': return 'متن به کد QR';
-			case 'meta.qrcodeScan': return 'اسکن QRکد';
-			case 'meta.qrcodeScanResult': return 'نتایج اسکن';
-			case 'meta.qrcodeScanFromImage': return 'اسکن از عکس';
-			case 'meta.qrcodeScanResultFailed': return 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
-			case 'meta.qrcodeScanResultEmpty': return 'نتیجه اسکن خالی است';
-			case 'meta.screenshot': return 'اسکرین‌شات';
-			case 'meta.backupAndSync': return 'پشتیبان‌گیری و همگام‌سازی';
-			case 'meta.importSuccess': return 'افزودن موفق بود';
-			case 'meta.rewriteConfirm': return 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
-			case 'meta.importAndExport': return 'وارد‌کردن و خروجی‌گرفتن';
-			case 'meta.import': return 'وارد‌کردن';
-			case 'meta.importFromUrl': return 'وارد کردن از URL';
-			case 'meta.export': return 'خروجی‌گرفتن';
-			case 'meta.send': return 'ارسال کنید';
-			case 'meta.receive': return 'تصاحب';
-			case 'meta.sendConfirm': return 'ارسال را تایید کرد؟';
-			case 'meta.termOfUse': return 'شرایط استفاده';
-			case 'meta.privacyPolicy': return 'سیاست حریم خصوصی';
-			case 'meta.log': return 'ورود به سیستم';
-			case 'meta.coreLog': return 'گزارش هسته';
-			case 'meta.core': return 'هسته';
-			case 'meta.help': return 'کمک کند';
-			case 'meta.tutorial': return 'آموزش';
-			case 'meta.board': return 'پانل';
-			case 'meta.boardOnline': return 'با استفاده از پنل آنلاین';
-			case 'meta.boardOnlineUrl': return 'آدرس پنل آنلاین';
-			case 'meta.boardLocalPort': return 'پورت پانل محلی';
-			case 'meta.disableFontScaler': return 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
-			case 'meta.autoOrientation': return 'چرخش صفحه را دنبال کنید';
-			case 'meta.restartTakesEffect': return 'با راه‌اندازی مجدد اعمال می‌شود';
-			case 'meta.reconnectTakesEffect': return 'پس از اتصال مجدد، اعمال خواهد شد.';
-			case 'meta.runtimeProfile': return 'پیکربندی زمان اجرا';
-			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
-			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.';
-			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
-			case 'meta.proxy': return 'بازیگری';
-			case 'meta.theme': return 'موضوع';
-			case 'meta.tvMode': return 'حالت تلویزیون';
-			case 'meta.autoUpdate': return 'به روز رسانی خودکار';
-			case 'meta.updateChannel': return 'کانال به‌روزرسانی خودکار';
-			case 'meta.hasNewVersion': return ({required Object p}) => 'به‌روزرسانی نسخه ${p} ';
-			case 'meta.devOptions': return 'تنظیمات توسعه‌دهندگان';
-			case 'meta.about': return 'درباره';
-			case 'meta.name': return 'نام';
-			case 'meta.version': return 'نسخه';
-			case 'meta.notice': return 'اطلاعیه';
-			case 'meta.sort': return 'مرتب‌سازی';
-			case 'meta.recommended': return 'پیشنهادی';
-			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
-			case 'meta.share': return 'اشتراک گذاری';
-			case 'meta.importFromClipboard': return 'افزودن از کلیپ‌برد';
-			case 'meta.exportToClipboard': return 'صادرات به کلیپ بورد';
-			case 'meta.server': return 'سرور';
-			case 'meta.port': return 'بندر';
-			case 'meta.donate': return 'اهدا کنید';
-			case 'meta.setting': return 'تنظیمات';
-			case 'meta.settingCore': return 'تنظیمات اصلی';
-			case 'meta.settingApp': return 'تنظیمات برنامه';
-			case 'meta.coreOverwrite': return 'Core Override';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN Sync';
-			case 'meta.lanSyncNotQuitTips': return 'قبل از تکمیل همگام‌سازی از این قسمت خارج نشوید';
-			case 'meta.deviceNoSpace': return 'فضای خالی کافی ندارید';
-			case 'meta.hideSystemApp': return 'برنامه های سیستم را مخفی کنید';
-			case 'meta.hideAppIcon': return 'پنهان کردن نماد برنامه';
-			case 'meta.openDir': return 'بازکردن دایرکتوری فایل';
-			case 'meta.fileChoose': return 'انتخاب فایل';
-			case 'meta.filePathCannotEmpty': return 'مسیر فایل نمی‌تواند خالی باشد';
-			case 'meta.fileNotExist': return ({required Object p}) => 'فایل وجود ندارد:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'نوع فایل نامعتبر:${p}';
-			case 'meta.uwpExemption': return 'معافیت جداسازی شبکه UWP';
-			case 'meta.getProfile': return 'پیکربندی را دریافت کنید';
-			case 'meta.addProfile': return 'افزودن پروفایل';
-			case 'meta.myProfiles': return 'پروفایل‌ها';
-			case 'meta.profileEdit': return 'ویرایش پروفایل';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل';
-			case 'meta.profileImport': return 'وارد‌کردن فایل پروفایل';
-			case 'meta.profileAddUrlOrContent': return 'افزودن لینک پروفایل';
-			case 'meta.profileUrlOrContent': return 'لینک/محتوای پروفایل';
-			case 'meta.profileUrlOrContentHit': return 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'لینک پروفایل نمی‌تواند خالی باشد';
-			case 'permission.camera': return 'دوربین';
-			case 'permission.screen': return 'ضبط صفحه';
-			case 'permission.appQuery': return 'Get Application List';
-			case 'permission.request': return ({required Object p}) => 'مجوزهای [${p}] را فعال کنید';
-			case 'permission.requestNeed': return ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید';
-			case 'tls.insecure': return 'رد شدن از تأیید گواهی';
-			case 'tls.certificate': return 'گواهی';
-			case 'tls.privateKey': return 'کلید خصوصی';
-			case 'tls.customTrustCert': return 'گواهی های سفارشی';
-			case 'tun.stack': return 'پشته شبکه';
-			case 'tun.dnsHijack': return 'ربودن DNS';
-			case 'tun.strictRoute': return 'مسیریابی دقیق';
-			case 'tun.allowBypass': return 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
-			case 'tun.appendHttpProxy': return 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
-			case 'tun.bypassHttpProxyDomain': return 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
-			case 'dns.fakeIp': return 'fake-ip';
-			case 'dns.fallback': return 'Fallback';
-			case 'dns.preferH3': return 'اولویت DoH H3';
-			case 'dns.useHosts': return 'استفاده از هاست ها';
-			case 'dns.useSystemHosts': return 'استفاده از هاست های سیستم';
-			case 'dns.enhancedMode': return 'حالت پیشرفته';
-			case 'dns.fakeIPFilterMode': return 'حالت فیلتر ${_root.dns.fakeIp}';
-			case 'dns.fakeIPFilter': return 'فیلتر ${_root.dns.fakeIp}';
-			case 'dns.nameServer': return 'سرور DNS';
-			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
-			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
-			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
-			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
-			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return 'پوشش';
-			case 'profilePatchMode.currentSelected': return 'فعلی انتخاب شده';
-			case 'profilePatchMode.overwrite': return 'Overwrite داخلی';
-			case 'profilePatchMode.noOverwrite': return 'داخلی - رونویسی نشده است';
-			case 'protocolSniff': return 'تشخیص پروتکل';
-			case 'protocolSniffOverrideDestination': return 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد';
-			case 'edgeRuntimeNotInstalled': return 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'آدرس URL سرور',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'نمی‌تواند خالی باشد',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'ورود ناموفق بود:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'دریافت لیست فایل ناموفق بود:',
+			'LaunchFailedScreen.invalidProcess' => 'اجرای نرم‌افزار ناموفق بود [نام‌ اجرایی پروسه نامعتبر]، لطفا مجدد نرم‌افزار را در دایرکتوری دیگری نصب کنید',
+			'LaunchFailedScreen.invalidProfile' => 'اجرای نرم‌افزار ناموفق بود [دسترسی به پروفایل ناموفق بود]، لطفا مجدد نرم افزار را نصب کنید',
+			'LaunchFailedScreen.invalidVersion' => 'اجرای نرم‌افزار ناموفق بود [ورژن نامعتبر]، لطفا مجدد نرم‌افزار را نصب کنید',
+			'LaunchFailedScreen.systemVersionLow' => 'راه اندازی برنامه ناموفق بود [نسخه سیستم خیلی کم است]',
+			'LaunchFailedScreen.invalidInstallPath' => 'مسیر نصب نامعتبر است، لطفا مجدد در مسیر معتبر نصب کنید',
+			'PerAppAndroidScreen.title' => 'پروکسی به‌تفکیک برنامه',
+			'PerAppAndroidScreen.whiteListMode' => 'حالت لیست سفید',
+			'PerAppAndroidScreen.whiteListModeTip' => 'وقتی فعال باشد: فقط برنامه‌هایی که انتخاب شده‌اند پروکسی می‌شوند؛ وقتی فعال نباشد: فقط برنامه‌هایی که انتخاب نشده‌اند پروکسی می‌شوند',
+			'UserAgreementScreen.privacyFirst' => 'حریم‌خصوصی شما اولویت دارد',
+			'UserAgreementScreen.agreeAndContinue' => 'پذیرفتن و ادامه',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'نسخه جدید [${p}] آماده است',
+			'VersionUpdateScreen.update' => 'راه‌اندازی مجدد برای به‌روزرسانی',
+			'VersionUpdateScreen.cancel' => 'الان‌ نه',
+			'main.tray.menuOpen' => '    بازکردن    ',
+			'main.tray.menuExit' => '    بستن    ',
+			'meta.enable' => 'فعال‌سازی',
+			'meta.disable' => 'غیرفعال',
+			'meta.open' => 'باز کن',
+			'meta.close' => 'بسته',
+			'meta.quit' => 'خروج',
+			'meta.add' => 'افزودن',
+			'meta.addSuccess' => 'با‌موفقیت اضافه شد',
+			'meta.addFailed' => ({required Object p}) => 'افزودن ناموفق بود:${p}',
+			'meta.remove' => 'حذف',
+			'meta.removeConfirm' => 'آیا از حذف اطمینان دارین؟',
+			'meta.edit' => 'ویرایش کنید',
+			'meta.view' => 'بررسی',
+			'meta.remark' => 'ملاحضات',
+			'meta.byDefault' => 'پیش‌فرض',
+			'meta.editRemark' => 'یادداشت های اصلاحی',
+			'meta.more' => 'بیشتر',
+			'meta.tips' => 'اطلاعات',
+			'meta.copy' => 'کپی',
+			'meta.save' => 'ذخیره کنید',
+			'meta.ok' => 'خُب',
+			'meta.cancel' => 'لغو',
+			'meta.faq' => 'سوالات متداول',
+			'meta.download' => 'دانلود',
+			'meta.loading' => 'درحال بارگذاری…',
+			'meta.days' => 'روز',
+			'meta.hours' => 'ساعت',
+			'meta.minutes' => 'دقیقه',
+			'meta.seconds' => 'دومین',
+			'meta.protocol' => 'پروتکل',
+			'meta.search' => 'جستجو',
+			'meta.custom' => 'سفارشی',
+			'meta.connect' => 'اتصال',
+			'meta.disconnect' => 'قطع‌ اتصال',
+			'meta.connected' => 'وصل شد',
+			'meta.disconnected' => 'قطع شد',
+			'meta.connecting' => 'درحال اتصال',
+			'meta.connectTimeout' => 'اتمام مهلت اتصال',
+			'meta.timeout' => 'تایم اوت',
+			'meta.timeoutDuration' => 'مدت زمان وقفه',
+			'meta.latency' => 'تاخیر',
+			'meta.latencyTest' => 'بررسی تاخیر',
+			'meta.language' => 'زبان',
+			'meta.next' => 'بعدی',
+			'meta.done' => 'انجام‌شد',
+			'meta.apply' => 'درخواست دادن',
+			'meta.refresh' => 'بارگذاری مجدد',
+			'meta.retry' => 'دوباره امتحان کنید؟',
+			'meta.update' => 'تجدید',
+			'meta.updateInterval' => 'فاصله‌ی به‌روزرسانی',
+			'meta.updateInterval5mTips' => 'حداقل: 5 متر',
+			'meta.updateFailed' => ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}',
+			'meta.none' => 'هیچ‌کدام',
+			'meta.reset' => 'ریست',
+			'meta.authentication' => 'مجوز',
+			'meta.submit' => 'ارسال',
+			'meta.user' => 'کاربر',
+			'meta.account' => 'نام‌کاربری',
+			'meta.password' => 'رمز‌عبور',
+			'meta.required' => 'الزامی',
+			'meta.sudoPassword' => 'رمز عبور sudo (برای حالت TUN لازم است)',
+			'meta.other' => 'دیگر',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'URL نامعتبر',
+			'meta.urlCannotEmpty' => 'لینک نمی‌تواند خالی باشد',
+			'meta.urlTooLong' => 'URL خیلی طولانی است (>8182)',
+			'meta.copyUrl' => 'کپی‌کردن لینک',
+			'meta.openUrl' => 'بازکردن لینک',
+			'meta.shareUrl' => 'اشتراک لینک',
+			'meta.coreSettingTips' => 'توجه: پس از تغییر پیکربندی، باید دوباره وصل شوید تا اعمال شود',
+			'meta.overwrite' => 'لغو',
+			'meta.overwriteCustom' => 'لغوهای سفارشی',
+			'meta.overwriteTips' => 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه',
+			'meta.noOverwrite' => 'رونویسی نکنید',
+			'meta.overwriteSettings' => 'لغو تنظیمات',
+			'meta.externalController' => 'کنترل خارجی',
+			'meta.secret' => 'Secret',
+			'meta.tcpConcurrent' => 'دست دادن همزمان TCP',
+			'meta.globalClientFingerprint' => 'اثر انگشت جهانی TLS',
+			'meta.allowLanAccess' => 'دسترسی به دستگاه LAN',
+			'meta.mixedPort' => 'پورت پروکسی هیبریدی',
+			'meta.logLevel' => 'سطح ورود به سیستم',
+			'meta.tcpkeepAliveInterval' => 'فاصله حفظ زنده TCP',
+			'meta.delayTestUrl' => 'URL تست تأخیر',
+			'meta.delayTestTimeout' => 'مهلت زمانی تست تاخیری (میلی‌ثانیه)',
+			'meta.tun' => 'TUN',
+			'meta.ntp' => 'NTP',
+			'meta.tls' => 'TLS',
+			'meta.geo' => 'GEO',
+			'meta.geoDownloadByProxy' => 'دانلود Geo RuleSet با استفاده از یک پروکسی',
+			'meta.geoRulesetTips' => 'Geosite/Geoip به RuleSet مربوطه تبدیل می شود',
+			'meta.asnNotSupportInIosTips' => 'با توجه به محدودیت‌های حافظه سیستم iOS، قوانین IP-ASN و SRC-IP-ASN در iOS نادیده گرفته می‌شوند.',
+			'meta.sniffer' => 'بو کشیدن',
+			'meta.userAgent' => 'UserAgent',
+			'meta.launchAtStartup' => 'اجرا در راه‌اندازی',
+			'meta.launchAtStartupRunAsAdmin' => 'لطفاً Clash Mi را به عنوان مدیر راه اندازی مجدد کنید',
+			'meta.portableMode' => 'حالت قابل‌حمل',
+			'meta.portableModeDisableTips' => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید',
+			'meta.systemProxy' => 'پروکسی سیستم',
+			'meta.autoConnectAfterLaunch' => 'اتصال خودکار پس‌از راه‌اندازی',
+			'meta.autoConnectAtBoot' => 'اتصال خودکار پس از روشن شدن سیستم',
+			'meta.autoConnectAtBootTips' => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.',
+			'meta.hideAfterLaunch' => 'پنهان کردن پنجره پس از راه اندازی',
+			'meta.autoSetSystemProxy' => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال',
+			'meta.bypassSystemProxy' => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند',
+			'meta.excludeFromRecent' => 'پنهان شدن از وظایف اخیر',
+			'meta.hideDockIcon' => 'پنهان کردن آیکون داک',
+			'meta.wakeLock' => 'قفل بیدارباش',
+			'meta.hideVpn' => 'مخفی کردن آیکون VPN',
+			'meta.hideVpnTips' => 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.',
+			'meta.website' => 'وبسایت',
+			'meta.rule' => 'قانون',
+			'meta.global' => 'عمومی',
+			'meta.direct' => 'مستقیم',
+			'meta.block' => 'مسدود',
+			'meta.qrcode' => 'کد QR',
+			'meta.qrcodeTooLong' => 'متن برای نمایش خیلی طولانی است',
+			'meta.qrcodeShare' => 'اشتراک کدQR',
+			'meta.textToQrcode' => 'متن به کد QR',
+			'meta.qrcodeScan' => 'اسکن QRکد',
+			'meta.qrcodeScanResult' => 'نتایج اسکن',
+			'meta.qrcodeScanFromImage' => 'اسکن از عکس',
+			'meta.qrcodeScanResultFailed' => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است',
+			'meta.qrcodeScanResultEmpty' => 'نتیجه اسکن خالی است',
+			'meta.screenshot' => 'اسکرین‌شات',
+			'meta.backupAndSync' => 'پشتیبان‌گیری و همگام‌سازی',
+			'meta.importSuccess' => 'افزودن موفق بود',
+			'meta.rewriteConfirm' => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟',
+			'meta.importAndExport' => 'وارد‌کردن و خروجی‌گرفتن',
+			'meta.import' => 'وارد‌کردن',
+			'meta.importFromUrl' => 'وارد کردن از URL',
+			'meta.export' => 'خروجی‌گرفتن',
+			'meta.send' => 'ارسال کنید',
+			'meta.receive' => 'تصاحب',
+			'meta.sendConfirm' => 'ارسال را تایید کرد؟',
+			'meta.termOfUse' => 'شرایط استفاده',
+			'meta.privacyPolicy' => 'سیاست حریم خصوصی',
+			'meta.log' => 'ورود به سیستم',
+			'meta.coreLog' => 'گزارش هسته',
+			'meta.core' => 'هسته',
+			'meta.help' => 'کمک کند',
+			'meta.tutorial' => 'آموزش',
+			'meta.board' => 'پانل',
+			'meta.boardOnline' => 'با استفاده از پنل آنلاین',
+			'meta.boardOnlineUrl' => 'آدرس پنل آنلاین',
+			'meta.boardLocalPort' => 'پورت پانل محلی',
+			'meta.disableFontScaler' => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)',
+			'meta.autoOrientation' => 'چرخش صفحه را دنبال کنید',
+			'meta.restartTakesEffect' => 'با راه‌اندازی مجدد اعمال می‌شود',
+			'meta.reconnectTakesEffect' => 'پس از اتصال مجدد، اعمال خواهد شد.',
+			'meta.runtimeProfile' => 'پیکربندی زمان اجرا',
+			'meta.willCompleteAfterRebootInstall' => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.',
+			'meta.willCompleteAfterRebootUninstall' => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود',
+			'meta.requestNeedsUserApproval' => '۱. لطفاً به Clash Mi اجازه دهید افزونه‌های سیستمی را در [تنظیمات سیستم] - [حریم خصوصی و امنیت] نصب کند. ۲. : [تنظیمات سیستم] - [عمومی] - [موارد ورود و افزونه‌ها - افزونه‌های شبکه] [clashmiServiceSE] را فعال کنید. پس از اتمام، دوباره متصل شوید.',
+			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز clashmiServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.',
+			'meta.proxy' => 'بازیگری',
+			'meta.theme' => 'موضوع',
+			'meta.tvMode' => 'حالت تلویزیون',
+			'meta.autoUpdate' => 'به روز رسانی خودکار',
+			'meta.updateChannel' => 'کانال به‌روزرسانی خودکار',
+			'meta.hasNewVersion' => ({required Object p}) => 'به‌روزرسانی نسخه ${p} ',
+			'meta.devOptions' => 'تنظیمات توسعه‌دهندگان',
+			'meta.about' => 'درباره',
+			'meta.name' => 'نام',
+			'meta.version' => 'نسخه',
+			'meta.notice' => 'اطلاعیه',
+			'meta.sort' => 'مرتب‌سازی',
+			'meta.recommended' => 'پیشنهادی',
+			'meta.innerError' => ({required Object p}) => 'خطای داخلی: ${p}',
+			'meta.share' => 'اشتراک گذاری',
+			'meta.importFromClipboard' => 'افزودن از کلیپ‌برد',
+			'meta.exportToClipboard' => 'صادرات به کلیپ بورد',
+			'meta.server' => 'سرور',
+			'meta.port' => 'بندر',
+			'meta.donate' => 'اهدا کنید',
+			'meta.setting' => 'تنظیمات',
+			'meta.settingCore' => 'تنظیمات اصلی',
+			'meta.settingApp' => 'تنظیمات برنامه',
+			'meta.coreOverwrite' => 'Core Override',
+			'meta.iCloud' => 'iCloud',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN Sync',
+			'meta.lanSyncNotQuitTips' => 'قبل از تکمیل همگام‌سازی از این قسمت خارج نشوید',
+			'meta.deviceNoSpace' => 'فضای خالی کافی ندارید',
+			'meta.hideSystemApp' => 'برنامه های سیستم را مخفی کنید',
+			'meta.hideAppIcon' => 'پنهان کردن نماد برنامه',
+			'meta.openDir' => 'بازکردن دایرکتوری فایل',
+			'meta.fileChoose' => 'انتخاب فایل',
+			'meta.filePathCannotEmpty' => 'مسیر فایل نمی‌تواند خالی باشد',
+			'meta.fileNotExist' => ({required Object p}) => 'فایل وجود ندارد:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'نوع فایل نامعتبر:${p}',
+			'meta.uwpExemption' => 'معافیت جداسازی شبکه UWP',
+			'meta.getProfile' => 'پیکربندی را دریافت کنید',
+			'meta.addProfile' => 'افزودن پروفایل',
+			'meta.myProfiles' => 'پروفایل‌ها',
+			'meta.profileEdit' => 'ویرایش پروفایل',
+			'meta.profileEditReloadAfterProfileUpdate' => 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل',
+			'meta.profileImport' => 'وارد‌کردن فایل پروفایل',
+			'meta.profileAddUrlOrContent' => 'افزودن لینک پروفایل',
+			'meta.profileUrlOrContent' => 'لینک/محتوای پروفایل',
+			'meta.profileUrlOrContentHit' => 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)',
+			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
+			'permission.camera' => 'دوربین',
+			'permission.screen' => 'ضبط صفحه',
+			'permission.appQuery' => 'Get Application List',
+			'permission.request' => ({required Object p}) => 'مجوزهای [${p}] را فعال کنید',
+			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',
+			'tls.insecure' => 'رد شدن از تأیید گواهی',
+			'tls.certificate' => 'گواهی',
+			'tls.privateKey' => 'کلید خصوصی',
+			'tls.customTrustCert' => 'گواهی های سفارشی',
+			'tun.stack' => 'پشته شبکه',
+			'tun.dnsHijack' => 'ربودن DNS',
+			'tun.strictRoute' => 'مسیریابی دقیق',
+			'tun.allowBypass' => 'به برنامه‌ها اجازه دهید VPN را دور بزنند',
+			'tun.appendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
+			'tun.bypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',
+			'dns.fakeIp' => 'fake-ip',
+			'dns.fallback' => 'Fallback',
+			'dns.preferH3' => 'اولویت DoH H3',
+			'dns.useHosts' => 'استفاده از هاست ها',
+			'dns.useSystemHosts' => 'استفاده از هاست های سیستم',
+			'dns.enhancedMode' => 'حالت پیشرفته',
+			'dns.fakeIPFilterMode' => 'حالت فیلتر ${_root.dns.fakeIp}',
+			'dns.fakeIPFilter' => 'فیلتر ${_root.dns.fakeIp}',
+			'dns.nameServer' => 'سرور DNS',
+			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
+			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
+			'dns.directNameServer' => '${_root.meta.direct} ${_root.dns.nameServer}',
+			'dns.fallbackNameServer' => '${_root.dns.fallback} ${_root.dns.nameServer}',
+			'dns.fallbackGeoIp' => '${_root.dns.fallback} GeoIp',
+			'dns.fallbackGeoIpCode' => '${_root.dns.fallback} GeoIpCode',
+			'sniffer.overrideDest' => 'پوشش',
+			'profilePatchMode.currentSelected' => 'فعلی انتخاب شده',
+			'profilePatchMode.overwrite' => 'Overwrite داخلی',
+			'profilePatchMode.noOverwrite' => 'داخلی - رونویسی نشده است',
+			'protocolSniff' => 'تشخیص پروتکل',
+			'protocolSniffOverrideDestination' => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد',
+			'edgeRuntimeNotInstalled' => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

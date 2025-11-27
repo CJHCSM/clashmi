@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -970,276 +971,271 @@ class TranslationsMainTrayEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Server Url';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Can not be empty';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'Login failed:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'Failed to get file list:';
-			case 'LaunchFailedScreen.invalidProcess': return 'The app failed to start [Invalid process name], please reinstall the app to a separate directory';
-			case 'LaunchFailedScreen.invalidProfile': return 'The app failed to start [Failed to access the profile], please reinstall the app';
-			case 'LaunchFailedScreen.invalidVersion': return 'The app failed to start [Invalid version], please reinstall the app';
-			case 'LaunchFailedScreen.systemVersionLow': return 'The app failed to start [system version too low]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'The installation path is invalid, please reinstall it to a valid path';
-			case 'PerAppAndroidScreen.title': return 'Per-App Proxy';
-			case 'PerAppAndroidScreen.whiteListMode': return 'Whitelist Mode';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies';
-			case 'UserAgreementScreen.privacyFirst': return 'Your Privacy Comes First';
-			case 'UserAgreementScreen.agreeAndContinue': return 'Accept & Continue';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'The new version[${p}] is ready';
-			case 'VersionUpdateScreen.update': return 'Restart To Update';
-			case 'VersionUpdateScreen.cancel': return 'Not Now';
-			case 'main.tray.menuOpen': return '    Open    ';
-			case 'main.tray.menuExit': return '    Exit    ';
-			case 'meta.enable': return 'Enable';
-			case 'meta.disable': return 'Disable';
-			case 'meta.open': return 'Open';
-			case 'meta.close': return 'Close';
-			case 'meta.quit': return 'Quit';
-			case 'meta.add': return 'Add';
-			case 'meta.addSuccess': return 'Added successfully';
-			case 'meta.addFailed': return ({required Object p}) => 'Add failed:${p}';
-			case 'meta.remove': return 'Remove';
-			case 'meta.removeConfirm': return 'Are you sure to delete?';
-			case 'meta.edit': return 'Edit';
-			case 'meta.view': return 'View';
-			case 'meta.remark': return 'Remark';
-			case 'meta.byDefault': return 'Default';
-			case 'meta.editRemark': return 'Edit Remark';
-			case 'meta.more': return 'More';
-			case 'meta.tips': return 'Info';
-			case 'meta.copy': return 'Copy';
-			case 'meta.save': return 'Save';
-			case 'meta.ok': return 'Ok';
-			case 'meta.cancel': return 'Cancel';
-			case 'meta.faq': return 'FAQ';
-			case 'meta.download': return 'Download';
-			case 'meta.loading': return 'Loading...';
-			case 'meta.days': return 'Days';
-			case 'meta.hours': return 'Hours';
-			case 'meta.minutes': return 'Minutes';
-			case 'meta.seconds': return 'Seconds';
-			case 'meta.protocol': return 'Protocol';
-			case 'meta.search': return 'Search';
-			case 'meta.custom': return 'Custom';
-			case 'meta.connect': return 'Connect';
-			case 'meta.disconnect': return 'Disconnect';
-			case 'meta.connected': return 'Connected';
-			case 'meta.disconnected': return 'Disconnected';
-			case 'meta.connecting': return 'Connecting';
-			case 'meta.connectTimeout': return 'Connect Timeout';
-			case 'meta.timeout': return 'Timeout';
-			case 'meta.timeoutDuration': return 'Timeout Duration';
-			case 'meta.latency': return 'Latency';
-			case 'meta.latencyTest': return 'Latency Checks';
-			case 'meta.language': return 'Language';
-			case 'meta.next': return 'Next';
-			case 'meta.done': return 'Done';
-			case 'meta.apply': return 'Apply';
-			case 'meta.refresh': return 'Refresh';
-			case 'meta.retry': return 'Retry?';
-			case 'meta.update': return 'Update';
-			case 'meta.updateInterval': return 'Update interval';
-			case 'meta.updateFailed': return ({required Object p}) => 'Update failed:${p}';
-			case 'meta.updateInterval5mTips': return 'Minimum: 5m';
-			case 'meta.none': return 'None';
-			case 'meta.reset': return 'Reset';
-			case 'meta.authentication': return 'Authentication';
-			case 'meta.submit': return 'Submit';
-			case 'meta.user': return 'User';
-			case 'meta.account': return 'Account';
-			case 'meta.password': return 'Password';
-			case 'meta.required': return 'Required';
-			case 'meta.sudoPassword': return 'sudo password (required for TUN mode)';
-			case 'meta.other': return 'Other';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'Invalid URL';
-			case 'meta.urlCannotEmpty': return 'Link can not be empty';
-			case 'meta.urlTooLong': return 'URL is too long (>8182)';
-			case 'meta.copyUrl': return 'Copy Link';
-			case 'meta.openUrl': return 'Open Link';
-			case 'meta.shareUrl': return 'Share Link';
-			case 'meta.coreSettingTips': return 'Note: After modifying the configuration, you need to reconnect to take effect';
-			case 'meta.overwrite': return 'Overwrite';
-			case 'meta.overwriteCustom': return 'Custom Overwrite';
-			case 'meta.overwriteTips': return 'Original Profile <- Custom Overwrite <- App Overwrite';
-			case 'meta.noOverwrite': return 'Do not overwrite';
-			case 'meta.overwriteSettings': return 'Overwrite Settings';
-			case 'meta.externalController': return 'External Controller';
-			case 'meta.secret': return 'Secret';
-			case 'meta.tcpConcurrent': return 'TCP Concurrent Handshake';
-			case 'meta.globalClientFingerprint': return 'TLS Global Fingerprint';
-			case 'meta.allowLanAccess': return 'LAN device access';
-			case 'meta.mixedPort': return 'Mixed Proxy Port';
-			case 'meta.logLevel': return 'Log Level';
-			case 'meta.tcpkeepAliveInterval': return 'TCP Keep-alive Interval';
-			case 'meta.delayTestUrl': return 'Delay Test URL';
-			case 'meta.delayTestTimeout': return 'Delay Test Timeout(ms)';
-			case 'meta.tun': return 'TUN';
-			case 'meta.ntp': return 'NTP';
-			case 'meta.tls': return 'TLS';
-			case 'meta.geo': return 'GEO';
-			case 'meta.geoDownloadByProxy': return 'Downloading Geo RuleSet by proxy';
-			case 'meta.geoRulesetTips': return 'Geosite/Geoip will be converted into the corresponding RuleSet';
-			case 'meta.asnNotSupportInIosTips': return 'Due to iOS system memory limitations, IP-ASN and SRC-IP-ASN rules will be ignored on iOS.';
-			case 'meta.sniffer': return 'Sniffer';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.launchAtStartup': return 'Launch at Startup';
-			case 'meta.launchAtStartupRunAsAdmin': return 'Please restart Clash Mi as administrator';
-			case 'meta.portableMode': return 'Portable Mode';
-			case 'meta.portableModeDisableTips': return 'If you need to exit portable mode, please exit [clashmi] and manually delete the [portable] folder in the same directory as [clashmi.exe]';
-			case 'meta.systemProxy': return 'System Proxy';
-			case 'meta.autoConnectAfterLaunch': return 'Auto Connection after Launch';
-			case 'meta.autoConnectAtBoot': return 'Auto Connection after System Startup';
-			case 'meta.autoConnectAtBootTips': return 'System support is required; some systems may also require [auto-start] to be enabled.';
-			case 'meta.hideAfterLaunch': return 'Hide window after startup';
-			case 'meta.autoSetSystemProxy': return 'Auto Set System Proxy when Connected';
-			case 'meta.bypassSystemProxy': return 'Domain names that are allowed to bypass the system proxy';
-			case 'meta.excludeFromRecent': return 'Hide from [Recent Tasks]';
-			case 'meta.wakeLock': return 'Wake Lock';
-			case 'meta.hideVpn': return 'Hide VPN Icon';
-			case 'meta.hideVpnTips': return 'Enabling IPv6 will cause this function to fail';
-			case 'meta.hideDockIcon': return 'Hide Dock Icon';
-			case 'meta.website': return 'Website';
-			case 'meta.rule': return 'Rule';
-			case 'meta.global': return 'Global';
-			case 'meta.direct': return 'Direct';
-			case 'meta.block': return 'Block';
-			case 'meta.qrcode': return 'QR Code';
-			case 'meta.qrcodeTooLong': return 'The text is too long to display';
-			case 'meta.qrcodeShare': return 'Share QR Code';
-			case 'meta.textToQrcode': return 'Text To QR Code';
-			case 'meta.qrcodeScan': return 'Scan QR Code';
-			case 'meta.qrcodeScanResult': return 'Scan Result';
-			case 'meta.qrcodeScanFromImage': return 'Scan From Image';
-			case 'meta.qrcodeScanResultFailed': return 'Failed to parse the image, please make sure the screenshot is a valid QR code';
-			case 'meta.qrcodeScanResultEmpty': return 'Scan Result is empty';
-			case 'meta.screenshot': return 'Screenshot';
-			case 'meta.backupAndSync': return 'Backup and Sync';
-			case 'meta.importSuccess': return 'Import Success';
-			case 'meta.rewriteConfirm': return 'This file will overwrite the existing local configuration. Do you want to continue?';
-			case 'meta.importAndExport': return 'Import and Export';
-			case 'meta.import': return 'Import';
-			case 'meta.importFromUrl': return 'Import from URL';
-			case 'meta.export': return 'Export';
-			case 'meta.send': return 'Send';
-			case 'meta.receive': return 'Receive';
-			case 'meta.sendConfirm': return 'Confirm to send?';
-			case 'meta.termOfUse': return 'Terms of Service';
-			case 'meta.privacyPolicy': return 'Privacy & Policy';
-			case 'meta.log': return 'Log';
-			case 'meta.coreLog': return 'Core Log';
-			case 'meta.core': return 'Core';
-			case 'meta.help': return 'Help';
-			case 'meta.tutorial': return 'Tutorial';
-			case 'meta.board': return 'Board';
-			case 'meta.boardOnline': return 'Use Online Board';
-			case 'meta.boardOnlineUrl': return 'Online Board URL';
-			case 'meta.boardLocalPort': return 'Local Board Port';
-			case 'meta.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
-			case 'meta.autoOrientation': return 'Rotate with the screen';
-			case 'meta.restartTakesEffect': return 'Restart takes effect';
-			case 'meta.reconnectTakesEffect': return 'Reconnect takes effect';
-			case 'meta.runtimeProfile': return 'Runtime Profile';
-			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
-			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
-			case 'meta.requestNeedsUserApproval': return '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion';
-			case 'meta.FullDiskAccessPermissionRequired': return 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.';
-			case 'meta.proxy': return 'Proxy';
-			case 'meta.theme': return 'Theme';
-			case 'meta.tvMode': return 'TV Mode';
-			case 'meta.autoUpdate': return 'Auto Update';
-			case 'meta.updateChannel': return 'Auto Update Channel';
-			case 'meta.hasNewVersion': return ({required Object p}) => 'Update Version ${p}';
-			case 'meta.devOptions': return 'Developer Options';
-			case 'meta.about': return 'About';
-			case 'meta.name': return 'Name';
-			case 'meta.version': return 'Version';
-			case 'meta.notice': return 'Notice';
-			case 'meta.sort': return 'Reorder';
-			case 'meta.recommended': return 'Recommend';
-			case 'meta.innerError': return ({required Object p}) => 'Inner Error:${p}';
-			case 'meta.share': return 'Share';
-			case 'meta.importFromClipboard': return 'Import From Clipboard';
-			case 'meta.exportToClipboard': return 'Export to Clipboard';
-			case 'meta.server': return 'Server';
-			case 'meta.port': return 'Port';
-			case 'meta.donate': return 'Donate';
-			case 'meta.setting': return 'Settings';
-			case 'meta.settingCore': return 'Core Settings';
-			case 'meta.settingApp': return 'App Settings';
-			case 'meta.coreOverwrite': return 'Core Overwrite';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN Sync';
-			case 'meta.lanSyncNotQuitTips': return 'Do not exit this interface before synchronization is completed';
-			case 'meta.deviceNoSpace': return 'Not enough disk space';
-			case 'meta.hideSystemApp': return 'Hide System Apps';
-			case 'meta.hideAppIcon': return 'Hide App Icons';
-			case 'meta.openDir': return 'Open File Directory';
-			case 'meta.fileChoose': return 'Select File';
-			case 'meta.filePathCannotEmpty': return 'The file path can not be empty';
-			case 'meta.fileNotExist': return ({required Object p}) => 'File does not exist:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'Invalid file type:${p}';
-			case 'meta.uwpExemption': return 'UWP Network Isolation Exemptions';
-			case 'meta.getProfile': return 'Get Profile';
-			case 'meta.addProfile': return 'Add Profile';
-			case 'meta.myProfiles': return 'My Profiles';
-			case 'meta.profileEdit': return 'Profile Edit';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'Reload after Profile update';
-			case 'meta.profileImport': return 'Import Profile File';
-			case 'meta.profileAddUrlOrContent': return 'Add Profile Link';
-			case 'meta.profileUrlOrContent': return 'Profile Link/Content';
-			case 'meta.profileUrlOrContentHit': return 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'Profile Link can not be empty';
-			case 'permission.camera': return 'Camera';
-			case 'permission.screen': return 'Screen Recording';
-			case 'permission.appQuery': return 'Get Application List';
-			case 'permission.request': return ({required Object p}) => 'Turn on [${p}] permission';
-			case 'permission.requestNeed': return ({required Object p}) => 'Please Turn on [${p}] permission';
-			case 'tls.insecure': return 'Skip Certificate Verification';
-			case 'tls.certificate': return 'Certificate';
-			case 'tls.privateKey': return 'Private Key';
-			case 'tls.customTrustCert': return 'Custom Certifactes';
-			case 'tun.stack': return 'Network stack';
-			case 'tun.dnsHijack': return 'DNS Hijack';
-			case 'tun.strictRoute': return 'Strict Route';
-			case 'tun.allowBypass': return 'Allow Apps to Bypass VPN';
-			case 'tun.appendHttpProxy': return 'Append HTTP Proxy to VPN';
-			case 'tun.bypassHttpProxyDomain': return 'Domains allowed to bypass HTTP proxy';
-			case 'dns.fakeIp': return 'fake-ip';
-			case 'dns.fallback': return 'Fallback';
-			case 'dns.preferH3': return 'Prefer DoH H3';
-			case 'dns.useHosts': return 'Use Hosts';
-			case 'dns.useSystemHosts': return 'Use System Hosts';
-			case 'dns.enhancedMode': return 'Enhanced Mode';
-			case 'dns.fakeIPFilterMode': return '${_root.dns.fakeIp} Filter Mode';
-			case 'dns.fakeIPFilter': return 'fake-ip Filter';
-			case 'dns.nameServer': return 'NameServer';
-			case 'dns.defaultNameServer': return '${_root.meta.byDefault} ${_root.dns.nameServer}';
-			case 'dns.proxyNameServer': return '${_root.meta.proxy} ${_root.dns.nameServer}';
-			case 'dns.directNameServer': return '${_root.meta.direct} ${_root.dns.nameServer}';
-			case 'dns.fallbackNameServer': return '${_root.dns.fallback} ${_root.dns.nameServer}';
-			case 'dns.fallbackGeoIp': return '${_root.dns.fallback} GeoIp';
-			case 'dns.fallbackGeoIpCode': return '${_root.dns.fallback} GeoIpCode';
-			case 'sniffer.overrideDest': return 'Override';
-			case 'profilePatchMode.currentSelected': return 'Current Selected';
-			case 'profilePatchMode.overwrite': return 'Built-in Overwrite';
-			case 'profilePatchMode.noOverwrite': return 'Built-in - no Overwrite';
-			case 'protocolSniff': return 'Protocol Sniff';
-			case 'protocolSniffOverrideDestination': return 'The Sniff domain name override the connection target address';
-			case 'edgeRuntimeNotInstalled': return 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'Server Url',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'Can not be empty',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Login failed:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Failed to get file list:',
+			'LaunchFailedScreen.invalidProcess' => 'The app failed to start [Invalid process name], please reinstall the app to a separate directory',
+			'LaunchFailedScreen.invalidProfile' => 'The app failed to start [Failed to access the profile], please reinstall the app',
+			'LaunchFailedScreen.invalidVersion' => 'The app failed to start [Invalid version], please reinstall the app',
+			'LaunchFailedScreen.systemVersionLow' => 'The app failed to start [system version too low]',
+			'LaunchFailedScreen.invalidInstallPath' => 'The installation path is invalid, please reinstall it to a valid path',
+			'PerAppAndroidScreen.title' => 'Per-App Proxy',
+			'PerAppAndroidScreen.whiteListMode' => 'Whitelist Mode',
+			'PerAppAndroidScreen.whiteListModeTip' => 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies',
+			'UserAgreementScreen.privacyFirst' => 'Your Privacy Comes First',
+			'UserAgreementScreen.agreeAndContinue' => 'Accept & Continue',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'The new version[${p}] is ready',
+			'VersionUpdateScreen.update' => 'Restart To Update',
+			'VersionUpdateScreen.cancel' => 'Not Now',
+			'main.tray.menuOpen' => '    Open    ',
+			'main.tray.menuExit' => '    Exit    ',
+			'meta.enable' => 'Enable',
+			'meta.disable' => 'Disable',
+			'meta.open' => 'Open',
+			'meta.close' => 'Close',
+			'meta.quit' => 'Quit',
+			'meta.add' => 'Add',
+			'meta.addSuccess' => 'Added successfully',
+			'meta.addFailed' => ({required Object p}) => 'Add failed:${p}',
+			'meta.remove' => 'Remove',
+			'meta.removeConfirm' => 'Are you sure to delete?',
+			'meta.edit' => 'Edit',
+			'meta.view' => 'View',
+			'meta.remark' => 'Remark',
+			'meta.byDefault' => 'Default',
+			'meta.editRemark' => 'Edit Remark',
+			'meta.more' => 'More',
+			'meta.tips' => 'Info',
+			'meta.copy' => 'Copy',
+			'meta.save' => 'Save',
+			'meta.ok' => 'Ok',
+			'meta.cancel' => 'Cancel',
+			'meta.faq' => 'FAQ',
+			'meta.download' => 'Download',
+			'meta.loading' => 'Loading...',
+			'meta.days' => 'Days',
+			'meta.hours' => 'Hours',
+			'meta.minutes' => 'Minutes',
+			'meta.seconds' => 'Seconds',
+			'meta.protocol' => 'Protocol',
+			'meta.search' => 'Search',
+			'meta.custom' => 'Custom',
+			'meta.connect' => 'Connect',
+			'meta.disconnect' => 'Disconnect',
+			'meta.connected' => 'Connected',
+			'meta.disconnected' => 'Disconnected',
+			'meta.connecting' => 'Connecting',
+			'meta.connectTimeout' => 'Connect Timeout',
+			'meta.timeout' => 'Timeout',
+			'meta.timeoutDuration' => 'Timeout Duration',
+			'meta.latency' => 'Latency',
+			'meta.latencyTest' => 'Latency Checks',
+			'meta.language' => 'Language',
+			'meta.next' => 'Next',
+			'meta.done' => 'Done',
+			'meta.apply' => 'Apply',
+			'meta.refresh' => 'Refresh',
+			'meta.retry' => 'Retry?',
+			'meta.update' => 'Update',
+			'meta.updateInterval' => 'Update interval',
+			'meta.updateFailed' => ({required Object p}) => 'Update failed:${p}',
+			'meta.updateInterval5mTips' => 'Minimum: 5m',
+			'meta.none' => 'None',
+			'meta.reset' => 'Reset',
+			'meta.authentication' => 'Authentication',
+			'meta.submit' => 'Submit',
+			'meta.user' => 'User',
+			'meta.account' => 'Account',
+			'meta.password' => 'Password',
+			'meta.required' => 'Required',
+			'meta.sudoPassword' => 'sudo password (required for TUN mode)',
+			'meta.other' => 'Other',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'Invalid URL',
+			'meta.urlCannotEmpty' => 'Link can not be empty',
+			'meta.urlTooLong' => 'URL is too long (>8182)',
+			'meta.copyUrl' => 'Copy Link',
+			'meta.openUrl' => 'Open Link',
+			'meta.shareUrl' => 'Share Link',
+			'meta.coreSettingTips' => 'Note: After modifying the configuration, you need to reconnect to take effect',
+			'meta.overwrite' => 'Overwrite',
+			'meta.overwriteCustom' => 'Custom Overwrite',
+			'meta.overwriteTips' => 'Original Profile <- Custom Overwrite <- App Overwrite',
+			'meta.noOverwrite' => 'Do not overwrite',
+			'meta.overwriteSettings' => 'Overwrite Settings',
+			'meta.externalController' => 'External Controller',
+			'meta.secret' => 'Secret',
+			'meta.tcpConcurrent' => 'TCP Concurrent Handshake',
+			'meta.globalClientFingerprint' => 'TLS Global Fingerprint',
+			'meta.allowLanAccess' => 'LAN device access',
+			'meta.mixedPort' => 'Mixed Proxy Port',
+			'meta.logLevel' => 'Log Level',
+			'meta.tcpkeepAliveInterval' => 'TCP Keep-alive Interval',
+			'meta.delayTestUrl' => 'Delay Test URL',
+			'meta.delayTestTimeout' => 'Delay Test Timeout(ms)',
+			'meta.tun' => 'TUN',
+			'meta.ntp' => 'NTP',
+			'meta.tls' => 'TLS',
+			'meta.geo' => 'GEO',
+			'meta.geoDownloadByProxy' => 'Downloading Geo RuleSet by proxy',
+			'meta.geoRulesetTips' => 'Geosite/Geoip will be converted into the corresponding RuleSet',
+			'meta.asnNotSupportInIosTips' => 'Due to iOS system memory limitations, IP-ASN and SRC-IP-ASN rules will be ignored on iOS.',
+			'meta.sniffer' => 'Sniffer',
+			'meta.userAgent' => 'UserAgent',
+			'meta.launchAtStartup' => 'Launch at Startup',
+			'meta.launchAtStartupRunAsAdmin' => 'Please restart Clash Mi as administrator',
+			'meta.portableMode' => 'Portable Mode',
+			'meta.portableModeDisableTips' => 'If you need to exit portable mode, please exit [clashmi] and manually delete the [portable] folder in the same directory as [clashmi.exe]',
+			'meta.systemProxy' => 'System Proxy',
+			'meta.autoConnectAfterLaunch' => 'Auto Connection after Launch',
+			'meta.autoConnectAtBoot' => 'Auto Connection after System Startup',
+			'meta.autoConnectAtBootTips' => 'System support is required; some systems may also require [auto-start] to be enabled.',
+			'meta.hideAfterLaunch' => 'Hide window after startup',
+			'meta.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
+			'meta.bypassSystemProxy' => 'Domain names that are allowed to bypass the system proxy',
+			'meta.excludeFromRecent' => 'Hide from [Recent Tasks]',
+			'meta.wakeLock' => 'Wake Lock',
+			'meta.hideVpn' => 'Hide VPN Icon',
+			'meta.hideVpnTips' => 'Enabling IPv6 will cause this function to fail',
+			'meta.hideDockIcon' => 'Hide Dock Icon',
+			'meta.website' => 'Website',
+			'meta.rule' => 'Rule',
+			'meta.global' => 'Global',
+			'meta.direct' => 'Direct',
+			'meta.block' => 'Block',
+			'meta.qrcode' => 'QR Code',
+			'meta.qrcodeTooLong' => 'The text is too long to display',
+			'meta.qrcodeShare' => 'Share QR Code',
+			'meta.textToQrcode' => 'Text To QR Code',
+			'meta.qrcodeScan' => 'Scan QR Code',
+			'meta.qrcodeScanResult' => 'Scan Result',
+			'meta.qrcodeScanFromImage' => 'Scan From Image',
+			'meta.qrcodeScanResultFailed' => 'Failed to parse the image, please make sure the screenshot is a valid QR code',
+			'meta.qrcodeScanResultEmpty' => 'Scan Result is empty',
+			'meta.screenshot' => 'Screenshot',
+			'meta.backupAndSync' => 'Backup and Sync',
+			'meta.importSuccess' => 'Import Success',
+			'meta.rewriteConfirm' => 'This file will overwrite the existing local configuration. Do you want to continue?',
+			'meta.importAndExport' => 'Import and Export',
+			'meta.import' => 'Import',
+			'meta.importFromUrl' => 'Import from URL',
+			'meta.export' => 'Export',
+			'meta.send' => 'Send',
+			'meta.receive' => 'Receive',
+			'meta.sendConfirm' => 'Confirm to send?',
+			'meta.termOfUse' => 'Terms of Service',
+			'meta.privacyPolicy' => 'Privacy & Policy',
+			'meta.log' => 'Log',
+			'meta.coreLog' => 'Core Log',
+			'meta.core' => 'Core',
+			'meta.help' => 'Help',
+			'meta.tutorial' => 'Tutorial',
+			'meta.board' => 'Board',
+			'meta.boardOnline' => 'Use Online Board',
+			'meta.boardOnlineUrl' => 'Online Board URL',
+			'meta.boardLocalPort' => 'Local Board Port',
+			'meta.disableFontScaler' => 'Disable Font scaling(Restart takes effect)',
+			'meta.autoOrientation' => 'Rotate with the screen',
+			'meta.restartTakesEffect' => 'Restart takes effect',
+			'meta.reconnectTakesEffect' => 'Reconnect takes effect',
+			'meta.runtimeProfile' => 'Runtime Profile',
+			'meta.willCompleteAfterRebootInstall' => 'Please restart your device to complete the system extension installation',
+			'meta.willCompleteAfterRebootUninstall' => 'Please restart your device to complete the the system extension uninstallation',
+			'meta.requestNeedsUserApproval' => '1. Please [Allow] Clash Mi to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [clashmiServiceSE]\nreconnect after completion',
+			'meta.FullDiskAccessPermissionRequired' => 'Please enable clashmiServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access] and reconnect.',
+			'meta.proxy' => 'Proxy',
+			'meta.theme' => 'Theme',
+			'meta.tvMode' => 'TV Mode',
+			'meta.autoUpdate' => 'Auto Update',
+			'meta.updateChannel' => 'Auto Update Channel',
+			'meta.hasNewVersion' => ({required Object p}) => 'Update Version ${p}',
+			'meta.devOptions' => 'Developer Options',
+			'meta.about' => 'About',
+			'meta.name' => 'Name',
+			'meta.version' => 'Version',
+			'meta.notice' => 'Notice',
+			'meta.sort' => 'Reorder',
+			'meta.recommended' => 'Recommend',
+			'meta.innerError' => ({required Object p}) => 'Inner Error:${p}',
+			'meta.share' => 'Share',
+			'meta.importFromClipboard' => 'Import From Clipboard',
+			'meta.exportToClipboard' => 'Export to Clipboard',
+			'meta.server' => 'Server',
+			'meta.port' => 'Port',
+			'meta.donate' => 'Donate',
+			'meta.setting' => 'Settings',
+			'meta.settingCore' => 'Core Settings',
+			'meta.settingApp' => 'App Settings',
+			'meta.coreOverwrite' => 'Core Overwrite',
+			'meta.iCloud' => 'iCloud',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN Sync',
+			'meta.lanSyncNotQuitTips' => 'Do not exit this interface before synchronization is completed',
+			'meta.deviceNoSpace' => 'Not enough disk space',
+			'meta.hideSystemApp' => 'Hide System Apps',
+			'meta.hideAppIcon' => 'Hide App Icons',
+			'meta.openDir' => 'Open File Directory',
+			'meta.fileChoose' => 'Select File',
+			'meta.filePathCannotEmpty' => 'The file path can not be empty',
+			'meta.fileNotExist' => ({required Object p}) => 'File does not exist:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'Invalid file type:${p}',
+			'meta.uwpExemption' => 'UWP Network Isolation Exemptions',
+			'meta.getProfile' => 'Get Profile',
+			'meta.addProfile' => 'Add Profile',
+			'meta.myProfiles' => 'My Profiles',
+			'meta.profileEdit' => 'Profile Edit',
+			'meta.profileEditReloadAfterProfileUpdate' => 'Reload after Profile update',
+			'meta.profileImport' => 'Import Profile File',
+			'meta.profileAddUrlOrContent' => 'Add Profile Link',
+			'meta.profileUrlOrContent' => 'Profile Link/Content',
+			'meta.profileUrlOrContentHit' => 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)',
+			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
+			'permission.camera' => 'Camera',
+			'permission.screen' => 'Screen Recording',
+			'permission.appQuery' => 'Get Application List',
+			'permission.request' => ({required Object p}) => 'Turn on [${p}] permission',
+			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',
+			'tls.insecure' => 'Skip Certificate Verification',
+			'tls.certificate' => 'Certificate',
+			'tls.privateKey' => 'Private Key',
+			'tls.customTrustCert' => 'Custom Certifactes',
+			'tun.stack' => 'Network stack',
+			'tun.dnsHijack' => 'DNS Hijack',
+			'tun.strictRoute' => 'Strict Route',
+			'tun.allowBypass' => 'Allow Apps to Bypass VPN',
+			'tun.appendHttpProxy' => 'Append HTTP Proxy to VPN',
+			'tun.bypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
+			'dns.fakeIp' => 'fake-ip',
+			'dns.fallback' => 'Fallback',
+			'dns.preferH3' => 'Prefer DoH H3',
+			'dns.useHosts' => 'Use Hosts',
+			'dns.useSystemHosts' => 'Use System Hosts',
+			'dns.enhancedMode' => 'Enhanced Mode',
+			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} Filter Mode',
+			'dns.fakeIPFilter' => 'fake-ip Filter',
+			'dns.nameServer' => 'NameServer',
+			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
+			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
+			'dns.directNameServer' => '${_root.meta.direct} ${_root.dns.nameServer}',
+			'dns.fallbackNameServer' => '${_root.dns.fallback} ${_root.dns.nameServer}',
+			'dns.fallbackGeoIp' => '${_root.dns.fallback} GeoIp',
+			'dns.fallbackGeoIpCode' => '${_root.dns.fallback} GeoIpCode',
+			'sniffer.overrideDest' => 'Override',
+			'profilePatchMode.currentSelected' => 'Current Selected',
+			'profilePatchMode.overwrite' => 'Built-in Overwrite',
+			'profilePatchMode.noOverwrite' => 'Built-in - no Overwrite',
+			'protocolSniff' => 'Protocol Sniff',
+			'protocolSniffOverrideDestination' => 'The Sniff domain name override the connection target address',
+			'edgeRuntimeNotInstalled' => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-
