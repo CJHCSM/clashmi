@@ -386,7 +386,7 @@ class ProfilePatchManager {
       String filepath) async {
     String? content = await FileUtils.readAsStringWithMaxLength(filepath, 100);
     if (content != null) {
-      content = content.trim();
+      content = content.trimLeft();
       final filename = path.basename(filepath);
       if (content.startsWith("<!DOCTYPE html>") ||
           content.startsWith("<html")) {
