@@ -416,7 +416,8 @@ class ProfileManager {
     if (!await file.exists()) {
       return ReturnResultError("$file not exists:\n\n$filepath");
     }
-    final content = await file.readAsString();
+    String content = await file.readAsString();
+    content = content.trimLeft();
     if (content.startsWith("<!DOCTYPE html>") || content.startsWith("<html")) {
       return ReturnResultError("Invalid format: html");
     }
