@@ -302,6 +302,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get autoUpdate => 'به روز رسانی خودکار';
 	@override String get updateChannel => 'کانال به‌روزرسانی خودکار';
 	@override String hasNewVersion({required Object p}) => 'به‌روزرسانی نسخه ${p} ';
+	@override String get autoDownloadPkg => 'دانلود خودکار بسته‌های به‌روزرسانی';
 	@override String get devOptions => 'تنظیمات توسعه‌دهندگان';
 	@override String get about => 'درباره';
 	@override String get name => 'نام';
@@ -632,6 +633,7 @@ extension on TranslationsFa {
 			'meta.autoUpdate' => 'به روز رسانی خودکار',
 			'meta.updateChannel' => 'کانال به‌روزرسانی خودکار',
 			'meta.hasNewVersion' => ({required Object p}) => 'به‌روزرسانی نسخه ${p} ',
+			'meta.autoDownloadPkg' => 'دانلود خودکار بسته‌های به‌روزرسانی',
 			'meta.devOptions' => 'تنظیمات توسعه‌دهندگان',
 			'meta.about' => 'درباره',
 			'meta.name' => 'نام',

@@ -127,6 +127,7 @@ class SettingConfig {
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   bool alwayOn = false;
   String autoUpdateChannel = "stable"; //stable, beta
+  bool autoDownloadUpdatePkg = true;
   bool autoConnectAfterLaunch = false;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
   List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
@@ -148,6 +149,7 @@ class SettingConfig {
         'webdav': webdav,
         'alway_on': alwayOn,
         'auto_update_channel': autoUpdateChannel,
+        'auto_download_udpate_pkg': autoDownloadUpdatePkg,
         'auto_connect_after_launch': autoConnectAfterLaunch,
         'auto_set_system_proxy': autoSetSystemProxy,
         'system_proxy_bypass_domain': systemProxyBypassDomain,
@@ -176,6 +178,7 @@ class SettingConfig {
     if (autoUpdateChannel.isEmpty) {
       autoUpdateChannel = "stable";
     }
+    autoDownloadUpdatePkg = map["auto_download_udpate_pkg"] ?? true;
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? false;
     autoSetSystemProxy =
         map["auto_set_system_proxy"] ?? getAutoSetSystemProxyDefault();

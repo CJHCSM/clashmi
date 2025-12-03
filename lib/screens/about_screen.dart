@@ -179,15 +179,14 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     Future<List<GroupItem>> getOptions(
         BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
-        PlatformUtils.isPC()
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.openDir,
-                    onPush: () async {
-                      await FileUtils.openDirectory(
-                          await PathUtils.profileDir());
-                    }))
-            : GroupItemOptions(),
+        if (PlatformUtils.isPC()) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.openDir,
+                  onPush: () async {
+                    await FileUtils.openDirectory(await PathUtils.profileDir());
+                  }))
+        ],
       ];
 
       return [

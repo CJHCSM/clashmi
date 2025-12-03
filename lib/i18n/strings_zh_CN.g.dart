@@ -302,6 +302,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get autoUpdate => '自动更新';
 	@override String get updateChannel => '自动更新通道';
 	@override String hasNewVersion({required Object p}) => '更新版本 ${p}';
+	@override String get autoDownloadPkg => '自动下载更新包';
 	@override String get devOptions => '开发者选项';
 	@override String get about => '关于';
 	@override String get name => '名称';
@@ -632,6 +633,7 @@ extension on TranslationsZhCn {
 			'meta.autoUpdate' => '自动更新',
 			'meta.updateChannel' => '自动更新通道',
 			'meta.hasNewVersion' => ({required Object p}) => '更新版本 ${p}',
+			'meta.autoDownloadPkg' => '自动下载更新包',
 			'meta.devOptions' => '开发者选项',
 			'meta.about' => '关于',
 			'meta.name' => '名称',

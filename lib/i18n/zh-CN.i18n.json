@@ -194,6 +194,7 @@
         "autoUpdate": "自动更新",
         "updateChannel": "自动更新通道",
         "hasNewVersion": "更新版本 $p",
+        "autoDownloadPkg": "自动下载更新包",
         "devOptions": "开发者选项",
         "about": "关于",
         "name": "名称",

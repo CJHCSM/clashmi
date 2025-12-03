@@ -194,6 +194,7 @@
         "autoUpdate": "Auto Update",
         "updateChannel": "Auto Update Channel",
         "hasNewVersion": "Update Version $p",
+        "autoDownloadPkg": "Auto Download Update Packages",
         "devOptions": "Developer Options",
         "about": "About",
         "name": "Name",
