@@ -669,6 +669,9 @@ class TranslationsMetaEn {
 	/// en: 'Update Version $p'
 	String hasNewVersion({required Object p}) => 'Update Version ${p}';
 
+	/// en: 'Auto Download Update Packages'
+	String get autoDownloadPkg => 'Auto Download Update Packages';
+
 	/// en: 'Developer Options'
 	String get devOptions => 'Developer Options';
 
@@ -1152,6 +1155,7 @@ extension on Translations {
 			'meta.autoUpdate' => 'Auto Update',
 			'meta.updateChannel' => 'Auto Update Channel',
 			'meta.hasNewVersion' => ({required Object p}) => 'Update Version ${p}',
+			'meta.autoDownloadPkg' => 'Auto Download Update Packages',
 			'meta.devOptions' => 'Developer Options',
 			'meta.about' => 'About',
 			'meta.name' => 'Name',

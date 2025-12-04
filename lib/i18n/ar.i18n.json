@@ -194,6 +194,7 @@
         "autoUpdate": "التحديثات التلقائية",
         "updateChannel": "تحديث القنوات تلقائيا",
         "hasNewVersion": "تحديث الإصدار $p",
+        "autoDownloadPkg": "تنزيل حزم التحديث تلقائيًا",
         "devOptions": "خيارات للمطور",
         "about": "عن",
         "name": "اسم",

@@ -251,30 +251,30 @@ class _ProfilesSettingsEditScreenState
                 _patch = selected ?? "";
                 setState(() {});
               })),
-      profile.isRemote()
-          ? GroupItemOptions(
-              timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                  name: tcontext.meta.updateInterval,
-                  tips: tcontext.meta.updateInterval5mTips,
-                  duration: _updateInterval,
-                  showSeconds: false,
-                  onPicker: (bool canceled, Duration? duration) async {
-                    if (canceled) {
-                      return;
+      if (profile.isRemote()) ...[
+        GroupItemOptions(
+            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+                name: tcontext.meta.updateInterval,
+                tips: tcontext.meta.updateInterval5mTips,
+                duration: _updateInterval,
+                showSeconds: false,
+                onPicker: (bool canceled, Duration? duration) async {
+                  if (canceled) {
+                    return;
+                  }
+                  if (duration != null) {
+                    if (duration.inDays > 365) {
+                      duration = const Duration(days: 365);
                     }
-                    if (duration != null) {
-                      if (duration.inDays > 365) {
-                        duration = const Duration(days: 365);
-                      }
-                      if (duration.inMinutes < 5) {
-                        duration = const Duration(minutes: 5);
-                      }
+                    if (duration.inMinutes < 5) {
+                      duration = const Duration(minutes: 5);
                     }
+                  }
 
-                    _updateInterval = duration;
-                    setState(() {});
-                  }))
-          : GroupItemOptions(),
+                  _updateInterval = duration;
+                  setState(() {});
+                }))
+      ],
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

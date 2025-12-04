@@ -302,6 +302,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get autoUpdate => 'Автоматические обновления';
 	@override String get updateChannel => 'Канал автоматического обновления';
 	@override String hasNewVersion({required Object p}) => 'Обновить версию ${p}';
+	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get about => 'О приложении';
 	@override String get name => 'Название';
@@ -632,6 +633,7 @@ extension on TranslationsRu {
 			'meta.autoUpdate' => 'Автоматические обновления',
 			'meta.updateChannel' => 'Канал автоматического обновления',
 			'meta.hasNewVersion' => ({required Object p}) => 'Обновить версию ${p}',
+			'meta.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
 			'meta.devOptions' => 'Параметры разработчика',
 			'meta.about' => 'О приложении',
 			'meta.name' => 'Название',

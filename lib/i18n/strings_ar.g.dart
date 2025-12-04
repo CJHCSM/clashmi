@@ -302,6 +302,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get autoUpdate => 'التحديثات التلقائية';
 	@override String get updateChannel => 'تحديث القنوات تلقائيا';
 	@override String hasNewVersion({required Object p}) => 'تحديث الإصدار ${p}';
+	@override String get autoDownloadPkg => 'تنزيل حزم التحديث تلقائيًا';
 	@override String get devOptions => 'خيارات للمطور';
 	@override String get about => 'عن';
 	@override String get name => 'اسم';
@@ -632,6 +633,7 @@ extension on TranslationsAr {
 			'meta.autoUpdate' => 'التحديثات التلقائية',
 			'meta.updateChannel' => 'تحديث القنوات تلقائيا',
 			'meta.hasNewVersion' => ({required Object p}) => 'تحديث الإصدار ${p}',
+			'meta.autoDownloadPkg' => 'تنزيل حزم التحديث تلقائيًا',
 			'meta.devOptions' => 'خيارات للمطور',
 			'meta.about' => 'عن',
 			'meta.name' => 'اسم',

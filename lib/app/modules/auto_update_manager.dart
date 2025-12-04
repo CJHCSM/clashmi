@@ -209,6 +209,9 @@ class AutoUpdateManager {
   }
 
   static Future<void> download() async {
+    if (!SettingManager.getConfig().autoDownloadUpdatePkg) {
+      return;
+    }
     if (!isSupport()) {
       return;
     }

@@ -82,20 +82,19 @@ class GroupHelper {
       final tcontext = Translations.of(context);
 
       List<GroupItemOptions> options = [
-        Platform.isIOS || Platform.isMacOS
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.iCloud,
-                    onPush: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings:
-                                  BackupAndSyncIcloudScreen.routSettings(),
-                              builder: (context) =>
-                                  const BackupAndSyncIcloudScreen()));
-                    }))
-            : GroupItemOptions(),
+        if (Platform.isIOS || Platform.isMacOS) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.iCloud,
+                  onPush: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            settings: BackupAndSyncIcloudScreen.routSettings(),
+                            builder: (context) =>
+                                const BackupAndSyncIcloudScreen()));
+                  }))
+        ],
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.webdav,
@@ -456,52 +455,61 @@ class GroupHelper {
                   Provider.of<Themes>(context, listen: false)
                       .setTheme(selected, true);
                 })),
-        Platform.isAndroid
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.meta.tvMode,
-                    switchValue: setting.ui.tvMode,
-                    onSwitch: (bool value) async {
-                      setting.ui.tvMode = value;
-                      TextFieldEx.popupEdit = setting.ui.tvMode;
-                    }))
-            : GroupItemOptions(),
-        PlatformUtils.isMobile()
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.meta.autoOrientation,
-                    switchValue: setting.ui.autoOrientation,
-                    onSwitch: (bool value) async {
-                      setting.ui.autoOrientation = value;
-                      if (value) {
-                        SystemChrome.setPreferredOrientations([
-                          DeviceOrientation.portraitUp,
-                          DeviceOrientation.landscapeLeft,
-                          DeviceOrientation.portraitDown,
-                          DeviceOrientation.landscapeRight
-                        ]);
-                      } else {
-                        SystemChrome.setPreferredOrientations(
-                            [DeviceOrientation.portraitUp]);
-                      }
-                    }))
-            : GroupItemOptions(),
-        AutoUpdateManager.isSupport()
-            ? GroupItemOptions(
-                stringPickerOptions: GroupItemStringPickerOptions(
-                    name: tcontext.meta.updateChannel,
-                    selected: setting.autoUpdateChannel,
-                    strings: AutoUpdateManager.updateChannels(),
-                    textWidthPercent: 0.3,
-                    onPicker: (String? selected) async {
-                      if (selected == null ||
-                          setting.autoUpdateChannel == selected) {
-                        return;
-                      }
-                      setting.autoUpdateChannel = selected;
-                      AutoUpdateManager.updateChannelChanged();
-                    }))
-            : GroupItemOptions(),
+        if (Platform.isAndroid) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.tvMode,
+                  switchValue: setting.ui.tvMode,
+                  onSwitch: (bool value) async {
+                    setting.ui.tvMode = value;
+                    TextFieldEx.popupEdit = setting.ui.tvMode;
+                  }))
+        ],
+        if (PlatformUtils.isMobile()) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.autoOrientation,
+                  switchValue: setting.ui.autoOrientation,
+                  onSwitch: (bool value) async {
+                    setting.ui.autoOrientation = value;
+                    if (value) {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.portraitUp,
+                        DeviceOrientation.landscapeLeft,
+                        DeviceOrientation.portraitDown,
+                        DeviceOrientation.landscapeRight
+                      ]);
+                    } else {
+                      SystemChrome.setPreferredOrientations(
+                          [DeviceOrientation.portraitUp]);
+                    }
+                  }))
+        ],
+        if (AutoUpdateManager.isSupport()) ...[
+          GroupItemOptions(
+              stringPickerOptions: GroupItemStringPickerOptions(
+                  name: tcontext.meta.updateChannel,
+                  selected: setting.autoUpdateChannel,
+                  strings: AutoUpdateManager.updateChannels(),
+                  textWidthPercent: 0.3,
+                  onPicker: (String? selected) async {
+                    if (selected == null ||
+                        setting.autoUpdateChannel == selected) {
+                      return;
+                    }
+                    setting.autoUpdateChannel = selected;
+                    AutoUpdateManager.updateChannelChanged();
+                  }))
+        ],
+        if (AutoUpdateManager.isSupport()) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.autoDownloadPkg,
+                  switchValue: SettingManager.getConfig().autoDownloadUpdatePkg,
+                  onSwitch: (bool value) async {
+                    setting.autoDownloadUpdatePkg = value;
+                  }))
+        ],
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
@@ -546,28 +554,28 @@ class GroupHelper {
             }
           },
         )),
-        setting.boardOnline
-            ? GroupItemOptions(
-                textFormFieldOptions: GroupItemTextFieldOptions(
-                    name: tcontext.meta.boardOnlineUrl,
-                    text: setting.boardUrl,
-                    textWidthPercent: 0.5,
-                    onChanged: (String value) {
-                      setting.boardUrl = value;
-                    }))
-            : GroupItemOptions(),
-        !setting.boardOnline
-            ? GroupItemOptions(
-                textFormFieldOptions: GroupItemTextFieldOptions(
-                    name: tcontext.meta.boardLocalPort,
-                    text: setting.boardLocalPort.toString(),
-                    textWidthPercent: 0.3,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    onChanged: (String value) {
-                      setting.boardLocalPort = int.tryParse(value) ??
-                          SettingConfig.kDefaultBoardPort;
-                    }))
-            : GroupItemOptions(),
+        if (setting.boardOnline) ...[
+          GroupItemOptions(
+              textFormFieldOptions: GroupItemTextFieldOptions(
+                  name: tcontext.meta.boardOnlineUrl,
+                  text: setting.boardUrl,
+                  textWidthPercent: 0.5,
+                  onChanged: (String value) {
+                    setting.boardUrl = value;
+                  }))
+        ],
+        if (!setting.boardOnline) ...[
+          GroupItemOptions(
+              textFormFieldOptions: GroupItemTextFieldOptions(
+                  name: tcontext.meta.boardLocalPort,
+                  text: setting.boardLocalPort.toString(),
+                  textWidthPercent: 0.3,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  onChanged: (String value) {
+                    setting.boardLocalPort =
+                        int.tryParse(value) ?? SettingConfig.kDefaultBoardPort;
+                  }))
+        ],
       ];
 
       List<GroupItemOptions> options4 = [
@@ -594,16 +602,16 @@ class GroupHelper {
         )),
       ];
       List<GroupItemOptions> options5 = [
-        Platform.isWindows
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.hideAfterLaunch,
-                switchValue: setting.ui.hideAfterLaunch,
-                onSwitch: (bool value) async {
-                  setting.ui.hideAfterLaunch = value;
-                },
-              ))
-            : GroupItemOptions(),
+        if (Platform.isWindows) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.hideAfterLaunch,
+            switchValue: setting.ui.hideAfterLaunch,
+            onSwitch: (bool value) async {
+              setting.ui.hideAfterLaunch = value;
+            },
+          ))
+        ],
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.meta.autoConnectAfterLaunch,
@@ -618,25 +626,24 @@ class GroupHelper {
                 onSwitch: (bool value) async {
                   setting.autoSetSystemProxy = value;
                 })),
-        PlatformUtils.isPC()
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.bypassSystemProxy,
-                    onPush: !setting.autoSetSystemProxy
-                        ? null
-                        : () async {
-                            await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    settings: ListAddScreen.routSettings(
-                                        "systemProxyBypassDomain"),
-                                    builder: (context) => ListAddScreen(
-                                          title:
-                                              tcontext.meta.bypassSystemProxy,
-                                          data: setting.systemProxyBypassDomain,
-                                        )));
-                          }))
-            : GroupItemOptions(),
+        if (PlatformUtils.isPC()) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.bypassSystemProxy,
+                  onPush: !setting.autoSetSystemProxy
+                      ? null
+                      : () async {
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  settings: ListAddScreen.routSettings(
+                                      "systemProxyBypassDomain"),
+                                  builder: (context) => ListAddScreen(
+                                        title: tcontext.meta.bypassSystemProxy,
+                                        data: setting.systemProxyBypassDomain,
+                                      )));
+                        }))
+        ],
       ];
       List<GroupItemOptions> options6 = [
         GroupItemOptions(
@@ -821,19 +828,18 @@ class GroupHelper {
                 onPicker: (String? selected) async {
                   setting.LogLevel = selected;
                 })),
-        Platform.isAndroid
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.PerAppAndroidScreen.title,
-                    onPush: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: PerAppAndroidScreen.routSettings(),
-                              builder: (context) =>
-                                  const PerAppAndroidScreen()));
-                    }))
-            : GroupItemOptions(),
+        if (Platform.isAndroid) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.PerAppAndroidScreen.title,
+                  onPush: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            settings: PerAppAndroidScreen.routSettings(),
+                            builder: (context) => const PerAppAndroidScreen()));
+                  }))
+        ],
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: "Pprof Address",
