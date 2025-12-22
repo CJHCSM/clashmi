@@ -1221,7 +1221,7 @@ class GroupHelper {
                   tips: tcontext.meta.hideVpnTips,
                   switchValue: tun.RouteExcludeAddress?.contains("0.0.0.0/31"),
                   onSwitch: (bool value) async {
-                    tun.RouteExcludeAddress = ["0.0.0.0/31"];
+                    tun.RouteExcludeAddress = ["0.0.0.0/31", "::/127"];
                   })),
         ]);
       }
