@@ -254,6 +254,7 @@
         "stack": "Network stack",
         "dnsHijack": "DNS Hijack",
         "strictRoute": "Strict Route",
+        "icmpForward": "ICMP Forwarding",
         "allowBypass": "Allow Apps to Bypass VPN",
         "appendHttpProxy": "Append HTTP Proxy to VPN",
         "bypassHttpProxyDomain": "Domains allowed to bypass HTTP proxy"

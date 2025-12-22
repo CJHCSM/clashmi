@@ -319,7 +319,7 @@ RawTun _$RawTunFromJson(Map<String, dynamic> json) => RawTun(
       (json['inet6-route-exclude-address'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-    );
+    )..DisableICMPForwarding = json['disable-icmp-forwarding'] as bool?;
 
 Map<String, dynamic> _$RawTunToJson(RawTun instance) => <String, dynamic>{
       'overwrite': instance.OverWrite,
@@ -340,6 +340,7 @@ Map<String, dynamic> _$RawTunToJson(RawTun instance) => <String, dynamic>{
       'auto-redirect-input-mark': instance.AutoRedirectInputMark,
       'auto-redirect-output-mark': instance.AutoRedirectOutputMark,
       'strict-route': instance.StrictRoute,
+      'disable-icmp-forwarding': instance.DisableICMPForwarding,
       'route-address': instance.RouteAddress,
       'route-address-set': instance.RouteAddressSet,
       'route-exclude-address': instance.RouteExcludeAddress,

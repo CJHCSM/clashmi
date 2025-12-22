@@ -254,6 +254,7 @@
         "stack": "Сетевой стек",
         "dnsHijack": "Перехват DNS",
         "strictRoute": "Строгая маршрутизация",
+        "icmpForward": "Пересылка ICMP",
         "allowBypass": "Разрешить приложениям обходить VPN",
         "appendHttpProxy": "Подключите HTTP-прокси к VPN",
         "bypassHttpProxyDomain": "Домены, которым разрешено обходить HTTP-прокси"

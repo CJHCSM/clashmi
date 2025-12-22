@@ -254,6 +254,7 @@
         "stack": "مكدس الشبكة",
         "dnsHijack": "اختطاف DNS",
         "strictRoute": "التوجيه الصارم",
+        "icmpForward": "توجيه رسائل ICMP",
         "allowBypass": "السماح للتطبيقات بتجاوز VPN",
         "appendHttpProxy": "إلحاق وكيل HTTP إلى VPN",
         "bypassHttpProxyDomain": "المجالات المسموح لها بتجاوز وكيل HTTP"

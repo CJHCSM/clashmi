@@ -383,6 +383,7 @@ class _TranslationsTunAr implements TranslationsTunEn {
 	@override String get stack => 'مكدس الشبكة';
 	@override String get dnsHijack => 'اختطاف DNS';
 	@override String get strictRoute => 'التوجيه الصارم';
+	@override String get icmpForward => 'توجيه رسائل ICMP';
 	@override String get allowBypass => 'السماح للتطبيقات بتجاوز VPN';
 	@override String get appendHttpProxy => 'إلحاق وكيل HTTP إلى VPN';
 	@override String get bypassHttpProxyDomain => 'المجالات المسموح لها بتجاوز وكيل HTTP';
@@ -687,6 +688,7 @@ extension on TranslationsAr {
 			'tun.stack' => 'مكدس الشبكة',
 			'tun.dnsHijack' => 'اختطاف DNS',
 			'tun.strictRoute' => 'التوجيه الصارم',
+			'tun.icmpForward' => 'توجيه رسائل ICMP',
 			'tun.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
 			'tun.appendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
 			'tun.bypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',

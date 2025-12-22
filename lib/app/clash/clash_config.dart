@@ -631,6 +631,8 @@ class RawTun {
   int? AutoRedirectOutputMark;
   @JsonKey(name: 'strict-route')
   bool? StrictRoute;
+  @JsonKey(name: 'disable-icmp-forwarding')
+  bool? DisableICMPForwarding;
   @JsonKey(name: 'route-address')
   List<String>? RouteAddress;
   @JsonKey(name: 'route-address-set')

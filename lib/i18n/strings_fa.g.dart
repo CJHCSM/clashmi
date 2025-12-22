@@ -383,6 +383,7 @@ class _TranslationsTunFa implements TranslationsTunEn {
 	@override String get stack => 'پشته شبکه';
 	@override String get dnsHijack => 'ربودن DNS';
 	@override String get strictRoute => 'مسیریابی دقیق';
+	@override String get icmpForward => 'ارسال ICMP';
 	@override String get allowBypass => 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
 	@override String get appendHttpProxy => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
 	@override String get bypassHttpProxyDomain => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
@@ -687,6 +688,7 @@ extension on TranslationsFa {
 			'tun.stack' => 'پشته شبکه',
 			'tun.dnsHijack' => 'ربودن DNS',
 			'tun.strictRoute' => 'مسیریابی دقیق',
+			'tun.icmpForward' => 'ارسال ICMP',
 			'tun.allowBypass' => 'به برنامه‌ها اجازه دهید VPN را دور بزنند',
 			'tun.appendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
 			'tun.bypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',

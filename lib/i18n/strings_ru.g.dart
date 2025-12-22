@@ -383,6 +383,7 @@ class _TranslationsTunRu implements TranslationsTunEn {
 	@override String get stack => 'Сетевой стек';
 	@override String get dnsHijack => 'Перехват DNS';
 	@override String get strictRoute => 'Строгая маршрутизация';
+	@override String get icmpForward => 'Пересылка ICMP';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
 	@override String get appendHttpProxy => 'Подключите HTTP-прокси к VPN';
 	@override String get bypassHttpProxyDomain => 'Домены, которым разрешено обходить HTTP-прокси';
@@ -687,6 +688,7 @@ extension on TranslationsRu {
 			'tun.stack' => 'Сетевой стек',
 			'tun.dnsHijack' => 'Перехват DNS',
 			'tun.strictRoute' => 'Строгая маршрутизация',
+			'tun.icmpForward' => 'Пересылка ICMP',
 			'tun.allowBypass' => 'Разрешить приложениям обходить VPN',
 			'tun.appendHttpProxy' => 'Подключите HTTP-прокси к VPN',
 			'tun.bypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',

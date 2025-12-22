@@ -858,6 +858,9 @@ class TranslationsTunEn {
 	/// en: 'Strict Route'
 	String get strictRoute => 'Strict Route';
 
+	/// en: 'ICMP Forwarding'
+	String get icmpForward => 'ICMP Forwarding';
+
 	/// en: 'Allow Apps to Bypass VPN'
 	String get allowBypass => 'Allow Apps to Bypass VPN';
 
@@ -1209,6 +1212,7 @@ extension on Translations {
 			'tun.stack' => 'Network stack',
 			'tun.dnsHijack' => 'DNS Hijack',
 			'tun.strictRoute' => 'Strict Route',
+			'tun.icmpForward' => 'ICMP Forwarding',
 			'tun.allowBypass' => 'Allow Apps to Bypass VPN',
 			'tun.appendHttpProxy' => 'Append HTTP Proxy to VPN',
 			'tun.bypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
