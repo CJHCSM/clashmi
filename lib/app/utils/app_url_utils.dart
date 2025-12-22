@@ -12,7 +12,7 @@ abstract final class AppUrlUtils {
         AppUtils.getBuildinVersion(), bodyLen, {});
   }
 
-  static Future<String> getQueryParamsForUrl({bool body = false}) async {
+  static Future<String> getQueryParamsForUrl({int bodyLen = 0}) async {
     String planguageTag = [
       WidgetsBinding.instance.platformDispatcher.locale.languageCode,
       WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
@@ -42,6 +42,6 @@ abstract final class AppUrlUtils {
 
     return AppUrlUtilsPrivate.signQueryParams2(
         AppUtils.getBuildinVersion(), params,
-        body: body);
+        bodyLen: bodyLen);
   }
 }

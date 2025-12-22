@@ -54,7 +54,7 @@ abstract final class ClashMiUtils {
       bool withQueryParams) async {
     String url = RemoteConfigManager.getConfig().autoUpdate;
     if (withQueryParams) {
-      String queryParams = await AppUrlUtils.getQueryParamsForUrl(body: true);
+      String queryParams = await AppUrlUtils.getQueryParamsForUrl(bodyLen: 1);
       url = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
     }
 
