@@ -15,7 +15,7 @@ class SchemeHandler {
   static Future<ReturnResultError?> handle(
       BuildContext context, String url) async {
     //clash://install-config?url=https://xxxxx.com/clash/config
-    //clash://connect
+    //clash://connect?background=true
     //clash://disconnect
     //clash://reconnect
     Uri? uri = Uri.tryParse(url);
