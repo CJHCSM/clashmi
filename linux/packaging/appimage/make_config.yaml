@@ -1,16 +1,14 @@
-appId: com.nebula.clashmi
-# relative path to the application's icon
-icon: logo-round.png
+display_name: Clash Mi
+package_name: clashmi
+maintainer:
+  name: KaringX
 
-script:
+icon: assets/images/app_icon_256.png
 
-include: []
-exclude: []
-# its true by default
-default_excludes: false
+keywords:
+  - Clash Mi
 
-files:
-  include: []
-  exclude: []
-  # its true by default
-  default_excludes: true
+generic_name: Clash Mi
+
+categories:
+  - Network
