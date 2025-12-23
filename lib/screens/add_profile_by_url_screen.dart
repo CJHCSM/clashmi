@@ -4,15 +4,18 @@ import 'dart:async';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
+import 'package:clashmi/app/modules/profile_patch_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
-import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
+import 'package:clashmi/screens/group_item_creator.dart';
+import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -22,12 +25,12 @@ class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
   static int pushed = 0;
   final String url;
   final String remark;
-  final bool overwrite;
+  final bool? overwrite;
   const AddProfileByUrlScreen({
     super.key,
     this.url = "",
     this.remark = "",
-    this.overwrite = true,
+    this.overwrite,
   });
 
   @override
@@ -38,13 +41,22 @@ class _AddProfileByUrlScreenState
     extends LasyRenderingState<AddProfileByUrlScreen> with AfterLayoutMixin {
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
+  Duration? _updateInterval = const Duration(hours: 24);
+  String _userAgent = "";
+  String _patch = "";
   bool _loading = false;
-
   @override
   void initState() {
     ++AddProfileByUrlScreen.pushed;
     _textControllerLink.text = widget.url.trim();
     _textControllerRemark.text = widget.remark.trim();
+    var setting = SettingManager.getConfig();
+    _userAgent = setting.userAgent();
+    if (widget.overwrite == true) {
+      _patch = kProfilePatchBuildinOverwrite;
+    } else if (widget.overwrite == false) {
+      _patch = kProfilePatchBuildinNoOverwrite;
+    }
     super.initState();
   }
 
@@ -66,8 +78,13 @@ class _AddProfileByUrlScreenState
     _loading = true;
     setState(() {});
 
-    final result = await ProfileManager.addRemote(url,
-        remark: remark, overwrite: widget.overwrite);
+    final result = await ProfileManager.addRemote(
+      url,
+      remark: remark,
+      patch: _patch,
+      userAgent: _userAgent,
+      updateInterval: _updateInterval,
+    );
 
     if (!mounted) {
       return;
@@ -181,8 +198,7 @@ class _AddProfileByUrlScreenState
                                       child: SingleChildScrollView(
                                         child: TextFieldEx(
                                           textInputAction: TextInputAction.next,
-                                          maxLines:
-                                              PlatformUtils.isPC() ? 12 : 4,
+                                          maxLines: 5,
                                           controller: _textControllerLink,
                                           decoration: InputDecoration(
                                               labelText: tcontext
@@ -233,13 +249,87 @@ class _AddProfileByUrlScreenState
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 200,
-                                    )
+                                      height: 20,
+                                    ),
+                                    FutureBuilder(
+                                      future: getGroupOptions(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<List<GroupItem>>
+                                              snapshot) {
+                                        List<GroupItem> data = snapshot.hasData
+                                            ? snapshot.data!
+                                            : [];
+                                        return Column(
+                                            children:
+                                                GroupItemCreator.createGroups(
+                                                    context, data));
+                                      },
+                                    ),
                                   ]),
                                 ))))),
               ],
             ),
           ),
         ));
+  }
+
+  Future<List<GroupItem>> getGroupOptions() async {
+    final tcontext = Translations.of(context);
+
+    List<Tuple2<String?, String>> overwrite = [
+      Tuple2("", tcontext.profilePatchMode.currentSelected),
+      Tuple2(
+          kProfilePatchBuildinOverwrite, tcontext.profilePatchMode.overwrite),
+      Tuple2(kProfilePatchBuildinNoOverwrite,
+          tcontext.profilePatchMode.noOverwrite)
+    ];
+    final items = ProfilePatchManager.getProfilePatchs();
+    for (var item in items) {
+      overwrite.add(Tuple2(item.id, item.id));
+    }
+    List<GroupItem> groupOptions = [];
+    List<GroupItemOptions> options = [
+      GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+              name: tcontext.meta.userAgent,
+              text: _userAgent,
+              textWidthPercent: 0.5,
+              onChanged: (String value) {
+                _userAgent = value;
+              })),
+      GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+              name: tcontext.meta.coreOverwrite,
+              selected: _patch,
+              tupleStrings: overwrite,
+              onPicker: (String? selected) async {
+                _patch = selected ?? "";
+                setState(() {});
+              })),
+      GroupItemOptions(
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+              name: tcontext.meta.updateInterval,
+              tips: tcontext.meta.updateInterval5mTips,
+              duration: _updateInterval,
+              showSeconds: false,
+              onPicker: (bool canceled, Duration? duration) async {
+                if (canceled) {
+                  return;
+                }
+                if (duration != null) {
+                  if (duration.inDays > 365) {
+                    duration = const Duration(days: 365);
+                  }
+                  if (duration.inMinutes < 5) {
+                    duration = const Duration(minutes: 5);
+                  }
+                }
+
+                _updateInterval = duration;
+                setState(() {});
+              }))
+    ];
+    groupOptions.add(GroupItem(options: options));
+    return groupOptions;
   }
 }

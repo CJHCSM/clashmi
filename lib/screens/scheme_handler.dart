@@ -15,7 +15,7 @@ class SchemeHandler {
   static Future<ReturnResultError?> handle(
       BuildContext context, String url) async {
     //clash://install-config?url=https://xxxxx.com/clash/config
-    //clash://connect
+    //clash://connect?background=true
     //clash://disconnect
     //clash://reconnect
     Uri? uri = Uri.tryParse(url);
@@ -66,7 +66,7 @@ class SchemeHandler {
     }
     String? name;
     String? url;
-    bool overwrite = true;
+    bool? overwrite;
 
     if (!context.mounted) {
       return null;
@@ -76,7 +76,11 @@ class SchemeHandler {
       url = uri.queryParameters["url"];
       String? ow = uri.queryParameters["overwrite"];
       if (ow != null) {
-        overwrite = ow == "true" || ow == "1" || ow == "yes";
+        if (ow == "true" || ow == "1" || ow == "yes") {
+          overwrite = true;
+        } else if (ow == "false" || ow == "0" || ow == "no") {
+          overwrite = false;
+        }
       }
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
@@ -109,7 +113,7 @@ class SchemeHandler {
   }
 
   static Future<ReturnResultError?> addConfigBySubscriptionLink(
-      BuildContext context, String url, String name, bool overwrite) async {
+      BuildContext context, String url, String name, bool? overwrite) async {
     int kMaxPush = 1;
     if (AddProfileByUrlScreen.pushed >= kMaxPush) {
       return ReturnResultError("addprofile request already exists");

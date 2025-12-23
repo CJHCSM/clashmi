@@ -1,5 +1,6 @@
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
+import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
@@ -29,6 +30,7 @@ class _ProfilesSettingsEditScreenState
   final _textControllerUrl = TextEditingController();
 
   Duration? _updateInterval = const Duration(hours: 24);
+  String _userAgent = "";
   String _patch = "";
 
   @override
@@ -42,6 +44,9 @@ class _ProfilesSettingsEditScreenState
         text: profile.url,
       );
       _patch = profile.patch;
+      _userAgent = profile.userAgent.isEmpty
+          ? SettingManager.getConfig().userAgent()
+          : profile.userAgent;
       _updateInterval = profile.updateInterval;
     }
     super.initState();
@@ -187,6 +192,7 @@ class _ProfilesSettingsEditScreenState
     if (profile.remark == remarkText &&
         profile.url == urlText &&
         profile.patch == _patch &&
+        profile.userAgent == _userAgent &&
         profile.updateInterval == _updateInterval) {
       Navigator.pop(context);
       return;
@@ -205,6 +211,7 @@ class _ProfilesSettingsEditScreenState
     profile.remark = remarkText;
     profile.url = urlText;
     profile.patch = _patch;
+    profile.userAgent = _userAgent;
     profile.updateInterval = _updateInterval;
     Navigator.pop(context);
   }
@@ -242,6 +249,14 @@ class _ProfilesSettingsEditScreenState
     }
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
+      GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+              name: tcontext.meta.userAgent,
+              text: _userAgent,
+              textWidthPercent: 0.5,
+              onChanged: (String value) {
+                _userAgent = value;
+              })),
       GroupItemOptions(
           stringPickerOptions: GroupItemStringPickerOptions(
               name: tcontext.meta.coreOverwrite,

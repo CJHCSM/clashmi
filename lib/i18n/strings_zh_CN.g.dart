@@ -383,6 +383,7 @@ class _TranslationsTunZhCn implements TranslationsTunEn {
 	@override String get stack => '网络栈';
 	@override String get dnsHijack => 'DNS劫持';
 	@override String get strictRoute => '严格路由';
+	@override String get icmpForward => 'ICMP 转发';
 	@override String get allowBypass => '允许应用绕过VPN';
 	@override String get appendHttpProxy => '附加HTTP代理到VPN';
 	@override String get bypassHttpProxyDomain => '允许绕过HTTP代理的域名';
@@ -687,6 +688,7 @@ extension on TranslationsZhCn {
 			'tun.stack' => '网络栈',
 			'tun.dnsHijack' => 'DNS劫持',
 			'tun.strictRoute' => '严格路由',
+			'tun.icmpForward' => 'ICMP 转发',
 			'tun.allowBypass' => '允许应用绕过VPN',
 			'tun.appendHttpProxy' => '附加HTTP代理到VPN',
 			'tun.bypassHttpProxyDomain' => '允许绕过HTTP代理的域名',

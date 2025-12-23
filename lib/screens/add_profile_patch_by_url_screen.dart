@@ -6,7 +6,6 @@ import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
-import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/theme_config.dart';
@@ -182,8 +181,7 @@ class _AddProfilePatchByUrlScreenState
                                       child: SingleChildScrollView(
                                         child: TextFieldEx(
                                           textInputAction: TextInputAction.next,
-                                          maxLines:
-                                              PlatformUtils.isPC() ? 12 : 4,
+                                          maxLines: 5,
                                           controller: _textControllerLink,
                                           decoration: InputDecoration(
                                               labelText: tcontext

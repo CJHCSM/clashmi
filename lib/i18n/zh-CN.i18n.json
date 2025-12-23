@@ -254,6 +254,7 @@
         "stack": "网络栈",
         "dnsHijack": "DNS劫持",
         "strictRoute": "严格路由",
+        "icmpForward": "ICMP 转发",
         "allowBypass": "允许应用绕过VPN",
         "appendHttpProxy": "附加HTTP代理到VPN",
         "bypassHttpProxyDomain": "允许绕过HTTP代理的域名"

@@ -4,37 +4,40 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:clashmi/app/modules/profile_patch_manager.dart';
+import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
+import 'package:clashmi/app/runtime/return_result.dart';
+import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/date_time_utils.dart';
+import 'package:clashmi/app/utils/download_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
-import 'package:intl/intl.dart';
-import 'package:path/path.dart' as path;
-import 'package:clashmi/app/local_services/vpn_service.dart';
-import 'package:clashmi/app/runtime/return_result.dart';
-import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
-import 'package:clashmi/app/utils/download_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:intl/intl.dart';
 import 'package:libclash_vpn_service/state.dart';
+import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 
 const int kRemarkMaxLength = 32;
 
 class ProfileSetting {
-  ProfileSetting(
-      {this.id = "",
-      this.remark = "",
-      this.updateInterval,
-      this.update,
-      this.url = ""});
+  ProfileSetting({
+    this.id = "",
+    this.remark = "",
+    this.updateInterval,
+    this.update,
+    this.url = "",
+    this.userAgent = "",
+    this.patch = "",
+  });
   String id = "";
   String remark = "";
   String patch = "";
   Duration? updateInterval;
   DateTime? update;
   String url;
+  String userAgent;
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -46,6 +49,7 @@ class ProfileSetting {
         'update_interval': updateInterval?.inSeconds,
         'update': update.toString(),
         'url': url,
+        'user_agent': userAgent,
         'upload': upload,
         'download': download,
         'total': total,
@@ -71,6 +75,7 @@ class ProfileSetting {
       update = DateTime.tryParse(updateTime);
     }
     url = map['url'] ?? '';
+    userAgent = map['user_agent'] ?? '';
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
@@ -429,14 +434,20 @@ class ProfileManager {
   }
 
   static Future<ReturnResult<String>> addRemote(String url,
-      {String remark = "", bool overwrite = true}) async {
+      {String remark = "",
+      String patch = "",
+      String userAgent = "",
+      Duration? updateInterval}) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       return ReturnResult(error: ReturnResultError("invalid url"));
     }
     final id = "${url.hashCode}.yaml";
     final savePath = path.join(await PathUtils.profilesDir(), id);
-    final userAgent = SettingManager.getConfig().userAgent();
+    if (userAgent.isEmpty) {
+      userAgent = SettingManager.getConfig().userAgent();
+    }
+
     final result = await DownloadUtils.downloadWithPort(
         uri, savePath, userAgent, null,
         timeout: const Duration(seconds: 30));
@@ -463,14 +474,15 @@ class ProfileManager {
       return value.id == id;
     });
     final profile = ProfileSetting(
-        id: id,
-        remark: remark,
-        updateInterval: const Duration(days: 1),
-        update: DateTime.now(),
-        url: url);
-    if (!overwrite) {
-      profile.patch = kProfilePatchBuildinNoOverwrite;
-    }
+      id: id,
+      remark: remark,
+      updateInterval: updateInterval ?? const Duration(days: 1),
+      update: DateTime.now(),
+      url: url,
+      userAgent: userAgent,
+      patch: patch,
+    );
+
     profile.updateSubscriptionTraffic(result.data);
     if (index < 0) {
       _config.profiles.add(profile);
@@ -521,7 +533,10 @@ class ProfileManager {
       }
     });
 
-    final userAgent = SettingManager.getConfig().userAgent();
+    String userAgent = profile.userAgent;
+    if (userAgent.isEmpty) {
+      userAgent = SettingManager.getConfig().userAgent();
+    }
     final savePath = path.join(await PathUtils.profilesDir(), id);
     final savePathTmp = "$savePath.tmp";
     final result = await DownloadUtils.downloadWithPort(

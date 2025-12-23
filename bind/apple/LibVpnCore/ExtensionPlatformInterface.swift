@@ -144,6 +144,14 @@ public class ExtensionPlatformInterface: NSObject, LibclashPlatformInterfaceProt
                 ipv6ExcludeRoutes.append(NEIPv6Route(destinationAddress: ipv6RoutePrefix.address(), networkPrefixLength: NSNumber(value: ipv6RoutePrefix.prefix())))
             }
 
+            /*if await excludeDefaultRoute.get(), !ipv6Routes.isEmpty {
+                if !ipv6ExcludeRoutes.contains(where: { it in
+                    it.destinationAddress == "::" && it.destinationNetworkPrefixLength == 127
+                }) {
+                    ipv6ExcludeRoutes.append(NEIPv6Route(destinationAddress: "::", networkPrefixLength: 127))
+                }
+            }*/
+
             ipv6Settings.includedRoutes = ipv6Routes
             ipv6Settings.excludedRoutes = ipv6ExcludeRoutes
             settings.ipv6Settings = ipv6Settings

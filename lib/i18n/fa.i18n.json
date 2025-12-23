@@ -254,6 +254,7 @@
         "stack": "پشته شبکه",
         "dnsHijack": "ربودن DNS",
         "strictRoute": "مسیریابی دقیق",
+        "icmpForward": "ارسال ICMP",
         "allowBypass": "به برنامه‌ها اجازه دهید VPN را دور بزنند",
         "appendHttpProxy": "پیوست دادن پروکسی HTTP به وی‌پی‌ان",
         "bypassHttpProxyDomain": "دامنه ها مجاز به دور زدن پروکسی HTTP هستند"

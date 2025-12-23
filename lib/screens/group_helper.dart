@@ -1162,6 +1162,19 @@ class GroupHelper {
                     : (bool value) async {
                         tun.StrictRoute = value;
                       })),
+        if (PlatformUtils.isPC()) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.tun.icmpForward,
+                  tips: "disable-icmp-forwarding",
+                  switchValue: tun.DisableICMPForwarding == false ||
+                      tun.DisableICMPForwarding == null,
+                  onSwitch: tun.OverWrite != true || tun.Enable != true
+                      ? null
+                      : (bool value) async {
+                          tun.DisableICMPForwarding = !value;
+                        }))
+        ],
       ];
       List<GroupItemOptions> options1 = [];
       if (Platform.isAndroid) {
@@ -1221,7 +1234,7 @@ class GroupHelper {
                   tips: tcontext.meta.hideVpnTips,
                   switchValue: tun.RouteExcludeAddress?.contains("0.0.0.0/31"),
                   onSwitch: (bool value) async {
-                    tun.RouteExcludeAddress = ["0.0.0.0/31"];
+                    tun.RouteExcludeAddress = ["0.0.0.0/31", "::/127"];
                   })),
         ]);
       }
