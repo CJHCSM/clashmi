@@ -94,7 +94,7 @@ class ZipUtils {
           final data = file.content as List<int>;
           await io.File(filePath).writeAsBytes(data, flush: true);
         } else {
-          io.Directory(filePath).create(recursive: true);
+          await io.Directory(filePath).create(recursive: true);
         }
       }
     } catch (err, stacktrace) {
