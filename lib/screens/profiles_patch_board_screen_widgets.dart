@@ -51,16 +51,15 @@ class ProfilesPatchBoardItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     setting.getShowName(context),
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null,
-                        fontSize: 12),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 setting.isBuildIn()
@@ -70,8 +69,9 @@ class ProfilesPatchBoardItem extends StatelessWidget {
                         child: Text(
                           setting.id,
                           style: TextStyle(
-                              color: selected ? ThemeDefine.kColorBlue : null,
-                              fontSize: 12),
+                            color: selected ? ThemeDefine.kColorBlue : null,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                 Align(
@@ -79,18 +79,14 @@ class ProfilesPatchBoardItem extends StatelessWidget {
                   child: Text(
                     setting.getType(),
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null,
-                        fontSize: 12),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 showDivider
-                    ? const Divider(
-                        height: 1,
-                        thickness: 0.3,
-                      )
+                    ? const Divider(height: 1, thickness: 0.3)
                     : SizedBox.shrink(),
               ],
             ),
@@ -103,7 +99,8 @@ class ProfilesPatchBoardItem extends StatelessWidget {
                     updateInterval,
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                    ),
                   ),
                 ),
           onTapMore == null
@@ -125,10 +122,7 @@ class ProfilesPatchBoardItem extends StatelessWidget {
                           ],
                         )
                       : InkWell(
-                          child: Icon(
-                            Icons.more_vert_outlined,
-                            size: 20,
-                          ),
+                          child: Icon(Icons.more_vert_outlined, size: 20),
                           onTap: () {
                             onTapMore!();
                           },
@@ -176,7 +170,8 @@ class _ProfilesPatchBoardScreenWidget
       id: kProfilePatchBuildinNoOverwrite,
     );
     List<Widget> widgets = [];
-    widgets.add(SizedBox(
+    widgets.add(
+      SizedBox(
         key: Key(buildinOverwrite.id),
         child: ProfilesPatchBoardItem(
           setting: buildinOverwrite,
@@ -187,8 +182,11 @@ class _ProfilesPatchBoardScreenWidget
             Navigator.of(context).pop();
           },
           onTapMore: null,
-        )));
-    widgets.add(SizedBox(
+        ),
+      ),
+    );
+    widgets.add(
+      SizedBox(
         key: Key(buildinNoOverwrite.id),
         child: ProfilesPatchBoardItem(
           setting: buildinNoOverwrite,
@@ -199,40 +197,48 @@ class _ProfilesPatchBoardScreenWidget
             Navigator.of(context).pop();
           },
           onTapMore: null,
-        )));
+        ),
+      ),
+    );
 
     for (int i = 0; i < widget.settings.length; ++i) {
       var setting = widget.settings[i];
       final isCurrent = current.id == setting.id;
 
-      widgets.add(SizedBox(
+      widgets.add(
+        SizedBox(
           key: Key(setting.id),
           child: ProfilesPatchBoardItem(
-              setting: setting,
-              selected: isCurrent,
-              showDivider: i != widget.settings.length - 1,
-              onTap: () {
-                ProfilePatchManager.setCurrent(setting.id);
-                Navigator.of(context).pop();
-              },
-              onTapMore: () {
-                showMore(setting);
-              })));
+            setting: setting,
+            selected: isCurrent,
+            showDivider: i != widget.settings.length - 1,
+            onTap: () {
+              ProfilePatchManager.setCurrent(setting.id);
+              Navigator.of(context).pop();
+            },
+            onTapMore: () {
+              showMore(setting);
+            },
+          ),
+        ),
+      );
     }
 
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: Scrollbar(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Scrollbar(
           child: ReorderableListView(
-        children: widgets,
-        onReorder: (int oldIndex, int newIndex) {
-          ProfilePatchManager.reorder(oldIndex, newIndex);
+            children: widgets,
+            onReorder: (int oldIndex, int newIndex) {
+              ProfilePatchManager.reorder(oldIndex, newIndex);
 
-          setState(() {});
-        },
-      )),
-    ));
+              setState(() {});
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   void showMore(ProfilePatchSetting setting) {
@@ -240,29 +246,33 @@ class _ProfilesPatchBoardScreenWidget
 
     var widgets = [
       ListTile(
-        title:
-            Text(setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit),
+        title: Text(
+          setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit,
+        ),
         onTap: () async {
           Navigator.of(context).pop();
-          final path =
-              await ProfilePatchManager.getProfilePatchPath(setting.id);
+          final path = await ProfilePatchManager.getProfilePatchPath(
+            setting.id,
+          );
           final content = await File(path).readAsString();
           if (!mounted) {
             return;
           }
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: FileViewScreen.routSettings(),
-                  builder: (context) => FileViewScreen(
-                        title: setting.getShowName(context),
-                        content: content,
-                        onSave: setting.isRemote()
-                            ? null
-                            : (BuildContext context, String content) async {
-                                await File(path).writeAsString(content);
-                              },
-                      )));
+            context,
+            MaterialPageRoute(
+              settings: FileViewScreen.routSettings(),
+              builder: (context) => FileViewScreen(
+                title: setting.getShowName(context),
+                content: content,
+                onSave: setting.isRemote()
+                    ? null
+                    : (BuildContext context, String content) async {
+                        await File(path).writeAsString(content);
+                      },
+              ),
+            ),
+          );
         },
       ),
       setting.isRemote()
@@ -270,14 +280,20 @@ class _ProfilesPatchBoardScreenWidget
               title: Text(tcontext.meta.update),
               onTap: () async {
                 Navigator.of(context).pop();
-                ReturnResultError? err =
-                    await ProfilePatchManager.update(setting.id);
+                ReturnResultError? err = await ProfilePatchManager.update(
+                  setting.id,
+                );
                 if (err != null) {
                   if (!mounted) {
                     return;
                   }
-                  DialogUtils.showAlertDialog(context, err.message,
-                      showCopy: true, showFAQ: true, withVersion: true);
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.message,
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
               },
             )
@@ -298,12 +314,13 @@ class _ProfilesPatchBoardScreenWidget
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: ProfilesPatchSettingsEditScreen.routSettings(),
-                  builder: (context) => ProfilesPatchSettingsEditScreen(
-                        profileid: setting.id,
-                      )));
+            context,
+            MaterialPageRoute(
+              settings: ProfilesPatchSettingsEditScreen.routSettings(),
+              builder: (context) =>
+                  ProfilesPatchSettingsEditScreen(profileid: setting.id),
+            ),
+          );
           setState(() {});
         },
       ),
@@ -319,23 +336,22 @@ class _ProfilesPatchBoardScreenWidget
     showSheet(
       context: context,
       body: SizedBox(
-          height: 400,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Scrollbar(
-                child: ListView.separated(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 return widgets[index];
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  height: 1,
-                  thickness: 0.3,
-                );
+                return const Divider(height: 1, thickness: 0.3);
               },
               itemCount: widgets.length,
-            )),
-          )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

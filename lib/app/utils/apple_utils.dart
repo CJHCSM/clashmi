@@ -23,21 +23,29 @@ abstract class AppleUtils {
       final config = RemoteConfigManager.getConfig();
       final channelName = await InstallReferrerUtils.getString();
       return _findChannelByNameAndPlatfom(
-                  config.channels, channelName, Platform.operatingSystem)
-              ?.rateUrl ??
+            config.channels,
+            channelName,
+            Platform.operatingSystem,
+          )?.rateUrl ??
           "";
     }
     return "";
   }
 
   static RemoteConfigChannel? _findChannelByName(
-      List<RemoteConfigChannel> channels, String name) {
+    List<RemoteConfigChannel> channels,
+    String name,
+  ) {
     return channels.firstWhereOrNull((channel) => channel.channel == name);
   }
 
   static RemoteConfigChannel? _findChannelByNameAndPlatfom(
-      List<RemoteConfigChannel> channels, String name, String platform) {
-    return channels.firstWhereOrNull((channel) =>
-        (channel.channel == name) && (channel.platform == platform));
+    List<RemoteConfigChannel> channels,
+    String name,
+    String platform,
+  ) {
+    return channels.firstWhereOrNull(
+      (channel) => (channel.channel == name) && (channel.platform == platform),
+    );
   }
 }

@@ -86,8 +86,13 @@ class _AddProfilePatchByUrlScreenState
       return;
     }
 
-    DialogUtils.showAlertDialog(context, result.error!.message,
-        showCopy: true, showFAQ: true, withVersion: true);
+    DialogUtils.showAlertDialog(
+      context,
+      result.error!.message,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
   }
 
   @override
@@ -95,150 +100,154 @@ class _AddProfilePatchByUrlScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.zero,
-          child: AppBar(),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const SizedBox(
+                      width: 50,
+                      height: 30,
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                    ),
+                  ),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.meta.profileAddUrlOrContent,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
+                    ),
+                  ),
+                  _loading
+                      ? const Row(
+                          children: [
+                            SizedBox(width: 12),
+                            SizedBox(
+                              width: 26,
+                              height: 26,
+                              child: RepaintBoundary(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                            SizedBox(width: 12),
+                          ],
+                        )
+                      : InkWell(
+                          onTap: () async {
+                            await onAdd(context);
+                          },
+                          child: Tooltip(
+                            message: tcontext.meta.save,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.done, size: 26),
+                            ),
+                          ),
+                        ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                18,
+                                10,
+                                18,
+                                10,
+                              ),
+                              child: SingleChildScrollView(
+                                child: TextFieldEx(
+                                  textInputAction: TextInputAction.next,
+                                  maxLines: 5,
+                                  controller: _textControllerLink,
+                                  decoration: InputDecoration(
+                                    labelText:
+                                        tcontext.meta.profileUrlOrContent,
+                                    hintText:
+                                        tcontext.meta.profileUrlOrContentHit,
+                                  ),
+                                  onChanged: (text) {},
+                                  onEditingComplete: () async {
+                                    String url = _textControllerLink.text
+                                        .trim();
+                                    if (url.isNotEmpty ||
+                                        null != Uri.tryParse(url)) {
+                                      final userAgent =
+                                          SettingManager.getConfig()
+                                              .userAgent();
+                                      final result =
+                                          await HttpUtils.httpGetTitle(
+                                            url,
+                                            userAgent,
+                                          );
+                                      if (result.error == null) {
+                                        if (_textControllerRemark.text
+                                            .trim()
+                                            .isEmpty) {
+                                          _textControllerRemark.text =
+                                              result.data!;
+                                          setState(() {});
+                                        }
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                18,
+                                10,
+                                18,
+                                10,
+                              ),
+                              child: TextFieldEx(
+                                textInputAction: TextInputAction.done,
+                                controller: _textControllerRemark,
+                                decoration: InputDecoration(
+                                  labelText: tcontext.meta.remark,
+                                  hintText: tcontext.meta.required,
+                                  prefixIcon: const Icon(
+                                    Icons.edit_note_outlined,
+                                  ),
+                                ),
+                                onSubmitted: (String? text) {
+                                  FocusScope.of(context).nextFocus();
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 200),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: windowSize.width - 50 * 2,
-                      child: Text(
-                        tcontext.meta.profileAddUrlOrContent,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
-                      ),
-                    ),
-                    _loading
-                        ? const Row(
-                            children: [
-                              SizedBox(
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 26,
-                                height: 26,
-                                child: RepaintBoundary(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12,
-                              )
-                            ],
-                          )
-                        : InkWell(
-                            onTap: () async {
-                              await onAdd(context);
-                            },
-                            child: Tooltip(
-                                message: tcontext.meta.save,
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.done,
-                                    size: 26,
-                                  ),
-                                )),
-                          ),
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                        child: Card(
-                            child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: SingleChildScrollView(
-                                  child: Column(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18, 10, 18, 10),
-                                      child: SingleChildScrollView(
-                                        child: TextFieldEx(
-                                          textInputAction: TextInputAction.next,
-                                          maxLines: 5,
-                                          controller: _textControllerLink,
-                                          decoration: InputDecoration(
-                                              labelText: tcontext
-                                                  .meta.profileUrlOrContent,
-                                              hintText: tcontext
-                                                  .meta.profileUrlOrContentHit),
-                                          onChanged: (text) {},
-                                          onEditingComplete: () async {
-                                            String url =
-                                                _textControllerLink.text.trim();
-                                            if (url.isNotEmpty ||
-                                                null != Uri.tryParse(url)) {
-                                              final userAgent =
-                                                  SettingManager.getConfig()
-                                                      .userAgent();
-                                              final result =
-                                                  await HttpUtils.httpGetTitle(
-                                                      url, userAgent);
-                                              if (result.error == null) {
-                                                if (_textControllerRemark.text
-                                                    .trim()
-                                                    .isEmpty) {
-                                                  _textControllerRemark.text =
-                                                      result.data!;
-                                                  setState(() {});
-                                                }
-                                              }
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18, 10, 18, 10),
-                                      child: TextFieldEx(
-                                        textInputAction: TextInputAction.done,
-                                        controller: _textControllerRemark,
-                                        decoration: InputDecoration(
-                                          labelText: tcontext.meta.remark,
-                                          hintText: tcontext.meta.required,
-                                          prefixIcon: const Icon(
-                                              Icons.edit_note_outlined),
-                                        ),
-                                        onSubmitted: (String? text) {
-                                          FocusScope.of(context).nextFocus();
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 200,
-                                    )
-                                  ]),
-                                ))))),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

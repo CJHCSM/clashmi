@@ -69,8 +69,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return;
       }
       final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.meta.deviceNoSpace,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.deviceNoSpace,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     });
 
     Future.delayed(const Duration(seconds: 0), () async {
@@ -125,27 +130,31 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     if (Platform.isIOS || Platform.isMacOS) {
       await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: UserAgreementScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => const UserAgreementScreen()));
+        context,
+        MaterialPageRoute(
+          settings: UserAgreementScreen.routSettings(),
+          fullscreenDialog: true,
+          builder: (context) => const UserAgreementScreen(),
+        ),
+      );
       LocalStorage.write(userAgreementAgreedIdKey, "true");
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: LanguageSettingsScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => LanguageSettingsScreen(
-                  canPop: false,
-                  canGoBack: false,
-                  nextText: () {
-                    var tcontext = Translations.of(context);
-                    return tcontext.meta.done;
-                  },
-                )));
+      context,
+      MaterialPageRoute(
+        settings: LanguageSettingsScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => LanguageSettingsScreen(
+          canPop: false,
+          canGoBack: false,
+          nextText: () {
+            var tcontext = Translations.of(context);
+            return tcontext.meta.done;
+          },
+        ),
+      ),
+    );
   }
 
   void _init() async {
@@ -161,8 +170,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     DialogUtils.faqCallback = (BuildContext context, String text) async {
       final tcontext = Translations.of(context);
       var remoteConfig = RemoteConfigManager.getConfig();
-      await WebviewHelper.loadUrl(context, remoteConfig.faq, "faqCallback",
-          title: tcontext.meta.faq);
+      await WebviewHelper.loadUrl(
+        context,
+        remoteConfig.faq,
+        "faqCallback",
+        title: tcontext.meta.faq,
+      );
     };
     VPNService.onEventStateChanged.add(_onStateChanged);
 
@@ -170,8 +183,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
 
     if (Platform.isWindows) {
-      bool reg =
-          SystemSchemeUtils.isRegistered(SystemSchemeUtils.getClashScheme());
+      bool reg = SystemSchemeUtils.isRegistered(
+        SystemSchemeUtils.getClashScheme(),
+      );
       if (!reg) {
         SystemSchemeUtils.register(SystemSchemeUtils.getClashScheme());
       }
@@ -193,7 +207,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onStateChanged(
-      FlutterVpnServiceState state, Map<String, String> params) async {
+    FlutterVpnServiceState state,
+    Map<String, String> params,
+  ) async {
     if (state == FlutterVpnServiceState.disconnected) {
       Biz.vpnStateChanged(false);
     } else if (state == FlutterVpnServiceState.connecting) {
@@ -241,8 +257,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         preferredSize: Size.zero,
         child: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle(
-            systemNavigationBarIconBrightness:
-                themes.getStatusBarIconBrightness(context),
+            systemNavigationBarIconBrightness: themes
+                .getStatusBarIconBrightness(context),
             systemNavigationBarColor: Colors.transparent,
             systemNavigationBarDividerColor: Colors.transparent,
             statusBarBrightness: themes.getStatusBarBrightness(context),
@@ -258,17 +274,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(
-                      AppUtils.getName(),
-                      style: const TextStyle(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppUtils.getName(),
+                        style: const TextStyle(
                           fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -280,9 +298,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       HomeScreenWidgetPart1(),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 15),
                       HomeScreenWidgetPart2(),
                     ],
                   ),

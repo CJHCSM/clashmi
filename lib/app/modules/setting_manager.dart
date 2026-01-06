@@ -25,15 +25,15 @@ class SettingConfigItemUI {
   bool perAppHideAppIcon = false;
   bool delayTestSort = false;
   Map<String, dynamic> toJson() => {
-        'theme': theme,
-        'auto_orientation': autoOrientation,
-        'disable_font_scaler': disableFontScaler,
-        'hide_after_launch': hideAfterLaunch,
-        'tv_mode': tvMode,
-        'perapp_hide_system_app': perAppHideSystemApp,
-        'perapp_hide_app_icon': perAppHideAppIcon,
-        'delay_test_sort': delayTestSort,
-      };
+    'theme': theme,
+    'auto_orientation': autoOrientation,
+    'disable_font_scaler': disableFontScaler,
+    'hide_after_launch': hideAfterLaunch,
+    'tv_mode': tvMode,
+    'perapp_hide_system_app': perAppHideSystemApp,
+    'perapp_hide_app_icon': perAppHideAppIcon,
+    'delay_test_sort': delayTestSort,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -93,11 +93,7 @@ class SettingConfigItemWebDev {
   String password = "";
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {
-      'url': url,
-      'user': user,
-      'password': password,
-    };
+    Map<String, dynamic> ret = {'url': url, 'user': user, 'password': password};
     return ret;
   }
 
@@ -144,27 +140,27 @@ class SettingConfig {
   bool hideVpn = false; //ios
 
   Map<String, dynamic> toJson() => {
-        'language_tag': languageTag,
-        'ui': ui,
-        'webdav': webdav,
-        'alway_on': alwayOn,
-        'auto_update_channel': autoUpdateChannel,
-        'auto_download_udpate_pkg': autoDownloadUpdatePkg,
-        'auto_connect_after_launch': autoConnectAfterLaunch,
-        'auto_set_system_proxy': autoSetSystemProxy,
-        'system_proxy_bypass_domain': systemProxyBypassDomain,
-        'user_agent': _userAgent,
-        'board_online': boardOnline,
-        'board_url': boardUrl,
-        'board_port': boardLocalPort,
-        'delay_test_url': delayTestUrl,
-        'delay_test_url_timeout': delayTestTimeout,
-        'hide_dock_icon': hideDockIcon,
-        'exclude_from_recent': excludeFromRecent,
-        'wake_lock': wakeLock,
-        'auto_connect_at_boot': autoConnectAtBoot,
-        'hide_vpn': hideVpn,
-      };
+    'language_tag': languageTag,
+    'ui': ui,
+    'webdav': webdav,
+    'alway_on': alwayOn,
+    'auto_update_channel': autoUpdateChannel,
+    'auto_download_udpate_pkg': autoDownloadUpdatePkg,
+    'auto_connect_after_launch': autoConnectAfterLaunch,
+    'auto_set_system_proxy': autoSetSystemProxy,
+    'system_proxy_bypass_domain': systemProxyBypassDomain,
+    'user_agent': _userAgent,
+    'board_online': boardOnline,
+    'board_url': boardUrl,
+    'board_port': boardLocalPort,
+    'delay_test_url': delayTestUrl,
+    'delay_test_url_timeout': delayTestTimeout,
+    'hide_dock_icon': hideDockIcon,
+    'exclude_from_recent': excludeFromRecent,
+    'wake_lock': wakeLock,
+    'auto_connect_at_boot': autoConnectAtBoot,
+    'hide_vpn': hideVpn,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -183,9 +179,10 @@ class SettingConfig {
     autoSetSystemProxy =
         map["auto_set_system_proxy"] ?? getAutoSetSystemProxyDefault();
     systemProxyBypassDomain = ConvertUtils.getListStringFromDynamic(
-        map["system_proxy_bypass_domain"],
-        true,
-        ProxyBypassDoaminsDefault.toList())!;
+      map["system_proxy_bypass_domain"],
+      true,
+      ProxyBypassDoaminsDefault.toList(),
+    )!;
 
     _userAgent = map["user_agent"] ?? "";
 
@@ -273,7 +270,7 @@ class SettingManager {
     } else {
       String planguageTag = [
         PlatformDispatcher.instance.locale.languageCode,
-        PlatformDispatcher.instance.locale.countryCode ?? ""
+        PlatformDispatcher.instance.locale.countryCode ?? "",
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {

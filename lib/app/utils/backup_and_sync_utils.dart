@@ -63,8 +63,9 @@ class BackupAndSyncUtils {
 
     final expectedFileNames = getFileNamesFromList(getZipFileNameList());
     final actualFileNames = result.data!;
-    final intersection =
-        expectedFileNames.toSet().intersection(actualFileNames.toSet());
+    final intersection = expectedFileNames.toSet().intersection(
+      actualFileNames.toSet(),
+    );
 
     if (intersection.isEmpty) {
       return ReturnResultError('backup zip file is not compatible');

@@ -33,67 +33,64 @@ class _UserAgreementScreenState
     Size windowSize = MediaQuery.of(context).size;
     var setting = SettingManager.getConfig();
     return PopScope(
-        canPop: false,
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 20, 18, 0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(tcontext.UserAgreementScreen.privacyFirst,
-                            style: const TextStyle(
-                              fontSize: ThemeConfig.kFontSizeListItem,
-                              fontWeight: ThemeConfig.kFontWeightListItem,
-                            )),
-                        const SizedBox(
-                          height: 20,
+      canPop: false,
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(18, 20, 18, 0),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        tcontext.UserAgreementScreen.privacyFirst,
+                        style: const TextStyle(
+                          fontSize: ThemeConfig.kFontSizeListItem,
+                          fontWeight: ThemeConfig.kFontWeightListItem,
                         ),
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: windowSize.height * 0.68,
-                          child: FutureBuilder(
-                            future: getData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<String> snapshot) {
-                              String data =
-                                  snapshot.hasData ? snapshot.data! : "";
-                              return Text.rich(
-                                TextSpan(
-                                  text: data,
-                                ),
-                              );
-                            },
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        alignment: Alignment.topCenter,
+                        height: windowSize.height * 0.68,
+                        child: FutureBuilder(
+                          future: getData(),
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<String> snapshot,
+                              ) {
+                                String data = snapshot.hasData
+                                    ? snapshot.data!
+                                    : "";
+                                return Text.rich(TextSpan(text: data));
+                              },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 45.0,
+                        child: ElevatedButton(
+                          autofocus: setting.ui.tvMode,
+                          child: Text(
+                            tcontext.UserAgreementScreen.agreeAndContinue,
                           ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                        SizedBox(
-                          height: 45.0,
-                          child: ElevatedButton(
-                            autofocus: setting.ui.tvMode,
-                            child: Text(
-                                tcontext.UserAgreementScreen.agreeAndContinue),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Future<String> getData() async {

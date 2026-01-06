@@ -21,12 +21,13 @@ const String kProfilePatchBuildinNoOverwrite =
     "profile_patch_buildin_no_overwrite";
 
 class ProfilePatchSetting {
-  ProfilePatchSetting(
-      {this.id = "",
-      this.remark = "",
-      this.updateInterval,
-      this.update,
-      this.url = ""});
+  ProfilePatchSetting({
+    this.id = "",
+    this.remark = "",
+    this.updateInterval,
+    this.update,
+    this.url = "",
+  });
   String id = "";
   String remark = "";
   Duration? updateInterval;
@@ -34,12 +35,12 @@ class ProfilePatchSetting {
   String url;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'remark': remark,
-        'update_interval': updateInterval?.inSeconds,
-        'update': update.toString(),
-        'url': url,
-      };
+    'id': id,
+    'remark': remark,
+    'update_interval': updateInterval?.inSeconds,
+    'update': update.toString(),
+    'url': url,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -99,8 +100,10 @@ class ProfilePatchConfig {
   String _currentId = "";
   List<ProfilePatchSetting> profiles = [];
 
-  Map<String, dynamic> toJson() =>
-      {'current_id': _currentId, 'profile_patchs': profiles};
+  Map<String, dynamic> toJson() => {
+    'current_id': _currentId,
+    'profile_patchs': profiles,
+  };
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -208,8 +211,10 @@ class ProfilePatchManager {
     }
     Set<String> existProfiles = {};
 
-    var files =
-        FileUtils.recursionFile(dir, extensionFilter: {".yaml", ".yml"});
+    var files = FileUtils.recursionFile(
+      dir,
+      extensionFilter: {".yaml", ".yml"},
+    );
     for (var file in files) {
       existProfiles.add(path.basename(file));
     }
@@ -224,8 +229,9 @@ class ProfilePatchManager {
         return value.id == existValue;
       });
       if (index < 0) {
-        _config.profiles
-            .add(ProfilePatchSetting(id: existValue, remark: existValue));
+        _config.profiles.add(
+          ProfilePatchSetting(id: existValue, remark: existValue),
+        );
       }
     }
 
@@ -243,15 +249,11 @@ class ProfilePatchManager {
   }
 
   static ProfilePatchSetting getBuildinOverwrite() {
-    return ProfilePatchSetting(
-      id: kProfilePatchBuildinOverwrite,
-    );
+    return ProfilePatchSetting(id: kProfilePatchBuildinOverwrite);
   }
 
   static ProfilePatchSetting getBuildinNoOverwrite() {
-    return ProfilePatchSetting(
-      id: kProfilePatchBuildinNoOverwrite,
-    );
+    return ProfilePatchSetting(id: kProfilePatchBuildinNoOverwrite);
   }
 
   static ProfilePatchSetting getCurrent() {
@@ -261,7 +263,9 @@ class ProfilePatchManager {
     }
     if (_config._currentId == kProfilePatchBuildinNoOverwrite) {
       return ProfilePatchSetting(
-          id: kProfilePatchBuildinNoOverwrite, remark: "");
+        id: kProfilePatchBuildinNoOverwrite,
+        remark: "",
+      );
     }
     int index = _config.profiles.indexWhere((value) {
       return value.id == _config._currentId;
@@ -319,7 +323,9 @@ class ProfilePatchManager {
     }
     if (id == kProfilePatchBuildinNoOverwrite) {
       return ProfilePatchSetting(
-          id: kProfilePatchBuildinNoOverwrite, remark: "");
+        id: kProfilePatchBuildinNoOverwrite,
+        remark: "",
+      );
     }
 
     int index = _config.profiles.indexWhere((value) {
@@ -352,8 +358,10 @@ class ProfilePatchManager {
     return _config.profiles;
   }
 
-  static Future<ReturnResultError?> addLocal(String filePath,
-      {String remark = ""}) async {
+  static Future<ReturnResultError?> addLocal(
+    String filePath, {
+    String remark = "",
+  }) async {
     final id = "${filePath.hashCode}.yaml";
     final savePath = path.join(await PathUtils.profilePatchsDir(), id);
     final file = File(filePath);
@@ -383,7 +391,8 @@ class ProfilePatchManager {
   }
 
   static Future<ReturnResultError?> validFileContentFormat(
-      String filepath) async {
+    String filepath,
+  ) async {
     String? content = await FileUtils.readAsStringWithMaxLength(filepath, 100);
     if (content != null) {
       content = content.trimLeft();
@@ -391,14 +400,17 @@ class ProfilePatchManager {
       if (content.startsWith("<!DOCTYPE html>") ||
           content.startsWith("<html")) {
         return ReturnResultError(
-            "$filename:invalid content format:\n\n$content");
+          "$filename:invalid content format:\n\n$content",
+        );
       }
     }
     return null;
   }
 
-  static Future<ReturnResult<String>> addRemote(String url,
-      {String remark = ""}) async {
+  static Future<ReturnResult<String>> addRemote(
+    String url, {
+    String remark = "",
+  }) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       return ReturnResult(error: ReturnResultError("invalid url"));
@@ -407,8 +419,12 @@ class ProfilePatchManager {
     final savePath = path.join(await PathUtils.profilePatchsDir(), id);
     final userAgent = SettingManager.getConfig().userAgent();
     final result = await DownloadUtils.downloadWithPort(
-        uri, savePath, userAgent, null,
-        timeout: const Duration(seconds: 30));
+      uri,
+      savePath,
+      userAgent,
+      null,
+      timeout: const Duration(seconds: 30),
+    );
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -432,11 +448,12 @@ class ProfilePatchManager {
       return value.id == id;
     });
     final profile = ProfilePatchSetting(
-        id: id,
-        remark: remark,
-        updateInterval: const Duration(days: 1),
-        update: DateTime.now(),
-        url: url);
+      id: id,
+      remark: remark,
+      updateInterval: const Duration(days: 1),
+      update: DateTime.now(),
+      url: url,
+    );
 
     if (index < 0) {
       _config.profiles.add(profile);
@@ -491,8 +508,12 @@ class ProfilePatchManager {
     final savePath = path.join(await PathUtils.profilePatchsDir(), id);
     final savePathTmp = "$savePath.tmp";
     final result = await DownloadUtils.downloadWithPort(
-        uri, savePathTmp, userAgent, null,
-        timeout: const Duration(seconds: 30));
+      uri,
+      savePathTmp,
+      userAgent,
+      null,
+      timeout: const Duration(seconds: 30),
+    );
     profile.update = DateTime.now();
     if (result.error == null) {
       final err = await validFileContentFormat(savePathTmp);
@@ -528,7 +549,8 @@ class ProfilePatchManager {
           }
         });
         return ReturnResultError(
-            "Rename file from [$savePathTmp] to [$savePath] failed: $renameError");
+          "Rename file from [$savePathTmp] to [$savePath] failed: $renameError",
+        );
       }
 
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");

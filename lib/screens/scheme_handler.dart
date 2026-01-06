@@ -13,7 +13,9 @@ class SchemeHandler {
   static void Function(bool)? vpnDisconnect;
   static void Function(bool)? vpnReconnect;
   static Future<ReturnResultError?> handle(
-      BuildContext context, String url) async {
+    BuildContext context,
+    String url,
+  ) async {
     //clash://install-config?url=https://xxxxx.com/clash/config
     //clash://connect?background=true
     //clash://disconnect
@@ -60,7 +62,9 @@ class SchemeHandler {
   }
 
   static Future<ReturnResultError?> _installConfig(
-      BuildContext context, Uri uri) async {
+    BuildContext context,
+    Uri uri,
+  ) async {
     if (PlatformUtils.isPC()) {
       await windowManager.show();
     }
@@ -83,8 +87,13 @@ class SchemeHandler {
         }
       }
     } catch (err) {
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return ReturnResultError(err.toString());
     }
     name ??= uri.fragment;
@@ -106,14 +115,22 @@ class SchemeHandler {
     if (!context.mounted) {
       return null;
     }
-    ReturnResultError? result =
-        await addConfigBySubscriptionLink(context, url, name ?? "", overwrite);
+    ReturnResultError? result = await addConfigBySubscriptionLink(
+      context,
+      url,
+      name ?? "",
+      overwrite,
+    );
 
     return result;
   }
 
   static Future<ReturnResultError?> addConfigBySubscriptionLink(
-      BuildContext context, String url, String name, bool? overwrite) async {
+    BuildContext context,
+    String url,
+    String name,
+    bool? overwrite,
+  ) async {
     int kMaxPush = 1;
     if (AddProfileByUrlScreen.pushed >= kMaxPush) {
       return ReturnResultError("addprofile request already exists");
@@ -124,14 +141,13 @@ class SchemeHandler {
     }
 
     bool? ok = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: AddProfileByUrlScreen.routSettings(),
-            builder: (context) => AddProfileByUrlScreen(
-                  url: url,
-                  remark: name,
-                  overwrite: overwrite,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: AddProfileByUrlScreen.routSettings(),
+        builder: (context) =>
+            AddProfileByUrlScreen(url: url, remark: name, overwrite: overwrite),
+      ),
+    );
     if (ok != true) {
       return ReturnResultError("addprofile failed or canceled by user");
     }

@@ -63,7 +63,10 @@ abstract final class ConvertUtils {
   }
 
   static List<String>? getListStringFromDynamic(
-      dynamic value, bool removeDuplicates, List<String>? defaultValue) {
+    dynamic value,
+    bool removeDuplicates,
+    List<String>? defaultValue,
+  ) {
     if (value is! List) return defaultValue;
 
     final result = value.whereType<String>().toList();
@@ -71,7 +74,10 @@ abstract final class ConvertUtils {
   }
 
   static List<int>? getListIntFromDynamic(
-      dynamic value, bool removeDuplicates, List<int>? defaultValue) {
+    dynamic value,
+    bool removeDuplicates,
+    List<int>? defaultValue,
+  ) {
     if (value is! List) return defaultValue;
 
     final result = value.whereType<int>().toList();

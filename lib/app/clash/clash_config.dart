@@ -9,8 +9,11 @@ import 'package:tuple/tuple.dart';
 part 'clash_config.g.dart';
 
 class MapHelper {
-  static Map<String, dynamic> removeNullOrEmpty(Map<String, dynamic> object,
-      bool removeOverWriteField, bool removeNotOverWrite) {
+  static Map<String, dynamic> removeNullOrEmpty(
+    Map<String, dynamic> object,
+    bool removeOverWriteField,
+    bool removeNotOverWrite,
+  ) {
     Set<String> toRemove = {};
     object.forEach((key, value) {
       if (value == null) {
@@ -130,9 +133,13 @@ enum ClashDnsEnhancedMode {
   static List<Tuple2<String?, String>> toTupleList() {
     return [
       Tuple2(
-          ClashDnsEnhancedMode.fakeIp.name, ClashDnsEnhancedMode.fakeIp.name),
-      Tuple2(ClashDnsEnhancedMode.redirHost.name,
-          ClashDnsEnhancedMode.redirHost.name),
+        ClashDnsEnhancedMode.fakeIp.name,
+        ClashDnsEnhancedMode.fakeIp.name,
+      ),
+      Tuple2(
+        ClashDnsEnhancedMode.redirHost.name,
+        ClashDnsEnhancedMode.redirHost.name,
+      ),
       Tuple2(ClashDnsEnhancedMode.normal.name, "normal"),
     ];
   }
@@ -146,10 +153,7 @@ enum ClashDnsCacheAlgorithm {
   final String name;
 
   static List<String> toList() {
-    return [
-      ClashDnsCacheAlgorithm.lru.name,
-      ClashDnsCacheAlgorithm.arc.name,
-    ];
+    return [ClashDnsCacheAlgorithm.lru.name, ClashDnsCacheAlgorithm.arc.name];
   }
 }
 
@@ -216,20 +220,34 @@ enum ClashGlobalClientFingerprint {
   static List<Tuple2<String?, String>> toTupleList(BuildContext context) {
     final tcontext = Translations.of(context);
     return [
-      Tuple2(ClashGlobalClientFingerprint.noOverwrite.name,
-          tcontext.meta.noOverwrite),
-      Tuple2(ClashGlobalClientFingerprint.none.name,
-          ClashGlobalClientFingerprint.none.name!),
-      Tuple2(ClashGlobalClientFingerprint.random.name,
-          ClashGlobalClientFingerprint.random.name!),
-      Tuple2(ClashGlobalClientFingerprint.chrome.name,
-          ClashGlobalClientFingerprint.chrome.name!),
-      Tuple2(ClashGlobalClientFingerprint.firefox.name,
-          ClashGlobalClientFingerprint.firefox.name!),
-      Tuple2(ClashGlobalClientFingerprint.safari.name,
-          ClashGlobalClientFingerprint.safari.name!),
-      Tuple2(ClashGlobalClientFingerprint.ios.name,
-          ClashGlobalClientFingerprint.ios.name!),
+      Tuple2(
+        ClashGlobalClientFingerprint.noOverwrite.name,
+        tcontext.meta.noOverwrite,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.none.name,
+        ClashGlobalClientFingerprint.none.name!,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.random.name,
+        ClashGlobalClientFingerprint.random.name!,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.chrome.name,
+        ClashGlobalClientFingerprint.chrome.name!,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.firefox.name,
+        ClashGlobalClientFingerprint.firefox.name!,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.safari.name,
+        ClashGlobalClientFingerprint.safari.name!,
+      ),
+      Tuple2(
+        ClashGlobalClientFingerprint.ios.name,
+        ClashGlobalClientFingerprint.ios.name!,
+      ),
     ];
   }
 }
@@ -243,9 +261,7 @@ enum ClashTunStack {
   final String name;
   static List<String> toList() {
     if (Platform.isIOS || Platform.isMacOS) {
-      return [
-        ClashTunStack.gvisor.name,
-      ];
+      return [ClashTunStack.gvisor.name];
     }
     return [
       ClashTunStack.gvisor.name,
@@ -287,15 +303,22 @@ class RawExtensionTunHttpProxy {
   @JsonKey(name: 'allow_bypass')
   bool? AllowBypass;
 
-  RawExtensionTunHttpProxy.by(
-      {this.Enable,
-      this.Server,
-      this.ServerPort,
-      this.BypassDomain,
-      this.MatchDomain,
-      this.AllowBypass});
-  RawExtensionTunHttpProxy(this.Enable, this.Server, this.ServerPort,
-      this.BypassDomain, this.MatchDomain, this.AllowBypass);
+  RawExtensionTunHttpProxy.by({
+    this.Enable,
+    this.Server,
+    this.ServerPort,
+    this.BypassDomain,
+    this.MatchDomain,
+    this.AllowBypass,
+  });
+  RawExtensionTunHttpProxy(
+    this.Enable,
+    this.Server,
+    this.ServerPort,
+    this.BypassDomain,
+    this.MatchDomain,
+    this.AllowBypass,
+  );
   factory RawExtensionTunHttpProxy.fromJson(Map<String, dynamic> json) =>
       _$RawExtensionTunHttpProxyFromJson(json);
   Map<String, dynamic> toJson() => _$RawExtensionTunHttpProxyToJson(this);
@@ -330,14 +353,20 @@ class RawExtensionGeoRuleset {
   @JsonKey(name: 'enable-proxy')
   bool? EnableProxy;
 
-  RawExtensionGeoRuleset.by(
-      {this.GeoSiteUrl,
-      this.GeoIpUrl,
-      this.AsnUrl,
-      this.UpdateInterval,
-      this.EnableProxy});
-  RawExtensionGeoRuleset(this.GeoSiteUrl, this.GeoIpUrl, this.AsnUrl,
-      this.UpdateInterval, this.EnableProxy);
+  RawExtensionGeoRuleset.by({
+    this.GeoSiteUrl,
+    this.GeoIpUrl,
+    this.AsnUrl,
+    this.UpdateInterval,
+    this.EnableProxy,
+  });
+  RawExtensionGeoRuleset(
+    this.GeoSiteUrl,
+    this.GeoIpUrl,
+    this.AsnUrl,
+    this.UpdateInterval,
+    this.EnableProxy,
+  );
   factory RawExtensionGeoRuleset.fromJson(Map<String, dynamic> json) =>
       _$RawExtensionGeoRulesetFromJson(json);
   Map<String, dynamic> toJson() => _$RawExtensionGeoRulesetToJson(this);
@@ -350,14 +379,8 @@ class RawExtensionTun {
   @JsonKey(name: 'per_app')
   RawExtensionTunPerApp perApp;
 
-  RawExtensionTun.by({
-    required this.httpProxy,
-    required this.perApp,
-  });
-  RawExtensionTun(
-    this.httpProxy,
-    this.perApp,
-  );
+  RawExtensionTun.by({required this.httpProxy, required this.perApp});
+  RawExtensionTun(this.httpProxy, this.perApp);
   factory RawExtensionTun.fromJson(Map<String, dynamic> json) =>
       _$RawExtensionTunFromJson(json);
   Map<String, dynamic> toJson() => _$RawExtensionTunToJson(this);
@@ -380,7 +403,11 @@ class RawExtension {
     this.RuntimeProfileSavePath,
   });
   RawExtension(
-      this.Ruleset, this.Tun, this.PprofAddr, this.RuntimeProfileSavePath);
+    this.Ruleset,
+    this.Tun,
+    this.PprofAddr,
+    this.RuntimeProfileSavePath,
+  );
   factory RawExtension.fromJson(Map<String, dynamic> json) =>
       _$RawExtensionFromJson(json);
   Map<String, dynamic> toJson() => _$RawExtensionToJson(this);
@@ -400,10 +427,20 @@ class RawTunnel {
   @JsonKey(name: 'proxy')
   String? Proxy;
 
-  RawTunnel.by(
-      {this.OverWrite, this.Network, this.Address, this.Target, this.Proxy});
+  RawTunnel.by({
+    this.OverWrite,
+    this.Network,
+    this.Address,
+    this.Target,
+    this.Proxy,
+  });
   RawTunnel(
-      this.OverWrite, this.Network, this.Address, this.Target, this.Proxy);
+    this.OverWrite,
+    this.Network,
+    this.Address,
+    this.Target,
+    this.Proxy,
+  );
   factory RawTunnel.fromJson(Map<String, dynamic> json) =>
       _$RawTunnelFromJson(json);
   Map<String, dynamic> toJson() => _$RawTunnelToJson(this);
@@ -472,52 +509,54 @@ class RawDNS {
   @JsonKey(name: 'direct-nameserver-follow-policy')
   bool? DirectNameServerFollowPolicy;
 
-  RawDNS.by(
-      {this.OverWrite,
-      this.Enable,
-      this.PreferH3,
-      this.IPv6,
-      this.IPv6Timeout,
-      this.UseHosts,
-      this.UseSystemHosts,
-      this.RespectRules,
-      this.NameServer,
-      this.Fallback,
-      this.FallbackFilter,
-      this.Listen,
-      this.EnhancedMode,
-      this.FakeIPRange,
-      this.FakeIPFilter,
-      this.FakeIPFilterMode,
-      this.DefaultNameserver,
-      this.CacheAlgorithm,
-      this.NameServerPolicy,
-      this.ProxyServerNameserver,
-      this.DirectNameServer,
-      this.DirectNameServerFollowPolicy});
+  RawDNS.by({
+    this.OverWrite,
+    this.Enable,
+    this.PreferH3,
+    this.IPv6,
+    this.IPv6Timeout,
+    this.UseHosts,
+    this.UseSystemHosts,
+    this.RespectRules,
+    this.NameServer,
+    this.Fallback,
+    this.FallbackFilter,
+    this.Listen,
+    this.EnhancedMode,
+    this.FakeIPRange,
+    this.FakeIPFilter,
+    this.FakeIPFilterMode,
+    this.DefaultNameserver,
+    this.CacheAlgorithm,
+    this.NameServerPolicy,
+    this.ProxyServerNameserver,
+    this.DirectNameServer,
+    this.DirectNameServerFollowPolicy,
+  });
   RawDNS(
-      this.OverWrite,
-      this.Enable,
-      this.PreferH3,
-      this.IPv6,
-      this.IPv6Timeout,
-      this.UseHosts,
-      this.UseSystemHosts,
-      this.RespectRules,
-      this.NameServer,
-      this.Fallback,
-      this.FallbackFilter,
-      this.Listen,
-      this.EnhancedMode,
-      this.FakeIPRange,
-      this.FakeIPFilter,
-      this.FakeIPFilterMode,
-      this.DefaultNameserver,
-      this.CacheAlgorithm,
-      this.NameServerPolicy,
-      this.ProxyServerNameserver,
-      this.DirectNameServer,
-      this.DirectNameServerFollowPolicy);
+    this.OverWrite,
+    this.Enable,
+    this.PreferH3,
+    this.IPv6,
+    this.IPv6Timeout,
+    this.UseHosts,
+    this.UseSystemHosts,
+    this.RespectRules,
+    this.NameServer,
+    this.Fallback,
+    this.FallbackFilter,
+    this.Listen,
+    this.EnhancedMode,
+    this.FakeIPRange,
+    this.FakeIPFilter,
+    this.FakeIPFilterMode,
+    this.DefaultNameserver,
+    this.CacheAlgorithm,
+    this.NameServerPolicy,
+    this.ProxyServerNameserver,
+    this.DirectNameServer,
+    this.DirectNameServerFollowPolicy,
+  );
   factory RawDNS.fromJson(Map<String, dynamic> json) => _$RawDNSFromJson(json);
   Map<String, dynamic> toJson() => _$RawDNSToJson(this);
 }
@@ -535,10 +574,20 @@ class RawFallbackFilter {
   @JsonKey(name: 'domageositein')
   List<String>? GeoSite;
 
-  RawFallbackFilter.by(
-      {this.GeoIP, this.GeoIPCode, this.IPCIDR, this.Domain, this.GeoSite});
+  RawFallbackFilter.by({
+    this.GeoIP,
+    this.GeoIPCode,
+    this.IPCIDR,
+    this.Domain,
+    this.GeoSite,
+  });
   RawFallbackFilter(
-      this.GeoIP, this.GeoIPCode, this.IPCIDR, this.Domain, this.GeoSite);
+    this.GeoIP,
+    this.GeoIPCode,
+    this.IPCIDR,
+    this.Domain,
+    this.GeoSite,
+  );
   factory RawFallbackFilter.fromJson(Map<String, dynamic> json) =>
       _$RawFallbackFilterFromJson(json);
   Map<String, dynamic> toJson() => _$RawFallbackFilterToJson(this);
@@ -553,10 +602,16 @@ class RawClashForAndroid {
   @JsonKey(name: 'ui-subtitle-pattern')
   String? UiSubtitlePattern;
 
-  RawClashForAndroid.by(
-      {this.OverWrite, this.AppendSystemDNS, this.UiSubtitlePattern});
+  RawClashForAndroid.by({
+    this.OverWrite,
+    this.AppendSystemDNS,
+    this.UiSubtitlePattern,
+  });
   RawClashForAndroid(
-      this.OverWrite, this.AppendSystemDNS, this.UiSubtitlePattern);
+    this.OverWrite,
+    this.AppendSystemDNS,
+    this.UiSubtitlePattern,
+  );
   factory RawClashForAndroid.fromJson(Map<String, dynamic> json) =>
       _$RawClashForAndroidFromJson(json);
   Map<String, dynamic> toJson() => _$RawClashForAndroidToJson(this);
@@ -579,16 +634,24 @@ class RawNTP {
   @JsonKey(name: 'write-to-system')
   bool? WriteToSystem;
 
-  RawNTP.by(
-      {this.OverWrite,
-      this.Enable,
-      this.Server,
-      this.Port,
-      this.Interval,
-      this.DialerProxy,
-      this.WriteToSystem});
-  RawNTP(this.OverWrite, this.Enable, this.Server, this.Port, this.Interval,
-      this.DialerProxy, this.WriteToSystem);
+  RawNTP.by({
+    this.OverWrite,
+    this.Enable,
+    this.Server,
+    this.Port,
+    this.Interval,
+    this.DialerProxy,
+    this.WriteToSystem,
+  });
+  RawNTP(
+    this.OverWrite,
+    this.Enable,
+    this.Server,
+    this.Port,
+    this.Interval,
+    this.DialerProxy,
+    this.WriteToSystem,
+  );
   factory RawNTP.fromJson(Map<String, dynamic> json) => _$RawNTPFromJson(json);
   Map<String, dynamic> toJson() => _$RawNTPToJson(this);
 }
@@ -673,84 +736,86 @@ class RawTun {
   List<String>? Inet4RouteExcludeAddress;
   @JsonKey(name: 'inet6-route-exclude-address')
   List<String>? Inet6RouteExcludeAddress;
-  RawTun.by(
-      {this.OverWrite,
-      this.Enable,
-      this.Device,
-      this.Stack,
-      this.DNSHijack,
-      this.AutoRoute,
-      this.AutoDetectInterface,
-      this.MTU,
-      this.GSO,
-      this.GSOMaxSize,
-      this.Inet4Address,
-      this.Inet6Address,
-      this.IPRoute2TableIndex,
-      this.IPRoute2RuleIndex,
-      this.AutoRedirect,
-      this.AutoRedirectInputMark,
-      this.AutoRedirectOutputMark,
-      this.StrictRoute,
-      this.RouteAddress,
-      this.RouteAddressSet,
-      this.RouteExcludeAddress,
-      this.RouteExcludeAddressSet,
-      this.IncludeInterface,
-      this.ExcludeInterface,
-      this.IncludeUID,
-      this.IncludeUIDRange,
-      this.ExcludeUID,
-      this.ExcludeUIDRange,
-      this.IncludeAndroidUser,
-      this.IncludePackage,
-      this.ExcludePackage,
-      this.EndpointIndependentNat,
-      this.UDPTimeout,
-      this.FileDescriptor,
-      this.Inet4RouteAddress,
-      this.Inet6RouteAddress,
-      this.Inet4RouteExcludeAddress,
-      this.Inet6RouteExcludeAddress});
+  RawTun.by({
+    this.OverWrite,
+    this.Enable,
+    this.Device,
+    this.Stack,
+    this.DNSHijack,
+    this.AutoRoute,
+    this.AutoDetectInterface,
+    this.MTU,
+    this.GSO,
+    this.GSOMaxSize,
+    this.Inet4Address,
+    this.Inet6Address,
+    this.IPRoute2TableIndex,
+    this.IPRoute2RuleIndex,
+    this.AutoRedirect,
+    this.AutoRedirectInputMark,
+    this.AutoRedirectOutputMark,
+    this.StrictRoute,
+    this.RouteAddress,
+    this.RouteAddressSet,
+    this.RouteExcludeAddress,
+    this.RouteExcludeAddressSet,
+    this.IncludeInterface,
+    this.ExcludeInterface,
+    this.IncludeUID,
+    this.IncludeUIDRange,
+    this.ExcludeUID,
+    this.ExcludeUIDRange,
+    this.IncludeAndroidUser,
+    this.IncludePackage,
+    this.ExcludePackage,
+    this.EndpointIndependentNat,
+    this.UDPTimeout,
+    this.FileDescriptor,
+    this.Inet4RouteAddress,
+    this.Inet6RouteAddress,
+    this.Inet4RouteExcludeAddress,
+    this.Inet6RouteExcludeAddress,
+  });
   RawTun(
-      this.OverWrite,
-      this.Enable,
-      this.Device,
-      this.Stack,
-      this.DNSHijack,
-      this.AutoRoute,
-      this.AutoDetectInterface,
-      this.MTU,
-      this.GSO,
-      this.GSOMaxSize,
-      this.Inet4Address,
-      this.Inet6Address,
-      this.IPRoute2TableIndex,
-      this.IPRoute2RuleIndex,
-      this.AutoRedirect,
-      this.AutoRedirectInputMark,
-      this.AutoRedirectOutputMark,
-      this.StrictRoute,
-      this.RouteAddress,
-      this.RouteAddressSet,
-      this.RouteExcludeAddress,
-      this.RouteExcludeAddressSet,
-      this.IncludeInterface,
-      this.ExcludeInterface,
-      this.IncludeUID,
-      this.IncludeUIDRange,
-      this.ExcludeUID,
-      this.ExcludeUIDRange,
-      this.IncludeAndroidUser,
-      this.IncludePackage,
-      this.ExcludePackage,
-      this.EndpointIndependentNat,
-      this.UDPTimeout,
-      this.FileDescriptor,
-      this.Inet4RouteAddress,
-      this.Inet6RouteAddress,
-      this.Inet4RouteExcludeAddress,
-      this.Inet6RouteExcludeAddress);
+    this.OverWrite,
+    this.Enable,
+    this.Device,
+    this.Stack,
+    this.DNSHijack,
+    this.AutoRoute,
+    this.AutoDetectInterface,
+    this.MTU,
+    this.GSO,
+    this.GSOMaxSize,
+    this.Inet4Address,
+    this.Inet6Address,
+    this.IPRoute2TableIndex,
+    this.IPRoute2RuleIndex,
+    this.AutoRedirect,
+    this.AutoRedirectInputMark,
+    this.AutoRedirectOutputMark,
+    this.StrictRoute,
+    this.RouteAddress,
+    this.RouteAddressSet,
+    this.RouteExcludeAddress,
+    this.RouteExcludeAddressSet,
+    this.IncludeInterface,
+    this.ExcludeInterface,
+    this.IncludeUID,
+    this.IncludeUIDRange,
+    this.ExcludeUID,
+    this.ExcludeUIDRange,
+    this.IncludeAndroidUser,
+    this.IncludePackage,
+    this.ExcludePackage,
+    this.EndpointIndependentNat,
+    this.UDPTimeout,
+    this.FileDescriptor,
+    this.Inet4RouteAddress,
+    this.Inet6RouteAddress,
+    this.Inet4RouteExcludeAddress,
+    this.Inet6RouteExcludeAddress,
+  );
   factory RawTun.fromJson(Map<String, dynamic> json) => _$RawTunFromJson(json);
   Map<String, dynamic> toJson() => _$RawTunToJson(this);
 }
@@ -784,34 +849,36 @@ class RawTuicServer {
   @JsonKey(name: 'cwnd')
   int? CWND;
 
-  RawTuicServer.by(
-      {this.OverWrite,
-      this.Enable,
-      this.Listen,
-      this.Token,
-      this.Users,
-      this.Certificate,
-      this.PrivateKey,
-      this.CongestionController,
-      this.MaxIdleTime,
-      this.AuthenticationTimeout,
-      this.ALPN,
-      this.MaxUdpRelayPacketSize,
-      this.CWND});
+  RawTuicServer.by({
+    this.OverWrite,
+    this.Enable,
+    this.Listen,
+    this.Token,
+    this.Users,
+    this.Certificate,
+    this.PrivateKey,
+    this.CongestionController,
+    this.MaxIdleTime,
+    this.AuthenticationTimeout,
+    this.ALPN,
+    this.MaxUdpRelayPacketSize,
+    this.CWND,
+  });
   RawTuicServer(
-      this.OverWrite,
-      this.Enable,
-      this.Listen,
-      this.Token,
-      this.Users,
-      this.Certificate,
-      this.PrivateKey,
-      this.CongestionController,
-      this.MaxIdleTime,
-      this.AuthenticationTimeout,
-      this.ALPN,
-      this.MaxUdpRelayPacketSize,
-      this.CWND);
+    this.OverWrite,
+    this.Enable,
+    this.Listen,
+    this.Token,
+    this.Users,
+    this.Certificate,
+    this.PrivateKey,
+    this.CongestionController,
+    this.MaxIdleTime,
+    this.AuthenticationTimeout,
+    this.ALPN,
+    this.MaxUdpRelayPacketSize,
+    this.CWND,
+  );
   factory RawTuicServer.fromJson(Map<String, dynamic> json) =>
       _$RawTuicServerFromJson(json);
   Map<String, dynamic> toJson() => _$RawTuicServerToJson(this);
@@ -830,14 +897,20 @@ class RawIPTables {
   @JsonKey(name: 'dns-redirect')
   bool? DnsRedirect;
 
-  RawIPTables.by(
-      {this.OverWrite,
-      this.Enable,
-      this.InboundInterface,
-      this.Bypass,
-      this.DnsRedirect});
-  RawIPTables(this.OverWrite, this.Enable, this.InboundInterface, this.Bypass,
-      this.DnsRedirect);
+  RawIPTables.by({
+    this.OverWrite,
+    this.Enable,
+    this.InboundInterface,
+    this.Bypass,
+    this.DnsRedirect,
+  });
+  RawIPTables(
+    this.OverWrite,
+    this.Enable,
+    this.InboundInterface,
+    this.Bypass,
+    this.DnsRedirect,
+  );
   factory RawIPTables.fromJson(Map<String, dynamic> json) =>
       _$RawIPTablesFromJson(json);
   Map<String, dynamic> toJson() => _$RawIPTablesToJson(this);
@@ -856,14 +929,20 @@ class RawExperimental {
   @JsonKey(name: 'dialer-ip4p-convert')
   bool? IP4PEnable;
 
-  RawExperimental.by(
-      {this.OverWrite,
-      this.Fingerprints,
-      this.QUICGoDisableGSO,
-      this.QUICGoDisableECN,
-      this.IP4PEnable});
-  RawExperimental(this.OverWrite, this.Fingerprints, this.QUICGoDisableGSO,
-      this.QUICGoDisableECN, this.IP4PEnable);
+  RawExperimental.by({
+    this.OverWrite,
+    this.Fingerprints,
+    this.QUICGoDisableGSO,
+    this.QUICGoDisableECN,
+    this.IP4PEnable,
+  });
+  RawExperimental(
+    this.OverWrite,
+    this.Fingerprints,
+    this.QUICGoDisableGSO,
+    this.QUICGoDisableECN,
+    this.IP4PEnable,
+  );
   factory RawExperimental.fromJson(Map<String, dynamic> json) =>
       _$RawExperimentalFromJson(json);
   Map<String, dynamic> toJson() => _$RawExperimentalToJson(this);
@@ -896,8 +975,13 @@ class RawGeoXUrl {
   @JsonKey(name: 'geosite')
   String? GeoSite;
 
-  RawGeoXUrl.by(
-      {this.OverWrite, this.GeoIp, this.Mmdb, this.ASN, this.GeoSite});
+  RawGeoXUrl.by({
+    this.OverWrite,
+    this.GeoIp,
+    this.Mmdb,
+    this.ASN,
+    this.GeoSite,
+  });
   RawGeoXUrl(this.OverWrite, this.GeoIp, this.Mmdb, this.ASN, this.GeoSite);
   factory RawGeoXUrl.fromJson(Map<String, dynamic> json) =>
       _$RawGeoXUrlFromJson(json);
@@ -931,32 +1015,34 @@ class RawSniffer {
   @JsonKey(name: 'sniff')
   Map<String, RawSniffingConfig>? Sniff;
 
-  RawSniffer.by(
-      {this.OverWrite,
-      this.Enable,
-      this.OverrideDest,
-      this.Sniffing,
-      this.ForceDomain,
-      this.SkipSrcAddress,
-      this.SkipDstAddress,
-      this.SkipDomain,
-      this.Ports,
-      this.ForceDnsMapping,
-      this.ParsePureIp,
-      this.Sniff});
+  RawSniffer.by({
+    this.OverWrite,
+    this.Enable,
+    this.OverrideDest,
+    this.Sniffing,
+    this.ForceDomain,
+    this.SkipSrcAddress,
+    this.SkipDstAddress,
+    this.SkipDomain,
+    this.Ports,
+    this.ForceDnsMapping,
+    this.ParsePureIp,
+    this.Sniff,
+  });
   RawSniffer(
-      this.OverWrite,
-      this.Enable,
-      this.OverrideDest,
-      this.Sniffing,
-      this.ForceDomain,
-      this.SkipSrcAddress,
-      this.SkipDstAddress,
-      this.SkipDomain,
-      this.Ports,
-      this.ForceDnsMapping,
-      this.ParsePureIp,
-      this.Sniff);
+    this.OverWrite,
+    this.Enable,
+    this.OverrideDest,
+    this.Sniffing,
+    this.ForceDomain,
+    this.SkipSrcAddress,
+    this.SkipDstAddress,
+    this.SkipDomain,
+    this.Ports,
+    this.ForceDnsMapping,
+    this.ParsePureIp,
+    this.Sniff,
+  );
   factory RawSniffer.fromJson(Map<String, dynamic> json) =>
       _$RawSnifferFromJson(json);
   Map<String, dynamic> toJson() => _$RawSnifferToJson(this);
@@ -987,13 +1073,18 @@ class RawTLS {
   @JsonKey(name: 'custom-certifactes')
   List<String>? CustomTrustCert;
 
-  RawTLS.by(
-      {this.OverWrite,
-      this.Certificate,
-      this.PrivateKey,
-      this.CustomTrustCert});
+  RawTLS.by({
+    this.OverWrite,
+    this.Certificate,
+    this.PrivateKey,
+    this.CustomTrustCert,
+  });
   RawTLS(
-      this.OverWrite, this.Certificate, this.PrivateKey, this.CustomTrustCert);
+    this.OverWrite,
+    this.Certificate,
+    this.PrivateKey,
+    this.CustomTrustCert,
+  );
   factory RawTLS.fromJson(Map<String, dynamic> json) => _$RawTLSFromJson(json);
   Map<String, dynamic> toJson() => _$RawTLSToJson(this);
 }
@@ -1126,126 +1217,128 @@ class RawConfig {
   @JsonKey(name: 'extension')
   RawExtension? Extension;
 
-  RawConfig.by(
-      {this.Port,
-      this.SocksPort,
-      this.RedirPort,
-      this.TProxyPort,
-      this.MixedPort,
-      this.ShadowSocksConfig,
-      this.VmessConfig,
-      this.InboundTfo,
-      this.InboundMPTCP,
-      this.Authentication,
-      this.SkipAuthPrefixes,
-      this.LanAllowedIPs,
-      this.LanDisAllowedIPs,
-      this.AllowLan,
-      this.BindAddress,
-      this.Mode,
-      this.UnifiedDelay,
-      this.LogLevel,
-      this.IPv6,
-      this.ExternalController,
-      this.ExternalControllerPipe,
-      this.ExternalControllerUnix,
-      this.ExternalControllerTLS,
-      this.ExternalControllerCors,
-      this.ExternalUI,
-      this.ExternalUIURL,
-      this.ExternalUIName,
-      this.ExternalDohServer,
-      this.Secret,
-      this.Interface,
-      this.RoutingMark,
-      this.Tunnels,
-      this.GeoAutoUpdate,
-      this.GeoUpdateInterval,
-      this.GeodataMode,
-      this.GeodataLoader,
-      this.GeositeMatcher,
-      this.TCPConcurrent,
-      this.FindProcessMode,
-      this.GlobalClientFingerprint,
-      this.GlobalUA,
-      this.ETagSupport,
-      this.KeepAliveIdle,
-      this.KeepAliveInterval,
-      this.DisableKeepAlive,
-      this.Listeners,
-      this.Hosts,
-      required this.DNS,
-      required this.NTP,
-      required this.Tun,
-      this.TuicServer,
-      this.IPTables,
-      this.Experimental,
-      this.Profile,
-      this.GeoXUrl,
-      required this.Sniffer,
-      required this.TLS,
-      this.ClashForAndroid,
-      required this.Extension});
+  RawConfig.by({
+    this.Port,
+    this.SocksPort,
+    this.RedirPort,
+    this.TProxyPort,
+    this.MixedPort,
+    this.ShadowSocksConfig,
+    this.VmessConfig,
+    this.InboundTfo,
+    this.InboundMPTCP,
+    this.Authentication,
+    this.SkipAuthPrefixes,
+    this.LanAllowedIPs,
+    this.LanDisAllowedIPs,
+    this.AllowLan,
+    this.BindAddress,
+    this.Mode,
+    this.UnifiedDelay,
+    this.LogLevel,
+    this.IPv6,
+    this.ExternalController,
+    this.ExternalControllerPipe,
+    this.ExternalControllerUnix,
+    this.ExternalControllerTLS,
+    this.ExternalControllerCors,
+    this.ExternalUI,
+    this.ExternalUIURL,
+    this.ExternalUIName,
+    this.ExternalDohServer,
+    this.Secret,
+    this.Interface,
+    this.RoutingMark,
+    this.Tunnels,
+    this.GeoAutoUpdate,
+    this.GeoUpdateInterval,
+    this.GeodataMode,
+    this.GeodataLoader,
+    this.GeositeMatcher,
+    this.TCPConcurrent,
+    this.FindProcessMode,
+    this.GlobalClientFingerprint,
+    this.GlobalUA,
+    this.ETagSupport,
+    this.KeepAliveIdle,
+    this.KeepAliveInterval,
+    this.DisableKeepAlive,
+    this.Listeners,
+    this.Hosts,
+    required this.DNS,
+    required this.NTP,
+    required this.Tun,
+    this.TuicServer,
+    this.IPTables,
+    this.Experimental,
+    this.Profile,
+    this.GeoXUrl,
+    required this.Sniffer,
+    required this.TLS,
+    this.ClashForAndroid,
+    required this.Extension,
+  });
   RawConfig(
-      this.Port,
-      this.SocksPort,
-      this.RedirPort,
-      this.TProxyPort,
-      this.MixedPort,
-      this.ShadowSocksConfig,
-      this.VmessConfig,
-      this.InboundTfo,
-      this.InboundMPTCP,
-      this.Authentication,
-      this.SkipAuthPrefixes,
-      this.LanAllowedIPs,
-      this.LanDisAllowedIPs,
-      this.AllowLan,
-      this.BindAddress,
-      this.Mode,
-      this.UnifiedDelay,
-      this.LogLevel,
-      this.IPv6,
-      this.ExternalController,
-      this.ExternalControllerPipe,
-      this.ExternalControllerUnix,
-      this.ExternalControllerTLS,
-      this.ExternalControllerCors,
-      this.ExternalUI,
-      this.ExternalUIURL,
-      this.ExternalUIName,
-      this.ExternalDohServer,
-      this.Secret,
-      this.Interface,
-      this.RoutingMark,
-      this.Tunnels,
-      this.GeoAutoUpdate,
-      this.GeoUpdateInterval,
-      this.GeodataMode,
-      this.GeodataLoader,
-      this.GeositeMatcher,
-      this.TCPConcurrent,
-      this.FindProcessMode,
-      this.GlobalClientFingerprint,
-      this.GlobalUA,
-      this.ETagSupport,
-      this.KeepAliveIdle,
-      this.KeepAliveInterval,
-      this.DisableKeepAlive,
-      this.Listeners,
-      this.Hosts,
-      this.DNS,
-      this.NTP,
-      this.Tun,
-      this.TuicServer,
-      this.IPTables,
-      this.Experimental,
-      this.Profile,
-      this.GeoXUrl,
-      this.Sniffer,
-      this.TLS,
-      this.ClashForAndroid,
-      this.Extension);
+    this.Port,
+    this.SocksPort,
+    this.RedirPort,
+    this.TProxyPort,
+    this.MixedPort,
+    this.ShadowSocksConfig,
+    this.VmessConfig,
+    this.InboundTfo,
+    this.InboundMPTCP,
+    this.Authentication,
+    this.SkipAuthPrefixes,
+    this.LanAllowedIPs,
+    this.LanDisAllowedIPs,
+    this.AllowLan,
+    this.BindAddress,
+    this.Mode,
+    this.UnifiedDelay,
+    this.LogLevel,
+    this.IPv6,
+    this.ExternalController,
+    this.ExternalControllerPipe,
+    this.ExternalControllerUnix,
+    this.ExternalControllerTLS,
+    this.ExternalControllerCors,
+    this.ExternalUI,
+    this.ExternalUIURL,
+    this.ExternalUIName,
+    this.ExternalDohServer,
+    this.Secret,
+    this.Interface,
+    this.RoutingMark,
+    this.Tunnels,
+    this.GeoAutoUpdate,
+    this.GeoUpdateInterval,
+    this.GeodataMode,
+    this.GeodataLoader,
+    this.GeositeMatcher,
+    this.TCPConcurrent,
+    this.FindProcessMode,
+    this.GlobalClientFingerprint,
+    this.GlobalUA,
+    this.ETagSupport,
+    this.KeepAliveIdle,
+    this.KeepAliveInterval,
+    this.DisableKeepAlive,
+    this.Listeners,
+    this.Hosts,
+    this.DNS,
+    this.NTP,
+    this.Tun,
+    this.TuicServer,
+    this.IPTables,
+    this.Experimental,
+    this.Profile,
+    this.GeoXUrl,
+    this.Sniffer,
+    this.TLS,
+    this.ClashForAndroid,
+    this.Extension,
+  );
   factory RawConfig.fromJson(Map<String, dynamic> json) =>
       _$RawConfigFromJson(json);
   Map<String, dynamic> toJson() => _$RawConfigToJson(this);

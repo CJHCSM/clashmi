@@ -15,7 +15,7 @@ class ClashConfigs {
   int redir_port = 0;
   int tproxy_port = 0;
   int mixed_port = 0;
-/*
+  /*
  "tun": {
         "enable": false,
         "device": "",
@@ -113,10 +113,7 @@ class ClashConfigs {
 class ClashTraffic {
   int upload = 0;
   int download = 0;
-  Map<String, dynamic> toJson() => {
-        'up': upload,
-        'down': download,
-      };
+  Map<String, dynamic> toJson() => {'up': upload, 'down': download};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -132,10 +129,10 @@ class ClashConnections {
   num downloadTotal = 0;
   num memory = 0;
   Map<String, dynamic> toJson() => {
-        'uploadTotal': uploadTotal,
-        'downloadTotal': downloadTotal,
-        'memory': memory,
-      };
+    'uploadTotal': uploadTotal,
+    'downloadTotal': downloadTotal,
+    'memory': memory,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -150,10 +147,7 @@ class ClashConnections {
 class ClashLog {
   String type = "";
   String payload = "";
-  Map<String, dynamic> toJson() => {
-        'type': type,
-        'payload': payload,
-      };
+  Map<String, dynamic> toJson() => {'type': type, 'payload': payload};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -173,13 +167,13 @@ class ClashProxiesNode {
   bool hidden = false;
 
   Map<String, dynamic> toJson() => {
-        'all': all,
-        'name': name,
-        'now': now,
-        'type': type,
-        'delay': delay,
-        'hidden': hidden,
-      };
+    'all': all,
+    'name': name,
+    'now': now,
+    'type': type,
+    'delay': delay,
+    'hidden': hidden,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -212,9 +206,7 @@ class ClashProxiesNode {
 class ClashProxies {
   Map<String, ClashProxiesNode> proxies = {};
 
-  Map<String, dynamic> toJson() => {
-        'proxies': proxies,
-      };
+  Map<String, dynamic> toJson() => {'proxies': proxies};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -233,7 +225,9 @@ class ClashProxies {
   }
 
   int? updateGroupDelay(
-      Map<String, ClashProxiesNode> proxies, ClashProxiesNode node) {
+    Map<String, ClashProxiesNode> proxies,
+    ClashProxiesNode node,
+  ) {
     if (node.type != ClashProtocolType.urltest.name &&
         node.type != ClashProtocolType.selector.name &&
         node.type != ClashProtocolType.fallback.name &&
@@ -299,12 +293,13 @@ class ClashHttpApi {
     Map<String, String> headers = getHeaders(secret);
 
     var result = await HttpUtils.httpGetRequest(
-        "$host:${getControlPort?.call()}/configs",
-        null,
-        headers,
-        const Duration(seconds: timeoutSeconds),
-        null,
-        null);
+      "$host:${getControlPort?.call()}/configs",
+      null,
+      headers,
+      const Duration(seconds: timeoutSeconds),
+      null,
+      null,
+    );
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -318,21 +313,24 @@ class ClashHttpApi {
     }
   }
 
-  static Future<ReturnResult<int>> getDelay(String node,
-      {String url = "https://www.gstatic.com",
-      Duration timeout = const Duration(seconds: 5)}) async {
+  static Future<ReturnResult<int>> getDelay(
+    String node, {
+    String url = "https://www.gstatic.com",
+    Duration timeout = const Duration(seconds: 5),
+  }) async {
     String secret = await getSecret();
     Map<String, String> headers = getHeaders(secret);
 
     final encodeNode = Uri.encodeComponent(node);
     final encodeUrl = Uri.encodeComponent(url);
     var result = await HttpUtils.httpGetRequest(
-        "$host:${getControlPort?.call()}/proxies/$encodeNode/delay?url=$encodeUrl&timeout=${timeout.inMilliseconds}",
-        null,
-        headers,
-        const Duration(seconds: timeoutSeconds),
-        null,
-        null);
+      "$host:${getControlPort?.call()}/proxies/$encodeNode/delay?url=$encodeUrl&timeout=${timeout.inMilliseconds}",
+      null,
+      headers,
+      const Duration(seconds: timeoutSeconds),
+      null,
+      null,
+    );
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -354,12 +352,13 @@ class ClashHttpApi {
     Map<String, String> headers = getHeaders(secret);
 
     var result = await HttpUtils.httpGetRequest(
-        "$host:${getControlPort?.call()}/proxies",
-        null,
-        headers,
-        const Duration(seconds: timeoutSeconds),
-        null,
-        null);
+      "$host:${getControlPort?.call()}/proxies",
+      null,
+      headers,
+      const Duration(seconds: timeoutSeconds),
+      null,
+      null,
+    );
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -374,7 +373,10 @@ class ClashHttpApi {
   }
 
   static List<ClashProxiesNode> getNowChain(
-      List<ClashProxiesNode> proxies, ClashProxiesNode node, String mode) {
+    List<ClashProxiesNode> proxies,
+    ClashProxiesNode node,
+    String mode,
+  ) {
     if (node.all.isEmpty) {
       return [node];
     }
@@ -390,7 +392,8 @@ class ClashHttpApi {
   }
 
   static Future<ReturnResult<List<ClashProxiesNode>>> getNowProxy(
-      String mode) async {
+    String mode,
+  ) async {
     if (mode.isEmpty) {
       return ReturnResult(data: null);
     }
@@ -433,21 +436,24 @@ class ClashHttpApi {
   }
 
   static Future<ReturnResultError?> setProxiesNode(
-      String group, String node) async {
+    String group,
+    String node,
+  ) async {
     String secret = await getSecret();
     Map<String, String> headers = getHeaders(secret);
 
     final encodeGroup = Uri.encodeComponent(group);
     var body = JsonEncoder().convert({"name": node});
     var result = await HttpUtils.httpPutRequest(
-        "$host:${getControlPort?.call()}/proxies/$encodeGroup",
-        null,
-        headers,
-        body,
-        const Duration(seconds: timeoutSeconds),
-        null,
-        null,
-        null);
+      "$host:${getControlPort?.call()}/proxies/$encodeGroup",
+      null,
+      headers,
+      body,
+      const Duration(seconds: timeoutSeconds),
+      null,
+      null,
+      null,
+    );
 
     return result.error;
   }
@@ -458,13 +464,14 @@ class ClashHttpApi {
 
     var body = JsonEncoder().convert({"mode": mode});
     var result = await HttpUtils.httpPatchRequest(
-        "$host:${getControlPort?.call()}/configs",
-        null,
-        headers,
-        body,
-        const Duration(seconds: 2),
-        null,
-        null);
+      "$host:${getControlPort?.call()}/configs",
+      null,
+      headers,
+      body,
+      const Duration(seconds: 2),
+      null,
+      null,
+    );
 
     return result.error;
   }

@@ -28,8 +28,11 @@ class ProxyScreenProxiesNodeWidgetController {
 }
 
 class ProxyScreenProxiesNodeWidget extends StatefulWidget {
-  const ProxyScreenProxiesNodeWidget(
-      {super.key, required this.nodes, required this.controller});
+  const ProxyScreenProxiesNodeWidget({
+    super.key,
+    required this.nodes,
+    required this.controller,
+  });
   final List<ClashProxiesNode> nodes;
   final ProxyScreenProxiesNodeWidgetController? controller;
   @override
@@ -84,17 +87,14 @@ class _ProxyScreenProxiesNodeWidget
           title: Text(node.name),
           subtitle: !_nodesTesting.contains(node.name)
               ? (node.delay == null
-                  ? Text(node.type)
-                  : Row(
-                      children: [
-                        Text(node.type),
-                        SizedBox(width: 5),
-                        Text(
-                          subtitle,
-                          style: TextStyle(color: color),
-                        )
-                      ],
-                    ))
+                    ? Text(node.type)
+                    : Row(
+                        children: [
+                          Text(node.type),
+                          SizedBox(width: 5),
+                          Text(subtitle, style: TextStyle(color: color)),
+                        ],
+                      ))
               : Row(
                   children: [
                     Text(node.type),
@@ -105,7 +105,7 @@ class _ProxyScreenProxiesNodeWidget
                       child: RepaintBoundary(
                         child: CircularProgressIndicator(),
                       ),
-                    )
+                    ),
                   ],
                 ),
           trailing: SizedBox(
@@ -113,16 +113,14 @@ class _ProxyScreenProxiesNodeWidget
             child: Row(
               children: [
                 SizedBox(
-                    width: windowSize.width * 0.4 - iconSize,
-                    child: Text(
-                      node.now,
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-                Icon(
-                  Icons.keyboard_arrow_right,
-                  size: iconSize,
-                )
+                  width: windowSize.width * 0.4 - iconSize,
+                  child: Text(
+                    node.now,
+                    textAlign: TextAlign.right,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Icon(Icons.keyboard_arrow_right, size: iconSize),
               ],
             ),
           ),
@@ -135,22 +133,21 @@ class _ProxyScreenProxiesNodeWidget
     }
 
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: Scrollbar(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Scrollbar(
           child: ListView.separated(
-        itemBuilder: (_, index) {
-          return widgets[index];
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(
-            height: 1,
-            thickness: 0.3,
-          );
-        },
-        itemCount: widgets.length,
-      )),
-    ));
+            itemBuilder: (_, index) {
+              return widgets[index];
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(height: 1, thickness: 0.3);
+            },
+            itemCount: widgets.length,
+          ),
+        ),
+      ),
+    );
   }
 
   void showNodeSelect(ClashProxiesNode node) {
@@ -192,15 +189,14 @@ class _ProxyScreenProxiesNodeWidget
           title: Text(nodeDelay.item1),
           subtitle: nodeDelay.item2 == kNullDelay
               ? null
-              : Text(
-                  subtitle,
-                  style: TextStyle(color: color),
-                ),
+              : Text(subtitle, style: TextStyle(color: color)),
           selected: node.now == nodeDelay.item1,
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
-            var error =
-                await ClashHttpApi.setProxiesNode(node.name, nodeDelay.item1);
+            var error = await ClashHttpApi.setProxiesNode(
+              node.name,
+              nodeDelay.item1,
+            );
             if (!mounted) {
               return;
             }
@@ -219,23 +215,22 @@ class _ProxyScreenProxiesNodeWidget
     showSheet(
       context: context,
       body: SizedBox(
-          height: windowSize.height - 200,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Scrollbar(
-                child: ListView.separated(
+        height: windowSize.height - 200,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 return widgets[index];
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  height: 1,
-                  thickness: 0.3,
-                );
+                return const Divider(height: 1, thickness: 0.3);
               },
               itemCount: widgets.length,
-            )),
-          )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

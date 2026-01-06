@@ -33,7 +33,10 @@ class AppRouteObserver extends RouteObserver<ModalRoute<dynamic>> {
   }
 
   void _sendScreenView(
-      String action, Route<dynamic> route, Route<dynamic>? preRoute) {}
+    String action,
+    Route<dynamic> route,
+    Route<dynamic>? preRoute,
+  ) {}
 
   bool routeFilter(Route<dynamic>? route) => route is PageRoute;
 

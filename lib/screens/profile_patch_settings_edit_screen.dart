@@ -55,10 +55,7 @@ class _ProfilesPatchSettingsEditScreenState
     var profile = ProfilePatchManager.getProfilePatch(widget.profileid);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -72,10 +69,7 @@ class _ProfilesPatchSettingsEditScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -85,8 +79,9 @@ class _ProfilesPatchSettingsEditScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   InkWell(
@@ -96,74 +91,72 @@ class _ProfilesPatchSettingsEditScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.done_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.done_outlined, size: 26),
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                      child: Card(
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                                child: Column(
-                                  children: [
-                                    TextFieldEx(
-                                      controller: _textControllerRemark,
-                                      textInputAction:
-                                          profile != null && profile.isRemote()
-                                              ? TextInputAction.next
-                                              : TextInputAction.done,
-                                      decoration: InputDecoration(
-                                        labelText: tcontext.meta.remark,
-                                        hintText: tcontext.meta.remark,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
+                        child: Column(
+                          children: [
+                            TextFieldEx(
+                              controller: _textControllerRemark,
+                              textInputAction:
+                                  profile != null && profile.isRemote()
+                                  ? TextInputAction.next
+                                  : TextInputAction.done,
+                              decoration: InputDecoration(
+                                labelText: tcontext.meta.remark,
+                                hintText: tcontext.meta.remark,
+                              ),
+                            ),
+                            profile != null && profile.isRemote()
+                                ? const SizedBox(height: 20)
+                                : const SizedBox.shrink(),
+                            profile != null && profile.isRemote()
+                                ? TextFieldEx(
+                                    maxLines: 4,
+                                    controller: _textControllerUrl,
+                                    decoration: InputDecoration(
+                                      labelText: tcontext.meta.url,
+                                      hintText: tcontext.meta.url,
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                            const SizedBox(height: 20),
+                            FutureBuilder(
+                              future: getGroupOptions(),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<List<GroupItem>> snapshot,
+                                  ) {
+                                    List<GroupItem> data = snapshot.hasData
+                                        ? snapshot.data!
+                                        : [];
+                                    return Column(
+                                      children: GroupItemCreator.createGroups(
+                                        context,
+                                        data,
                                       ),
-                                    ),
-                                    profile != null && profile.isRemote()
-                                        ? const SizedBox(
-                                            height: 20,
-                                          )
-                                        : const SizedBox.shrink(),
-                                    profile != null && profile.isRemote()
-                                        ? TextFieldEx(
-                                            maxLines: 4,
-                                            controller: _textControllerUrl,
-                                            decoration: InputDecoration(
-                                              labelText: tcontext.meta.url,
-                                              hintText: tcontext.meta.url,
-                                            ),
-                                          )
-                                        : const SizedBox.shrink(),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    FutureBuilder(
-                                      future: getGroupOptions(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<List<GroupItem>>
-                                              snapshot) {
-                                        List<GroupItem> data = snapshot.hasData
-                                            ? snapshot.data!
-                                            : [];
-                                        return Column(
-                                            children:
-                                                GroupItemCreator.createGroups(
-                                                    context, data));
-                                      },
-                                    ),
-                                  ],
-                                ))),
-                      ))),
+                                    );
+                                  },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -227,27 +220,29 @@ class _ProfilesPatchSettingsEditScreenState
     List<GroupItemOptions> options = [
       if (profile.isRemote()) ...[
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.meta.updateInterval,
-                tips: tcontext.meta.updateInterval5mTips,
-                duration: _updateInterval,
-                showSeconds: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration != null) {
-                    if (duration.inDays > 365) {
-                      duration = const Duration(days: 365);
-                    }
-                    if (duration.inMinutes < 5) {
-                      duration = const Duration(minutes: 5);
-                    }
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.meta.updateInterval,
+            tips: tcontext.meta.updateInterval5mTips,
+            duration: _updateInterval,
+            showSeconds: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration != null) {
+                if (duration.inDays > 365) {
+                  duration = const Duration(days: 365);
+                }
+                if (duration.inMinutes < 5) {
+                  duration = const Duration(minutes: 5);
+                }
+              }
 
-                  _updateInterval = duration;
-                  setState(() {});
-                }))
+              _updateInterval = duration;
+              setState(() {});
+            },
+          ),
+        ),
       ],
     ];
     groupOptions.add(GroupItem(options: options));

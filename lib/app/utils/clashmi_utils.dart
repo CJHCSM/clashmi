@@ -51,7 +51,8 @@ class ClashMiAutoupdateItem {
 
 abstract final class ClashMiUtils {
   static Future<ReturnResult<List<ClashMiAutoupdateItem>>> getAutoupdate(
-      bool withQueryParams) async {
+    bool withQueryParams,
+  ) async {
     String url = RemoteConfigManager.getConfig().autoUpdate;
     if (withQueryParams) {
       String queryParams = await AppUrlUtils.getQueryParamsForUrl(bodyLen: 1);
@@ -62,7 +63,13 @@ abstract final class ClashMiUtils {
     List<int?> ports = await VPNService.getPortsByPrefer(false);
     for (var port in ports) {
       response = await HttpUtils.httpGetRequest(
-          url, port, null, const Duration(seconds: 10), null, null);
+        url,
+        port,
+        null,
+        const Duration(seconds: 10),
+        null,
+        null,
+      );
       if (response.error == null) {
         break;
       }
@@ -97,7 +104,13 @@ abstract final class ClashMiUtils {
     List<int?> ports = await VPNService.getPortsByPrefer(false);
     for (var port in ports) {
       response = await HttpUtils.httpGetRequest(
-          url, port, null, const Duration(seconds: 10), null, null);
+        url,
+        port,
+        null,
+        const Duration(seconds: 10),
+        null,
+        null,
+      );
       if (response.error == null) {
         break;
       }

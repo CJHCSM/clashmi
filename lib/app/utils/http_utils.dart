@@ -25,7 +25,10 @@ abstract final class HttpUtils {
   }
 
   static Future<ReturnResult<Tuple2<int, HttpHeaders>>> httpHeadRequest(
-      Uri uri, int? proxyPort, Duration? timeout) async {
+    Uri uri,
+    int? proxyPort,
+    Duration? timeout,
+  ) async {
     timeout ??= const Duration(seconds: 20);
     var client = HttpClient();
     client.userAgent = await getUserAgent();
@@ -41,45 +44,63 @@ abstract final class HttpUtils {
       request.headers.set(HttpHeaders.acceptHeader, "*/*");
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
 
       return ReturnResult(data: Tuple2(response.statusCode, response.headers));
     } catch (err, _) {
       Log.i('http HeadRequest ${uri.toString()} exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<List<ReturnResult<HttpHeaders>>> httpDownloadList(
-      List<Tuple2<Uri, String>> uris,
-      int? proxyPort,
-      String? userAgent,
-      Duration? timeout) async {
+    List<Tuple2<Uri, String>> uris,
+    int? proxyPort,
+    String? userAgent,
+    Duration? timeout,
+  ) async {
     if (uris.isEmpty) {
       return [ReturnResult(error: ReturnResultError("uris is empty"))];
     }
     if (uris.length == 1) {
       return [
         await httpDownload(
-            uris[0].item1, uris[0].item2, proxyPort, userAgent, timeout)
+          uris[0].item1,
+          uris[0].item2,
+          proxyPort,
+          userAgent,
+          timeout,
+        ),
       ];
     }
-    return Future.wait(uris.map((item) =>
-        httpDownload(item.item1, item.item2, proxyPort, userAgent, timeout)));
+    return Future.wait(
+      uris.map(
+        (item) =>
+            httpDownload(item.item1, item.item2, proxyPort, userAgent, timeout),
+      ),
+    );
   }
 
-  static Future<ReturnResult<HttpHeaders>> httpDownload(Uri uri, String path,
-      int? proxyPort, String? userAgent, Duration? timeout) async {
+  static Future<ReturnResult<HttpHeaders>> httpDownload(
+    Uri uri,
+    String path,
+    int? proxyPort,
+    String? userAgent,
+    Duration? timeout,
+  ) async {
     timeout ??= const Duration(seconds: 60);
     var client = HttpClient();
     client.badCertificateCallback = _certificateCheck;
@@ -98,31 +119,38 @@ abstract final class HttpUtils {
       //request.cookies.add(Cookie("expire_in", "1689576560"));
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, path),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200) {
         return ReturnResult(
-            error:
-                ReturnResultError("http statusCode: ${response.statusCode}"));
+          error: ReturnResultError("http statusCode: ${response.statusCode}"),
+        );
       }
       return ReturnResult(data: response.headers);
     } catch (err, _) {
       Log.i('http Download ${uri.toString()} exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResultError?> httpUpload(
-      Uri uri, String path, int? proxyPort, String? userAgent) async {
+    Uri uri,
+    String path,
+    int? proxyPort,
+    String? userAgent,
+  ) async {
     try {
       uri = uri.punyEncoded;
     } catch (err) {}
@@ -137,10 +165,7 @@ abstract final class HttpUtils {
 
     try {
       var request = http.MultipartRequest("POST", uri);
-      request.files.add(await http.MultipartFile.fromPath(
-        'files',
-        path,
-      ));
+      request.files.add(await http.MultipartFile.fromPath('files', path));
 
       IOClient ioclient = IOClient(client);
       var response = await ioclient.send(request);
@@ -158,13 +183,14 @@ abstract final class HttpUtils {
   }
 
   static Future<ReturnResult<String>> httpGetRequest(
-      String url,
-      int? proxyPort,
-      Map<String, String>? headers,
-      Duration? timeout,
-      String? userAgent,
-      List<Cookie>? cookies,
-      {bool? noResponseBody}) async {
+    String url,
+    int? proxyPort,
+    Map<String, String>? headers,
+    Duration? timeout,
+    String? userAgent,
+    List<Cookie>? cookies, {
+    bool? noResponseBody,
+  }) async {
     timeout ??= const Duration(seconds: 30);
     var client = HttpClient();
     client.badCertificateCallback = _certificateCheck;
@@ -189,18 +215,20 @@ abstract final class HttpUtils {
       }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200) {
         return ReturnResult(
-            error:
-                ReturnResultError("http statusCode: ${response.statusCode}"));
+          error: ReturnResultError("http statusCode: ${response.statusCode}"),
+        );
       }
       if (noResponseBody == true) {
         return ReturnResult(data: "");
@@ -210,21 +238,23 @@ abstract final class HttpUtils {
     } catch (err, _) {
       Log.i('http GetRequest $url exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResult<String>> httpPostRequest(
-      String url,
-      int? proxyPort,
-      Map<String, String>? headers,
-      String body,
-      Duration? timeout,
-      String? userAgent,
-      List<Cookie>? cookies,
-      List<Cookie>? responseCookies) async {
+    String url,
+    int? proxyPort,
+    Map<String, String>? headers,
+    String body,
+    Duration? timeout,
+    String? userAgent,
+    List<Cookie>? cookies,
+    List<Cookie>? responseCookies,
+  ) async {
     timeout ??= const Duration(seconds: 30);
     var client = HttpClient();
     client.userAgent = userAgent == null || userAgent.isEmpty
@@ -252,25 +282,29 @@ abstract final class HttpUtils {
 
       if (body.isNotEmpty) {
         var bytes = request.encoding.encode(body);
-        request.headers
-            .set(HttpHeaders.contentLengthHeader, bytes.length.toString());
+        request.headers.set(
+          HttpHeaders.contentLengthHeader,
+          bytes.length.toString(),
+        );
 
         request.add(bytes);
       }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200) {
         return ReturnResult(
-            error:
-                ReturnResultError("http statusCode: ${response.statusCode}"));
+          error: ReturnResultError("http statusCode: ${response.statusCode}"),
+        );
       }
       var stringData = await response.transform(utf8.decoder).join();
       if (responseCookies != null) {
@@ -283,21 +317,23 @@ abstract final class HttpUtils {
     } catch (err) {
       Log.i('http PostRequest $url exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResult<String>> httpPutRequest(
-      String url,
-      int? proxyPort,
-      Map<String, String>? headers,
-      String body,
-      Duration? timeout,
-      String? userAgent,
-      List<Cookie>? cookies,
-      List<Cookie>? responseCookies) async {
+    String url,
+    int? proxyPort,
+    Map<String, String>? headers,
+    String body,
+    Duration? timeout,
+    String? userAgent,
+    List<Cookie>? cookies,
+    List<Cookie>? responseCookies,
+  ) async {
     timeout ??= const Duration(seconds: 20);
     var client = HttpClient();
     client.userAgent = userAgent == null || userAgent.isEmpty
@@ -325,24 +361,29 @@ abstract final class HttpUtils {
 
       if (body.isNotEmpty) {
         var bytes = request.encoding.encode(body);
-        request.headers
-            .set(HttpHeaders.contentLengthHeader, bytes.length.toString());
+        request.headers.set(
+          HttpHeaders.contentLengthHeader,
+          bytes.length.toString(),
+        );
 
         request.add(bytes);
       }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200 && response.statusCode != 204) {
         return ReturnResult(
-            error: ReturnResultError("http statusCode:${response.statusCode}"));
+          error: ReturnResultError("http statusCode:${response.statusCode}"),
+        );
       }
       var stringData = await response.transform(utf8.decoder).join();
       if (responseCookies != null) {
@@ -355,20 +396,22 @@ abstract final class HttpUtils {
     } catch (err) {
       Log.i('http PutRequest $url exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResult<String>> httpPatchRequest(
-      String url,
-      int? proxyPort,
-      Map<String, String>? headers,
-      String body,
-      Duration? timeout,
-      String? userAgent,
-      List<Cookie>? cookies) async {
+    String url,
+    int? proxyPort,
+    Map<String, String>? headers,
+    String body,
+    Duration? timeout,
+    String? userAgent,
+    List<Cookie>? cookies,
+  ) async {
     timeout ??= const Duration(seconds: 20);
     var client = HttpClient();
     client.userAgent = userAgent == null || userAgent.isEmpty
@@ -390,7 +433,9 @@ abstract final class HttpUtils {
         });
       } else {
         request.headers.set(
-            HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
+          HttpHeaders.contentTypeHeader,
+          "application/json; charset=UTF-8",
+        );
         request.headers.set(HttpHeaders.acceptHeader, "*/*");
       }
       if (cookies != null) {
@@ -399,44 +444,51 @@ abstract final class HttpUtils {
 
       if (body.isNotEmpty) {
         var bytes = request.encoding.encode(body);
-        request.headers
-            .set(HttpHeaders.contentLengthHeader, bytes.length.toString());
+        request.headers.set(
+          HttpHeaders.contentLengthHeader,
+          bytes.length.toString(),
+        );
 
         request.add(bytes);
       }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200 && response.statusCode != 204) {
         return ReturnResult(
-            error: ReturnResultError("http statusCode:${response.statusCode}"));
+          error: ReturnResultError("http statusCode:${response.statusCode}"),
+        );
       }
       var stringData = await response.transform(utf8.decoder).join();
       return ReturnResult(data: stringData);
     } catch (err) {
       Log.i('http PatchRequest $url exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResult<String>> httpDeleteRequest(
-      String url,
-      int? proxyPort,
-      Map<String, String>? headers,
-      String body,
-      Duration? timeout,
-      String? userAgent,
-      List<Cookie>? cookies) async {
+    String url,
+    int? proxyPort,
+    Map<String, String>? headers,
+    String body,
+    Duration? timeout,
+    String? userAgent,
+    List<Cookie>? cookies,
+  ) async {
     timeout ??= const Duration(seconds: 20);
     var client = HttpClient();
     client.userAgent = userAgent == null || userAgent.isEmpty
@@ -458,7 +510,9 @@ abstract final class HttpUtils {
         });
       } else {
         request.headers.set(
-            HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
+          HttpHeaders.contentTypeHeader,
+          "application/json; charset=UTF-8",
+        );
         request.headers.set(HttpHeaders.acceptHeader, "*/*");
       }
       if (cookies != null) {
@@ -466,50 +520,64 @@ abstract final class HttpUtils {
       }
       if (body.isNotEmpty) {
         var bytes = request.encoding.encode(body);
-        request.headers
-            .set(HttpHeaders.contentLengthHeader, bytes.length.toString());
+        request.headers.set(
+          HttpHeaders.contentLengthHeader,
+          bytes.length.toString(),
+        );
 
         request.add(bytes);
       }
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, null),
-        waitResponseTimeout(request, timeout)
+        waitResponseTimeout(request, timeout),
       ]);
 
       if (response == null) {
         return ReturnResult(
-            error: ReturnResultError(
-                "http response timeout after ${timeout.inSeconds} seconds"));
+          error: ReturnResultError(
+            "http response timeout after ${timeout.inSeconds} seconds",
+          ),
+        );
       }
       if (response.statusCode != 200 && response.statusCode != 204) {
         return ReturnResult(
-            error:
-                ReturnResultError("http statusCode: ${response.statusCode}"));
+          error: ReturnResultError("http statusCode: ${response.statusCode}"),
+        );
       }
       var stringData = await response.transform(utf8.decoder).join();
       return ReturnResult(data: stringData);
     } catch (err) {
       Log.i('http DeletetRequest $url exception: ${err.toString()}');
       return ReturnResult(
-          error: ReturnResultError("http exception: ${err.toString()}"));
+        error: ReturnResultError("http exception: ${err.toString()}"),
+      );
     } finally {
       client.close(force: true);
     }
   }
 
   static Future<ReturnResult<String>> httpGetTitle(
-      String url, String? userAgent) async {
+    String url,
+    String? userAgent,
+  ) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       return ReturnResult(data: "");
     }
     Uri site = Uri(
-        scheme: uri.scheme,
-        userInfo: uri.userInfo,
-        host: uri.host,
-        port: uri.port);
-    final result = await HttpUtils.httpGetRequest(site.toString(), null, null,
-        const Duration(seconds: 5), userAgent, null);
+      scheme: uri.scheme,
+      userInfo: uri.userInfo,
+      host: uri.host,
+      port: uri.port,
+    );
+    final result = await HttpUtils.httpGetRequest(
+      site.toString(),
+      null,
+      null,
+      const Duration(seconds: 5),
+      userAgent,
+      null,
+    );
 
     if (result.error != null) {
       return result;
@@ -525,18 +593,22 @@ abstract final class HttpUtils {
   }
 
   static Future<HttpClientRequest?> waitRequestDone(
-      Future<HttpClientRequest?> Function() fun) async {
+    Future<HttpClientRequest?> Function() fun,
+  ) async {
     return await fun();
   }
 
   static Future<HttpClientRequest?> waitRequestTimeout(
-      Duration duration) async {
+    Duration duration,
+  ) async {
     await Future.delayed(duration);
     return null;
   }
 
   static Future<HttpClientResponse?> waitResponseDone(
-      HttpClientRequest request, String? path) async {
+    HttpClientRequest request,
+    String? path,
+  ) async {
     HttpClientResponse response = await request.close();
     if (response.statusCode == 200) {
       if (path != null && path.isNotEmpty) {
@@ -547,7 +619,9 @@ abstract final class HttpUtils {
   }
 
   static Future<HttpClientResponse?> waitResponseTimeout(
-      HttpClientRequest request, Duration duration) async {
+    HttpClientRequest request,
+    Duration duration,
+  ) async {
     await Future.delayed(duration);
     //request.abort();
     return null;

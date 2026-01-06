@@ -20,14 +20,15 @@ class Websocket {
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
 
-  Websocket(
-      {required this.url,
-      this.connectionTimeout,
-      this.userAgent,
-      this.proxy,
-      required this.onMessage,
-      this.onDone,
-      this.onError});
+  Websocket({
+    required this.url,
+    this.connectionTimeout,
+    this.userAgent,
+    this.proxy,
+    required this.onMessage,
+    this.onDone,
+    this.onError,
+  });
 
   Future<void> connect() async {
     if (_httpClient != null) {
@@ -48,17 +49,23 @@ class Websocket {
       _httpClient!.findProxy = (Uri uri) => proxy ?? "DIRECT";
 
       {
-        WebSocket webSocket =
-            await WebSocket.connect(url, customClient: _httpClient);
+        WebSocket webSocket = await WebSocket.connect(
+          url,
+          customClient: _httpClient,
+        );
 
-        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
-          onMessage.call(message);
-        }, onDone: () {
-          disconnect();
-          onDone?.call();
-        }, onError: (error) {
-          onError?.call(error);
-        });
+        _subscriptions = IOWebSocketChannel(webSocket).stream.listen(
+          (message) {
+            onMessage.call(message);
+          },
+          onDone: () {
+            disconnect();
+            onDone?.call();
+          },
+          onError: (error) {
+            onError?.call(error);
+          },
+        );
       }
     } catch (err) {
       Log.w("Websocket.connect exception ${err.toString()}");

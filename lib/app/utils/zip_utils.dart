@@ -10,7 +10,8 @@ import 'package:path/path.dart' as path;
 
 class ZipUtils {
   static Future<ReturnResult<Uint8List>> zipContentToBytes(
-      Map<String, String> filePathAndContent) async {
+    Map<String, String> filePathAndContent,
+  ) async {
     try {
       if (filePathAndContent.isEmpty) {
         return ReturnResult(error: ReturnResultError("no files to zip"));
@@ -28,7 +29,8 @@ class ZipUtils {
   }
 
   static Future<ReturnResult<Uint8List>> zipToBytes(
-      List<String> filePaths) async {
+    List<String> filePaths,
+  ) async {
     try {
       List<String> newFilePaths = [];
       for (var filePath in filePaths) {
@@ -45,8 +47,12 @@ class ZipUtils {
       }
       final archive = Archive();
       for (var filePath in newFilePaths) {
-        archive.addFile(ArchiveFile.stream(
-            path.basename(filePath), InputFileStream(filePath)));
+        archive.addFile(
+          ArchiveFile.stream(
+            path.basename(filePath),
+            InputFileStream(filePath),
+          ),
+        );
       }
       final zipBytes = ZipEncoder().encodeBytes(archive);
       return ReturnResult(data: zipBytes);
@@ -56,7 +62,9 @@ class ZipUtils {
   }
 
   static Future<ReturnResultError?> zip(
-      List<String> filePaths, String zipPath) async {
+    List<String> filePaths,
+    String zipPath,
+  ) async {
     await FileUtils.deletePath(zipPath);
     try {
       var encoder = ZipFileEncoder();
@@ -78,8 +86,11 @@ class ZipUtils {
     }
   }
 
-  static Future<ReturnResultError?> unzip(String zipPath, String dir,
-      {Set<String> whiteList = const {}}) async {
+  static Future<ReturnResultError?> unzip(
+    String zipPath,
+    String dir, {
+    Set<String> whiteList = const {},
+  }) async {
     try {
       final bytes = await io.File(zipPath).readAsBytes();
       final archive = ZipDecoder().decodeBytes(bytes);

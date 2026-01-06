@@ -67,8 +67,13 @@ class _AddProfileByImportFromFileScreenState
       return;
     }
 
-    DialogUtils.showAlertDialog(context, error.message,
-        showCopy: true, showFAQ: true, withVersion: true);
+    DialogUtils.showAlertDialog(
+      context,
+      error.message,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
   }
 
   @override
@@ -77,10 +82,7 @@ class _AddProfileByImportFromFileScreenState
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -94,10 +96,7 @@ class _AddProfileByImportFromFileScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -107,16 +106,15 @@ class _AddProfileByImportFromFileScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   _loading
                       ? const Row(
                           children: [
-                            SizedBox(
-                              width: 12,
-                            ),
+                            SizedBox(width: 12),
                             SizedBox(
                               width: 26,
                               height: 26,
@@ -124,9 +122,7 @@ class _AddProfileByImportFromFileScreenState
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                            SizedBox(
-                              width: 12,
-                            )
+                            SizedBox(width: 12),
                           ],
                         )
                       : InkWell(
@@ -138,33 +134,31 @@ class _AddProfileByImportFromFileScreenState
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                Icons.done,
-                                size: 26,
-                              ),
+                              child: Icon(Icons.done, size: 26),
                             ),
-                          )),
+                          ),
+                        ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                      child: Card(
-                          child: Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        child: Column(children: [
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: Column(
+                        children: [
                           Padding(
                             padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
                             child: SizedBox(
                               height: 45.0,
                               child: ElevatedButton(
-                                  child: Text(tcontext.meta.fileChoose),
-                                  onPressed: () async {
-                                    await onPressChooseFile();
-                                  }),
+                                child: Text(tcontext.meta.fileChoose),
+                                onPressed: () async {
+                                  await onPressChooseFile();
+                                },
+                              ),
                             ),
                           ),
                           Padding(
@@ -175,13 +169,18 @@ class _AddProfileByImportFromFileScreenState
                               decoration: InputDecoration(
                                 labelText: tcontext.meta.remark,
                                 hintText: tcontext.meta.required,
-                                prefixIcon:
-                                    const Icon(Icons.edit_note_outlined),
+                                prefixIcon: const Icon(
+                                  Icons.edit_note_outlined,
+                                ),
                               ),
                             ),
                           ),
-                        ]),
-                      )))),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -194,10 +193,7 @@ class _AddProfileByImportFromFileScreenState
     List<String> extensions = [];
     List<String> extensionsAll = ['yaml', 'yml', 'txt', 'json', 'conf'];
 
-    extensions = [
-      'yaml',
-      'yml',
-    ];
+    extensions = ['yaml', 'yml'];
 
     try {
       FilePickerResult? fresult = await FilePicker.platform.pickFiles(
@@ -211,7 +207,9 @@ class _AddProfileByImportFromFileScreenState
             .toLowerCase();
         if (!extensionsAll.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
         _filePath = fresult.files.first.path!;
@@ -227,8 +225,13 @@ class _AddProfileByImportFromFileScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 }

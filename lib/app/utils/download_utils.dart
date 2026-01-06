@@ -9,7 +9,9 @@ import 'package:clashmi/app/utils/log.dart';
 
 abstract final class DownloadUtils {
   static Future<ReturnResult<HttpHeaders>> download(
-      Uri uri, String downloadPath) async {
+    Uri uri,
+    String downloadPath,
+  ) async {
     List<int?> ports = await VPNService.getPortsByPrefer(true);
     late ReturnResult<HttpHeaders> result;
     for (var port in ports) {
@@ -25,16 +27,26 @@ abstract final class DownloadUtils {
   }
 
   static Future<ReturnResult<HttpHeaders>> downloadWithPort(
-      Uri uri, String downloadPath, String? useAgent, int? port,
-      {Duration? timeout}) async {
+    Uri uri,
+    String downloadPath,
+    String? useAgent,
+    int? port, {
+    Duration? timeout,
+  }) async {
     String downloadPathTemp = "$downloadPath.tmp";
     if (!await FileUtils.deletePath(downloadPathTemp)) {
       return ReturnResult(
-          error: ReturnResultError("delete $downloadPathTemp failed"));
+        error: ReturnResultError("delete $downloadPathTemp failed"),
+      );
     }
 
     ReturnResult<HttpHeaders> result = await HttpUtils.httpDownload(
-        uri, downloadPathTemp, port, useAgent, timeout);
+      uri,
+      downloadPathTemp,
+      port,
+      useAgent,
+      timeout,
+    );
 
     if (result.error != null) {
       await FileUtils.deletePath(downloadPathTemp);
@@ -48,7 +60,8 @@ abstract final class DownloadUtils {
       }
     } catch (err) {
       Log.w(
-          "DownloadUtils.download exception ${uri.toString()} ${err.toString()} ");
+        "DownloadUtils.download exception ${uri.toString()} ${err.toString()} ",
+      );
       return ReturnResult(error: ReturnResultError(err.toString()));
     }
     return result;
