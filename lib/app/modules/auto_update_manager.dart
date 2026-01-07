@@ -27,12 +27,12 @@ class AutoUpdateCheckVersion {
   String url = "";
   bool force = false;
   Map<String, dynamic> toJson() => {
-        'latest_check': latestCheck,
-        'new_version': newVersion,
-        "version": version,
-        "url": url,
-        "force": force,
-      };
+    'latest_check': latestCheck,
+    'new_version': newVersion,
+    "version": version,
+    "url": url,
+    "force": force,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -99,10 +99,7 @@ class AutoUpdateManager {
   }
 
   static List<String> updateChannels() {
-    return [
-      "beta",
-      "stable",
-    ];
+    return ["beta", "stable"];
   }
 
   static Future<void> init() async {
@@ -124,8 +121,10 @@ class AutoUpdateManager {
 
       saveConfig();
     }
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           _check();
@@ -231,14 +230,10 @@ class AutoUpdateManager {
         return;
       }
       String dir = await PathUtils.cacheDir();
-      var files = FileUtils.recursionFile(dir, extensionFilter: {
-        ".exe",
-        ".apk",
-        ".dmg",
-        ".deb",
-        ".rpm",
-        ".appImage"
-      });
+      var files = FileUtils.recursionFile(
+        dir,
+        extensionFilter: {".exe", ".apk", ".dmg", ".deb", ".rpm", ".appImage"},
+      );
       for (var file in files) {
         await FileUtils.deletePath(file);
       }
@@ -291,7 +286,8 @@ class AutoUpdateManager {
     _versionCheck.latestCheck = now.toString();
     _checking = true;
     try {
-      bool body = _lastCheck == null ||
+      bool body =
+          _lastCheck == null ||
           DateTime.now().difference(_lastCheck!).inHours > 12;
       ReturnResult<List<ClashMiAutoupdateItem>> items =
           await ClashMiUtils.getAutoupdate(body);

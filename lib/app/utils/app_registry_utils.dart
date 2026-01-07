@@ -25,8 +25,10 @@ abstract final class AppRegistryUtils {
     }
 
     try {
-      RegistryValue? value =
-          Registry.currentUser.getValue(name, path: _registryPath);
+      RegistryValue? value = Registry.currentUser.getValue(
+        name,
+        path: _registryPath,
+      );
       if (value == null || value.type != RegistryValueType.string) {
         return null;
       }

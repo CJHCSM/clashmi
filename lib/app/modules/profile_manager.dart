@@ -43,18 +43,18 @@ class ProfileSetting {
   num total = 0;
   String expire = "";
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'remark': remark,
-        'patch': patch,
-        'update_interval': updateInterval?.inSeconds,
-        'update': update.toString(),
-        'url': url,
-        'user_agent': userAgent,
-        'upload': upload,
-        'download': download,
-        'total': total,
-        'expire': expire,
-      };
+    'id': id,
+    'remark': remark,
+    'patch': patch,
+    'update_interval': updateInterval?.inSeconds,
+    'update': update.toString(),
+    'url': url,
+    'user_agent': userAgent,
+    'upload': upload,
+    'download': download,
+    'total': total,
+    'expire': expire,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -135,7 +135,7 @@ class ProfileSetting {
         case "expire":
           expire =
               DateTimeUtils.millisecondSecondsToDate((value * 1000).toInt()) ??
-                  "";
+              "";
           break;
       }
     }
@@ -167,8 +167,10 @@ class ProfileConfig {
   String _currentId = "";
   List<ProfileSetting> profiles = [];
 
-  Map<String, dynamic> toJson() =>
-      {'current_id': _currentId, 'profiles': profiles};
+  Map<String, dynamic> toJson() => {
+    'current_id': _currentId,
+    'profiles': profiles,
+  };
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -200,8 +202,10 @@ class ProfileManager {
 
   static Future<void> init() async {
     await load();
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           updateByTicker();
@@ -282,12 +286,15 @@ class ProfileManager {
     }
 
     Map<String, String?> existProfiles = {};
-    var files =
-        FileUtils.recursionFile(dir, extensionFilter: {".yaml", ".yml"});
+    var files = FileUtils.recursionFile(
+      dir,
+      extensionFilter: {".yaml", ".yml"},
+    );
     for (var file in files) {
       String? line = await FileUtils.readLastLineStartWith(file, urlComment);
-      existProfiles[path.basename(file)] =
-          line?.substring(urlComment.length).trim();
+      existProfiles[path.basename(file)] = line
+          ?.substring(urlComment.length)
+          .trim();
     }
     for (int i = 0; i < _config.profiles.length; ++i) {
       if (!existProfiles.containsKey(_config.profiles[i].id) &&
@@ -376,8 +383,10 @@ class ProfileManager {
     return _config.profiles;
   }
 
-  static Future<ReturnResultError?> addLocal(String filePath,
-      {String remark = ""}) async {
+  static Future<ReturnResultError?> addLocal(
+    String filePath, {
+    String remark = "",
+  }) async {
     final id = "${filePath.hashCode}.yaml";
     final savePath = path.join(await PathUtils.profilesDir(), id);
     final file = File(filePath);
@@ -390,14 +399,15 @@ class ProfileManager {
         return value.id == id;
       });
       if (index < 0) {
-        _config.profiles.add(ProfileSetting(
+        _config.profiles.add(
+          ProfileSetting(id: id, remark: remark, update: DateTime.now()),
+        );
+      } else {
+        _config.profiles[index] = ProfileSetting(
           id: id,
           remark: remark,
           update: DateTime.now(),
-        ));
-      } else {
-        _config.profiles[index] =
-            ProfileSetting(id: id, remark: remark, update: DateTime.now());
+        );
       }
 
       for (var event in onEventAdd) {
@@ -416,7 +426,8 @@ class ProfileManager {
   }
 
   static Future<ReturnResultError?> validFileContentFormat(
-      String filepath) async {
+    String filepath,
+  ) async {
     var file = File(filepath);
     if (!await file.exists()) {
       return ReturnResultError("$file not exists:\n\n$filepath");
@@ -428,16 +439,19 @@ class ProfileManager {
     }
     if (!content.contains("proxies") && !content.contains("proxy-providers")) {
       return ReturnResultError(
-          "Invalid Clash Yaml file: proxies and proxy-providers not found");
+        "Invalid Clash Yaml file: proxies and proxy-providers not found",
+      );
     }
     return null;
   }
 
-  static Future<ReturnResult<String>> addRemote(String url,
-      {String remark = "",
-      String patch = "",
-      String userAgent = "",
-      Duration? updateInterval}) async {
+  static Future<ReturnResult<String>> addRemote(
+    String url, {
+    String remark = "",
+    String patch = "",
+    String userAgent = "",
+    Duration? updateInterval,
+  }) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       return ReturnResult(error: ReturnResultError("invalid url"));
@@ -449,8 +463,12 @@ class ProfileManager {
     }
 
     final result = await DownloadUtils.downloadWithPort(
-        uri, savePath, userAgent, null,
-        timeout: const Duration(seconds: 30));
+      uri,
+      savePath,
+      userAgent,
+      null,
+      timeout: const Duration(seconds: 30),
+    );
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
@@ -540,8 +558,12 @@ class ProfileManager {
     final savePath = path.join(await PathUtils.profilesDir(), id);
     final savePathTmp = "$savePath.tmp";
     final result = await DownloadUtils.downloadWithPort(
-        uri, savePathTmp, userAgent, null,
-        timeout: const Duration(seconds: 30));
+      uri,
+      savePathTmp,
+      userAgent,
+      null,
+      timeout: const Duration(seconds: 30),
+    );
     profile.update = DateTime.now();
     if (result.error == null) {
       final err = await validFileContentFormat(savePathTmp);
@@ -579,7 +601,8 @@ class ProfileManager {
           }
         });
         return ReturnResultError(
-            "Rename file from [$savePathTmp] to [$savePath] failed: $renameError");
+          "Rename file from [$savePathTmp] to [$savePath] failed: $renameError",
+        );
       }
 
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
@@ -629,8 +652,9 @@ class ProfileManager {
       event(id);
     }
     if (_config._currentId == id) {
-      _config._currentId =
-          _config.profiles.isEmpty ? "" : _config.profiles.first.id;
+      _config._currentId = _config.profiles.isEmpty
+          ? ""
+          : _config.profiles.first.id;
 
       for (var event in onEventCurrentChanged) {
         event(_config._currentId);

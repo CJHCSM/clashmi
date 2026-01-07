@@ -51,10 +51,12 @@ class ProfilesBoardItem extends StatelessWidget {
 
     if (setting.isRemote()) {
       if (setting.upload != 0 || setting.download != 0 || setting.total != 0) {
-        String upload =
-            ClashHttpApi.convertTrafficToStringDouble(setting.upload);
-        String download =
-            ClashHttpApi.convertTrafficToStringDouble(setting.download);
+        String upload = ClashHttpApi.convertTrafficToStringDouble(
+          setting.upload,
+        );
+        String download = ClashHttpApi.convertTrafficToStringDouble(
+          setting.download,
+        );
         String total = ClashHttpApi.convertTrafficToStringDouble(setting.total);
         tranffic = "↑ $upload ↓ $download/$total";
       }
@@ -80,16 +82,15 @@ class ProfilesBoardItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     setting.getShowName(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                    ),
                   ),
                 ),
                 Align(
@@ -98,7 +99,8 @@ class ProfilesBoardItem extends StatelessWidget {
                     setting.id,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                    ),
                   ),
                 ),
                 Align(
@@ -106,8 +108,9 @@ class ProfilesBoardItem extends StatelessWidget {
                   child: Text(
                     patchRemark,
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null,
-                        fontSize: 12),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 Align(
@@ -115,8 +118,9 @@ class ProfilesBoardItem extends StatelessWidget {
                   child: Text(
                     setting.getType(),
                     style: TextStyle(
-                        color: selected ? ThemeDefine.kColorBlue : null,
-                        fontSize: 12),
+                      color: selected ? ThemeDefine.kColorBlue : null,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 tranffic.isNotEmpty
@@ -125,9 +129,11 @@ class ProfilesBoardItem extends StatelessWidget {
                         child: Text(
                           tranffic,
                           style: TextStyle(
-                              color: selected ? ThemeDefine.kColorBlue : null,
-                              fontSize: 12),
-                        ))
+                            color: selected ? ThemeDefine.kColorBlue : null,
+                            fontSize: 12,
+                          ),
+                        ),
+                      )
                     : SizedBox.shrink(),
                 tranfficExpire != null
                     ? Align(
@@ -135,20 +141,17 @@ class ProfilesBoardItem extends StatelessWidget {
                         child: Text(
                           tranfficExpire.item2,
                           style: TextStyle(
-                              color: tranfficExpire.item1
-                                  ? Colors.red
-                                  : (selected ? ThemeDefine.kColorBlue : null),
-                              fontSize: 12),
-                        ))
-                    : SizedBox.shrink(),
-                SizedBox(
-                  height: 10,
-                ),
-                showDivider
-                    ? const Divider(
-                        height: 1,
-                        thickness: 0.3,
+                            color: tranfficExpire.item1
+                                ? Colors.red
+                                : (selected ? ThemeDefine.kColorBlue : null),
+                            fontSize: 12,
+                          ),
+                        ),
                       )
+                    : SizedBox.shrink(),
+                SizedBox(height: 10),
+                showDivider
+                    ? const Divider(height: 1, thickness: 0.3)
                     : SizedBox.shrink(),
               ],
             ),
@@ -178,10 +181,7 @@ class ProfilesBoardItem extends StatelessWidget {
                     ],
                   )
                 : InkWell(
-                    child: Icon(
-                      Icons.more_vert_outlined,
-                      size: 20,
-                    ),
+                    child: Icon(Icons.more_vert_outlined, size: 20),
                     onTap: () {
                       onTapMore();
                     },
@@ -226,34 +226,40 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
       var setting = widget.settings[i];
       final isCurrent = current?.id == setting.id;
 
-      widgets.add(SizedBox(
+      widgets.add(
+        SizedBox(
           key: Key(setting.id),
           child: ProfilesBoardItem(
-              setting: setting,
-              selected: isCurrent,
-              showDivider: i != widget.settings.length - 1,
-              onTap: () {
-                ProfileManager.setCurrent(setting.id);
-                Navigator.of(context).pop();
-              },
-              onTapMore: () {
-                showMore(setting);
-              })));
+            setting: setting,
+            selected: isCurrent,
+            showDivider: i != widget.settings.length - 1,
+            onTap: () {
+              ProfileManager.setCurrent(setting.id);
+              Navigator.of(context).pop();
+            },
+            onTapMore: () {
+              showMore(setting);
+            },
+          ),
+        ),
+      );
     }
 
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: Scrollbar(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Scrollbar(
           child: ReorderableListView(
-        children: widgets,
-        onReorder: (int oldIndex, int newIndex) {
-          ProfileManager.reorder(oldIndex, newIndex);
+            children: widgets,
+            onReorder: (int oldIndex, int newIndex) {
+              ProfileManager.reorder(oldIndex, newIndex);
 
-          setState(() {});
-        },
-      )),
-    ));
+              setState(() {});
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   void showMore(ProfileSetting setting) {
@@ -261,8 +267,9 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
 
     var widgets = [
       ListTile(
-        title:
-            Text(setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit),
+        title: Text(
+          setting.isRemote() ? tcontext.meta.view : tcontext.meta.edit,
+        ),
         onTap: () async {
           Navigator.of(context).pop();
           final path = await ProfileManager.getProfilePath(setting.id);
@@ -271,18 +278,20 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
             return;
           }
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: FileViewScreen.routSettings(),
-                  builder: (context) => FileViewScreen(
-                        title: setting.getShowName(),
-                        content: content,
-                        onSave: setting.isRemote()
-                            ? null
-                            : (BuildContext context, String content) async {
-                                await File(path).writeAsString(content);
-                              },
-                      )));
+            context,
+            MaterialPageRoute(
+              settings: FileViewScreen.routSettings(),
+              builder: (context) => FileViewScreen(
+                title: setting.getShowName(),
+                content: content,
+                onSave: setting.isRemote()
+                    ? null
+                    : (BuildContext context, String content) async {
+                        await File(path).writeAsString(content);
+                      },
+              ),
+            ),
+          );
         },
       ),
       setting.isRemote()
@@ -290,14 +299,20 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
               title: Text(tcontext.meta.update),
               onTap: () async {
                 Navigator.of(context).pop();
-                ReturnResultError? err =
-                    await ProfileManager.update(setting.id);
+                ReturnResultError? err = await ProfileManager.update(
+                  setting.id,
+                );
                 if (err != null) {
                   if (!mounted) {
                     return;
                   }
-                  DialogUtils.showAlertDialog(context, err.message,
-                      showCopy: true, showFAQ: true, withVersion: true);
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.message,
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
               },
             )
@@ -318,12 +333,13 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: ProfilesSettingsEditScreen.routSettings(),
-                  builder: (context) => ProfilesSettingsEditScreen(
-                        profileid: setting.id,
-                      )));
+            context,
+            MaterialPageRoute(
+              settings: ProfilesSettingsEditScreen.routSettings(),
+              builder: (context) =>
+                  ProfilesSettingsEditScreen(profileid: setting.id),
+            ),
+          );
           setState(() {});
         },
       ),
@@ -339,23 +355,22 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
     showSheet(
       context: context,
       body: SizedBox(
-          height: 400,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Scrollbar(
-                child: ListView.separated(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 return widgets[index];
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  height: 1,
-                  thickness: 0.3,
-                );
+                return const Divider(height: 1, thickness: 0.3);
               },
               itemCount: widgets.length,
-            )),
-          )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

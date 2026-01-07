@@ -35,9 +35,11 @@ class VersionHelper {
         ..wSuiteMask = 0
         ..wProductType = 0
         ..wReserved = 0;
-      final rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
-          Void Function(Pointer<OSVERSIONINFOEX>),
-          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
+      final rtlGetVersion = DynamicLibrary.open('ntdll.dll')
+          .lookupFunction<
+            Void Function(Pointer<OSVERSIONINFOEX>),
+            void Function(Pointer<OSVERSIONINFOEX>)
+          >('RtlGetVersion');
       rtlGetVersion(pointer);
       majorVersion = pointer.ref.dwMajorVersion;
       minorVersion = pointer.ref.dwMinorVersion;

@@ -12,10 +12,12 @@ class UrlLauncherUtils {
     String? webOnlyWindowName,
   }) async {
     try {
-      bool ret = await launchUrl(Uri.parse(url),
-          mode: mode,
-          webViewConfiguration: webViewConfiguration,
-          webOnlyWindowName: webOnlyWindowName);
+      bool ret = await launchUrl(
+        Uri.parse(url),
+        mode: mode,
+        webViewConfiguration: webViewConfiguration,
+        webOnlyWindowName: webOnlyWindowName,
+      );
       return ret ? null : ReturnResultError("launchUrl failed $url");
     } catch (err, _) {
       Log.w('UrlLauncherUtils.loadUrl exception: $url\n ${err.toString()}');
@@ -29,18 +31,22 @@ class UrlLauncherUtils {
       return null;
     }
     Uri uri2 = Uri(
-        scheme: uri.scheme,
-        userInfo: uri.userInfo,
-        host: uri.host,
-        port: uri.port,
-        path: uri.path,
-        query: uri.query.isEmpty ? queryParams : "${uri.query}&$queryParams",
-        fragment: uri.fragment);
+      scheme: uri.scheme,
+      userInfo: uri.userInfo,
+      host: uri.host,
+      port: uri.port,
+      path: uri.path,
+      query: uri.query.isEmpty ? queryParams : "${uri.query}&$queryParams",
+      fragment: uri.fragment,
+    );
     return uri2.toString();
   }
 
-  static Future<String> reorganizationUrlWithAnchor(String url,
-      {String anchor = "", int bodyLen = 0}) async {
+  static Future<String> reorganizationUrlWithAnchor(
+    String url, {
+    String anchor = "",
+    int bodyLen = 0,
+  }) async {
     String queryParams = await AppUrlUtils.getQueryParamsForUrl();
     String newUrl = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
     String arpha = newUrl.endsWith("#") ? "" : "#";

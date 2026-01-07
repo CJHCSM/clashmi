@@ -11,9 +11,7 @@ abstract final class ICloudUtils {
 
   static Future<ReturnResult<List<ICloudFile>>> listFiles() async {
     try {
-      var result = await ICloudStorage.gather(
-        containerId: _containerId,
-      );
+      var result = await ICloudStorage.gather(containerId: _containerId);
       return ReturnResult(data: result);
     } catch (err, stacktrace) {
       return ReturnResult(error: ReturnResultError(err.toString()));
@@ -56,9 +54,7 @@ abstract final class ICloudUtils {
             },
             onError: (e) {
               if (!completer.isCompleted) {
-                completer.complete(
-                  ReturnResultError(e.toString()),
-                );
+                completer.complete(ReturnResultError(e.toString()));
               }
             },
             cancelOnError: true,
@@ -100,9 +96,7 @@ abstract final class ICloudUtils {
           stream.listen(
             (progress) {},
             onDone: () => completer.complete(null),
-            onError: (e) => completer.complete(
-              ReturnResultError(e.toString()),
-            ),
+            onError: (e) => completer.complete(ReturnResultError(e.toString())),
             cancelOnError: true,
           );
         },

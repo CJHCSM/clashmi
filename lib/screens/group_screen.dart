@@ -17,21 +17,25 @@ class GroupScreen extends LasyRenderingStatefulWidget {
 
   final String title;
   final Future<List<GroupItem>> Function(
-      BuildContext context, SetStateCallback? setstate) getOptions;
+    BuildContext context,
+    SetStateCallback? setstate,
+  )
+  getOptions;
   final bool hasReturn;
   final Future<bool> Function(BuildContext context)? onDone;
   final String? tipsIfNoOnDone;
   final IconData? onDoneIcon;
   final Future<void> Function(BuildContext context)? onFirstLayout;
-  const GroupScreen(
-      {super.key,
-      required this.title,
-      required this.getOptions,
-      this.hasReturn = true,
-      this.onDone,
-      this.tipsIfNoOnDone,
-      this.onDoneIcon,
-      this.onFirstLayout});
+  const GroupScreen({
+    super.key,
+    required this.title,
+    required this.getOptions,
+    this.hasReturn = true,
+    this.onDone,
+    this.tipsIfNoOnDone,
+    this.onDoneIcon,
+    this.onFirstLayout,
+  });
 
   @override
   State<GroupScreen> createState() => GroupScreenState();
@@ -68,10 +72,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -83,9 +84,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     !widget.hasReturn
-                        ? const SizedBox(
-                            width: 50,
-                          )
+                        ? const SizedBox(width: 50)
                         : InkWell(
                             onTap: () => Navigator.pop(context),
                             child: const SizedBox(
@@ -104,8 +103,9 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     widget.onDone != null
@@ -126,47 +126,49 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                             ),
                           )
                         : widget.tipsIfNoOnDone != null &&
-                                widget.tipsIfNoOnDone!.isNotEmpty
-                            ? Tooltip(
-                                message: widget.tipsIfNoOnDone,
-                                child: InkWell(
-                                  onTap: () {
-                                    DialogUtils.showAlertDialog(
-                                        context, widget.tipsIfNoOnDone!);
-                                  },
-                                  child: const SizedBox(
-                                      width: 50,
-                                      height: 30,
-                                      child: Icon(
-                                        Icons.info_outlined,
-                                        size: 20,
-                                      )),
-                                ))
-                            : const SizedBox(
+                              widget.tipsIfNoOnDone!.isNotEmpty
+                        ? Tooltip(
+                            message: widget.tipsIfNoOnDone,
+                            child: InkWell(
+                              onTap: () {
+                                DialogUtils.showAlertDialog(
+                                  context,
+                                  widget.tipsIfNoOnDone!,
+                                );
+                              },
+                              child: const SizedBox(
                                 width: 50,
+                                height: 30,
+                                child: Icon(Icons.info_outlined, size: 20),
                               ),
+                            ),
+                          )
+                        : const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: SingleChildScrollView(
                     child: FutureBuilder(
                       future: getGroupOptionsWithTryCatch(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<GroupItem>> snapshot) {
-                        List<GroupItem> data =
-                            snapshot.hasData ? snapshot.data! : [];
-                        List<Widget> children = [];
+                      builder:
+                          (
+                            BuildContext context,
+                            AsyncSnapshot<List<GroupItem>> snapshot,
+                          ) {
+                            List<GroupItem> data = snapshot.hasData
+                                ? snapshot.data!
+                                : [];
+                            List<Widget> children = [];
 
-                        children.addAll(
-                            GroupItemCreator.createGroups(context, data));
-                        return Column(children: children);
-                      },
+                            children.addAll(
+                              GroupItemCreator.createGroups(context, data),
+                            );
+                            return Column(children: children);
+                          },
                     ),
                   ),
                 ),
@@ -186,8 +188,12 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
         return [];
       }
       DialogUtils.showAlertDialog(
-          context, "${err.toString()}\n${stacktrace.toString()}",
-          showCopy: true, showFAQ: true, withVersion: true);
+        context,
+        "${err.toString()}\n${stacktrace.toString()}",
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return [];
     }
   }
@@ -233,12 +239,12 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
           var callback = option.timerIntervalPickerOptions!.onPicker;
           option.timerIntervalPickerOptions!.onPicker =
               (bool canceled, Duration? value) async {
-            await callback!(canceled, value);
-            if (!mounted) {
-              return;
-            }
-            setState(() {});
-          };
+                await callback!(canceled, value);
+                if (!mounted) {
+                  return;
+                }
+                setState(() {});
+              };
         } else if ((option.stringPickerOptions != null) &&
             (option.stringPickerOptions!.onPicker != null)) {
           var callback = option.stringPickerOptions!.onPicker;

@@ -13,7 +13,8 @@ class SecureStorageUtils {
       value = await SecureStorage.read(key);
     } catch (err, stacktrace) {
       Log.w(
-          'SecureStorageUtilsSecureStorageUtils read exception ${err.toString()}');
+        'SecureStorageUtilsSecureStorageUtils read exception ${err.toString()}',
+      );
 
       try {
         _storage ??= _initStorage();
@@ -36,9 +37,8 @@ class SecureStorageUtils {
   }
 
   static FlutterSecureStorage _initStorage() {
-    AndroidOptions getAndroidOptions() => const AndroidOptions(
-          encryptedSharedPreferences: false,
-        );
+    AndroidOptions getAndroidOptions() =>
+        const AndroidOptions(encryptedSharedPreferences: false);
     return FlutterSecureStorage(aOptions: getAndroidOptions());
   }
 }

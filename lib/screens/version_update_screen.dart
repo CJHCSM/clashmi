@@ -48,10 +48,7 @@ class _VersionUpdateScreenState
     var checkVersion = AutoUpdateManager.getVersionCheck();
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: Stack(
         children: [
           Container(
@@ -65,43 +62,39 @@ class _VersionUpdateScreenState
                   children: [
                     Text(
                       tcontext.VersionUpdateScreen.versionReady(
-                          p: checkVersion.version),
+                        p: checkVersion.version,
+                      ),
                       style: const TextStyle(
                         fontSize: ThemeConfig.kFontSizeListItem,
                         fontWeight: ThemeConfig.kFontWeightListItem,
                         color: ThemeDefine.kColorBlue,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     SizedBox(
-                        height: 45.0,
-                        child: ElevatedButton(
-                          onPressed: _installing
-                              ? null
-                              : () async {
-                                  await checkReplace();
-                                },
-                          child: _installing
-                              ? SizedBox(
-                                  width: 26,
-                                  height: 26,
-                                  child: RepaintBoundary(
-                                    child: CircularProgressIndicator(
-                                      color: ThemeDefine.kColorGreenBright,
-                                    ),
+                      height: 45.0,
+                      child: ElevatedButton(
+                        onPressed: _installing
+                            ? null
+                            : () async {
+                                await checkReplace();
+                              },
+                        child: _installing
+                            ? SizedBox(
+                                width: 26,
+                                height: 26,
+                                child: RepaintBoundary(
+                                  child: CircularProgressIndicator(
+                                    color: ThemeDefine.kColorGreenBright,
                                   ),
-                                )
-                              : Text(tcontext.VersionUpdateScreen.update),
-                        )),
-                    const SizedBox(
-                      height: 30,
+                                ),
+                              )
+                            : Text(tcontext.VersionUpdateScreen.update),
+                      ),
                     ),
+                    const SizedBox(height: 30),
                     widget.force && checkVersion.force
-                        ? const SizedBox(
-                            height: 30,
-                          )
+                        ? const SizedBox(height: 30)
                         : SizedBox(
                             height: 45.0,
                             child: ElevatedButton(
@@ -109,9 +102,10 @@ class _VersionUpdateScreenState
                               onPressed: () async {
                                 Navigator.pop(context);
                               },
-                            )),
+                            ),
+                          ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -176,9 +170,13 @@ class _VersionUpdateScreenState
             setState(() {});
             return;
           }
-          DialogUtils.showAlertDialog(context,
-              "install $installer failed, exitCode: ${result.exitCode}",
-              showCopy: true, showFAQ: true, withVersion: true);
+          DialogUtils.showAlertDialog(
+            context,
+            "install $installer failed, exitCode: ${result.exitCode}",
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           _installing = false;
           setState(() {});
           return;
@@ -191,8 +189,13 @@ class _VersionUpdateScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       setState(() {});
     }
     _installing = false;

@@ -10,11 +10,11 @@ class RemoteConfigChannel {
   String rateUrl = "";
 
   Map<String, dynamic> toJson() => {
-        'platform': platform,
-        'channel': channel,
-        "url": url,
-        "rate_url": rateUrl,
-      };
+    'platform': platform,
+    'channel': channel,
+    "url": url,
+    "rate_url": rateUrl,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -38,10 +38,10 @@ class RemoteConfigGetProfile {
   String url = "";
 
   Map<String, dynamic> toJson() => {
-        'platform': platform,
-        'region': region,
-        'url': url,
-      };
+    'platform': platform,
+    'region': region,
+    'url': url,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -61,10 +61,7 @@ class RemoteConfigGetProfile {
 class RemoteConfigDonate {
   String name = "";
   String url = "";
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'url': url,
-      };
+  Map<String, dynamic> toJson() => {'name': name, 'url': url};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;

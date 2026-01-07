@@ -26,12 +26,14 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
 
   @override
   void initState() {
-    _controller = ProxyScreenProxiesNodeWidgetController(onTesting: () {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    });
+    _controller = ProxyScreenProxiesNodeWidgetController(
+      onTesting: () {
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+      },
+    );
     super.initState();
   }
 
@@ -50,10 +52,7 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -67,10 +66,7 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -80,36 +76,36 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   Tooltip(
-                      message: tcontext.meta.sort,
-                      child: SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: InkWell(
-                          child: Icon(
-                            Icons.sort,
-                            size: 26,
-                            color: SettingManager.getConfig().ui.delayTestSort
-                                ? Colors.green
-                                : null,
-                          ),
-                          onTap: () {
-                            SettingManager.getConfig().ui.delayTestSort =
-                                !SettingManager.getConfig().ui.delayTestSort;
-                            setState(() {});
-                          },
+                    message: tcontext.meta.sort,
+                    child: SizedBox(
+                      width: 50,
+                      height: 30,
+                      child: InkWell(
+                        child: Icon(
+                          Icons.sort,
+                          size: 26,
+                          color: SettingManager.getConfig().ui.delayTestSort
+                              ? Colors.green
+                              : null,
                         ),
-                      )),
+                        onTap: () {
+                          SettingManager.getConfig().ui.delayTestSort =
+                              !SettingManager.getConfig().ui.delayTestSort;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  ),
                   _controller.delayTesting() != 0
                       ? Row(
                           children: [
-                            SizedBox(
-                              width: 12,
-                            ),
+                            SizedBox(width: 12),
                             Stack(
                               children: [
                                 SizedBox(
@@ -133,12 +129,10 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                                           : 10,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                            SizedBox(
-                              width: 12,
-                            )
+                            SizedBox(width: 12),
                           ],
                         )
                       : Tooltip(
@@ -147,36 +141,36 @@ class _ProxyBoardScreenState extends LasyRenderingState<ProxyBoardScreen>
                             width: 50,
                             height: 30,
                             child: InkWell(
-                              child: Icon(
-                                Icons.bolt_outlined,
-                                size: 26,
-                              ),
+                              child: Icon(Icons.bolt_outlined, size: 26),
                               onTap: () {
                                 onTapTestDelay();
                               },
                             ),
-                          )),
+                          ),
+                        ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: FutureBuilder(
                     future: getProxies(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<ClashProxiesNode>> snapshot) {
-                      List<ClashProxiesNode> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return data.isEmpty
-                          ? SizedBox.shrink()
-                          : ProxyScreenProxiesNodeWidget(
-                              nodes: data,
-                              controller: _controller,
-                            );
-                    },
+                    builder:
+                        (
+                          BuildContext context,
+                          AsyncSnapshot<List<ClashProxiesNode>> snapshot,
+                        ) {
+                          List<ClashProxiesNode> data = snapshot.hasData
+                              ? snapshot.data!
+                              : [];
+                          return data.isEmpty
+                              ? SizedBox.shrink()
+                              : ProxyScreenProxiesNodeWidget(
+                                  nodes: data,
+                                  controller: _controller,
+                                );
+                        },
                   ),
                 ),
               ),

@@ -21,7 +21,9 @@ import 'package:path/path.dart' as path;
 
 class BackupHelper {
   static Future<ReturnResultError?> backupToZip(
-      BuildContext context, String zipPath) async {
+    BuildContext context,
+    String zipPath,
+  ) async {
     var dir = await PathUtils.profileDir();
     var fileList = BackupAndSyncUtils.getZipFileNameList();
     List<String> zipFileList = [];
@@ -72,7 +74,9 @@ class BackupHelper {
   }
 
   static Future<ReturnResultError?> restoreBackupFromUrl(
-      BuildContext context, String url) async {
+    BuildContext context,
+    String url,
+  ) async {
     Uri? downloadUri = Uri.tryParse(url);
     if (downloadUri == null) {
       return ReturnResultError("invalid URL: $url");
@@ -82,7 +86,9 @@ class BackupHelper {
     }
     final tcontext = Translations.of(context);
     bool? ok = await DialogUtils.showConfirmDialog(
-        context, tcontext.meta.rewriteConfirm);
+      context,
+      tcontext.meta.rewriteConfirm,
+    );
     if (ok != true) {
       return null;
     }
@@ -93,15 +99,25 @@ class BackupHelper {
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
     var result = await HttpUtils.httpDownload(
-        downloadUri, filePath, null, null, const Duration(seconds: 10));
+      downloadUri,
+      filePath,
+      null,
+      null,
+      const Duration(seconds: 10),
+    );
 
     if (!context.mounted) {
       return null;
     }
     Navigator.pop(context);
     if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return ReturnResultError(result.error!.message);
     }
     await backupRestoreFromZip(context, filePath);
@@ -110,7 +126,9 @@ class BackupHelper {
   }
 
   static Future<void> backupRestoreFromZip(
-      BuildContext context, String zipPath) async {
+    BuildContext context,
+    String zipPath,
+  ) async {
     if (!context.mounted) {
       return;
     }
@@ -121,8 +139,13 @@ class BackupHelper {
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        error.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     } else {
       DialogUtils.showAlertDialog(context, tcontext.meta.importSuccess);
     }

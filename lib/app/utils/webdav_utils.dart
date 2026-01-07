@@ -5,13 +5,14 @@ import 'package:webdav_client_plus/webdav_client_plus.dart';
 class WebdavUtils {
   static const String _prefix = "clashmi/";
   static Future<ReturnResult<WebdavClient>> connect(
-      int? proxyPort, String url, String user, String password) async {
+    int? proxyPort,
+    String url,
+    String user,
+    String password,
+  ) async {
     var client = WebdavClient(
       url: url.trim(),
-      auth: BasicAuth(
-        user: user.trim(),
-        pwd: password.trim(),
-      ),
+      auth: BasicAuth(user: user.trim(), pwd: password.trim()),
     );
     /*if (proxyPort != null && proxyPort != 0) {
       client.c.httpClientAdapter = IOHttpClientAdapter(
@@ -68,10 +69,7 @@ class WebdavUtils {
     required String localPath,
   }) async {
     try {
-      await client.writeFile(
-        localPath,
-        _prefix + relativePath,
-      );
+      await client.writeFile(localPath, _prefix + relativePath);
     } catch (err, stacktrace) {
       return ReturnResultError(err.toString());
     }
@@ -79,7 +77,9 @@ class WebdavUtils {
   }
 
   static Future<ReturnResultError?> delete(
-      WebdavClient client, String relativePath) async {
+    WebdavClient client,
+    String relativePath,
+  ) async {
     try {
       await client.remove(_prefix + relativePath);
     } catch (err, stacktrace) {
@@ -94,10 +94,7 @@ class WebdavUtils {
     required String localPath,
   }) async {
     try {
-      await client.readFile(
-        _prefix + relativePath,
-        localPath,
-      );
+      await client.readFile(_prefix + relativePath, localPath);
     } catch (err, stacktrace) {
       return ReturnResultError(err.toString());
     }

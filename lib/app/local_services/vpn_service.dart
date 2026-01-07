@@ -40,9 +40,9 @@ class VPNService {
   static final bool _systemExtension = true;
   static List<String> _abis = [];
   static final List<
-          void Function(
-              FlutterVpnServiceState state, Map<String, String> params)>
-      onEventStateChanged = [];
+    void Function(FlutterVpnServiceState state, Map<String, String> params)
+  >
+  onEventStateChanged = [];
 
   static initABI() async {
     if (Platform.isAndroid) {
@@ -56,18 +56,25 @@ class VPNService {
     if (Platform.isWindows) {
       _runAsAdmin = await FlutterVpnService.isRunAsAdmin();
       FlutterVpnService.firewallAddApp(
-          Platform.resolvedExecutable, PathUtils.getExeName());
+        Platform.resolvedExecutable,
+        PathUtils.getExeName(),
+      );
       FlutterVpnService.firewallAddApp(
-          PathUtils.serviceExePath(), PathUtils.serviceExeName());
+        PathUtils.serviceExePath(),
+        PathUtils.serviceExeName(),
+      );
     }
 
     launchAtStartup.setup(
-        appName: packageInfo.appName,
-        appPath: Platform.resolvedExecutable,
-        args: [AppArgs.launchStartup]);
+      appName: packageInfo.appName,
+      appPath: Platform.resolvedExecutable,
+      args: [AppArgs.launchStartup],
+    );
 
-    FlutterVpnService.onStateChanged(
-        (FlutterVpnServiceState state, Map<String, String> params) async {
+    FlutterVpnService.onStateChanged((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (getSupportSystemProxy()) {
         if (state == FlutterVpnServiceState.disconnected) {
           bool enable = await getSystemProxyEnable();
@@ -155,16 +162,15 @@ class VPNService {
     bool overwrite = true;
     if (profile.patch.isEmpty ||
         !ProfilePatchManager.existProfilePatch(profile.patch)) {
-      overwrite = currentPatch.id.isEmpty ||
+      overwrite =
+          currentPatch.id.isEmpty ||
           currentPatch.id == kProfilePatchBuildinOverwrite;
     } else {
       overwrite = profile.patch == kProfilePatchBuildinOverwrite;
     }
     await ClashSettingManager.saveCorePatchFinal(overwrite);
 
-    var excludePorts = [
-      controlPort,
-    ];
+    var excludePorts = [controlPort];
     if (setting.MixedPort != null) {
       excludePorts.add(setting.MixedPort!);
     }
@@ -180,8 +186,9 @@ class VPNService {
     config.work_dir = PathUtils.appAssetsDir();
     config.cache_dir = await PathUtils.cacheDir();
     config.core_path = path.join(await PathUtils.profilesDir(), profile.id);
-    config.core_path_patch =
-        await ProfilePatchManager.getProfilePatchPath(profile.patch);
+    config.core_path_patch = await ProfilePatchManager.getProfilePatchPath(
+      profile.patch,
+    );
     config.core_path_patch_final = await PathUtils.serviceCorePatchFinalPath();
     config.log_path = await PathUtils.serviceLogFilePath();
     config.err_path = await PathUtils.serviceStdErrorFilePath();
@@ -190,7 +197,8 @@ class VPNService {
     config.name = name;
     config.secret = await ClashHttpApi.getSecret();
     config.install_refer = installReferrer;
-    config.prepare = (overwrite &&
+    config.prepare =
+        (overwrite &&
             setting.Tun?.OverWrite == true &&
             setting.Tun?.Enable == true) ||
         !overwrite;
@@ -267,9 +275,7 @@ class VPNService {
     return convertErr(err);
   }
 
-  static Future<ReturnResultError?> restart(
-    Duration timeout,
-  ) async {
+  static Future<ReturnResultError?> restart(Duration timeout) async {
     final profile = ProfileManager.getCurrent();
     if (profile == null) {
       return ReturnResultError("current profile is empty");
@@ -292,10 +298,7 @@ class VPNService {
     if (Platform.isWindows) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
-      var ports = [
-        controlPort,
-        mixedPort,
-      ];
+      var ports = [controlPort, mixedPort];
 
       FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
     }
@@ -310,7 +313,8 @@ class VPNService {
     }
     if (result.type != VpnServiceWaitType.done) {
       Log.w(
-          "VPNService.restart err ${result.type}:${result.err!.message.toString()}");
+        "VPNService.restart err ${result.type}:${result.err!.message.toString()}",
+      );
 
       await stop();
       return convertErr(result.err);
@@ -350,10 +354,7 @@ class VPNService {
     if (Platform.isWindows) {
       final controlPort = ClashSettingManager.getControlPort();
       final mixedPort = ClashSettingManager.getMixedPort();
-      var ports = [
-        controlPort,
-        mixedPort,
-      ];
+      var ports = [controlPort, mixedPort];
 
       FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
     }
@@ -428,8 +429,9 @@ class VPNService {
       return false;
     }
     final hostOptionsLocal = getSystemProxyOptionsLocalhost();
-    bool enable =
-        await FlutterVpnService.getSystemProxyEnable(hostOptionsLocal);
+    bool enable = await FlutterVpnService.getSystemProxyEnable(
+      hostOptionsLocal,
+    );
     if (!enable) {
       final hostOptionsLan = await getSystemProxyOptionsLan();
       if (hostOptionsLan != null) {
@@ -490,8 +492,11 @@ class VPNService {
           if (Platform.isWindows) {
             bool admin = isRunAsAdmin();
             await FlutterVpnService.autoStartCreate(
-                getLaunchAtStartupTaskName(), Platform.resolvedExecutable,
-                processArgs: AppArgs.launchStartup, runElevated: admin);
+              getLaunchAtStartupTaskName(),
+              Platform.resolvedExecutable,
+              processArgs: AppArgs.launchStartup,
+              runElevated: admin,
+            );
             return null;
           }
         } else {
@@ -510,7 +515,8 @@ class VPNService {
       try {
         if (Platform.isWindows) {
           if (await FlutterVpnService.autoStartIsActive(
-              getLaunchAtStartupTaskName())) {
+            getLaunchAtStartupTaskName(),
+          )) {
             return true;
           }
         }
@@ -523,8 +529,11 @@ class VPNService {
   }
 
   static ProxyOption getSystemProxyOptionsLocalhost() {
-    return ProxyOption(localhost, ClashSettingManager.getMixedPort(),
-        SettingManager.getConfig().systemProxyBypassDomain);
+    return ProxyOption(
+      localhost,
+      ClashSettingManager.getMixedPort(),
+      SettingManager.getConfig().systemProxyBypassDomain,
+    );
   }
 
   static Future<ProxyOption?> getSystemProxyOptionsLan() async {
@@ -545,8 +554,11 @@ class VPNService {
       }
     }
 
-    return ProxyOption(host, ClashSettingManager.getMixedPort(),
-        SettingManager.getConfig().systemProxyBypassDomain);
+    return ProxyOption(
+      host,
+      ClashSettingManager.getMixedPort(),
+      SettingManager.getConfig().systemProxyBypassDomain,
+    );
   }
 
   static Future<ProxyOption> getSystemProxyOptions() async {
@@ -554,7 +566,8 @@ class VPNService {
     final mixedPort = ClashSettingManager.getMixedPort();
     if (Platform.isMacOS) {
       List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces(
-          addressType: InternetAddressType.IPv4);
+        addressType: InternetAddressType.IPv4,
+      );
 
       for (var face in interfaces) {
         if (face.name.startsWith("en")) {

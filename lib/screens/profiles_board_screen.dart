@@ -60,10 +60,7 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -77,10 +74,7 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -90,16 +84,15 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   ProfileManager.updating.isNotEmpty
                       ? const Row(
                           children: [
-                            SizedBox(
-                              width: 12,
-                            ),
+                            SizedBox(width: 12),
                             SizedBox(
                               width: 26,
                               height: 26,
@@ -107,9 +100,7 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                            SizedBox(
-                              width: 12,
-                            )
+                            SizedBox(width: 12),
                           ],
                         )
                       : InkWell(
@@ -117,47 +108,48 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
                             onTapUpdateAll();
                           },
                           child: Tooltip(
-                              message: tcontext.meta.update,
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.cloud_download_outlined,
-                                  size: 30,
-                                ),
-                              )),
+                            message: tcontext.meta.update,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.cloud_download_outlined,
+                                size: 30,
+                              ),
+                            ),
+                          ),
                         ),
                   InkWell(
                     onTap: () async {
                       onTapAdd();
                     },
                     child: Tooltip(
-                        message: tcontext.meta.add,
-                        child: const SizedBox(
-                          width: 50,
-                          height: 30,
-                          child: Icon(
-                            Icons.add,
-                            size: 30,
-                          ),
-                        )),
+                      message: tcontext.meta.add,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.add, size: 30),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                   child: FutureBuilder(
                     future: getProfiles(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<ProfileSetting>> snapshot) {
-                      List<ProfileSetting> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return ProfilesBoardScreenWidget(settings: data);
-                    },
+                    builder:
+                        (
+                          BuildContext context,
+                          AsyncSnapshot<List<ProfileSetting>> snapshot,
+                        ) {
+                          List<ProfileSetting> data = snapshot.hasData
+                              ? snapshot.data!
+                              : [];
+                          return ProfilesBoardScreenWidget(settings: data);
+                        },
                   ),
                 ),
               ),
@@ -192,8 +184,12 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
           if (!mounted) {
             return;
           }
-          await WebviewHelper.loadUrl(context, url, "getTranffic",
-              title: tcontext.meta.getProfile);
+          await WebviewHelper.loadUrl(
+            context,
+            url,
+            "getTranffic",
+            title: tcontext.meta.getProfile,
+          );
         },
       ),
       ListTile(
@@ -201,10 +197,12 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
         onTap: () async {
           Navigator.of(context).pop();
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: AddProfileByUrlScreen.routSettings(),
-                  builder: (context) => AddProfileByUrlScreen()));
+            context,
+            MaterialPageRoute(
+              settings: AddProfileByUrlScreen.routSettings(),
+              builder: (context) => AddProfileByUrlScreen(),
+            ),
+          );
         },
       ),
       ListTile(
@@ -218,8 +216,13 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
+            DialogUtils.showAlertDialog(
+              context,
+              err.toString(),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
             return;
           }
           if (!mounted) {
@@ -229,11 +232,12 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
             return;
           }
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: AddProfileByUrlScreen.routSettings(),
-                  builder: (context) =>
-                      AddProfileByUrlScreen(url: data!.text!)));
+            context,
+            MaterialPageRoute(
+              settings: AddProfileByUrlScreen.routSettings(),
+              builder: (context) => AddProfileByUrlScreen(url: data!.text!),
+            ),
+          );
         },
       ),
       ListTile(
@@ -241,21 +245,24 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: AddProfileByScanQrcodeScanScreen.routSettings(),
-                  builder: (context) =>
-                      const AddProfileByScanQrcodeScanScreen())).then((value) {
+            context,
+            MaterialPageRoute(
+              settings: AddProfileByScanQrcodeScanScreen.routSettings(),
+              builder: (context) => const AddProfileByScanQrcodeScanScreen(),
+            ),
+          ).then((value) {
             if ((value != null) && (value.qrcode != null)) {
               if (!mounted) {
                 return;
               }
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      settings: AddProfileByUrlScreen.routSettings(),
-                      builder: (context) =>
-                          AddProfileByUrlScreen(url: value.qrcode!)));
+                context,
+                MaterialPageRoute(
+                  settings: AddProfileByUrlScreen.routSettings(),
+                  builder: (context) =>
+                      AddProfileByUrlScreen(url: value.qrcode!),
+                ),
+              );
             }
           });
         },
@@ -265,11 +272,12 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
         onTap: () async {
           Navigator.of(context).pop();
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: AddProfileByImportFromFileScreen.routSettings(),
-                  builder: (context) =>
-                      const AddProfileByImportFromFileScreen()));
+            context,
+            MaterialPageRoute(
+              settings: AddProfileByImportFromFileScreen.routSettings(),
+              builder: (context) => const AddProfileByImportFromFileScreen(),
+            ),
+          );
         },
       ),
     ];
@@ -277,23 +285,22 @@ class _ProfilesBoardScreenState extends LasyRenderingState<ProfilesBoardScreen>
     showSheet(
       context: context,
       body: SizedBox(
-          height: 400,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Scrollbar(
-                child: ListView.separated(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 return widgets[index];
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  height: 1,
-                  thickness: 0.3,
-                );
+                return const Divider(height: 1, thickness: 0.3);
               },
               itemCount: widgets.length,
-            )),
-          )),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

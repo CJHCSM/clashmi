@@ -12,25 +12,33 @@ class QrcodeUtils {
     try {
       var hints = EncodeHints();
       hints.put<CharacterSetECI>(
-          EncodeHintType.characterSet, CharacterSetECI.UTF8);
+        EncodeHintType.characterSet,
+        CharacterSetECI.UTF8,
+      );
       hints.put<bool>(EncodeHintType.gs1Format, true);
-      var qrcode =
-          Encoder.encode(content, ErrorCorrectionLevel.h, hints: hints);
+      var qrcode = Encoder.encode(
+        content,
+        ErrorCorrectionLevel.h,
+        hints: hints,
+      );
       var matrix = qrcode.matrix!;
       var scale = 4;
       var image = img.Image(
-          width: matrix.width * scale,
-          height: matrix.height * scale,
-          numChannels: 4);
+        width: matrix.width * scale,
+        height: matrix.height * scale,
+        numChannels: 4,
+      );
       for (var x = 0; x < matrix.width; x++) {
         for (var y = 0; y < matrix.height; y++) {
           if (matrix.get(x, y) == 1) {
-            img.fillRect(image,
-                x1: x * scale,
-                y1: y * scale,
-                x2: x * scale + scale,
-                y2: y * scale + scale,
-                color: img.ColorRgba8(0, 0, 0, 0xFF));
+            img.fillRect(
+              image,
+              x1: x * scale,
+              y1: y * scale,
+              x2: x * scale + scale,
+              y2: y * scale + scale,
+              color: img.ColorRgba8(0, 0, 0, 0xFF),
+            );
           }
         }
       }
@@ -47,18 +55,21 @@ class QrcodeUtils {
       var matrix = qrcode.matrix!;
       var scale = 4;
       var image = img.Image(
-          width: matrix.width * scale,
-          height: matrix.height * scale,
-          numChannels: 4);
+        width: matrix.width * scale,
+        height: matrix.height * scale,
+        numChannels: 4,
+      );
       for (var x = 0; x < matrix.width; x++) {
         for (var y = 0; y < matrix.height; y++) {
           if (matrix.get(x, y) == 1) {
-            img.fillRect(image,
-                x1: x * scale,
-                y1: y * scale,
-                x2: x * scale + scale,
-                y2: y * scale + scale,
-                color: img.ColorRgba8(0, 0, 0, 0xFF));
+            img.fillRect(
+              image,
+              x1: x * scale,
+              y1: y * scale,
+              x2: x * scale + scale,
+              y2: y * scale + scale,
+              color: img.ColorRgba8(0, 0, 0, 0xFF),
+            );
           }
         }
       }
@@ -77,13 +88,14 @@ class QrcodeUtils {
       return null;
     }
     LuminanceSource source = RGBLuminanceSource(
-        image.width,
-        image.height,
-        image
-            .convert(numChannels: 4)
-            .getBytes(order: img.ChannelOrder.abgr)
-            .buffer
-            .asInt32List());
+      image.width,
+      image.height,
+      image
+          .convert(numChannels: 4)
+          .getBytes(order: img.ChannelOrder.abgr)
+          .buffer
+          .asInt32List(),
+    );
     var bitmap = BinaryBitmap(GlobalHistogramBinarizer(source));
     var reader = QRCodeReader();
     var result = reader.decode(bitmap);
@@ -97,13 +109,14 @@ class QrcodeUtils {
       return null;
     }
     LuminanceSource source = RGBLuminanceSource(
-        image.width,
-        image.height,
-        image
-            .convert(numChannels: 4)
-            .getBytes(order: img.ChannelOrder.abgr)
-            .buffer
-            .asInt32List());
+      image.width,
+      image.height,
+      image
+          .convert(numChannels: 4)
+          .getBytes(order: img.ChannelOrder.abgr)
+          .buffer
+          .asInt32List(),
+    );
     var bitmap = BinaryBitmap(GlobalHistogramBinarizer(source));
     var reader = QRCodeReader();
     var result = reader.decode(bitmap);

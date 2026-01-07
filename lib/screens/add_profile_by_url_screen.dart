@@ -38,7 +38,8 @@ class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
 }
 
 class _AddProfileByUrlScreenState
-    extends LasyRenderingState<AddProfileByUrlScreen> with AfterLayoutMixin {
+    extends LasyRenderingState<AddProfileByUrlScreen>
+    with AfterLayoutMixin {
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
   Duration? _updateInterval = const Duration(hours: 24);
@@ -103,8 +104,13 @@ class _AddProfileByUrlScreenState
       return;
     }
 
-    DialogUtils.showAlertDialog(context, result.error!.message,
-        showCopy: true, showFAQ: true, withVersion: true);
+    DialogUtils.showAlertDialog(
+      context,
+      result.error!.message,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
   }
 
   @override
@@ -112,165 +118,173 @@ class _AddProfileByUrlScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.zero,
-          child: AppBar(),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const SizedBox(
+                      width: 50,
+                      height: 30,
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                    ),
+                  ),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.meta.profileAddUrlOrContent,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
+                    ),
+                  ),
+                  _loading
+                      ? const Row(
+                          children: [
+                            SizedBox(width: 12),
+                            SizedBox(
+                              width: 26,
+                              height: 26,
+                              child: RepaintBoundary(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                            SizedBox(width: 12),
+                          ],
+                        )
+                      : InkWell(
+                          onTap: () async {
+                            await onAdd(context);
+                          },
+                          child: Tooltip(
+                            message: tcontext.meta.save,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.done, size: 26),
+                            ),
+                          ),
+                        ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                18,
+                                10,
+                                18,
+                                10,
+                              ),
+                              child: SingleChildScrollView(
+                                child: TextFieldEx(
+                                  textInputAction: TextInputAction.next,
+                                  maxLines: 5,
+                                  controller: _textControllerLink,
+                                  decoration: InputDecoration(
+                                    labelText:
+                                        tcontext.meta.profileUrlOrContent,
+                                    hintText:
+                                        tcontext.meta.profileUrlOrContentHit,
+                                  ),
+                                  onChanged: (text) {},
+                                  onEditingComplete: () async {
+                                    String url = _textControllerLink.text
+                                        .trim();
+                                    if (url.isNotEmpty ||
+                                        null != Uri.tryParse(url)) {
+                                      final userAgent =
+                                          SettingManager.getConfig()
+                                              .userAgent();
+                                      final result =
+                                          await HttpUtils.httpGetTitle(
+                                            url,
+                                            userAgent,
+                                          );
+                                      if (result.error == null) {
+                                        if (_textControllerRemark.text
+                                            .trim()
+                                            .isEmpty) {
+                                          _textControllerRemark.text =
+                                              result.data!;
+                                          setState(() {});
+                                        }
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                18,
+                                10,
+                                18,
+                                10,
+                              ),
+                              child: TextFieldEx(
+                                textInputAction: TextInputAction.done,
+                                controller: _textControllerRemark,
+                                decoration: InputDecoration(
+                                  labelText: tcontext.meta.remark,
+                                  hintText: tcontext.meta.required,
+                                  prefixIcon: const Icon(
+                                    Icons.edit_note_outlined,
+                                  ),
+                                ),
+                                onSubmitted: (String? text) {
+                                  FocusScope.of(context).nextFocus();
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            FutureBuilder(
+                              future: getGroupOptions(),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<List<GroupItem>> snapshot,
+                                  ) {
+                                    List<GroupItem> data = snapshot.hasData
+                                        ? snapshot.data!
+                                        : [];
+                                    return Column(
+                                      children: GroupItemCreator.createGroups(
+                                        context,
+                                        data,
+                                      ),
+                                    );
+                                  },
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: windowSize.width - 50 * 2,
-                      child: Text(
-                        tcontext.meta.profileAddUrlOrContent,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
-                      ),
-                    ),
-                    _loading
-                        ? const Row(
-                            children: [
-                              SizedBox(
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 26,
-                                height: 26,
-                                child: RepaintBoundary(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12,
-                              )
-                            ],
-                          )
-                        : InkWell(
-                            onTap: () async {
-                              await onAdd(context);
-                            },
-                            child: Tooltip(
-                                message: tcontext.meta.save,
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.done,
-                                    size: 26,
-                                  ),
-                                )),
-                          ),
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                        child: Card(
-                            child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                child: SingleChildScrollView(
-                                  child: Column(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18, 10, 18, 10),
-                                      child: SingleChildScrollView(
-                                        child: TextFieldEx(
-                                          textInputAction: TextInputAction.next,
-                                          maxLines: 5,
-                                          controller: _textControllerLink,
-                                          decoration: InputDecoration(
-                                              labelText: tcontext
-                                                  .meta.profileUrlOrContent,
-                                              hintText: tcontext
-                                                  .meta.profileUrlOrContentHit),
-                                          onChanged: (text) {},
-                                          onEditingComplete: () async {
-                                            String url =
-                                                _textControllerLink.text.trim();
-                                            if (url.isNotEmpty ||
-                                                null != Uri.tryParse(url)) {
-                                              final userAgent =
-                                                  SettingManager.getConfig()
-                                                      .userAgent();
-                                              final result =
-                                                  await HttpUtils.httpGetTitle(
-                                                      url, userAgent);
-                                              if (result.error == null) {
-                                                if (_textControllerRemark.text
-                                                    .trim()
-                                                    .isEmpty) {
-                                                  _textControllerRemark.text =
-                                                      result.data!;
-                                                  setState(() {});
-                                                }
-                                              }
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18, 10, 18, 10),
-                                      child: TextFieldEx(
-                                        textInputAction: TextInputAction.done,
-                                        controller: _textControllerRemark,
-                                        decoration: InputDecoration(
-                                          labelText: tcontext.meta.remark,
-                                          hintText: tcontext.meta.required,
-                                          prefixIcon: const Icon(
-                                              Icons.edit_note_outlined),
-                                        ),
-                                        onSubmitted: (String? text) {
-                                          FocusScope.of(context).nextFocus();
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    FutureBuilder(
-                                      future: getGroupOptions(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<List<GroupItem>>
-                                              snapshot) {
-                                        List<GroupItem> data = snapshot.hasData
-                                            ? snapshot.data!
-                                            : [];
-                                        return Column(
-                                            children:
-                                                GroupItemCreator.createGroups(
-                                                    context, data));
-                                      },
-                                    ),
-                                  ]),
-                                ))))),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
@@ -279,9 +293,13 @@ class _AddProfileByUrlScreenState
     List<Tuple2<String?, String>> overwrite = [
       Tuple2("", tcontext.profilePatchMode.currentSelected),
       Tuple2(
-          kProfilePatchBuildinOverwrite, tcontext.profilePatchMode.overwrite),
-      Tuple2(kProfilePatchBuildinNoOverwrite,
-          tcontext.profilePatchMode.noOverwrite)
+        kProfilePatchBuildinOverwrite,
+        tcontext.profilePatchMode.overwrite,
+      ),
+      Tuple2(
+        kProfilePatchBuildinNoOverwrite,
+        tcontext.profilePatchMode.noOverwrite,
+      ),
     ];
     final items = ProfilePatchManager.getProfilePatchs();
     for (var item in items) {
@@ -290,44 +308,50 @@ class _AddProfileByUrlScreenState
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          textFormFieldOptions: GroupItemTextFieldOptions(
-              name: tcontext.meta.userAgent,
-              text: _userAgent,
-              textWidthPercent: 0.5,
-              onChanged: (String value) {
-                _userAgent = value;
-              })),
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.userAgent,
+          text: _userAgent,
+          textWidthPercent: 0.5,
+          onChanged: (String value) {
+            _userAgent = value;
+          },
+        ),
+      ),
       GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-              name: tcontext.meta.coreOverwrite,
-              selected: _patch,
-              tupleStrings: overwrite,
-              onPicker: (String? selected) async {
-                _patch = selected ?? "";
-                setState(() {});
-              })),
+        stringPickerOptions: GroupItemStringPickerOptions(
+          name: tcontext.meta.coreOverwrite,
+          selected: _patch,
+          tupleStrings: overwrite,
+          onPicker: (String? selected) async {
+            _patch = selected ?? "";
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-              name: tcontext.meta.updateInterval,
-              tips: tcontext.meta.updateInterval5mTips,
-              duration: _updateInterval,
-              showSeconds: false,
-              onPicker: (bool canceled, Duration? duration) async {
-                if (canceled) {
-                  return;
-                }
-                if (duration != null) {
-                  if (duration.inDays > 365) {
-                    duration = const Duration(days: 365);
-                  }
-                  if (duration.inMinutes < 5) {
-                    duration = const Duration(minutes: 5);
-                  }
-                }
+        timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+          name: tcontext.meta.updateInterval,
+          tips: tcontext.meta.updateInterval5mTips,
+          duration: _updateInterval,
+          showSeconds: false,
+          onPicker: (bool canceled, Duration? duration) async {
+            if (canceled) {
+              return;
+            }
+            if (duration != null) {
+              if (duration.inDays > 365) {
+                duration = const Duration(days: 365);
+              }
+              if (duration.inMinutes < 5) {
+                duration = const Duration(minutes: 5);
+              }
+            }
 
-                _updateInterval = duration;
-                setState(() {});
-              }))
+            _updateInterval = duration;
+            setState(() {});
+          },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

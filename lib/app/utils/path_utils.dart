@@ -51,8 +51,9 @@ class PathUtils {
   }
 
   static Future<String> profileDirNonPortable() async {
-    Directory? sharedDirectory =
-        await FlutterVpnService.getAppGroupDirectory(AppUtils.getGroupId());
+    Directory? sharedDirectory = await FlutterVpnService.getAppGroupDirectory(
+      AppUtils.getGroupId(),
+    );
     if (sharedDirectory != null) {
       if (!await sharedDirectory.exists()) {
         await sharedDirectory.create(recursive: true);

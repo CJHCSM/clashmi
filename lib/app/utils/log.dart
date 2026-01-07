@@ -133,8 +133,9 @@ class Log {
     printer: Printer(),
     filter: DevelopmentFilter(),
     output: _fileLogOutput,
-    level:
-        bool.fromEnvironment("dart.vm.product") ? Level.warning : Logger.level,
+    level: bool.fromEnvironment("dart.vm.product")
+        ? Level.warning
+        : Logger.level,
   );
 
   Log._();

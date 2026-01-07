@@ -59,8 +59,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
 
   //final ValueNotifier<String> _memory = ValueNotifier<String>(_kNoMemory);
   final ValueNotifier<String> _trafficSpeed = ValueNotifier<String>(_kNoSpeed);
-  final ValueNotifier<String> _trafficTotal =
-      ValueNotifier<String>(_kNoTrafficTotal);
+  final ValueNotifier<String> _trafficTotal = ValueNotifier<String>(
+    _kNoTrafficTotal,
+  );
   final ValueNotifier<String> _proxyNow = ValueNotifier<String>("");
   bool _proxyNowUpdating = false;
 
@@ -109,7 +110,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           if (state != FlutterVpnServiceState.invalid &&
               state != FlutterVpnServiceState.disconnected) {
             MoveToBackgroundUtils.moveToBackground(
-                duration: const Duration(milliseconds: 300));
+              duration: const Duration(milliseconds: 300),
+            );
             _quickActionWorking = false;
             return;
           }
@@ -117,24 +119,22 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           bool ok = await start("quickAction");
           if (ok) {
             MoveToBackgroundUtils.moveToBackground(
-                duration: const Duration(milliseconds: 300));
+              duration: const Duration(milliseconds: 300),
+            );
           }
         } else if (shortcutType == disconnect) {
           if (state == FlutterVpnServiceState.connected) {
             await stop();
           }
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
         _quickActionWorking = false;
       });
 
       await _quickActions!.setShortcutItems(<ShortcutItem>[
-        ShortcutItem(
-          type: connect,
-          localizedTitle: 'ON',
-          icon: 'ic_launcher',
-        ),
+        ShortcutItem(type: connect, localizedTitle: 'ON', icon: 'ic_launcher'),
         ShortcutItem(
           type: disconnect,
           localizedTitle: 'OFF',
@@ -159,12 +159,15 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       if (currentProfile.upload != 0 ||
           currentProfile.download != 0 ||
           currentProfile.total != 0) {
-        String upload =
-            ClashHttpApi.convertTrafficToStringDouble(currentProfile.upload);
-        String download =
-            ClashHttpApi.convertTrafficToStringDouble(currentProfile.download);
-        String total =
-            ClashHttpApi.convertTrafficToStringDouble(currentProfile.total);
+        String upload = ClashHttpApi.convertTrafficToStringDouble(
+          currentProfile.upload,
+        );
+        String download = ClashHttpApi.convertTrafficToStringDouble(
+          currentProfile.download,
+        );
+        String total = ClashHttpApi.convertTrafficToStringDouble(
+          currentProfile.total,
+        );
         tranffic = "↑ $upload ↓ $download/$total";
       }
       if (currentProfile.expire.isNotEmpty) {
@@ -178,57 +181,64 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(children: [
-                Container(
+              Row(
+                children: [
+                  Container(
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
                       color: connected ? Colors.green : Colors.grey,
                       shape: BoxShape.circle,
-                    )),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  connected
-                      ? tcontext.meta.connected
-                      : tcontext.meta.disconnected,
-                  textAlign: TextAlign.left,
-                ),
-              ]),
-              Stack(children: [
-                SizedBox(
-                  width: 60,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: Switch.adaptive(
-                      value: _state == FlutterVpnServiceState.connected,
-                      focusNode: _focusNodeConnect,
-                      onChanged: (bool value) async {
-                        if (value) {
-                          await start("switch");
-                        } else {
-                          await stop();
-                        }
-                      },
                     ),
                   ),
-                ),
-                Positioned(
+                  SizedBox(width: 10),
+                  Text(
+                    connected
+                        ? tcontext.meta.connected
+                        : tcontext.meta.disconnected,
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  SizedBox(
+                    width: 60,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch.adaptive(
+                        value: _state == FlutterVpnServiceState.connected,
+                        focusNode: _focusNodeConnect,
+                        onChanged: (bool value) async {
+                          if (value) {
+                            await start("switch");
+                          } else {
+                            await stop();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     left: 8,
                     top: 12,
                     child: SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: _state == FlutterVpnServiceState.connecting ||
-                                _state ==
-                                    FlutterVpnServiceState.disconnecting ||
-                                _state == FlutterVpnServiceState.reasserting
-                            ? const RepaintBoundary(
-                                child: CircularProgressIndicator(
-                                    color: ThemeDefine.kColorGreenBright))
-                            : null)),
-              ]),
+                      width: 25,
+                      height: 25,
+                      child:
+                          _state == FlutterVpnServiceState.connecting ||
+                              _state == FlutterVpnServiceState.disconnecting ||
+                              _state == FlutterVpnServiceState.reasserting
+                          ? const RepaintBoundary(
+                              child: CircularProgressIndicator(
+                                color: ThemeDefine.kColorGreenBright,
+                              ),
+                            )
+                          : null,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           /*connected
@@ -240,24 +250,28 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
                 ])
               : const SizedBox.shrink(),*/
           connected
-              ? Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  ValueListenableBuilder<String>(
-                    builder: _buildWithTrafficSpeedValue,
-                    valueListenable: _trafficTotal,
-                  ),
-                ])
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ValueListenableBuilder<String>(
+                      builder: _buildWithTrafficSpeedValue,
+                      valueListenable: _trafficTotal,
+                    ),
+                  ],
+                )
               : const SizedBox.shrink(),
           connected
-              ? Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  ValueListenableBuilder<String>(
-                    builder: _buildWithTrafficSpeedValue,
-                    valueListenable: _trafficSpeed,
-                  ),
-                ])
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ValueListenableBuilder<String>(
+                      builder: _buildWithTrafficSpeedValue,
+                      valueListenable: _trafficSpeed,
+                    ),
+                  ],
+                )
               : const SizedBox.shrink(),
-          SizedBox(
-            height: connected ? 10 : 0,
-          ),
+          SizedBox(height: connected ? 10 : 0),
         ],
       ),
       Container(
@@ -266,13 +280,17 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         child: SegmentedElevatedButton(
           segments: [
             SegemntedElevatedButtonItem(
-                value: ClashConfigsMode.rule.index, text: tcontext.meta.rule),
+              value: ClashConfigsMode.rule.index,
+              text: tcontext.meta.rule,
+            ),
             SegemntedElevatedButtonItem(
-                value: ClashConfigsMode.global.index,
-                text: tcontext.meta.global),
+              value: ClashConfigsMode.global.index,
+              text: tcontext.meta.global,
+            ),
             SegemntedElevatedButtonItem(
-                value: ClashConfigsMode.direct.index,
-                text: tcontext.meta.direct)
+              value: ClashConfigsMode.direct.index,
+              text: tcontext.meta.direct,
+            ),
           ],
           selected: ClashSettingManager.getConfigsMode().index,
           padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
@@ -293,209 +311,234 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       ListTile(
         title: Text(tcontext.meta.myProfiles),
         subtitle: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              currentProfile != null
-                  ? Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: Text(currentProfileName,
-                          style: TextStyle(
-                            color: ThemeDefine.kColorBlue,
-                          )))
-                  : SizedBox.shrink(),
-              tranffic.isNotEmpty
-                  ? Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: Text(tranffic,
-                          style: TextStyle(
-                            color: ThemeDefine.kColorBlue,
-                          )))
-                  : SizedBox.shrink(),
-              tranfficExpire != null
-                  ? Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: Text(
-                        tranfficExpire.item2,
-                        style: TextStyle(
-                            color: tranfficExpire.item1
-                                ? Colors.red
-                                : ThemeDefine.kColorBlue,
-                            fontSize: 12),
-                      ))
-                  : SizedBox.shrink(),
-            ]),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            currentProfile != null
+                ? Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      currentProfileName,
+                      style: TextStyle(color: ThemeDefine.kColorBlue),
+                    ),
+                  )
+                : SizedBox.shrink(),
+            tranffic.isNotEmpty
+                ? Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      tranffic,
+                      style: TextStyle(color: ThemeDefine.kColorBlue),
+                    ),
+                  )
+                : SizedBox.shrink(),
+            tranfficExpire != null
+                ? Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      tranfficExpire.item2,
+                      style: TextStyle(
+                        color: tranfficExpire.item1
+                            ? Colors.red
+                            : ThemeDefine.kColorBlue,
+                        fontSize: 12,
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
+          ],
+        ),
         trailing: SizedBox(
-            width: 70,
-            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          width: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
               SizedBox(
                 width: 45,
                 height: 45,
                 child: InkWell(
-                    onTap: () async {
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: ProfilesBoardScreen.routSettings(),
-                              builder: (context) => ProfilesBoardScreen(
-                                    navigateToAdd: true,
-                                  )));
-                      setState(() {});
-                    },
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
-                    )),
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: ProfilesBoardScreen.routSettings(),
+                        builder: (context) =>
+                            ProfilesBoardScreen(navigateToAdd: true),
+                      ),
+                    );
+                    setState(() {});
+                  },
+                  child: Icon(Icons.add, size: 30),
+                ),
               ),
               SizedBox(width: 5),
-              Icon(
-                Icons.keyboard_arrow_right,
-                size: 20,
-              )
-            ])),
+              Icon(Icons.keyboard_arrow_right, size: 20),
+            ],
+          ),
+        ),
         minVerticalPadding: 20,
         onTap: () async {
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: ProfilesBoardScreen.routSettings(),
-                  builder: (context) => ProfilesBoardScreen()));
+            context,
+            MaterialPageRoute(
+              settings: ProfilesBoardScreen.routSettings(),
+              builder: (context) => ProfilesBoardScreen(),
+            ),
+          );
           setState(() {});
         },
       ),
     ];
 
     if (connected) {
-      widgets.add(ListTile(
-        title: Text(tcontext.meta.proxy),
-        subtitle: ValueListenableBuilder<String>(
-          builder: _buildWithValue,
-          valueListenable: _proxyNow,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
-        minVerticalPadding: 20,
-        onTap: () async {
-          await Navigator.push(
+      widgets.add(
+        ListTile(
+          title: Text(tcontext.meta.proxy),
+          subtitle: ValueListenableBuilder<String>(
+            builder: _buildWithValue,
+            valueListenable: _proxyNow,
+          ),
+          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
+          minVerticalPadding: 20,
+          onTap: () async {
+            await Navigator.push(
               context,
               MaterialPageRoute(
-                  settings: ProxyBoardScreen.routSettings(),
-                  builder: (context) => ProxyBoardScreen()));
-          _updateProxyNow();
-        },
-      ));
-      widgets.add(ListTile(
-        title: Text(tcontext.meta.board),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
-        minVerticalPadding: 20,
-        onTap: () async {
-          var setting = SettingManager.getConfig();
-          if (setting.boardOnline && setting.boardUrl.isNotEmpty) {
-            final uri = Uri.tryParse(setting.boardUrl);
-            if (uri == null) {
-              final msg = "${tcontext.meta.urlInvalid}:${setting.boardUrl}";
-              DialogUtils.showAlertDialog(context, msg);
-              return;
-            }
-            final shortUrl = Uri(
-              scheme: uri.scheme,
-              userInfo: uri.userInfo,
-              host: uri.host,
-              port: uri.port,
+                settings: ProxyBoardScreen.routSettings(),
+                builder: (context) => ProxyBoardScreen(),
+              ),
             );
-            String host =
-                Platform.isIOS ? await _getLocalAddress() : "127.0.0.1";
-            String secret = await ClashHttpApi.getSecret();
-            final url =
-                '${shortUrl.toString()}/?hostname=$host&port=${ClashSettingManager.getControlPort()}&secret=$secret&http=true';
-            if (!context.mounted) {
-              return;
-            }
-            await WebviewHelper.loadUrl(context, url, "onlineboard",
-                title: tcontext.meta.board, inappWebViewOpenExternal: false);
-            return;
-          }
-          ReturnResult result = await Zashboard.start();
-          if (result.error != null) {
-            if (!context.mounted) {
-              return;
-            }
-            DialogUtils.showAlertDialog(context, result.error!.message);
-            return;
-          }
-          String url = result.data!;
-          if (!context.mounted) {
-            return;
-          }
-          await WebviewHelper.loadUrl(context, url, "board",
-              title: tcontext.meta.board, inappWebViewOpenExternal: false);
-          if (PlatformUtils.isMobile()) {
-            await Zashboard.stop();
-          }
-          _updateProxyNow();
-        },
-      ));
-
-      widgets.add(ListTile(
-        title: Text(tcontext.meta.runtimeProfile),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
+            _updateProxyNow();
+          },
         ),
-        minVerticalPadding: 20,
-        onTap: () async {
-          late String content;
-          try {
-            final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
-            content = await File(path).readAsString();
-          } catch (err) {
+      );
+      widgets.add(
+        ListTile(
+          title: Text(tcontext.meta.board),
+          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
+          minVerticalPadding: 20,
+          onTap: () async {
+            var setting = SettingManager.getConfig();
+            if (setting.boardOnline && setting.boardUrl.isNotEmpty) {
+              final uri = Uri.tryParse(setting.boardUrl);
+              if (uri == null) {
+                final msg = "${tcontext.meta.urlInvalid}:${setting.boardUrl}";
+                DialogUtils.showAlertDialog(context, msg);
+                return;
+              }
+              final shortUrl = Uri(
+                scheme: uri.scheme,
+                userInfo: uri.userInfo,
+                host: uri.host,
+                port: uri.port,
+              );
+              String host = Platform.isIOS
+                  ? await _getLocalAddress()
+                  : "127.0.0.1";
+              String secret = await ClashHttpApi.getSecret();
+              final url =
+                  '${shortUrl.toString()}/?hostname=$host&port=${ClashSettingManager.getControlPort()}&secret=$secret&http=true';
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "onlineboard",
+                title: tcontext.meta.board,
+                inappWebViewOpenExternal: false,
+              );
+              return;
+            }
+            ReturnResult result = await Zashboard.start();
+            if (result.error != null) {
+              if (!context.mounted) {
+                return;
+              }
+              DialogUtils.showAlertDialog(context, result.error!.message);
+              return;
+            }
+            String url = result.data!;
             if (!context.mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
-            return;
-          }
-          if (!context.mounted) {
-            return;
-          }
-          await Navigator.push(
+            await WebviewHelper.loadUrl(
+              context,
+              url,
+              "board",
+              title: tcontext.meta.board,
+              inappWebViewOpenExternal: false,
+            );
+            if (PlatformUtils.isMobile()) {
+              await Zashboard.stop();
+            }
+            _updateProxyNow();
+          },
+        ),
+      );
+
+      widgets.add(
+        ListTile(
+          title: Text(tcontext.meta.runtimeProfile),
+          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
+          minVerticalPadding: 20,
+          onTap: () async {
+            late String content;
+            try {
+              final path = await PathUtils.serviceCoreRuntimeProfileFilePath();
+              content = await File(path).readAsString();
+            } catch (err) {
+              if (!context.mounted) {
+                return;
+              }
+              DialogUtils.showAlertDialog(
+                context,
+                err.toString(),
+                showCopy: true,
+                showFAQ: true,
+                withVersion: true,
+              );
+              return;
+            }
+            if (!context.mounted) {
+              return;
+            }
+            await Navigator.push(
               context,
               MaterialPageRoute(
-                  settings: FileViewScreen.routSettings(),
-                  builder: (context) => FileViewScreen(
-                        title: tcontext.meta.runtimeProfile,
-                        content: content,
-                      )));
-        },
-      ));
+                settings: FileViewScreen.routSettings(),
+                builder: (context) => FileViewScreen(
+                  title: tcontext.meta.runtimeProfile,
+                  content: content,
+                ),
+              ),
+            );
+          },
+        ),
+      );
     }
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) {
-          return widgets[index];
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(
-            height: 1,
-            thickness: 0.3,
-          );
-        },
-        itemCount: widgets.length,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (_, index) {
+            return widgets[index];
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(height: 1, thickness: 0.3);
+          },
+          itemCount: widgets.length,
+        ),
       ),
-    ));
+    );
   }
 
   Widget _buildWithTrafficSpeedValue(
-      BuildContext context, String value, Widget? child) {
+    BuildContext context,
+    String value,
+    Widget? child,
+  ) {
     return SizedBox(
       child: Text(
         value,
@@ -507,11 +550,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
 
   Widget _buildWithValue(BuildContext context, String value, Widget? child) {
     return SizedBox(
-      child: Text(value,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            color: ThemeDefine.kColorBlue,
-          )),
+      child: Text(
+        value,
+        textAlign: TextAlign.start,
+        style: TextStyle(color: ThemeDefine.kColorBlue),
+      ),
     );
   }
 
@@ -519,8 +562,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     String ipLocal = "127.0.0.1";
     String ipInterface = ipLocal;
 
-    List<NetInterfacesInfo> interfaces =
-        await NetworkUtils.getInterfaces(addressType: InternetAddressType.IPv4);
+    List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces(
+      addressType: InternetAddressType.IPv4,
+    );
     if (interfaces.isNotEmpty) {
       ipInterface = interfaces.first.address;
     }
@@ -554,10 +598,12 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     final currentProfile = ProfileManager.getCurrent();
     if (currentProfile == null) {
       await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: ProfilesBoardScreen.routSettings(),
-              builder: (context) => ProfilesBoardScreen()));
+        context,
+        MaterialPageRoute(
+          settings: ProfilesBoardScreen.routSettings(),
+          builder: (context) => ProfilesBoardScreen(),
+        ),
+      );
       setState(() {});
       return false;
     }
@@ -576,8 +622,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           setState(() {});
           return true;
         }
-        final result =
-            await FlutterVpnService.authorizeService(servicePath, password);
+        final result = await FlutterVpnService.authorizeService(
+          servicePath,
+          password,
+        );
         if (result != null) {
           if (!mounted) {
             return false;
@@ -623,7 +671,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       if (ok) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
       }
     });
@@ -634,7 +683,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       await stop();
       if (background) {
         MoveToBackgroundUtils.moveToBackground(
-            duration: const Duration(milliseconds: 300));
+          duration: const Duration(milliseconds: 300),
+        );
       }
     });
   }
@@ -646,14 +696,17 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       if (ok) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
       }
     });
   }
 
   Future<void> _onStateChanged(
-      FlutterVpnServiceState state, Map<String, String> params) async {
+    FlutterVpnServiceState state,
+    Map<String, String> params,
+  ) async {
     if (_state == state) {
       return;
     }
@@ -803,7 +856,8 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       _proxyNowUpdating = true;
 
       final result = await ClashHttpApi.getNowProxy(
-          ClashSettingManager.getConfig().Mode ?? ClashConfigsMode.rule.name);
+        ClashSettingManager.getConfig().Mode ?? ClashConfigsMode.rule.name,
+      );
       if (result.error != null || result.data!.isEmpty) {
         _proxyNow.value = "";
       } else {
@@ -841,14 +895,8 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
     var widgets = [
       ListTile(
         title: Text(tcontext.meta.settingApp),
-        leading: Icon(
-          Icons.settings,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.settings, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           await GroupHelper.showAppSettings(context);
@@ -856,14 +904,8 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
       ),
       ListTile(
         title: Text(tcontext.meta.settingCore),
-        leading: Icon(
-          Icons.settings,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.settings, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           await GroupHelper.showClashSettings(context);
@@ -871,20 +913,17 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
       ),
       ListTile(
         title: Text(tcontext.meta.coreLog),
-        leading: Icon(
-          Icons.set_meal,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.set_meal, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           String content = "";
           final filePath = await PathUtils.serviceLogFilePath();
-          final item =
-              await FileUtils.readAsStringReverse(filePath, 20 * 1024, false);
+          final item = await FileUtils.readAsStringReverse(
+            filePath,
+            20 * 1024,
+            false,
+          );
           if (item != null) {
             content = item.item1;
           }
@@ -892,25 +931,22 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
             return;
           }
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: RichtextViewScreen.routSettings(),
-                  builder: (context) => RichtextViewScreen(
-                      title: tcontext.meta.coreLog,
-                      file: "",
-                      content: content)));
+            context,
+            MaterialPageRoute(
+              settings: RichtextViewScreen.routSettings(),
+              builder: (context) => RichtextViewScreen(
+                title: tcontext.meta.coreLog,
+                file: "",
+                content: content,
+              ),
+            ),
+          );
         },
       ),
       ListTile(
         title: Text(tcontext.meta.backupAndSync),
-        leading: Icon(
-          Icons.backup,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.backup, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           GroupHelper.showBackupAndSync(context);
@@ -921,15 +957,8 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
       widgets.add(
         ListTile(
           title: Text(tcontext.meta.hasNewVersion(p: versionCheck.version)),
-          leading: Icon(
-            Icons.fiber_new_outlined,
-            size: 20,
-            color: Colors.red,
-          ),
-          trailing: Icon(
-            Icons.keyboard_arrow_right,
-            size: 20,
-          ),
+          leading: Icon(Icons.fiber_new_outlined, size: 20, color: Colors.red),
+          trailing: Icon(Icons.keyboard_arrow_right, size: 20),
           minVerticalPadding: 22,
           onTap: () async {
             GroupHelper.newVersionUpdate(context);
@@ -941,14 +970,8 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
     widgets.addAll([
       ListTile(
         title: Text(tcontext.meta.help),
-        leading: Icon(
-          Icons.help,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.help, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           await GroupHelper.showHelp(context);
@@ -956,42 +979,36 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
       ),
       ListTile(
         title: Text(tcontext.meta.about),
-        leading: Icon(
-          Icons.info,
-          size: 20,
-        ),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          size: 20,
-        ),
+        leading: Icon(Icons.info, size: 20),
+        trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: AboutScreen.routSettings(),
-                  builder: (context) => AboutScreen()));
+            context,
+            MaterialPageRoute(
+              settings: AboutScreen.routSettings(),
+              builder: (context) => AboutScreen(),
+            ),
+          );
         },
-      )
+      ),
     ]);
 
     return Card(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) {
-          return widgets[index];
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(
-            height: 1,
-            thickness: 0.3,
-          );
-        },
-        itemCount: widgets.length,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (_, index) {
+            return widgets[index];
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(height: 1, thickness: 0.3);
+          },
+          itemCount: widgets.length,
+        ),
       ),
-    ));
+    );
   }
 }

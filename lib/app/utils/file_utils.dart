@@ -9,7 +9,9 @@ import 'package:tuple/tuple.dart';
 
 abstract final class FileUtils {
   static Future<String?> readAsStringWithMaxLength(
-      String filePath, int? maxBytesLength) async {
+    String filePath,
+    int? maxBytesLength,
+  ) async {
     var file = File(filePath);
 
     try {
@@ -35,8 +37,11 @@ abstract final class FileUtils {
     return null;
   }
 
-  static Future<Tuple2<String, bool>?> readAsString(String filePath,
-      int? maxBytesLength, bool splitIfMoreThanMaxLength) async {
+  static Future<Tuple2<String, bool>?> readAsString(
+    String filePath,
+    int? maxBytesLength,
+    bool splitIfMoreThanMaxLength,
+  ) async {
     var file = File(filePath);
 
     try {
@@ -71,8 +76,11 @@ abstract final class FileUtils {
     return null;
   }
 
-  static Future<Tuple2<String, bool>?> readAsStringReverse(String filePath,
-      int? maxBytesLength, bool splitIfMoreThanMaxLength) async {
+  static Future<Tuple2<String, bool>?> readAsStringReverse(
+    String filePath,
+    int? maxBytesLength,
+    bool splitIfMoreThanMaxLength,
+  ) async {
     var file = File(filePath);
 
     try {
@@ -108,7 +116,9 @@ abstract final class FileUtils {
   }
 
   static Future<Tuple2<Uint8List, bool>?> readAsUint8List(
-      String filePath, int? maxBytesLength) async {
+    String filePath,
+    int? maxBytesLength,
+  ) async {
     var file = File(filePath);
 
     try {
@@ -136,7 +146,9 @@ abstract final class FileUtils {
   }
 
   static Future<Tuple2<Uint8List, bool>?> readAsUint8ListReverse(
-      String filePath, int? maxLength) async {
+    String filePath,
+    int? maxLength,
+  ) async {
     var file = File(filePath);
 
     try {
@@ -221,8 +233,10 @@ abstract final class FileUtils {
   }
 
   static Future<bool> openDirectory(String path) async {
-    final rs =
-        await OpenDir().openNativeDir(path: path, highlightedFileName: "");
+    final rs = await OpenDir().openNativeDir(
+      path: path,
+      highlightedFileName: "",
+    );
     if (null == rs) {
       return false;
     }
@@ -230,8 +244,11 @@ abstract final class FileUtils {
     return rs;
   }
 
-  static List<String> recursionFile(String dirPath,
-      {bool recursive = false, Set<String>? extensionFilter}) {
+  static List<String> recursionFile(
+    String dirPath, {
+    bool recursive = false,
+    Set<String>? extensionFilter,
+  }) {
     Directory dir = Directory(dirPath);
     if (!dir.existsSync()) {
       return [];
@@ -253,8 +270,11 @@ abstract final class FileUtils {
           }
         } else if (entity is Directory && recursive) {
           var subDir = entity;
-          List<String> filesInSubDir = recursionFile(subDir.path,
-              recursive: true, extensionFilter: extensionFilter);
+          List<String> filesInSubDir = recursionFile(
+            subDir.path,
+            recursive: true,
+            extensionFilter: extensionFilter,
+          );
 
           if (filesInSubDir.isNotEmpty) {
             allFiles.addAll(filesInSubDir);
@@ -293,7 +313,9 @@ abstract final class FileUtils {
   }
 
   static Future<String?> readLastLineStartWith(
-      String filePath, String startsWith) async {
+    String filePath,
+    String startsWith,
+  ) async {
     if (filePath.isEmpty) return null;
 
     try {
