@@ -73,7 +73,7 @@ class _UserAgreementScreenState
                       SizedBox(
                         height: 45.0,
                         child: ElevatedButton(
-                          autofocus: setting.ui.tvMode,
+                          autofocus: true,
                           child: Text(
                             tcontext.UserAgreementScreen.agreeAndContinue,
                           ),
@@ -97,8 +97,15 @@ class _UserAgreementScreenState
     if (_res.isNotEmpty) {
       return _res;
     }
+    final languageCode = WidgetsBinding
+        .instance
+        .platformDispatcher
+        .locale
+        .languageCode
+        .toLowerCase();
+    bool isChinese = languageCode.contains('zh');
 
-    _res = await AssetsUtils.loadUserAgreement();
+    _res = await AssetsUtils.loadUserAgreement(isChinese);
     return _res;
   }
 }

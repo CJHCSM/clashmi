@@ -9,13 +9,22 @@ abstract class AssetsUtils {
     return await file.exists();
   }
 
-  static String userAgreementPath() {
-    return 'assets/txts/user_agreement_en.txt';
+  static String userAgreementPath(bool isChinese) {
+    return isChinese
+        ? 'assets/txts/user_agreement_cn.txt'
+        : 'assets/txts/user_agreement_en.txt';
   }
 
-  static Future<String> loadUserAgreement() async {
+  static String privacyPolicyPath() {
+    return 'assets/txts/privacy_policy_en.txt';
+  }
+
+  static Future<String> loadUserAgreement(bool isChinese) async {
     try {
-      return await rootBundle.loadString(userAgreementPath(), cache: false);
+      return await rootBundle.loadString(
+        userAgreementPath(isChinese),
+        cache: false,
+      );
     } catch (err) {
       return "loading user_agreement_en.txt failed: $err";
     }

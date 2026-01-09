@@ -43,9 +43,10 @@ String? startFailedReasonDesc;
 void main(List<String> args) async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
+  await LocaleSettings.useDeviceLocale();
   await VPNService.initABI();
   await RemoteConfigManager.init();
-  await LocaleSettings.useDeviceLocale();
+  await SettingManager.init();
 
   SemanticsBinding.instance.ensureSemantics();
 
@@ -153,7 +154,6 @@ Future<void> run(List<String> args) async {
       );
     }
 
-    await SettingManager.init();
     await AutoUpdateManager.init();
     if (PlatformUtils.isMobile()) {
       if (SettingManager.getConfig().ui.autoOrientation) {
