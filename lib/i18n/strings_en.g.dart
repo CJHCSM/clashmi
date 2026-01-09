@@ -474,6 +474,9 @@ class TranslationsMetaEn {
 	/// en: 'Please restart Clash Mi as administrator'
 	String get launchAtStartupRunAsAdmin => 'Please restart Clash Mi as administrator';
 
+	/// en: 'The TUN mode requires system administrator permissions, please restart the app as an administrator'
+	String get tunModeRunAsAdmin => 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
+
 	/// en: 'Portable Mode'
 	String get portableMode => 'Portable Mode';
 
@@ -1093,6 +1096,7 @@ extension on Translations {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'Launch at Startup',
 			'meta.launchAtStartupRunAsAdmin' => 'Please restart Clash Mi as administrator',
+			'meta.tunModeRunAsAdmin' => 'The TUN mode requires system administrator permissions, please restart the app as an administrator',
 			'meta.portableMode' => 'Portable Mode',
 			'meta.portableModeDisableTips' => 'If you need to exit portable mode, please exit [clashmi] and manually delete the [portable] folder in the same directory as [clashmi.exe]',
 			'meta.systemProxy' => 'System Proxy',

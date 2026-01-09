@@ -237,6 +237,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'اجرا در راه‌اندازی';
 	@override String get launchAtStartupRunAsAdmin => 'لطفاً Clash Mi را به عنوان مدیر راه اندازی مجدد کنید';
+	@override String get tunModeRunAsAdmin => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 	@override String get portableMode => 'حالت قابل‌حمل';
 	@override String get portableModeDisableTips => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید';
 	@override String get systemProxy => 'پروکسی سیستم';
@@ -569,6 +570,7 @@ extension on TranslationsFa {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'اجرا در راه‌اندازی',
 			'meta.launchAtStartupRunAsAdmin' => 'لطفاً Clash Mi را به عنوان مدیر راه اندازی مجدد کنید',
+			'meta.tunModeRunAsAdmin' => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید',
 			'meta.portableMode' => 'حالت قابل‌حمل',
 			'meta.portableModeDisableTips' => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [clashmi] خارج شده و به‌صورت دستی پوشه [portable] هم مسیر با فایل [clashmi.exe] را حذف کنید',
 			'meta.systemProxy' => 'پروکسی سیستم',

@@ -656,6 +656,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         err.message = t.meta.requestNeedsUserApproval;
       } else if (err.message.contains("FullDiskAccessPermissionRequired")) {
         err.message = t.meta.FullDiskAccessPermissionRequired;
+      } else if (err.message.contains(
+        "configure tun interface: Access is denied",
+      )) {
+        err.message += "\n${t.meta.tunModeRunAsAdmin}";
       }
 
       DialogUtils.showAlertDialog(context, err.message);
