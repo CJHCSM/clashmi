@@ -1,6 +1,5 @@
 // ignore_for_file: unused_catch_stack
 
-import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/assets_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
@@ -31,7 +30,7 @@ class _UserAgreementScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var setting = SettingManager.getConfig();
+
     return PopScope(
       canPop: false,
       child: Scaffold(

@@ -86,12 +86,6 @@ dependencies:
     git:
       url: https://github.com/KaringX/move_to_background.git
       ref: 9720fa00946af134caf04b05702230d4329f857f
-  country: # 4.1.9
-    #path: ../country/country/
-    git:
-      url: https://github.com/KaringX/country.git
-      ref: 972934851fd8eeb08e9ea6fead33829972fbf09f
-      path: country
   window_manager: #0.5.0 #pc only
     #path: ../window_manager/packages/
     git:

@@ -45,7 +45,7 @@ class _LanguageSettingsScreenState
     super.initState();
   }
 
-  _loadSearch(String? textVal) {
+  /*_loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       final data = _langData.where((locale) {
         var lang = t.locales[locale.languageTag]!;
@@ -63,7 +63,7 @@ class _LanguageSettingsScreenState
     _searchController.clear();
     _searchedData = _langData;
     setState(() {});
-  }
+  }*/
 
   @override
   void dispose() {

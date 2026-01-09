@@ -250,15 +250,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.2"
-  country:
-    dependency: "direct main"
-    description:
-      path: country
-      ref: "972934851fd8eeb08e9ea6fead33829972fbf09f"
-      resolved-ref: "972934851fd8eeb08e9ea6fead33829972fbf09f"
-      url: "https://github.com/KaringX/country.git"
-    source: git
-    version: "6.0.2"
   cross_file:
     dependency: transitive
     description:
