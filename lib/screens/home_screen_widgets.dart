@@ -942,6 +942,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
                 title: tcontext.meta.coreLog,
                 file: "",
                 content: content,
+                showAction: true,
               ),
             ),
           );
