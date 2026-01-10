@@ -656,6 +656,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         err.message = t.meta.requestNeedsUserApproval;
       } else if (err.message.contains("FullDiskAccessPermissionRequired")) {
         err.message = t.meta.FullDiskAccessPermissionRequired;
+      } else if (err.message.contains(
+        "configure tun interface: Access is denied",
+      )) {
+        err.message += "\n${t.meta.tunModeRunAsAdmin}";
       }
 
       DialogUtils.showAlertDialog(context, err.message);
@@ -938,6 +942,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
                 title: tcontext.meta.coreLog,
                 file: "",
                 content: content,
+                showAction: true,
               ),
             ),
           );
@@ -945,7 +950,7 @@ class HomeScreenWidgetPart2 extends StatelessWidget {
       ),
       ListTile(
         title: Text(tcontext.meta.backupAndSync),
-        leading: Icon(Icons.backup, size: 20),
+        leading: Icon(Icons.cloud_sync_outlined, size: 20),
         trailing: Icon(Icons.keyboard_arrow_right, size: 20),
         minVerticalPadding: 22,
         onTap: () async {

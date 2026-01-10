@@ -2,7 +2,7 @@ name: clashmi
 description: clashmi
 
 publish_to: none 
-version: 1.0.15+191
+version: 1.0.16+200
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -16,8 +16,8 @@ dependencies:
 
   cupertino_icons: 1.0.8
   dash_flags: 0.1.1
-  connectivity_plus: 6.1.5
-  package_info_plus: 8.3.1
+  connectivity_plus: 7.0.0
+  package_info_plus: 9.0.0
   class_to_string: 1.2.0
   ffi: 2.1.4
   url_launcher: 6.3.2
@@ -86,12 +86,6 @@ dependencies:
     git:
       url: https://github.com/KaringX/move_to_background.git
       ref: 9720fa00946af134caf04b05702230d4329f857f
-  country: # 4.1.9
-    #path: ../country/country/
-    git:
-      url: https://github.com/KaringX/country.git
-      ref: 972934851fd8eeb08e9ea6fead33829972fbf09f
-      path: country
   window_manager: #0.5.0 #pc only
     #path: ../window_manager/packages/
     git:
@@ -105,7 +99,7 @@ dependencies:
       #ref: master
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.3
+  flutter_launcher_icons: 0.14.4
   flutter_test:
     sdk: flutter
 

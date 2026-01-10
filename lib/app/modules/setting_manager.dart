@@ -12,7 +12,7 @@ import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
-import 'package:country/country.dart' as country;
+
 import 'package:libclash_vpn_service/proxy_manager.dart';
 
 class SettingConfigItemUI {
@@ -214,22 +214,6 @@ class SettingConfig {
     SettingConfig config = SettingConfig();
     config.fromJson(map);
     return config;
-  }
-
-  void clear() {}
-
-  country.Country? currentCountry() {
-    final data = country.Countries.values.where((country) {
-      return false;
-    }).toList();
-    if (data.isEmpty) {
-      return null;
-    }
-    return data[0];
-  }
-
-  static String languageTagForCountry() {
-    return LocaleSettings.currentLocale.languageTag.replaceAll("-", "_");
   }
 
   static bool getAutoSetSystemProxyDefault() {

@@ -237,6 +237,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get userAgent => 'UserAgent';
 	@override String get launchAtStartup => 'إطلاق عند بدء التشغيل';
 	@override String get launchAtStartupRunAsAdmin => 'يرجى إعادة تشغيل Clash Mi كمسؤول';
+	@override String get tunModeRunAsAdmin => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
 	@override String get portableMode => 'الوضع المحمول';
 	@override String get portableModeDisableTips => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]';
 	@override String get systemProxy => 'وكيل النظام';
@@ -569,6 +570,7 @@ extension on TranslationsAr {
 			'meta.userAgent' => 'UserAgent',
 			'meta.launchAtStartup' => 'إطلاق عند بدء التشغيل',
 			'meta.launchAtStartupRunAsAdmin' => 'يرجى إعادة تشغيل Clash Mi كمسؤول',
+			'meta.tunModeRunAsAdmin' => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول',
 			'meta.portableMode' => 'الوضع المحمول',
 			'meta.portableModeDisableTips' => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [clashmi] وحذف المجلد [portable] يدويًا في نفس الدليل مثل [clashmi.exe]',
 			'meta.systemProxy' => 'وكيل النظام',
