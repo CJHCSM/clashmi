@@ -1192,6 +1192,8 @@ class RawConfig {
   bool? OverWriteRuleProviders;
   @JsonKey(name: 'rule-providers')
   Map<String, dynamic>? RuleProviders;
+  @JsonKey(name: 'overwrite-rules')
+  bool? OverWriteRules;
   //map[string]map[string]any ProxyProvider  `yaml:"proxy-providers" json:"proxy-providers"`
   //map[string]map[string]any RuleProvider   `yaml:"rule-providers" json:"rule-providers"`
   //[]map[string]any Proxy                   `yaml:"proxies" json:"proxies"`

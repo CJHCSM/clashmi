@@ -636,6 +636,7 @@ RawConfig _$RawConfigFromJson(Map<String, dynamic> json) => RawConfig(
     )
       ..OverWriteRuleProviders = json['overwrite-rule-providers'] as bool?
       ..RuleProviders = json['rule-providers'] as Map<String, dynamic>?
+      ..OverWriteRules = json['overwrite-rules'] as bool?
       ..OverWriteHosts = json['overwrite-hosts'] as bool?;
 
 Map<String, dynamic> _$RawConfigToJson(RawConfig instance) => <String, dynamic>{
@@ -686,6 +687,7 @@ Map<String, dynamic> _$RawConfigToJson(RawConfig instance) => <String, dynamic>{
       'disable-keep-alive': instance.DisableKeepAlive,
       'overwrite-rule-providers': instance.OverWriteRuleProviders,
       'rule-providers': instance.RuleProviders,
+      'overwrite-rules': instance.OverWriteRules,
       'listeners': instance.Listeners,
       'overwrite-hosts': instance.OverWriteHosts,
       'hosts': instance.Hosts,
