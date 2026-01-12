@@ -391,9 +391,6 @@ class ClashSettingManager {
 
     if (overwrite) {
       final map = _setting.toJson();
-      if (_setting.DNS?.OverWrite != true) {
-        map.remove("hosts");
-      }
       MapHelper.removeNullOrEmpty(map, true, true);
 
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');

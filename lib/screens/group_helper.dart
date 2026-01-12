@@ -1173,6 +1173,15 @@ class GroupHelper {
             },
           ),
         ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: "Hosts",
+            tips: "hosts",
+            onPush: () async {
+              showClashSettingsHosts(context);
+            },
+          ),
+        ),
 
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
@@ -1198,6 +1207,15 @@ class GroupHelper {
             tips: "sniffer",
             onPush: () async {
               showClashSettingsSniffer(context);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: "Rule Providers",
+            tips: "rule-providers",
+            onPush: () async {
+              showClashSettingsRuleProviders(context);
             },
           ),
         ),
@@ -1828,6 +1846,71 @@ class GroupHelper {
     );
   }
 
+  static Future<void> showClashSettingsHosts(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var setting = ClashSettingManager.getConfig();
+
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.overwrite,
+            switchValue: setting.OverWriteHosts,
+            onSwitch: (bool value) async {
+              setting.OverWriteHosts = value;
+            },
+          ),
+        ),
+      ];
+
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: "hosts",
+            tips: "hosts",
+            onPush: setting.OverWriteHosts != true
+                ? null
+                : () async {
+                    setting.Hosts ??= {};
+                    List<Tuple2<String, String>> hs = [];
+                    setting.Hosts!.forEach((key, value) {
+                      hs.add(Tuple2(key, value));
+                    });
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: MapStringAndStringAddScreen.routSettings(),
+                        builder: (context) => MapStringAndStringAddScreen(
+                          title: "hosts",
+                          data: hs,
+                        ),
+                      ),
+                    );
+                    setting.Hosts!.clear();
+                    for (var h in hs) {
+                      setting.Hosts![h.item1] = h.item2;
+                    }
+                  },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options), GroupItem(options: options0)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("dns"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.dns, getOptions: getOptions),
+      ),
+    );
+  }
+
   static Future<void> showClashSettingsNTP(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
@@ -2031,6 +2114,41 @@ class GroupHelper {
         settings: GroupScreen.routSettings("sniffer"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.sniffer, getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> showClashSettingsRuleProviders(
+    BuildContext context,
+  ) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var setting = ClashSettingManager.getConfig();
+
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.overwrite,
+            switchValue: setting.OverWriteRuleProviders,
+            onSwitch: (bool value) async {
+              setting.OverWriteRuleProviders = value;
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rule-providers"),
+        builder: (context) =>
+            GroupScreen(title: "Rule Providers", getOptions: getOptions),
       ),
     );
   }
