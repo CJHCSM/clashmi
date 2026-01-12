@@ -5,6 +5,7 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
+import 'package:clashmi/screens/group_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
@@ -294,7 +295,58 @@ class _ProfilesSettingsEditScreenState
         ),
       ],
     ];
+
+    List<GroupItemOptions> options1 = [
+      GroupItemOptions(
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.rule,
+          tips: "rules",
+          onPush: () async {
+            showClashSettingsRules(context, profile);
+          },
+        ),
+      ),
+    ];
     groupOptions.add(GroupItem(options: options));
+    if (_patch != kProfilePatchBuildinNoOverwrite) {
+      groupOptions.add(GroupItem(options: options1));
+    }
+
     return groupOptions;
+  }
+
+  Future<void> showClashSettingsRules(
+    BuildContext context,
+    ProfileSetting profile,
+  ) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.overwrite,
+            switchValue: profile.overwriteRules,
+            onSwitch: (bool value) async {
+              profile.overwriteRules = value;
+            },
+          ),
+        ),
+      ];
+      //todo
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rules"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.rule, getOptions: getOptions),
+      ),
+    );
   }
 }

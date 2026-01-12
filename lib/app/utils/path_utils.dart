@@ -240,6 +240,11 @@ class PathUtils {
     return "setting.json";
   }
 
+  static Future<String> ruleProvidersConfigFilePath() async {
+    String filePath = await PathUtils.profileDir();
+    return path.join(filePath, ruleProvidersFileName());
+  }
+
   static Future<String> profilesConfigFilePath() async {
     String filePath = await PathUtils.profileDir();
     return path.join(filePath, profilesFileName());
@@ -283,6 +288,10 @@ class PathUtils {
 
   static String profilePatchsFileName() {
     return "profile_patchs.json";
+  }
+
+  static String ruleProvidersFileName() {
+    return "rule_providers.json";
   }
 
   static Future<String> settingFilePath() async {

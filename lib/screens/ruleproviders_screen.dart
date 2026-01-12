@@ -1,36 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:clashmi/i18n/strings.g.dart';
-import 'package:clashmi/screens/dialog_utils.dart';
+import 'package:clashmi/app/modules/rule_providers_manager.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
+import 'package:flutter/material.dart';
+import 'package:clashmi/screens/ruleproviders_add_or_edit_screen.dart';
 
-class ListAddScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings(String viewTag) {
-    return RouteSettings(name: "ListAddScreen:$viewTag");
+class RuleProvidersScreen extends LasyRenderingStatefulWidget {
+  static RouteSettings routSettings() {
+    return RouteSettings(name: "RuleProvidersScreen");
   }
 
-  final String title;
-  final List<String> data;
-  final Set<String> invalidData;
-  final String dialogTitle;
-  final String dialogTextHit;
-  final Future<String?> Function()? onTapAdd;
-  const ListAddScreen({
-    super.key,
-    required this.title,
-    required this.data,
-    this.invalidData = const {},
-    this.dialogTitle = "",
-    this.dialogTextHit = "",
-    this.onTapAdd,
-  });
+  const RuleProvidersScreen({super.key});
 
   @override
-  State<ListAddScreen> createState() => _ListAddScreenState();
+  State<RuleProvidersScreen> createState() => _RuleProvidersScreenState();
 }
 
-class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
+class _RuleProvidersScreenState
+    extends LasyRenderingState<RuleProvidersScreen> {
   @override
   void initState() {
     super.initState();
@@ -67,7 +54,7 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        widget.title,
+                        "Rule Providers",
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -100,11 +87,12 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
 
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
+    final ruleProviders = RuleProvidersManager.getRuleProviders();
     return Scrollbar(
       child: ListView.separated(
-        itemCount: widget.data.length,
+        itemCount: ruleProviders.length,
         itemBuilder: (BuildContext context, int index) {
-          var current = widget.data[index];
+          var current = ruleProviders[index];
           return createWidget(index, current, windowSize);
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -114,7 +102,7 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
     );
   }
 
-  Widget createWidget(int index, dynamic current, Size windowSize) {
+  Widget createWidget(int index, RuleProvider current, Size windowSize) {
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
@@ -124,7 +112,7 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
         borderRadius: ThemeDefine.kBorderRadius,
         child: InkWell(
           onTap: () {
-            Navigator.pop(context, current);
+            onTapEdit(current.name);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -142,13 +130,10 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
                             SizedBox(
                               width: centerWidth,
                               child: Text(
-                                current,
+                                current.name,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: ThemeConfig.kFontSizeGroupItem,
-                                  color: widget.invalidData.contains(current)
-                                      ? Colors.red
-                                      : null,
                                 ),
                               ),
                             ),
@@ -157,7 +142,7 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
                               height: ThemeConfig.kListItemHeight2 - 2,
                               child: InkWell(
                                 onTap: () async {
-                                  onTapDelete(current);
+                                  onTapDelete(current.name);
                                 },
                                 child: const Icon(
                                   Icons.remove_circle_outlined,
@@ -181,42 +166,29 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
   }
 
   void onTapAdd() async {
-    String? text;
-    if (widget.onTapAdd != null) {
-      text = await widget.onTapAdd!();
-    } else {
-      final tcontext = Translations.of(context);
-      text = await DialogUtils.showTextInputDialog(
-        context,
-        widget.dialogTitle.isNotEmpty ? widget.dialogTitle : tcontext.meta.add,
-        "",
-        widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
-        null,
-        null,
-        (text) {
-          text = text.trim();
-          if (text.isEmpty) {
-            return false;
-          }
-
-          return true;
-        },
-      );
-    }
-
-    if (text == null) {
-      return;
-    }
-    if (widget.data.contains(text)) {
-      return;
-    }
-    widget.data.add(text);
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: RuleProvidersAddOrEditScreen.routSettings(),
+        builder: (context) => RuleProvidersAddOrEditScreen(),
+      ),
+    );
     setState(() {});
   }
 
-  void onTapDelete(String text) {
-    widget.data.remove(text);
+  void onTapDelete(String name) {
+    RuleProvidersManager.remove(name);
+    setState(() {});
+  }
 
+  void onTapEdit(String name) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: RuleProvidersAddOrEditScreen.routSettings(),
+        builder: (context) => RuleProvidersAddOrEditScreen(name: name),
+      ),
+    );
     setState(() {});
   }
 }

@@ -34,6 +34,7 @@ class ProfileSetting {
   String id = "";
   String remark = "";
   String patch = "";
+  bool overwriteRules = false;
   Duration? updateInterval;
   DateTime? update;
   String url;
@@ -46,6 +47,7 @@ class ProfileSetting {
     'id': id,
     'remark': remark,
     'patch': patch,
+    'overwrite_rules': overwriteRules,
     'update_interval': updateInterval?.inSeconds,
     'update': update.toString(),
     'url': url,
@@ -63,6 +65,7 @@ class ProfileSetting {
     id = map['id'] ?? '';
     remark = map['remark'] ?? '';
     patch = map['patch'] ?? '';
+    overwriteRules = map['overwrite_rules'] ?? false;
     var updateIntervalTime = map['update_interval'];
     if (updateIntervalTime is int) {
       if (updateIntervalTime < 60) {
