@@ -1864,9 +1864,6 @@ class GroupHelper {
             },
           ),
         ),
-      ];
-
-      List<GroupItemOptions> options0 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: "hosts",
@@ -1898,7 +1895,7 @@ class GroupHelper {
         ),
       ];
 
-      return [GroupItem(options: options), GroupItem(options: options0)];
+      return [GroupItem(options: options)];
     }
 
     await Navigator.push(
