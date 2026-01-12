@@ -176,8 +176,9 @@ class _RuleProvidersScreenState
     setState(() {});
   }
 
-  void onTapDelete(String name) {
+  void onTapDelete(String name) async {
     RuleProvidersManager.remove(name);
+    await RuleProvidersManager.save();
     setState(() {});
   }
 

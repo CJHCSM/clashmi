@@ -39,6 +39,12 @@ class RuleProviderSettingHttp {
     behavior = map['behavior'] ?? '';
     path = map['path'] ?? '';
     int? intervalSeconds = map['interval'];
+    if (!getFormats().contains(format)) {
+      format = getFormats().first;
+    }
+    if (!getBehaviors().contains(behavior)) {
+      behavior = getBehaviors().first;
+    }
     if (intervalSeconds != null) {
       interval = Duration(seconds: intervalSeconds);
     }
@@ -70,7 +76,11 @@ class RuleProvider {
   String type = "";
   RuleProviderSettingHttp? http;
 
-  Map<String, dynamic> toJson() => {'name': name, 'type': type, 'http': http};
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type,
+    ...http?.toJson() ?? {},
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -78,7 +88,10 @@ class RuleProvider {
 
     name = map['name'] ?? '';
     type = map['type'] ?? '';
-    http = RuleProviderSettingHttp.fromJsonStatic(map['http']);
+    if (!getTypes().contains(type)) {
+      type = getTypes().first;
+    }
+    http = RuleProviderSettingHttp.fromJsonStatic(map);
   }
 
   static List<String> getTypes() {
