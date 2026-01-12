@@ -1210,7 +1210,7 @@ class GroupHelper {
             },
           ),
         ),
-        GroupItemOptions(
+        /*GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: "Rule Providers",
             tips: "rule-providers",
@@ -1218,7 +1218,15 @@ class GroupHelper {
               showClashSettingsRuleProviders(context);
             },
           ),
-        ),
+        ),*GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: "Rules",
+            tips: "rules",
+            onPush: () async {
+              showClashSettingsRules(context);
+            },
+          ),
+        ),*/
       ];
       if (currentPatch.id.isEmpty ||
           currentPatch.id == kProfilePatchBuildinOverwrite) {
@@ -2146,6 +2154,39 @@ class GroupHelper {
         settings: GroupScreen.routSettings("rule-providers"),
         builder: (context) =>
             GroupScreen(title: "Rule Providers", getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> showClashSettingsRules(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var setting = ClashSettingManager.getConfig();
+
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.overwrite,
+            switchValue: setting.OverWriteRules,
+            onSwitch: (bool value) async {
+              setting.OverWriteRules = value;
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rules"),
+        builder: (context) =>
+            GroupScreen(title: "Rules", getOptions: getOptions),
       ),
     );
   }
