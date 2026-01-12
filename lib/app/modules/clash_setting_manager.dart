@@ -12,6 +12,7 @@ import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:libclash_vpn_service/proxy_manager.dart';
 import 'package:path/path.dart' as path;
 
@@ -391,7 +392,11 @@ class ClashSettingManager {
 
     if (overwrite) {
       final map = _setting.toJson();
+      if (_setting.DNS?.OverWrite != true) {
+        map.remove("hosts");
+      }
       MapHelper.removeNullOrEmpty(map, true, true);
+
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');
       String content = encoder.convert(map);
       return content;

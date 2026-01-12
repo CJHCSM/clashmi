@@ -30,6 +30,7 @@ import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/group_screen.dart';
 import 'package:clashmi/screens/language_settings_screen.dart';
 import 'package:clashmi/screens/list_add_screen.dart';
+import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
@@ -44,6 +45,7 @@ import 'package:libclash_vpn_service/vpn_service.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GroupHelper {
@@ -1171,6 +1173,7 @@ class GroupHelper {
             },
           ),
         ),
+
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.ntp,
@@ -1500,6 +1503,7 @@ class GroupHelper {
     ) async {
       var setting = ClashSettingManager.getConfig();
       var dns = setting.DNS!;
+
       final enhancedModes = ClashDnsEnhancedMode.toList();
       final enhancedModesTuple = ClashDnsEnhancedMode.toTupleList();
       final fakeIPFilterModes = ClashFakeIPFilterMode.toList();
@@ -1580,6 +1584,39 @@ class GroupHelper {
                 dns.DirectNameServerFollowPolicy = value;
               }))  ,*/
       ];
+
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: "hosts",
+            tips: "hosts",
+            onPush: dns.OverWrite != true || dns.Enable != true
+                ? null
+                : () async {
+                    setting.Hosts ??= {};
+                    List<Tuple2<String, String>> hs = [];
+                    setting.Hosts!.forEach((key, value) {
+                      hs.add(Tuple2(key, value));
+                    });
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: MapStringAndStringAddScreen.routSettings(),
+                        builder: (context) => MapStringAndStringAddScreen(
+                          title: "hosts",
+                          data: hs,
+                        ),
+                      ),
+                    );
+                    setting.Hosts!.clear();
+                    for (var h in hs) {
+                      setting.Hosts![h.item1] = h.item2;
+                    }
+                  },
+          ),
+        ),
+      ];
+
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
           stringPickerOptions: GroupItemStringPickerOptions(
@@ -1775,6 +1812,7 @@ class GroupHelper {
 
       return [
         GroupItem(options: options),
+        GroupItem(options: options0),
         GroupItem(options: options1),
         GroupItem(options: options2),
       ];
