@@ -210,7 +210,7 @@ class _RuleProvidersAddOrEditScreenState
           textWidthPercent: 0.7,
           hint: "rule name",
           onChanged: (String value) {
-            _name = value;
+            _name = value.trim();
           },
         ),
       ),
@@ -223,7 +223,7 @@ class _RuleProvidersAddOrEditScreenState
             hint: "https://e.com/rule.mrs",
             textWidthPercent: 0.7,
             onChanged: (String value) {
-              _url = value;
+              _url = value.trim();
             },
           ),
         ),
