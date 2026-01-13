@@ -116,12 +116,20 @@ class RuleProvider {
 }
 
 class RuleTemplate {
-  RuleTemplate({this.name = "", this.ruleProviders = const []});
+  RuleTemplate({
+    this.name = "",
+    this.type = "RULE-SET",
+    this.ruleProviders = const [],
+  });
   String name = "";
+  String type = "RULE-SET";
+  String rule = "";
   List<String> ruleProviders = [];
 
   Map<String, dynamic> toJson() => {
     'name': name,
+    'type': type,
+    'rule': rule,
     'rule-providers': ruleProviders,
   };
   void fromJson(Map<String, dynamic>? map) {
@@ -129,7 +137,13 @@ class RuleTemplate {
       return;
     }
     name = map['name'] ?? '';
+    type = map['type'] ?? 'RULE-SET';
+    rule = map['rule'] ?? '';
     ruleProviders = List<String>.from(map['rule-providers'] ?? []);
+  }
+
+  static List<String> getTypes() {
+    return ["RULE-SET", "GEOSITE", "GEOIP", "IP-ASN", "MATCH"];
   }
 }
 

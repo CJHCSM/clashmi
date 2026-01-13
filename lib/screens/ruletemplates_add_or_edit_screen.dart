@@ -151,12 +151,21 @@ class _RuleTemplatesAddOrEditScreenState
         return;
       }
     }
-    if (_data.ruleProviders.isEmpty) {
-      DialogUtils.showAlertDialog(
-        context,
-        "${tcontext.meta.ruleProviders} can not be empty",
-      );
-      return;
+    if (_data.type == "RULE-SET") {
+      if (_data.ruleProviders.isEmpty) {
+        DialogUtils.showAlertDialog(
+          context,
+          "${tcontext.meta.ruleProviders} can not be empty",
+        );
+        return;
+      }
+    } else if (_data.type == "GEOSITE" ||
+        _data.type == "GEOIP" ||
+        _data.type == "IP-ASN") {
+      if (_data.rule.isEmpty) {
+        DialogUtils.showAlertDialog(context, "${_data.type} can not be empty");
+        return;
+      }
     }
 
     if (widget.name.isNotEmpty) {
@@ -188,33 +197,76 @@ class _RuleTemplatesAddOrEditScreenState
           },
         ),
       ),
+      GroupItemOptions(
+        stringPickerOptions: GroupItemStringPickerOptions(
+          name: "Type",
+          selected: _data.type,
+          strings: RuleTemplate.getTypes(),
+          onPicker: (String? selected) async {
+            _data.type = selected ?? RuleTemplate.getTypes().first;
+            setState(() {});
+          },
+        ),
+      ),
     ];
 
     final ruleProviders = DiversionTemplateManager.getRuleProvidersNames();
-    List<GroupItemOptions> options1 = [];
-    for (var provider in ruleProviders) {
-      options1.add(
+
+    groupOptions.add(GroupItem(options: options));
+    if (_data.type == "RULE-SET") {
+      List<GroupItemOptions> options1 = [];
+      for (var provider in ruleProviders) {
+        options1.add(
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: provider,
+              switchValue: _data.ruleProviders.contains(provider),
+              onSwitch: (bool value) async {
+                if (value) {
+                  _data.ruleProviders.add(provider);
+                } else {
+                  _data.ruleProviders.remove(provider);
+                }
+                setState(() {});
+              },
+            ),
+          ),
+        );
+      }
+      groupOptions.add(
+        GroupItem(options: options1, name: tcontext.meta.ruleProviders),
+      );
+    } else if (_data.type == "GEOSITE" || _data.type == "GEOIP") {
+      List<GroupItemOptions> options1 = [
         GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: provider,
-            switchValue: _data.ruleProviders.contains(provider),
-            onSwitch: (bool value) async {
-              if (value) {
-                _data.ruleProviders.add(provider);
-              } else {
-                _data.ruleProviders.remove(provider);
-              }
-              setState(() {});
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: _data.type,
+            hint: "${tcontext.meta.required}[CN]",
+            textWidthPercent: 0.6,
+            textInputAction: TextInputAction.next,
+            onChanged: (String value) {
+              _data.rule = value;
             },
           ),
         ),
-      );
+      ];
+      groupOptions.add(GroupItem(options: options1));
+    } else if (_data.type == "IP-ASN") {
+      List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: _data.type,
+            hint: "${tcontext.meta.required}[14]",
+            textWidthPercent: 0.6,
+            textInputAction: TextInputAction.next,
+            onChanged: (String value) {
+              _data.rule = value;
+            },
+          ),
+        ),
+      ];
+      groupOptions.add(GroupItem(options: options1));
     }
-
-    groupOptions.add(GroupItem(options: options));
-    groupOptions.add(
-      GroupItem(options: options1, name: tcontext.meta.ruleProviders),
-    );
 
     return groupOptions;
   }

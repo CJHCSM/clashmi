@@ -413,14 +413,24 @@ class ClashSettingManager {
             return template.ruleProviders.contains(ele.name);
           });
           newAllProviders.addAll(providers);
-
-          for (var provider in providers) {
-            String rule = "";
-            if (provider.type == "http") {
-              rule = "RULE-SET,${provider.name},$target";
+          if (template.type == "RULE-SET") {
+            for (var provider in providers) {
+              String rule = "${template.type},${provider.name},$target";
               if (!_setting.Rules!.contains(rule)) {
                 _setting.Rules!.add(rule);
               }
+            }
+          } else if (template.type == "GEOSITE" ||
+              template.type == "GEOIP" ||
+              template.type == "IP-ASN") {
+            String rule = "${template.type},${template.rule},$target";
+            if (!_setting.Rules!.contains(rule)) {
+              _setting.Rules!.add(rule);
+            }
+          } else if (template.type == "MATCH") {
+            String rule = "${template.type},$target";
+            if (!_setting.Rules!.contains(rule)) {
+              _setting.Rules!.add(rule);
             }
           }
         }
