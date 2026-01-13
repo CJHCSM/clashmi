@@ -7,43 +7,37 @@ import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-class RuleProvidersAddOrEditScreen extends LasyRenderingStatefulWidget {
+class RuleTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleProvidersAddOrEditScreen ");
+    return RouteSettings(name: "RuleTemplateAddOrEditScreen ");
   }
 
   final String name;
-  const RuleProvidersAddOrEditScreen({super.key, this.name = ""});
+  const RuleTemplatesAddOrEditScreen({super.key, this.name = ""});
 
   @override
-  State<RuleProvidersAddOrEditScreen> createState() =>
-      _RuleProvidersAddOrEditScreenState();
+  State<RuleTemplatesAddOrEditScreen> createState() =>
+      _RuleTemplatesAddOrEditScreenState();
 }
 
-class _RuleProvidersAddOrEditScreenState
-    extends LasyRenderingState<RuleProvidersAddOrEditScreen> {
-  late RuleProvider _data;
+class _RuleTemplatesAddOrEditScreenState
+    extends LasyRenderingState<RuleTemplatesAddOrEditScreen> {
+  late RuleTemplate _data;
   @override
   void initState() {
-    final httpDefault = RuleProviderHttp(
-      format: RuleProviderHttp.getFormats().first,
-      behavior: RuleProviderHttp.getBehaviors().first,
-    );
     if (widget.name.isNotEmpty) {
-      final exist = DiversionTemplateManager.getRuleProviderByName(widget.name);
+      final exist = DiversionTemplateManager.getRuleTemplateByName(widget.name);
       if (exist != null) {
-        _data = RuleProvider(
+        _data = RuleTemplate(
           name: exist.name,
-          type: exist.type,
-          http: exist.type != "http" ? null : (exist.http ?? httpDefault),
+          ruleProviders: exist.ruleProviders.toList(),
         );
       } else {
-        _data = RuleProvider(name: "", type: "http", http: httpDefault);
+        _data = RuleTemplate();
       }
     } else {
-      _data = RuleProvider(name: "", type: "http", http: httpDefault);
+      _data = RuleTemplate();
     }
-
     super.initState();
   }
 
@@ -79,7 +73,7 @@ class _RuleProvidersAddOrEditScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.meta.ruleProviders,
+                        tcontext.meta.rule,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -133,12 +127,13 @@ class _RuleProvidersAddOrEditScreenState
   }
 
   void onTapSave() async {
+    final tcontext = Translations.of(context);
     if (_data.name.isEmpty) {
       DialogUtils.showAlertDialog(context, "name required");
       return;
     }
 
-    final names = DiversionTemplateManager.getRuleProvidersNames();
+    final names = DiversionTemplateManager.getRuleTemplatesNames();
     if (widget.name.isEmpty) {
       if (names.contains(_data.name)) {
         DialogUtils.showAlertDialog(
@@ -156,25 +151,18 @@ class _RuleProvidersAddOrEditScreenState
         return;
       }
     }
-    if (_data.http != null) {
-      if (_data.http!.url.isEmpty) {
-        DialogUtils.showAlertDialog(context, "url required");
-        return;
-      }
-      final url = Uri.tryParse(_data.http!.url);
-      if (url == null) {
-        DialogUtils.showAlertDialog(
-          context,
-          "url:${_data.http!.url} is invalid",
-        );
-        return;
-      }
+    if (_data.ruleProviders.isEmpty) {
+      DialogUtils.showAlertDialog(
+        context,
+        "${tcontext.meta.ruleProviders} can not be empty",
+      );
+      return;
     }
 
     if (widget.name.isNotEmpty) {
-      DiversionTemplateManager.updateRuleProvider(widget.name, _data);
+      DiversionTemplateManager.updateRuleTemplate(widget.name, _data);
     } else {
-      DiversionTemplateManager.getRuleProviders().add(_data);
+      DiversionTemplateManager.getRuleTemplates().add(_data);
     }
 
     await DiversionTemplateManager.save();
@@ -200,81 +188,33 @@ class _RuleProvidersAddOrEditScreenState
           },
         ),
       ),
-      GroupItemOptions(
-        stringPickerOptions: GroupItemStringPickerOptions(
-          name: "Type",
-          tips: "type",
-          selected: _data.type,
-          strings: RuleProvider.getTypes(),
-          onPicker: (String? selected) async {
-            _data.type = selected ?? RuleProvider.getTypes().first;
-            setState(() {});
-          },
-        ),
-      ),
-
-      if (_data.http != null) ...[
-        GroupItemOptions(
-          textFormFieldOptions: GroupItemTextFieldOptions(
-            name: "url",
-            tips: "url",
-            text: _data.http!.url,
-            hint: "https://e.com/rule.mrs",
-            textWidthPercent: 0.7,
-            onChanged: (String value) {
-              _data.http!.url = value.trim();
-            },
-          ),
-        ),
-        GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-            name: "Format",
-            tips: "format",
-            selected: _data.http!.format,
-            strings: RuleProviderHttp.getFormats(),
-            onPicker: (String? selected) async {
-              _data.http!.format =
-                  selected ?? RuleProviderHttp.getFormats().first;
-              setState(() {});
-            },
-          ),
-        ),
-        GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-            name: "Behavior",
-            tips: "behavior",
-            selected: _data.http!.behavior,
-            strings: RuleProviderHttp.getBehaviors(),
-            onPicker: (String? selected) async {
-              _data.http!.behavior =
-                  selected ?? RuleProviderHttp.getBehaviors().first;
-              setState(() {});
-            },
-          ),
-        ),
-        GroupItemOptions(
-          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-            name: tcontext.meta.updateInterval,
-            tips: "interval",
-            duration: _data.http!.interval,
-            showDays: true,
-            showHours: true,
-            showMinutes: true,
-            showSeconds: false,
-            showDisable: true,
-            onPicker: (bool canceled, Duration? duration) async {
-              if (canceled) {
-                return;
-              }
-              _data.http!.interval = duration;
-              setState(() {});
-            },
-          ),
-        ),
-      ],
     ];
 
+    final ruleProviders = DiversionTemplateManager.getRuleProvidersNames();
+    List<GroupItemOptions> options1 = [];
+    for (var provider in ruleProviders) {
+      options1.add(
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: provider,
+            switchValue: _data.ruleProviders.contains(provider),
+            onSwitch: (bool value) async {
+              if (value) {
+                _data.ruleProviders.add(provider);
+              } else {
+                _data.ruleProviders.remove(provider);
+              }
+              setState(() {});
+            },
+          ),
+        ),
+      );
+    }
+
     groupOptions.add(GroupItem(options: options));
+    groupOptions.add(
+      GroupItem(options: options1, name: tcontext.meta.ruleProviders),
+    );
 
     return groupOptions;
   }

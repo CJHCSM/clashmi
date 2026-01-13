@@ -13,14 +13,14 @@ class RuleProviderHttp {
     this.format = "",
     this.behavior = "",
     this.path = "",
-    this.interval,
+    this.interval = const Duration(hours: 12),
   });
 
   String url;
   String format;
   String behavior;
   String path;
-  Duration? interval = const Duration(hours: 12);
+  Duration? interval;
 
   Map<String, dynamic> toJson() => {
     'url': url,

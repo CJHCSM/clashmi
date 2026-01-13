@@ -1,5 +1,6 @@
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
+import 'package:clashmi/screens/ruletemplates_add_or_edit_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -167,14 +168,14 @@ class _RuleTemplatesScreenState
   }
 
   void onTapAdd() async {
-    /* await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         settings: RuleTemplatesAddOrEditScreen.routSettings(),
         builder: (context) => RuleTemplatesAddOrEditScreen(),
       ),
     );
-    setState(() {});*/
+    setState(() {});
   }
 
   void onTapDelete(String name) async {
@@ -184,13 +185,13 @@ class _RuleTemplatesScreenState
   }
 
   void onTapEdit(String name) async {
-    /*await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         settings: RuleTemplatesAddOrEditScreen.routSettings(),
         builder: (context) => RuleTemplatesAddOrEditScreen(name: name),
       ),
     );
-    setState(() {});*/
+    setState(() {});
   }
 }
