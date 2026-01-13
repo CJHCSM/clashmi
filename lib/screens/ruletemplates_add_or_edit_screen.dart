@@ -33,10 +33,10 @@ class _RuleTemplatesAddOrEditScreenState
           ruleProviders: exist.ruleProviders.toList(),
         );
       } else {
-        _data = RuleTemplate();
+        _data = RuleTemplate(ruleProviders: []);
       }
     } else {
-      _data = RuleTemplate();
+      _data = RuleTemplate(ruleProviders: []);
     }
     super.initState();
   }

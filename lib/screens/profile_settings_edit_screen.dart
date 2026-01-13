@@ -1,3 +1,6 @@
+import 'package:clashmi/app/clash/clash_http_api.dart';
+import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
@@ -7,7 +10,9 @@ import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/group_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
+import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
+import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:clashmi/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
@@ -29,27 +34,26 @@ class _ProfilesSettingsEditScreenState
     extends LasyRenderingState<ProfilesSettingsEditScreen> {
   final _textControllerRemark = TextEditingController();
   final _textControllerUrl = TextEditingController();
-
-  Duration? _updateInterval = const Duration(hours: 24);
-  String _userAgent = "";
-  String _patch = "";
+  late ProfileSetting _profile;
+  List<ClashProxiesNode> _nodes = [];
 
   @override
   void initState() {
-    var profile = ProfileManager.getProfile(widget.profileid);
-    if (profile != null) {
-      _textControllerRemark.value = _textControllerRemark.value.copyWith(
-        text: profile.remark,
-      );
-      _textControllerUrl.value = _textControllerUrl.value.copyWith(
-        text: profile.url,
-      );
-      _patch = profile.patch;
-      _userAgent = profile.userAgent.isEmpty
-          ? SettingManager.getConfig().userAgent()
-          : profile.userAgent;
-      _updateInterval = profile.updateInterval;
-    }
+    _profile =
+        ProfileManager.getProfile(widget.profileid) ??
+        ProfileSetting(updateInterval: const Duration(hours: 24));
+
+    _profile.userAgent = _profile.userAgent.isEmpty
+        ? SettingManager.getConfig().userAgent()
+        : _profile.userAgent;
+
+    _textControllerRemark.value = _textControllerRemark.value.copyWith(
+      text: _profile.remark,
+    );
+    _textControllerUrl.value = _textControllerUrl.value.copyWith(
+      text: _profile.url,
+    );
+
     super.initState();
   }
 
@@ -62,7 +66,6 @@ class _ProfilesSettingsEditScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var profile = ProfileManager.getProfile(widget.profileid);
 
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
@@ -119,8 +122,7 @@ class _ProfilesSettingsEditScreenState
                           children: [
                             TextFieldEx(
                               controller: _textControllerRemark,
-                              textInputAction:
-                                  profile != null && profile.isRemote()
+                              textInputAction: _profile.isRemote()
                                   ? TextInputAction.next
                                   : TextInputAction.done,
                               decoration: InputDecoration(
@@ -128,10 +130,10 @@ class _ProfilesSettingsEditScreenState
                                 hintText: tcontext.meta.remark,
                               ),
                             ),
-                            profile != null && profile.isRemote()
+                            _profile.isRemote()
                                 ? const SizedBox(height: 20)
                                 : const SizedBox.shrink(),
-                            profile != null && profile.isRemote()
+                            _profile.isRemote()
                                 ? TextFieldEx(
                                     maxLines: 4,
                                     controller: _textControllerUrl,
@@ -175,38 +177,24 @@ class _ProfilesSettingsEditScreenState
   }
 
   void onTapSave() {
-    var profile = ProfileManager.getProfile(widget.profileid);
-    if (profile == null) {
-      Navigator.pop(context);
-      return;
-    }
-
     String remarkText = _textControllerRemark.text.trim();
     String urlText = _textControllerUrl.text.trim();
-    if (profile.remark == remarkText &&
-        profile.url == urlText &&
-        profile.patch == _patch &&
-        profile.userAgent == _userAgent &&
-        profile.updateInterval == _updateInterval) {
-      Navigator.pop(context);
-      return;
-    }
-    if (_updateInterval != null) {
-      if (_updateInterval!.inMinutes < 5) {
-        _updateInterval = const Duration(minutes: 5);
+    if (_profile.updateInterval != null) {
+      if (_profile.updateInterval!.inMinutes < 5) {
+        _profile.updateInterval = const Duration(minutes: 5);
       }
     }
 
-    final err = checkUrl(profile.url, urlText);
+    final err = checkUrl(_profile.url, urlText);
     if (err != null) {
       DialogUtils.showAlertDialog(context, err);
       return;
     }
-    profile.remark = remarkText;
-    profile.url = urlText;
-    profile.patch = _patch;
-    profile.userAgent = _userAgent;
-    profile.updateInterval = _updateInterval;
+    _profile.remark = remarkText;
+    _profile.url = urlText;
+
+    ProfileManager.updateProfile(_profile.id, _profile);
+    ProfileManager.save();
     Navigator.pop(context);
   }
 
@@ -224,10 +212,6 @@ class _ProfilesSettingsEditScreenState
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
-    var profile = ProfileManager.getProfile(widget.profileid);
-    if (profile == null) {
-      return [];
-    }
     final tcontext = Translations.of(context);
     final currentPatch = ProfilePatchManager.getCurrent();
     String currentSelectedAppend = "";
@@ -261,30 +245,30 @@ class _ProfilesSettingsEditScreenState
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.meta.userAgent,
-          text: _userAgent,
+          text: _profile.userAgent,
           textWidthPercent: 0.6,
           onChanged: (String value) {
-            _userAgent = value;
+            _profile.userAgent = value;
           },
         ),
       ),
       GroupItemOptions(
         stringPickerOptions: GroupItemStringPickerOptions(
           name: tcontext.meta.coreOverwrite,
-          selected: _patch,
+          selected: _profile.patch,
           tupleStrings: overwrite,
           onPicker: (String? selected) async {
-            _patch = selected ?? "";
+            _profile.patch = selected ?? "";
             setState(() {});
           },
         ),
       ),
-      if (profile.isRemote()) ...[
+      if (_profile.isRemote()) ...[
         GroupItemOptions(
           timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
             name: tcontext.meta.updateInterval,
             tips: tcontext.meta.updateInterval5mTips,
-            duration: _updateInterval,
+            duration: _profile.updateInterval,
             showSeconds: false,
             onPicker: (bool canceled, Duration? duration) async {
               if (canceled) {
@@ -299,7 +283,7 @@ class _ProfilesSettingsEditScreenState
                 }
               }
 
-              _updateInterval = duration;
+              _profile.updateInterval = duration;
               setState(() {});
             },
           ),
@@ -313,25 +297,19 @@ class _ProfilesSettingsEditScreenState
           name: tcontext.meta.rule,
           tips: "rules",
           onPush: () async {
-            showClashSettingsRules(context, profile);
+            showClashSettingsRules();
           },
         ),
       ),
     ];
 
     groupOptions.add(GroupItem(options: options));
-    if (_patch != kProfilePatchBuildinNoOverwrite &&
-        currentPatch.id != kProfilePatchBuildinNoOverwrite) {
-      groupOptions.add(GroupItem(options: options1));
-    }
+    groupOptions.add(GroupItem(options: options1));
 
     return groupOptions;
   }
 
-  Future<void> showClashSettingsRules(
-    BuildContext context,
-    ProfileSetting profile,
-  ) async {
+  Future<void> showClashSettingsRules() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
       BuildContext context,
@@ -341,16 +319,81 @@ class _ProfilesSettingsEditScreenState
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
             name: tcontext.meta.overwrite,
-            switchValue: profile.overwriteRules,
+            switchValue: _profile.overwriteRules,
             onSwitch: (bool value) async {
-              profile.overwriteRules = value;
+              _profile.overwriteRules = value;
+              setState(() {});
             },
           ),
         ),
       ];
-      //todo
+      List<GroupItemOptions> options1 = [];
+      final names = DiversionTemplateManager.getRuleTemplatesNames();
+      for (var name in names) {
+        final target = _profile.rules[name];
+        options1.add(
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: name,
+              text: target,
+              onPush: () async {
+                final connected = await VPNService.getStarted();
+                if (!context.mounted) {
+                  return;
+                }
+                if (!connected) {
+                  DialogUtils.showAlertDialog(context, "请先连接");
+                  return;
+                }
+                if (_nodes.isEmpty) {
+                  _nodes = await getProxies();
+                }
+                var widgets = [];
+                for (var node in _nodes) {
+                  widgets.add(
+                    ListTile(
+                      title: Text(node.name),
+                      subtitle: Text(node.type),
+                      selected: node.name == _profile.rules[name],
+                      selectedColor: ThemeDefine.kColorBlue,
+                      onTap: () async {
+                        _profile.rules[name] = node.name;
+                        Navigator.of(context).pop();
+                        setstate?.call();
+                      },
+                    ),
+                  );
+                }
+                if (!context.mounted) {
+                  return;
+                }
+                showSheet(
+                  context: context,
+                  body: SizedBox(
+                    height: 400,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Scrollbar(
+                        child: ListView.separated(
+                          itemBuilder: (BuildContext context, int index) {
+                            return widgets[index];
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const Divider(height: 1, thickness: 0.3);
+                          },
+                          itemCount: widgets.length,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      }
 
-      return [GroupItem(options: options)];
+      return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
@@ -361,5 +404,20 @@ class _ProfilesSettingsEditScreenState
             GroupScreen(title: tcontext.meta.rule, getOptions: getOptions),
       ),
     );
+  }
+
+  Future<List<ClashProxiesNode>> getProxies() async {
+    List<ClashProxiesNode> nodes = [];
+    var result = await ClashHttpApi.getProxies();
+    if (result.error == null) {
+      for (var node in result.data!) {
+        if (node.hidden) {
+          continue;
+        }
+        nodes.add(node);
+      }
+    }
+
+    return nodes;
   }
 }

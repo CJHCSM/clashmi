@@ -173,12 +173,7 @@ class _ProfilesPatchSettingsEditScreenState
 
     String remarkText = _textControllerRemark.text.trim();
     String urlText = _textControllerUrl.text.trim();
-    if (profile.remark == remarkText &&
-        profile.url == urlText &&
-        profile.updateInterval == _updateInterval) {
-      Navigator.pop(context);
-      return;
-    }
+
     if (_updateInterval != null) {
       if (_updateInterval!.inMinutes < 5) {
         _updateInterval = const Duration(minutes: 5);

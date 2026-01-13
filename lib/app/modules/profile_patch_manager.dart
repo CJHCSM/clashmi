@@ -94,6 +94,16 @@ class ProfilePatchSetting {
     }
     return remark.isEmpty ? id : remark;
   }
+
+  ProfilePatchSetting clone() {
+    ProfilePatchSetting ps = ProfilePatchSetting();
+    ps.id = id;
+    ps.remark = remark;
+    ps.updateInterval = updateInterval;
+    ps.update = update;
+    ps.url = url;
+    return ps;
+  }
 }
 
 class ProfilePatchConfig {

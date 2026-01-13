@@ -34,7 +34,6 @@ class ProfileSetting {
   String id = "";
   String remark = "";
   String patch = "";
-  bool overwriteRules = false;
   Duration? updateInterval;
   DateTime? update;
   String url;
@@ -43,11 +42,12 @@ class ProfileSetting {
   num download = 0;
   num total = 0;
   String expire = "";
+  bool overwriteRules = false;
+  Map<String, String> rules = {};
   Map<String, dynamic> toJson() => {
     'id': id,
     'remark': remark,
     'patch': patch,
-    'overwrite_rules': overwriteRules,
     'update_interval': updateInterval?.inSeconds,
     'update': update.toString(),
     'url': url,
@@ -56,6 +56,8 @@ class ProfileSetting {
     'download': download,
     'total': total,
     'expire': expire,
+    'overwrite_rules': overwriteRules,
+    'rules': rules,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -65,7 +67,7 @@ class ProfileSetting {
     id = map['id'] ?? '';
     remark = map['remark'] ?? '';
     patch = map['patch'] ?? '';
-    overwriteRules = map['overwrite_rules'] ?? false;
+
     var updateIntervalTime = map['update_interval'];
     if (updateIntervalTime is int) {
       if (updateIntervalTime < 60) {
@@ -83,6 +85,11 @@ class ProfileSetting {
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
+    overwriteRules = map['overwrite_rules'] ?? false;
+    rules = map['rules'] ?? {};
+    rules.removeWhere((key, value) {
+      return key.isEmpty || value.isEmpty;
+    });
   }
 
   String getType() {
@@ -163,6 +170,27 @@ class ProfileSetting {
     }
 
     return Tuple2(expiring, expireTime);
+  }
+
+  ProfileSetting clone() {
+    ProfileSetting ps = ProfileSetting();
+    ps.id = id;
+    ps.remark = remark;
+    ps.patch = patch;
+    ps.updateInterval = updateInterval;
+    ps.update = update;
+    ps.url = url;
+    ps.userAgent = userAgent;
+    ps.upload = upload;
+    ps.download = download;
+    ps.total = total;
+    ps.expire = expire;
+    ps.overwriteRules = overwriteRules;
+    rules.forEach((key, value) {
+      ps.rules[key] = value;
+    });
+
+    return ps;
   }
 }
 
@@ -686,7 +714,7 @@ class ProfileManager {
   static ProfileSetting? getProfile(String id) {
     for (var profile in _config.profiles) {
       if (id == profile.id) {
-        return profile;
+        return profile.clone();
       }
     }
     return null;
@@ -707,5 +735,14 @@ class ProfileManager {
     }
     var item = _config.profiles.removeAt(oldIndex);
     _config.profiles.insert(newIndex, item);
+  }
+
+  static void updateProfile(String id, ProfileSetting profile) {
+    for (int i = 0; i < _config.profiles.length; ++i) {
+      if (_config.profiles[i].id == id) {
+        _config.profiles[i] = profile;
+        break;
+      }
+    }
   }
 }
