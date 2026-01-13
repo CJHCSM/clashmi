@@ -289,9 +289,20 @@ class _AddProfileByUrlScreenState
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
-
+    final currentPatch = ProfilePatchManager.getCurrent();
+    String currentSelectedAppend = "";
+    if (currentPatch.id == kProfilePatchBuildinOverwrite) {
+      currentSelectedAppend = "(${tcontext.profilePatchMode.overwrite})";
+    } else if (currentPatch.id == kProfilePatchBuildinNoOverwrite) {
+      currentSelectedAppend = "(${tcontext.profilePatchMode.noOverwrite})";
+    } else {
+      currentSelectedAppend = "(${currentPatch.remark})";
+    }
     List<Tuple2<String?, String>> overwrite = [
-      Tuple2("", tcontext.profilePatchMode.currentSelected),
+      Tuple2(
+        "",
+        "${tcontext.profilePatchMode.currentSelected}$currentSelectedAppend",
+      ),
       Tuple2(
         kProfilePatchBuildinOverwrite,
         tcontext.profilePatchMode.overwrite,

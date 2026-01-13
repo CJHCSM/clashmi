@@ -229,9 +229,20 @@ class _ProfilesSettingsEditScreenState
       return [];
     }
     final tcontext = Translations.of(context);
-
+    final currentPatch = ProfilePatchManager.getCurrent();
+    String currentSelectedAppend = "";
+    if (currentPatch.id == kProfilePatchBuildinOverwrite) {
+      currentSelectedAppend = "(${tcontext.profilePatchMode.overwrite})";
+    } else if (currentPatch.id == kProfilePatchBuildinNoOverwrite) {
+      currentSelectedAppend = "(${tcontext.profilePatchMode.noOverwrite})";
+    } else {
+      currentSelectedAppend = "(${currentPatch.remark})";
+    }
     List<Tuple2<String?, String>> overwrite = [
-      Tuple2("", tcontext.profilePatchMode.currentSelected),
+      Tuple2(
+        "",
+        "${tcontext.profilePatchMode.currentSelected}$currentSelectedAppend",
+      ),
       Tuple2(
         kProfilePatchBuildinOverwrite,
         tcontext.profilePatchMode.overwrite,
@@ -307,8 +318,10 @@ class _ProfilesSettingsEditScreenState
         ),
       ),
     ];
+
     groupOptions.add(GroupItem(options: options));
-    if (_patch != kProfilePatchBuildinNoOverwrite) {
+    if (_patch != kProfilePatchBuildinNoOverwrite &&
+        currentPatch.id != kProfilePatchBuildinNoOverwrite) {
       groupOptions.add(GroupItem(options: options1));
     }
 
