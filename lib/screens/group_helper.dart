@@ -1244,10 +1244,12 @@ class GroupHelper {
           title: tcontext.meta.settingCore,
           getOptions: getOptions,
           onDone: (context) async {
+            final profile = ProfileManager.getCurrent();
             final currentPatch = ProfilePatchManager.getCurrent();
             final content = await ClashSettingManager.getPatchContent(
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
+              profile != null && profile.overwriteRules ? profile.rules : null,
             );
             if (!context.mounted) {
               return false;

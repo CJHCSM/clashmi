@@ -15,6 +15,7 @@ import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:intl/intl.dart';
+import 'package:libclash_vpn_service/http_request.dart' as ConvertUtils;
 import 'package:libclash_vpn_service/state.dart';
 import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
@@ -86,7 +87,7 @@ class ProfileSetting {
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
     overwriteRules = map['overwrite_rules'] ?? false;
-    rules = map['rules'] ?? {};
+    rules = ConvertUtils.convertMap(map["rules"]);
     rules.removeWhere((key, value) {
       return key.isEmpty || value.isEmpty;
     });
@@ -212,8 +213,12 @@ class ProfileConfig {
     if (p is List) {
       for (var value in p) {
         ProfileSetting ps = ProfileSetting();
-        ps.fromJson(value);
-        profiles.add(ps);
+        try {
+          ps.fromJson(value);
+          profiles.add(ps);
+        } catch (err) {
+          Log.w("ProfileConfig.fromJson exception ${err.toString()} ");
+        }
       }
     }
   }

@@ -1194,12 +1194,15 @@ class RawConfig {
   Map<String, dynamic>? RuleProviders;
   @JsonKey(name: 'overwrite-rules')
   bool? OverWriteRules;
+  @JsonKey(name: 'rules')
+  List<String>? Rules;
+  @JsonKey(name: 'overwrite-sub-rules')
+  bool? OverWriteSubRules;
+  @JsonKey(name: 'sub-rules')
+  List<String>? SubRules;
   //map[string]map[string]any ProxyProvider  `yaml:"proxy-providers" json:"proxy-providers"`
-  //map[string]map[string]any RuleProvider   `yaml:"rule-providers" json:"rule-providers"`
   //[]map[string]any Proxy                   `yaml:"proxies" json:"proxies"`
   //[]map[string]any ProxyGroup              `yaml:"proxy-groups" json:"proxy-groups"`
-  //List<String>? Rule                       `yaml:"rules" json:"rule"`
-  //map[string][]string SubRules             `yaml:"sub-rules" json:"sub-rules"`
   @JsonKey(name: 'listeners')
   Map<String, dynamic>? Listeners;
   @JsonKey(name: 'overwrite-hosts')
@@ -1277,6 +1280,12 @@ class RawConfig {
     this.KeepAliveIdle,
     this.KeepAliveInterval,
     this.DisableKeepAlive,
+    this.OverWriteRuleProviders,
+    this.RuleProviders,
+    this.OverWriteRules,
+    this.Rules,
+    this.OverWriteSubRules,
+    this.SubRules,
     this.Listeners,
     this.Hosts,
     required this.DNS,
@@ -1338,6 +1347,12 @@ class RawConfig {
     this.KeepAliveIdle,
     this.KeepAliveInterval,
     this.DisableKeepAlive,
+    this.OverWriteRuleProviders,
+    this.RuleProviders,
+    this.OverWriteRules,
+    this.Rules,
+    this.OverWriteSubRules,
+    this.SubRules,
     this.Listeners,
     this.Hosts,
     this.DNS,

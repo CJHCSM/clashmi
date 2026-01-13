@@ -7,11 +7,13 @@ import 'dart:io';
 import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
+import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:flutter/services.dart';
+
 import 'package:libclash_vpn_service/proxy_manager.dart';
 import 'package:path/path.dart' as path;
 
@@ -378,7 +380,10 @@ class ClashSettingManager {
     }
   }
 
-  static Future<String> getPatchContent(bool overwrite) async {
+  static Future<String> getPatchContent(
+    bool overwrite,
+    Map<String, String>? overwriteRule,
+  ) async {
     if (Platform.isIOS || Platform.isMacOS) {
       _setting.Tun?.Stack = ClashTunStack.gvisor.name;
     }
@@ -388,7 +393,45 @@ class ClashSettingManager {
     } else {
       _setting.Tun?.Inet6Address = null;
     }
+    _setting.OverWriteRuleProviders = false;
+    _setting.OverWriteRules = false;
+    _setting.OverWriteSubRules = false;
+    _setting.Rules = null;
+    _setting.RuleProviders = null;
+    if (overwriteRule != null && overwriteRule.isNotEmpty) {
+      _setting.OverWriteRuleProviders = true;
+      _setting.OverWriteRules = true;
+      _setting.OverWriteSubRules = true;
+      List<RuleProvider> newAllProviders = [];
+      final allProviders = DiversionTemplateManager.getRuleProviders();
+      final templates = DiversionTemplateManager.getRuleTemplates();
+      for (var template in templates) {
+        final target = overwriteRule[template.name];
+        if (target != null && target.isNotEmpty) {
+          _setting.Rules ??= [];
+          final providers = allProviders.where((ele) {
+            return template.ruleProviders.contains(ele.name);
+          });
+          newAllProviders.addAll(providers);
 
+          for (var provider in providers) {
+            String rule = "";
+            if (provider.type == "http") {
+              rule = "RULE-SET,${provider.name},$target";
+              if (!_setting.Rules!.contains(rule)) {
+                _setting.Rules!.add(rule);
+              }
+            }
+          }
+        }
+      }
+      if (newAllProviders.isNotEmpty) {
+        _setting.RuleProviders ??= {};
+        for (var provider in newAllProviders) {
+          _setting.RuleProviders![provider.name] = provider.toJsonNoName();
+        }
+      }
+    }
     if (overwrite) {
       final map = _setting.toJson();
       MapHelper.removeNullOrEmpty(map, true, true);
@@ -409,8 +452,11 @@ class ClashSettingManager {
     return content;
   }
 
-  static Future<void> saveCorePatchFinal(bool overwrite) async {
-    final content = await getPatchContent(overwrite);
+  static Future<void> saveCorePatchFinal(
+    bool overwrite,
+    Map<String, String>? overwriteRule,
+  ) async {
+    final content = await getPatchContent(overwrite, overwriteRule);
     String filePath = await PathUtils.serviceCorePatchFinalPath();
     try {
       await File(filePath).writeAsString(content, flush: true);

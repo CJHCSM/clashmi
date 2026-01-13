@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:path/path.dart' as path;
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 
@@ -12,23 +12,34 @@ class RuleProviderHttp {
     this.url = "",
     this.format = "",
     this.behavior = "",
-    this.path = "",
+
     this.interval = const Duration(hours: 12),
   });
 
   String url;
   String format;
   String behavior;
-  String path;
   Duration? interval;
 
-  Map<String, dynamic> toJson() => {
-    'url': url,
-    'format': format,
-    'behavior': behavior,
-    'path': path,
-    'interval': interval?.inSeconds,
-  };
+  Map<String, dynamic> toJson() {
+    late String path_;
+    final uri = Uri.tryParse(url);
+    if (uri != null && uri.path.isNotEmpty) {
+      path_ = "./rules/${path.basename(uri.path)}";
+    } else {
+      path_ = "./rules/${url.hashCode}";
+    }
+    var ret = {
+      'url': url,
+      'format': format,
+      'behavior': behavior,
+      'path': path_,
+      'interval': interval?.inSeconds,
+    };
+
+    return ret;
+  }
+
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -37,7 +48,7 @@ class RuleProviderHttp {
     url = map['url'];
     format = map['format'] ?? '';
     behavior = map['behavior'] ?? '';
-    path = map['path'] ?? '';
+
     int? intervalSeconds = map['interval'];
     if (!getFormats().contains(format)) {
       format = getFormats().first;
@@ -45,6 +56,7 @@ class RuleProviderHttp {
     if (!getBehaviors().contains(behavior)) {
       behavior = getBehaviors().first;
     }
+
     if (intervalSeconds != null) {
       interval = Duration(seconds: intervalSeconds);
     }
@@ -66,7 +78,7 @@ class RuleProviderHttp {
   }
 
   static List<String> getBehaviors() {
-    return ["domains", "ipcidr"];
+    return ["domain", "ipcidr"];
   }
 }
 
@@ -76,6 +88,10 @@ class RuleProvider {
   String type = "";
   RuleProviderHttp? http;
 
+  Map<String, dynamic> toJsonNoName() => {
+    'type': type,
+    ...http?.toJson() ?? {},
+  };
   Map<String, dynamic> toJson() => {
     'name': name,
     'type': type,
@@ -165,6 +181,8 @@ class DiversionTemplateManager {
 
   static Future<void> uninit() async {}
   static Future<void> reload() async {
+    _diversionTemplates.ruleProviders.clear();
+    _diversionTemplates.ruleTemplates.clear();
     await load();
   }
 
