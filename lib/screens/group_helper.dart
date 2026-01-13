@@ -619,7 +619,7 @@ class GroupHelper {
           textFormFieldOptions: GroupItemTextFieldOptions(
             name: tcontext.meta.userAgent,
             text: setting.userAgent(),
-            textWidthPercent: 0.5,
+            textWidthPercent: 0.6,
             onChanged: (String value) {
               setting.setUserAgent(value);
             },

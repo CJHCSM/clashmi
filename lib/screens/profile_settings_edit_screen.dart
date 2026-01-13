@@ -262,7 +262,7 @@ class _ProfilesSettingsEditScreenState
         textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.meta.userAgent,
           text: _userAgent,
-          textWidthPercent: 0.5,
+          textWidthPercent: 0.6,
           onChanged: (String value) {
             _userAgent = value;
           },
