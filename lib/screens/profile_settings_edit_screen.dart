@@ -342,7 +342,10 @@ class _ProfilesSettingsEditScreenState
                   return;
                 }
                 if (!connected) {
-                  DialogUtils.showAlertDialog(context, "请先连接");
+                  DialogUtils.showAlertDialog(
+                    context,
+                    "Please open the connection before trying again.",
+                  );
                   return;
                 }
                 if (_nodes.isEmpty) {
