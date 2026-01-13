@@ -411,6 +411,15 @@ class TranslationsMetaEn {
 	/// en: 'Overwrite Settings'
 	String get overwriteSettings => 'Overwrite Settings';
 
+	/// en: 'Diversion Template'
+	String get diversionTemplates => 'Diversion Template';
+
+	/// en: 'Rule Providers'
+	String get ruleProviders => 'Rule Providers';
+
+	/// en: 'Rule Templates'
+	String get ruleTemplates => 'Rule Templates';
+
 	/// en: 'External Controller'
 	String get externalController => 'External Controller';
 
@@ -1075,6 +1084,9 @@ extension on Translations {
 			'meta.overwriteTips' => 'Original Profile <- Custom Overwrite <- App Overwrite',
 			'meta.noOverwrite' => 'Do not overwrite',
 			'meta.overwriteSettings' => 'Overwrite Settings',
+			'meta.diversionTemplates' => 'Diversion Template',
+			'meta.ruleProviders' => 'Rule Providers',
+			'meta.ruleTemplates' => 'Rule Templates',
 			'meta.externalController' => 'External Controller',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP Concurrent Handshake',

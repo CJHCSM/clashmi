@@ -34,6 +34,7 @@ import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
 import 'package:clashmi/screens/ruleproviders_screen.dart';
+import 'package:clashmi/screens/ruletemplates_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/version_update_screen.dart';
@@ -1075,6 +1076,16 @@ class GroupHelper {
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.diversionTemplates,
+            onPush: () async {
+              showClashSettingsDiversionTemplates(context);
+            },
+          ),
+        ),
+      ];
+      List<GroupItemOptions> options4 = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
             name: tcontext.meta.overwrite,
             text: remark,
             tips: tcontext.meta.overwriteTips,
@@ -1101,9 +1112,10 @@ class GroupHelper {
         GroupItem(options: options1),
         GroupItem(options: options2),
         GroupItem(options: options3),
+        GroupItem(options: options4),
       ]);
 
-      List<GroupItemOptions> options4 = [
+      List<GroupItemOptions> options5 = [
         GroupItemOptions(
           stringPickerOptions: GroupItemStringPickerOptions(
             name: tcontext.meta.tcpConcurrent,
@@ -1153,7 +1165,7 @@ class GroupHelper {
           ),
         ),
       ];
-      List<GroupItemOptions> options5 = [
+      List<GroupItemOptions> options6 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.allowLanAccess,
@@ -1164,7 +1176,7 @@ class GroupHelper {
         ),
       ];
 
-      List<GroupItemOptions> options6 = [
+      List<GroupItemOptions> options7 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.dns,
@@ -1211,22 +1223,13 @@ class GroupHelper {
             },
           ),
         ),
-        GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: "Rule Providers",
-            tips: "rule-providers",
-            onPush: () async {
-              showClashSettingsRuleProviders(context);
-            },
-          ),
-        ),
       ];
       if (currentPatch.id.isEmpty ||
           currentPatch.id == kProfilePatchBuildinOverwrite) {
         groups.addAll([
-          GroupItem(options: options4),
           GroupItem(options: options5),
           GroupItem(options: options6),
+          GroupItem(options: options7),
         ]);
       }
 
@@ -2116,14 +2119,58 @@ class GroupHelper {
     );
   }
 
-  static Future<void> showClashSettingsRuleProviders(
+  static Future<void> showClashSettingsDiversionTemplates(
     BuildContext context,
   ) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.ruleProviders,
+            tips: "rule-providers",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: RuleProvidersScreen.routSettings(),
+                  builder: (context) => RuleProvidersScreen(),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.ruleTemplates,
+            tips: "rules",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: RuleTemplatesScreen.routSettings(),
+                  builder: (context) => RuleTemplatesScreen(),
+                ),
+              );
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleProvidersScreen.routSettings(),
-        builder: (context) => RuleProvidersScreen(),
+        settings: GroupScreen.routSettings("diversionTemplates"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.diversionTemplates,
+          getOptions: getOptions,
+        ),
       ),
     );
   }

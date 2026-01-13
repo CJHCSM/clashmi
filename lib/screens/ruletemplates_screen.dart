@@ -4,21 +4,20 @@ import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:clashmi/screens/ruleproviders_add_or_edit_screen.dart';
 
-class RuleProvidersScreen extends LasyRenderingStatefulWidget {
+class RuleTemplatesScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleProvidersScreen");
+    return RouteSettings(name: "RuleTemplatesScreen");
   }
 
-  const RuleProvidersScreen({super.key});
+  const RuleTemplatesScreen({super.key});
 
   @override
-  State<RuleProvidersScreen> createState() => _RuleProvidersScreenState();
+  State<RuleTemplatesScreen> createState() => _RuleTemplatesScreenState();
 }
 
-class _RuleProvidersScreenState
-    extends LasyRenderingState<RuleProvidersScreen> {
+class _RuleTemplatesScreenState
+    extends LasyRenderingState<RuleTemplatesScreen> {
   @override
   void initState() {
     super.initState();
@@ -56,7 +55,7 @@ class _RuleProvidersScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.meta.ruleProviders,
+                        tcontext.meta.ruleTemplates,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -89,12 +88,12 @@ class _RuleProvidersScreenState
 
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
-    final ruleProviders = DiversionTemplateManager.getRuleProviders();
+    final ruleTemplates = DiversionTemplateManager.getRuleTemplates();
     return Scrollbar(
       child: ListView.separated(
-        itemCount: ruleProviders.length,
+        itemCount: ruleTemplates.length,
         itemBuilder: (BuildContext context, int index) {
-          var current = ruleProviders[index];
+          var current = ruleTemplates[index];
           return createWidget(index, current, windowSize);
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -104,7 +103,7 @@ class _RuleProvidersScreenState
     );
   }
 
-  Widget createWidget(int index, RuleProvider current, Size windowSize) {
+  Widget createWidget(int index, RuleTemplate current, Size windowSize) {
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
@@ -168,30 +167,30 @@ class _RuleProvidersScreenState
   }
 
   void onTapAdd() async {
-    await Navigator.push(
+    /* await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleProvidersAddOrEditScreen.routSettings(),
-        builder: (context) => RuleProvidersAddOrEditScreen(),
+        settings: RuleTemplatesAddOrEditScreen.routSettings(),
+        builder: (context) => RuleTemplatesAddOrEditScreen(),
       ),
     );
-    setState(() {});
+    setState(() {});*/
   }
 
   void onTapDelete(String name) async {
-    DiversionTemplateManager.removeRuleProviderByName(name);
+    DiversionTemplateManager.removeRuleTemplateByName(name);
     await DiversionTemplateManager.save();
     setState(() {});
   }
 
   void onTapEdit(String name) async {
-    await Navigator.push(
+    /*await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RuleProvidersAddOrEditScreen.routSettings(),
-        builder: (context) => RuleProvidersAddOrEditScreen(name: name),
+        settings: RuleTemplatesAddOrEditScreen.routSettings(),
+        builder: (context) => RuleTemplatesAddOrEditScreen(name: name),
       ),
     );
-    setState(() {});
+    setState(() {});*/
   }
 }

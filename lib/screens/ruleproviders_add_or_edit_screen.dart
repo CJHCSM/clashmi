@@ -1,4 +1,4 @@
-import 'package:clashmi/app/modules/rule_providers_manager.dart';
+import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
@@ -31,7 +31,7 @@ class _RuleProvidersAddOrEditScreenState
   @override
   void initState() {
     if (widget.name.isNotEmpty) {
-      RuleProvider? provider = RuleProvidersManager.getRuleProviderByName(
+      RuleProvider? provider = DiversionTemplateManager.getRuleProviderByName(
         widget.name,
       );
       if (provider != null) {
@@ -45,13 +45,13 @@ class _RuleProvidersAddOrEditScreenState
         }
       } else {
         _type = RuleProvider.getTypes().first;
-        _behavior = RuleProviderSettingHttp.getBehaviors().first;
-        _format = RuleProviderSettingHttp.getFormats().first;
+        _behavior = RuleProviderHttp.getBehaviors().first;
+        _format = RuleProviderHttp.getFormats().first;
       }
     } else {
       _type = RuleProvider.getTypes().first;
-      _behavior = RuleProviderSettingHttp.getBehaviors().first;
-      _format = RuleProviderSettingHttp.getFormats().first;
+      _behavior = RuleProviderHttp.getBehaviors().first;
+      _format = RuleProviderHttp.getFormats().first;
     }
 
     super.initState();
@@ -150,7 +150,7 @@ class _RuleProvidersAddOrEditScreenState
       DialogUtils.showAlertDialog(context, "url required");
       return;
     }
-    final names = RuleProvidersManager.getRuleProvidersNames();
+    final names = DiversionTemplateManager.getRuleProvidersNames();
     if (widget.name.isEmpty) {
       if (names.contains(_name)) {
         DialogUtils.showAlertDialog(context, "name:$_name already exists");
@@ -162,12 +162,17 @@ class _RuleProvidersAddOrEditScreenState
         return;
       }
     }
+    final url = Uri.tryParse(_url);
+    if (url == null) {
+      DialogUtils.showAlertDialog(context, "url:$_url is invalid");
+      return;
+    }
 
     RuleProvider newProvider = RuleProvider();
     newProvider.name = _name;
     newProvider.type = _type;
     if (_type == "http") {
-      newProvider.http = RuleProviderSettingHttp(
+      newProvider.http = RuleProviderHttp(
         url: _url,
         format: _format,
         behavior: _behavior,
@@ -175,12 +180,12 @@ class _RuleProvidersAddOrEditScreenState
       );
     }
     if (widget.name.isNotEmpty) {
-      RuleProvidersManager.updateProvider(widget.name, newProvider);
+      DiversionTemplateManager.updateRuleProvider(widget.name, newProvider);
     } else {
-      RuleProvidersManager.getRuleProviders().add(newProvider);
+      DiversionTemplateManager.getRuleProviders().add(newProvider);
     }
 
-    await RuleProvidersManager.save();
+    await DiversionTemplateManager.save();
     if (!mounted) {
       return;
     }
@@ -231,9 +236,9 @@ class _RuleProvidersAddOrEditScreenState
           stringPickerOptions: GroupItemStringPickerOptions(
             name: "format",
             selected: _format,
-            strings: RuleProviderSettingHttp.getFormats(),
+            strings: RuleProviderHttp.getFormats(),
             onPicker: (String? selected) async {
-              _format = selected ?? RuleProviderSettingHttp.getFormats().first;
+              _format = selected ?? RuleProviderHttp.getFormats().first;
               setState(() {});
             },
           ),
@@ -242,10 +247,9 @@ class _RuleProvidersAddOrEditScreenState
           stringPickerOptions: GroupItemStringPickerOptions(
             name: "behavior",
             selected: _behavior,
-            strings: RuleProviderSettingHttp.getBehaviors(),
+            strings: RuleProviderHttp.getBehaviors(),
             onPicker: (String? selected) async {
-              _behavior =
-                  selected ?? RuleProviderSettingHttp.getBehaviors().first;
+              _behavior = selected ?? RuleProviderHttp.getBehaviors().first;
               setState(() {});
             },
           ),
