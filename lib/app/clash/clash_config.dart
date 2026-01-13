@@ -19,6 +19,7 @@ class MapHelper {
       if (value == null) {
         toRemove.add(key);
       }
+
       if (key == "overwrite") {
         if (removeOverWriteField) {
           toRemove.add(key);
@@ -27,6 +28,12 @@ class MapHelper {
           if (value != true) {
             toRemove.add(key);
           }
+        }
+      } else if (key.startsWith("overwrite-")) {
+        toRemove.add(key);
+        if (value != true) {
+          String originalKey = key.substring("overwrite-".length);
+          toRemove.add(originalKey);
         }
       }
 
@@ -1181,7 +1188,12 @@ class RawConfig {
   int? KeepAliveInterval;
   @JsonKey(name: 'disable-keep-alive')
   bool? DisableKeepAlive;
-
+  @JsonKey(name: 'overwrite-rule-providers')
+  bool? OverWriteRuleProviders;
+  @JsonKey(name: 'rule-providers')
+  Map<String, dynamic>? RuleProviders;
+  @JsonKey(name: 'overwrite-rules')
+  bool? OverWriteRules;
   //map[string]map[string]any ProxyProvider  `yaml:"proxy-providers" json:"proxy-providers"`
   //map[string]map[string]any RuleProvider   `yaml:"rule-providers" json:"rule-providers"`
   //[]map[string]any Proxy                   `yaml:"proxies" json:"proxies"`
@@ -1190,6 +1202,8 @@ class RawConfig {
   //map[string][]string SubRules             `yaml:"sub-rules" json:"sub-rules"`
   @JsonKey(name: 'listeners')
   Map<String, dynamic>? Listeners;
+  @JsonKey(name: 'overwrite-hosts')
+  bool? OverWriteHosts;
   @JsonKey(name: 'hosts')
   Map<String, dynamic>? Hosts;
   @JsonKey(name: 'dns')

@@ -392,6 +392,7 @@ class ClashSettingManager {
     if (overwrite) {
       final map = _setting.toJson();
       MapHelper.removeNullOrEmpty(map, true, true);
+
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');
       String content = encoder.convert(map);
       return content;
