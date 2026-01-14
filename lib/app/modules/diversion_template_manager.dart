@@ -133,10 +133,8 @@ class RuleTemplate {
     Set<String> providers = {};
     for (var rule in rules) {
       List<String> parts = parseRule(rule);
-      if (parts.length == 2) {
-        if (parts[0] == "RULE-SET") {
-          providers.add(parts[1]);
-        }
+      if (parts[0] == "RULE-SET") {
+        providers.add(parts[1]);
       }
     }
     return providers;

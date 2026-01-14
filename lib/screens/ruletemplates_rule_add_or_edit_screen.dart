@@ -26,6 +26,7 @@ class _RuleTemplatesRuleAddOrEditScreenState
     extends LasyRenderingState<RuleTemplatesRuleAddOrEditScreen> {
   String _type = RuleTemplate.getTypes().first;
   String _value = "";
+  bool _noResolve = false;
   @override
   void initState() {
     List<String> parts = RuleTemplate.parseRule(widget.rule);
@@ -34,6 +35,7 @@ class _RuleTemplatesRuleAddOrEditScreenState
       if (parts.length > 1) {
         _value = parts[1];
       }
+      _noResolve = parts.contains("NO-RESOLVE");
     }
     super.initState();
   }
@@ -137,7 +139,11 @@ class _RuleTemplatesRuleAddOrEditScreenState
         );
         return;
       }
-      rule = [_type, _value].join(",");
+      if (_noResolve) {
+        rule = [_type, _value, "NO-RESOLVE"].join(",");
+      } else {
+        rule = [_type, _value].join(",");
+      }
     } else if (_type == "MATCH") {
       _value = "";
       rule = _type;
@@ -170,6 +176,16 @@ class _RuleTemplatesRuleAddOrEditScreenState
       groupOptions.add(
         GroupItem(
           options: [
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: "NO-RESOLVE",
+                switchValue: _noResolve,
+                onSwitch: (bool value) async {
+                  _noResolve = value;
+                  setState(() {});
+                },
+              ),
+            ),
             GroupItemOptions(
               pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.ruleProviders,
@@ -240,6 +256,21 @@ class _RuleTemplatesRuleAddOrEditScreenState
       groupOptions.add(
         GroupItem(
           options: [
+            if (_type == "GEOIP" ||
+                _type == "IP-ASN" ||
+                _type == "IP-CIDR" ||
+                _type == "IP-CIDR6") ...[
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                  name: "NO-RESOLVE",
+                  switchValue: _noResolve,
+                  onSwitch: (bool value) async {
+                    _noResolve = value;
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
             GroupItemOptions(
               textFormFieldOptions: GroupItemTextFieldOptions(
                 name: _type,

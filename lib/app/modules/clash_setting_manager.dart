@@ -414,7 +414,14 @@ class ClashSettingManager {
           });
           newAllProviders.addAll(providers);
           for (var rule in template.rules) {
-            String ruleWithTarget = "$rule,$target";
+            String ruleWithTarget = "";
+            if (rule.endsWith(",NO-RESOLVE")) {
+              ruleWithTarget =
+                  "${rule.substring(0, rule.length - ",NO-RESOLVE".length)},$target,NO-RESOLVE";
+            } else {
+              ruleWithTarget = "$rule,$target";
+            }
+
             if (!_setting.Rules!.contains(ruleWithTarget)) {
               _setting.Rules!.add(ruleWithTarget);
             }
