@@ -127,19 +127,14 @@ class _RuleTemplatesRuleAddOrEditScreenState
   void onTapSave() async {
     final tcontext = Translations.of(context);
     String rule = "";
-    if (_type == "RULE-SET") {
+    if (RuleTemplate.needValue(_type)) {
       if (_value.isEmpty) {
         DialogUtils.showAlertDialog(
           context,
-          "${tcontext.meta.ruleProviders} can not be empty",
+          _type == "RULE-SET"
+              ? "${tcontext.meta.ruleProviders} can not be empty"
+              : "$_type can not be empty",
         );
-        return;
-      }
-      rule = [_type, _value].join(",");
-    }
-    if (_type == "GEOSITE" || _type == "GEOIP" || _type == "IP-ASN") {
-      if (_value.isEmpty) {
-        DialogUtils.showAlertDialog(context, "$_type can not be empty");
         return;
       }
       rule = [_type, _value].join(",");
@@ -232,7 +227,13 @@ class _RuleTemplatesRuleAddOrEditScreenState
           ],
         ),
       );
-    } else if (_type == "GEOSITE" || _type == "GEOIP") {
+    } else {
+      String hint = "";
+      if (_type == "GEOSITE" || _type == "GEOIP") {
+        hint = "CN[${tcontext.meta.required}]";
+      } else if (_type == "IP-ASN") {
+        hint = "14[${tcontext.meta.required}]";
+      }
       groupOptions.add(
         GroupItem(
           options: [
@@ -240,26 +241,7 @@ class _RuleTemplatesRuleAddOrEditScreenState
               textFormFieldOptions: GroupItemTextFieldOptions(
                 name: _type,
                 text: _value,
-                hint: "CN[${tcontext.meta.required}]",
-                textWidthPercent: 0.6,
-                textInputAction: TextInputAction.next,
-                onChanged: (String value) {
-                  _value = value;
-                },
-              ),
-            ),
-          ],
-        ),
-      );
-    } else if (_type == "IP-ASN") {
-      groupOptions.add(
-        GroupItem(
-          options: [
-            GroupItemOptions(
-              textFormFieldOptions: GroupItemTextFieldOptions(
-                name: _type,
-                text: _value,
-                hint: "14[${tcontext.meta.required}]",
+                hint: hint,
                 textWidthPercent: 0.6,
                 textInputAction: TextInputAction.next,
                 onChanged: (String value) {

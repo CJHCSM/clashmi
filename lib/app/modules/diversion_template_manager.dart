@@ -154,7 +154,39 @@ class RuleTemplate {
   }
 
   static List<String> getTypes() {
-    return ["RULE-SET", "GEOSITE", "GEOIP", "IP-ASN", "MATCH"];
+    return [
+      "RULE-SET",
+      "GEOSITE",
+      "GEOIP",
+      "IP-ASN",
+      "DOMAIN",
+      "DOMAIN-SUFFIX",
+      "DOMAIN-KEYWORD",
+      "DOMAIN-REGEX",
+      "IP-CIDR",
+      "IP-CIDR6",
+      "PROCESS-NAME",
+      "PROCESS-NAME-REGEX",
+      "MATCH",
+    ];
+  }
+
+  static bool needValue(String value) {
+    final types = [
+      "RULE-SET",
+      "GEOSITE",
+      "GEOIP",
+      "IP-ASN",
+      "DOMAIN",
+      "DOMAIN-SUFFIX",
+      "DOMAIN-KEYWORD",
+      "DOMAIN-REGEX",
+      "IP-CIDR",
+      "IP-CIDR6",
+      "PROCESS-NAME",
+      "PROCESS-NAME-REGEX",
+    ];
+    return types.contains(value);
   }
 
   static List<String> parseRule(String rule) {
