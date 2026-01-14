@@ -593,6 +593,12 @@ RawConfig _$RawConfigFromJson(Map<String, dynamic> json) => RawConfig(
       (json['keep-alive-idle'] as num?)?.toInt(),
       (json['keep-alive-interval'] as num?)?.toInt(),
       json['disable-keep-alive'] as bool?,
+      json['overwrite-rule-providers'] as bool?,
+      json['rule-providers'] as Map<String, dynamic>?,
+      json['overwrite-rules'] as bool?,
+      (json['rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      json['overwrite-sub-rules'] as bool?,
+      (json['sub-rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['listeners'] as Map<String, dynamic>?,
       json['hosts'] as Map<String, dynamic>?,
       json['dns'] == null
@@ -633,11 +639,7 @@ RawConfig _$RawConfigFromJson(Map<String, dynamic> json) => RawConfig(
       json['extension'] == null
           ? null
           : RawExtension.fromJson(json['extension'] as Map<String, dynamic>),
-    )
-      ..OverWriteRuleProviders = json['overwrite-rule-providers'] as bool?
-      ..RuleProviders = json['rule-providers'] as Map<String, dynamic>?
-      ..OverWriteRules = json['overwrite-rules'] as bool?
-      ..OverWriteHosts = json['overwrite-hosts'] as bool?;
+    )..OverWriteHosts = json['overwrite-hosts'] as bool?;
 
 Map<String, dynamic> _$RawConfigToJson(RawConfig instance) => <String, dynamic>{
       'port': instance.Port,
@@ -688,6 +690,9 @@ Map<String, dynamic> _$RawConfigToJson(RawConfig instance) => <String, dynamic>{
       'overwrite-rule-providers': instance.OverWriteRuleProviders,
       'rule-providers': instance.RuleProviders,
       'overwrite-rules': instance.OverWriteRules,
+      'rules': instance.Rules,
+      'overwrite-sub-rules': instance.OverWriteSubRules,
+      'sub-rules': instance.SubRules,
       'listeners': instance.Listeners,
       'overwrite-hosts': instance.OverWriteHosts,
       'hosts': instance.Hosts,

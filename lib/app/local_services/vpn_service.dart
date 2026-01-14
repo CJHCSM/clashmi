@@ -168,7 +168,11 @@ class VPNService {
     } else {
       overwrite = profile.patch == kProfilePatchBuildinOverwrite;
     }
-    await ClashSettingManager.saveCorePatchFinal(overwrite);
+
+    await ClashSettingManager.saveCorePatchFinal(
+      overwrite,
+      profile.overwriteRules ? profile.rules : null,
+    );
 
     var excludePorts = [controlPort];
     if (setting.MixedPort != null) {

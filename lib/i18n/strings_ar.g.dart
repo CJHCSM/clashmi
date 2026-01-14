@@ -216,6 +216,9 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get overwriteTips => 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق';
 	@override String get noOverwrite => 'لا تكتب فوق';
 	@override String get overwriteSettings => 'تجاوز الإعدادات';
+	@override String get diversionTemplates => 'نموذج الفرز';
+	@override String get ruleProviders => 'موفر القواعد';
+	@override String get ruleTemplates => 'نموذج القاعدة';
 	@override String get externalController => 'الرقابة الخارجية';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'مصافحة TCP المتزامنة';
@@ -549,6 +552,9 @@ extension on TranslationsAr {
 			'meta.overwriteTips' => 'التكوين الأصلي <- تجاوز مخصص <- تجاوز التطبيق',
 			'meta.noOverwrite' => 'لا تكتب فوق',
 			'meta.overwriteSettings' => 'تجاوز الإعدادات',
+			'meta.diversionTemplates' => 'نموذج الفرز',
+			'meta.ruleProviders' => 'موفر القواعد',
+			'meta.ruleTemplates' => 'نموذج القاعدة',
 			'meta.externalController' => 'الرقابة الخارجية',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'مصافحة TCP المتزامنة',

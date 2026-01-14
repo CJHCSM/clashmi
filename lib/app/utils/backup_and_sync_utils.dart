@@ -37,6 +37,7 @@ class BackupAndSyncUtils {
       Tuple2(PathUtils.settingFileName(), true),
       Tuple2(PathUtils.profilesFileName(), true),
       Tuple2(PathUtils.profilePatchsFileName(), true),
+      Tuple2(PathUtils.diversionTemplateFileName(), true),
     ];
     if (profiles.isNotEmpty) {
       list.add(Tuple2(PathUtils.profilesName(), true));

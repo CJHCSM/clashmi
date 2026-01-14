@@ -216,6 +216,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get overwriteTips => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения';
 	@override String get noOverwrite => 'Не перезаписывать';
 	@override String get overwriteSettings => 'Переопределить настройки';
+	@override String get diversionTemplates => 'Шаблон сортировки пациентов';
+	@override String get ruleProviders => 'Поставщик правил';
+	@override String get ruleTemplates => 'Шаблон правила';
 	@override String get externalController => 'Внешнее управление';
 	@override String get secret => 'Пароль';
 	@override String get tcpConcurrent => 'Параллельное TCP-подтверждение';
@@ -549,6 +552,9 @@ extension on TranslationsRu {
 			'meta.overwriteTips' => 'Исходная конфигурация <- Пользовательское переопределение <- Переопределение приложения',
 			'meta.noOverwrite' => 'Не перезаписывать',
 			'meta.overwriteSettings' => 'Переопределить настройки',
+			'meta.diversionTemplates' => 'Шаблон сортировки пациентов',
+			'meta.ruleProviders' => 'Поставщик правил',
+			'meta.ruleTemplates' => 'Шаблон правила',
 			'meta.externalController' => 'Внешнее управление',
 			'meta.secret' => 'Пароль',
 			'meta.tcpConcurrent' => 'Параллельное TCP-подтверждение',

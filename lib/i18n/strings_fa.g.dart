@@ -216,6 +216,9 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get overwriteTips => 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه';
 	@override String get noOverwrite => 'رونویسی نکنید';
 	@override String get overwriteSettings => 'لغو تنظیمات';
+	@override String get diversionTemplates => 'الگوی تریاژ';
+	@override String get ruleProviders => 'ارائه دهنده قانون';
+	@override String get ruleTemplates => 'الگوی قانون';
 	@override String get externalController => 'کنترل خارجی';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'دست دادن همزمان TCP';
@@ -549,6 +552,9 @@ extension on TranslationsFa {
 			'meta.overwriteTips' => 'پیکربندی اصلی <- لغو سفارشی <- لغو برنامه',
 			'meta.noOverwrite' => 'رونویسی نکنید',
 			'meta.overwriteSettings' => 'لغو تنظیمات',
+			'meta.diversionTemplates' => 'الگوی تریاژ',
+			'meta.ruleProviders' => 'ارائه دهنده قانون',
+			'meta.ruleTemplates' => 'الگوی قانون',
 			'meta.externalController' => 'کنترل خارجی',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'دست دادن همزمان TCP',

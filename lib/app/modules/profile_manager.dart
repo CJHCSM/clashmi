@@ -15,6 +15,7 @@ import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:intl/intl.dart';
+import 'package:libclash_vpn_service/http_request.dart' as ConvertUtils;
 import 'package:libclash_vpn_service/state.dart';
 import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
@@ -42,6 +43,8 @@ class ProfileSetting {
   num download = 0;
   num total = 0;
   String expire = "";
+  bool overwriteRules = false;
+  Map<String, String> rules = {};
   Map<String, dynamic> toJson() => {
     'id': id,
     'remark': remark,
@@ -54,6 +57,8 @@ class ProfileSetting {
     'download': download,
     'total': total,
     'expire': expire,
+    'overwrite_rules': overwriteRules,
+    'rules': rules,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -63,6 +68,7 @@ class ProfileSetting {
     id = map['id'] ?? '';
     remark = map['remark'] ?? '';
     patch = map['patch'] ?? '';
+
     var updateIntervalTime = map['update_interval'];
     if (updateIntervalTime is int) {
       if (updateIntervalTime < 60) {
@@ -80,6 +86,11 @@ class ProfileSetting {
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
+    overwriteRules = map['overwrite_rules'] ?? false;
+    rules = ConvertUtils.convertMap(map["rules"]);
+    rules.removeWhere((key, value) {
+      return key.isEmpty || value.isEmpty;
+    });
   }
 
   String getType() {
@@ -161,6 +172,27 @@ class ProfileSetting {
 
     return Tuple2(expiring, expireTime);
   }
+
+  ProfileSetting clone() {
+    ProfileSetting ps = ProfileSetting();
+    ps.id = id;
+    ps.remark = remark;
+    ps.patch = patch;
+    ps.updateInterval = updateInterval;
+    ps.update = update;
+    ps.url = url;
+    ps.userAgent = userAgent;
+    ps.upload = upload;
+    ps.download = download;
+    ps.total = total;
+    ps.expire = expire;
+    ps.overwriteRules = overwriteRules;
+    rules.forEach((key, value) {
+      ps.rules[key] = value;
+    });
+
+    return ps;
+  }
 }
 
 class ProfileConfig {
@@ -181,8 +213,12 @@ class ProfileConfig {
     if (p is List) {
       for (var value in p) {
         ProfileSetting ps = ProfileSetting();
-        ps.fromJson(value);
-        profiles.add(ps);
+        try {
+          ps.fromJson(value);
+          profiles.add(ps);
+        } catch (err) {
+          Log.w("ProfileConfig.fromJson exception ${err.toString()} ");
+        }
       }
     }
   }
@@ -683,7 +719,7 @@ class ProfileManager {
   static ProfileSetting? getProfile(String id) {
     for (var profile in _config.profiles) {
       if (id == profile.id) {
-        return profile;
+        return profile.clone();
       }
     }
     return null;
@@ -704,5 +740,14 @@ class ProfileManager {
     }
     var item = _config.profiles.removeAt(oldIndex);
     _config.profiles.insert(newIndex, item);
+  }
+
+  static void updateProfile(String id, ProfileSetting profile) {
+    for (int i = 0; i < _config.profiles.length; ++i) {
+      if (_config.profiles[i].id == id) {
+        _config.profiles[i] = profile;
+        break;
+      }
+    }
   }
 }

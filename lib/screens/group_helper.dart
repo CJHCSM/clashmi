@@ -33,6 +33,8 @@ import 'package:clashmi/screens/list_add_screen.dart';
 import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
+import 'package:clashmi/screens/ruleproviders_screen.dart';
+import 'package:clashmi/screens/ruletemplates_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/version_update_screen.dart';
@@ -617,7 +619,7 @@ class GroupHelper {
           textFormFieldOptions: GroupItemTextFieldOptions(
             name: tcontext.meta.userAgent,
             text: setting.userAgent(),
-            textWidthPercent: 0.5,
+            textWidthPercent: 0.6,
             onChanged: (String value) {
               setting.setUserAgent(value);
             },
@@ -1074,6 +1076,16 @@ class GroupHelper {
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.diversionTemplates,
+            onPush: () async {
+              showClashSettingsDiversionTemplates(context);
+            },
+          ),
+        ),
+      ];
+      List<GroupItemOptions> options4 = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
             name: tcontext.meta.overwrite,
             text: remark,
             tips: tcontext.meta.overwriteTips,
@@ -1100,9 +1112,10 @@ class GroupHelper {
         GroupItem(options: options1),
         GroupItem(options: options2),
         GroupItem(options: options3),
+        GroupItem(options: options4),
       ]);
 
-      List<GroupItemOptions> options4 = [
+      List<GroupItemOptions> options5 = [
         GroupItemOptions(
           stringPickerOptions: GroupItemStringPickerOptions(
             name: tcontext.meta.tcpConcurrent,
@@ -1152,7 +1165,7 @@ class GroupHelper {
           ),
         ),
       ];
-      List<GroupItemOptions> options5 = [
+      List<GroupItemOptions> options6 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.allowLanAccess,
@@ -1163,7 +1176,7 @@ class GroupHelper {
         ),
       ];
 
-      List<GroupItemOptions> options6 = [
+      List<GroupItemOptions> options7 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.dns,
@@ -1210,30 +1223,13 @@ class GroupHelper {
             },
           ),
         ),
-        /*GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: "Rule Providers",
-            tips: "rule-providers",
-            onPush: () async {
-              showClashSettingsRuleProviders(context);
-            },
-          ),
-        ),*GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: "Rules",
-            tips: "rules",
-            onPush: () async {
-              showClashSettingsRules(context);
-            },
-          ),
-        ),*/
       ];
       if (currentPatch.id.isEmpty ||
           currentPatch.id == kProfilePatchBuildinOverwrite) {
         groups.addAll([
-          GroupItem(options: options4),
           GroupItem(options: options5),
           GroupItem(options: options6),
+          GroupItem(options: options7),
         ]);
       }
 
@@ -1248,10 +1244,12 @@ class GroupHelper {
           title: tcontext.meta.settingCore,
           getOptions: getOptions,
           onDone: (context) async {
+            final profile = ProfileManager.getCurrent();
             final currentPatch = ProfilePatchManager.getCurrent();
             final content = await ClashSettingManager.getPatchContent(
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
+              profile != null && profile.overwriteRules ? profile.rules : null,
             );
             if (!context.mounted) {
               return false;
@@ -2123,7 +2121,7 @@ class GroupHelper {
     );
   }
 
-  static Future<void> showClashSettingsRuleProviders(
+  static Future<void> showClashSettingsDiversionTemplates(
     BuildContext context,
   ) async {
     final tcontext = Translations.of(context);
@@ -2131,15 +2129,34 @@ class GroupHelper {
       BuildContext context,
       SetStateCallback? setstate,
     ) async {
-      var setting = ClashSettingManager.getConfig();
-
       List<GroupItemOptions> options = [
         GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: tcontext.meta.overwrite,
-            switchValue: setting.OverWriteRuleProviders,
-            onSwitch: (bool value) async {
-              setting.OverWriteRuleProviders = value;
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.ruleProviders,
+            tips: "rule-providers",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: RuleProvidersScreen.routSettings(),
+                  builder: (context) => RuleProvidersScreen(),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.ruleTemplates,
+            tips: "rules",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: RuleTemplatesScreen.routSettings(),
+                  builder: (context) => RuleTemplatesScreen(),
+                ),
+              );
             },
           ),
         ),
@@ -2151,42 +2168,11 @@ class GroupHelper {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("rule-providers"),
-        builder: (context) =>
-            GroupScreen(title: "Rule Providers", getOptions: getOptions),
-      ),
-    );
-  }
-
-  static Future<void> showClashSettingsRules(BuildContext context) async {
-    final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(
-      BuildContext context,
-      SetStateCallback? setstate,
-    ) async {
-      var setting = ClashSettingManager.getConfig();
-
-      List<GroupItemOptions> options = [
-        GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: tcontext.meta.overwrite,
-            switchValue: setting.OverWriteRules,
-            onSwitch: (bool value) async {
-              setting.OverWriteRules = value;
-            },
-          ),
+        settings: GroupScreen.routSettings("diversionTemplates"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.diversionTemplates,
+          getOptions: getOptions,
         ),
-      ];
-
-      return [GroupItem(options: options)];
-    }
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        settings: GroupScreen.routSettings("rules"),
-        builder: (context) =>
-            GroupScreen(title: "Rules", getOptions: getOptions),
       ),
     );
   }

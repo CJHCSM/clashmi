@@ -240,6 +240,11 @@ class PathUtils {
     return "setting.json";
   }
 
+  static Future<String> diversionTemplateConfigFilePath() async {
+    String filePath = await PathUtils.profileDir();
+    return path.join(filePath, diversionTemplateFileName());
+  }
+
   static Future<String> profilesConfigFilePath() async {
     String filePath = await PathUtils.profileDir();
     return path.join(filePath, profilesFileName());
@@ -283,6 +288,10 @@ class PathUtils {
 
   static String profilePatchsFileName() {
     return "profile_patchs.json";
+  }
+
+  static String diversionTemplateFileName() {
+    return "diversion_template.json";
   }
 
   static Future<String> settingFilePath() async {

@@ -6,6 +6,7 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/modules/profile_patch_manager.dart';
+import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/backup_and_sync_utils.dart';
@@ -70,6 +71,7 @@ class BackupHelper {
     await ClashSettingManager.reload();
     await ProfileManager.reload();
     await ProfilePatchManager.reload();
+    await DiversionTemplateManager.reload();
     return null;
   }
 

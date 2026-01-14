@@ -216,6 +216,9 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get overwriteTips => '原始配置<-自定义覆写<-App覆写';
 	@override String get noOverwrite => '不覆写';
 	@override String get overwriteSettings => '覆写设置';
+	@override String get diversionTemplates => '分流模板';
+	@override String get ruleProviders => '规则提供者';
+	@override String get ruleTemplates => '规则模板';
 	@override String get externalController => '外部控制';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'TCP并发握手';
@@ -549,6 +552,9 @@ extension on TranslationsZhCn {
 			'meta.overwriteTips' => '原始配置<-自定义覆写<-App覆写',
 			'meta.noOverwrite' => '不覆写',
 			'meta.overwriteSettings' => '覆写设置',
+			'meta.diversionTemplates' => '分流模板',
+			'meta.ruleProviders' => '规则提供者',
+			'meta.ruleTemplates' => '规则模板',
 			'meta.externalController' => '外部控制',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP并发握手',
