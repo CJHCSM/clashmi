@@ -167,6 +167,9 @@ class RuleTemplate {
       "IP-CIDR6",
       "PROCESS-NAME",
       "PROCESS-NAME-REGEX",
+      "AND",
+      "OR",
+      "NOT",
       "MATCH",
     ];
   }
@@ -185,6 +188,9 @@ class RuleTemplate {
       "IP-CIDR6",
       "PROCESS-NAME",
       "PROCESS-NAME-REGEX",
+      "AND",
+      "OR",
+      "NOT",
     ];
     return types.contains(value);
   }

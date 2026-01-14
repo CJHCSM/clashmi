@@ -227,12 +227,15 @@ class _RuleTemplatesRuleAddOrEditScreenState
           ],
         ),
       );
+    } else if (_type == "MATCH") {
     } else {
       String hint = "";
       if (_type == "GEOSITE" || _type == "GEOIP") {
         hint = "CN[${tcontext.meta.required}]";
       } else if (_type == "IP-ASN") {
         hint = "14[${tcontext.meta.required}]";
+      } else {
+        hint = tcontext.meta.required;
       }
       groupOptions.add(
         GroupItem(
