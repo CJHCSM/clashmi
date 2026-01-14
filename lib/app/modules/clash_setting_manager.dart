@@ -410,27 +410,13 @@ class ClashSettingManager {
         if (target != null && target.isNotEmpty) {
           _setting.Rules ??= [];
           final providers = allProviders.where((ele) {
-            return template.ruleProviders.contains(ele.name);
+            return template.getProviders().contains(ele.name);
           });
           newAllProviders.addAll(providers);
-          if (template.type == "RULE-SET") {
-            for (var provider in providers) {
-              String rule = "${template.type},${provider.name},$target";
-              if (!_setting.Rules!.contains(rule)) {
-                _setting.Rules!.add(rule);
-              }
-            }
-          } else if (template.type == "GEOSITE" ||
-              template.type == "GEOIP" ||
-              template.type == "IP-ASN") {
-            String rule = "${template.type},${template.rule},$target";
-            if (!_setting.Rules!.contains(rule)) {
-              _setting.Rules!.add(rule);
-            }
-          } else if (template.type == "MATCH") {
-            String rule = "${template.type},$target";
-            if (!_setting.Rules!.contains(rule)) {
-              _setting.Rules!.add(rule);
+          for (var rule in template.rules) {
+            String ruleWithTarget = "$rule,$target";
+            if (!_setting.Rules!.contains(ruleWithTarget)) {
+              _setting.Rules!.add(ruleWithTarget);
             }
           }
         }

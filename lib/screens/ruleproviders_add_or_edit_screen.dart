@@ -133,8 +133,12 @@ class _RuleProvidersAddOrEditScreenState
   }
 
   void onTapSave() async {
+    final tcontext = Translations.of(context);
     if (_data.name.isEmpty) {
-      DialogUtils.showAlertDialog(context, "name required");
+      DialogUtils.showAlertDialog(
+        context,
+        "${tcontext.meta.name} can not be empty",
+      );
       return;
     }
 
@@ -143,7 +147,7 @@ class _RuleProvidersAddOrEditScreenState
       if (names.contains(_data.name)) {
         DialogUtils.showAlertDialog(
           context,
-          "name:${_data.name} already exists",
+          "${tcontext.meta.name}:${_data.name} already exists",
         );
         return;
       }
@@ -151,14 +155,14 @@ class _RuleProvidersAddOrEditScreenState
       if ((widget.name != _data.name) && names.contains(_data.name)) {
         DialogUtils.showAlertDialog(
           context,
-          "name:${_data.name} already exists",
+          "${tcontext.meta.name}:${_data.name} already exists",
         );
         return;
       }
     }
     if (_data.http != null) {
       if (_data.http!.url.isEmpty) {
-        DialogUtils.showAlertDialog(context, "url required");
+        DialogUtils.showAlertDialog(context, "url can not be empty");
         return;
       }
       final url = Uri.tryParse(_data.http!.url);
@@ -174,7 +178,7 @@ class _RuleProvidersAddOrEditScreenState
     if (widget.name.isNotEmpty) {
       DiversionTemplateManager.updateRuleProvider(widget.name, _data);
     } else {
-      DiversionTemplateManager.getRuleProviders().add(_data);
+      DiversionTemplateManager.addRuleProvider(_data);
     }
 
     await DiversionTemplateManager.save();
@@ -194,7 +198,7 @@ class _RuleProvidersAddOrEditScreenState
           name: tcontext.meta.name,
           text: _data.name,
           textWidthPercent: 0.7,
-          hint: "rule name",
+          hint: tcontext.meta.required,
           onChanged: (String value) {
             _data.name = value.trim();
           },
@@ -219,7 +223,7 @@ class _RuleProvidersAddOrEditScreenState
             name: "url",
             tips: "url",
             text: _data.http!.url,
-            hint: "https://e.com/rule.mrs",
+            hint: "https://e.com/rule.mrs[${tcontext.meta.required}]",
             textWidthPercent: 0.7,
             onChanged: (String value) {
               _data.http!.url = value.trim();

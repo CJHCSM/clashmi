@@ -116,34 +116,52 @@ class RuleProvider {
 }
 
 class RuleTemplate {
-  RuleTemplate({
-    this.name = "",
-    this.type = "RULE-SET",
-    this.ruleProviders = const [],
-  });
+  RuleTemplate({this.name = "", this.rules = const []});
   String name = "";
-  String type = "RULE-SET";
-  String rule = "";
-  List<String> ruleProviders = [];
+  List<String> rules = [];
 
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'type': type,
-    'rule': rule,
-    'rule-providers': ruleProviders,
-  };
+  Map<String, dynamic> toJson() => {'name': name, 'rules': rules};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
     }
     name = map['name'] ?? '';
-    type = map['type'] ?? 'RULE-SET';
-    rule = map['rule'] ?? '';
-    ruleProviders = List<String>.from(map['rule-providers'] ?? []);
+    rules = List<String>.from(map['rules'] ?? []);
+  }
+
+  Set<String> getProviders() {
+    Set<String> providers = {};
+    for (var rule in rules) {
+      List<String> parts = parseRule(rule);
+      if (parts.length == 2) {
+        if (parts[0] == "RULE-SET") {
+          providers.add(parts[1]);
+        }
+      }
+    }
+    return providers;
+  }
+
+  void reorder(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    if (oldIndex >= rules.length || newIndex >= rules.length) {
+      return;
+    }
+    var item = rules.removeAt(oldIndex);
+    rules.insert(newIndex, item);
   }
 
   static List<String> getTypes() {
     return ["RULE-SET", "GEOSITE", "GEOIP", "IP-ASN", "MATCH"];
+  }
+
+  static List<String> parseRule(String rule) {
+    if (rule.isEmpty) {
+      return [];
+    }
+    return rule.split(",");
   }
 }
 
@@ -299,6 +317,14 @@ class DiversionTemplateManager {
         .toSet();
   }
 
+  static void addRuleProvider(RuleProvider provider) {
+    _diversionTemplates.ruleProviders.add(provider);
+  }
+
+  static void addRuleTemplate(RuleTemplate template) {
+    _diversionTemplates.ruleTemplates.add(template);
+  }
+
   static void updateRuleProvider(String name, RuleProvider provider) {
     for (int i = 0; i < _diversionTemplates.ruleProviders.length; ++i) {
       if (name == _diversionTemplates.ruleProviders[i].name) {
@@ -321,5 +347,29 @@ class DiversionTemplateManager {
     return _diversionTemplates.ruleTemplates
         .map((element) => element.name)
         .toSet();
+  }
+
+  static void reorderRuleProvider(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    if (oldIndex >= _diversionTemplates.ruleProviders.length ||
+        newIndex >= _diversionTemplates.ruleProviders.length) {
+      return;
+    }
+    var item = _diversionTemplates.ruleProviders.removeAt(oldIndex);
+    _diversionTemplates.ruleProviders.insert(newIndex, item);
+  }
+
+  static void reorderRuleTemplates(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    if (oldIndex >= _diversionTemplates.ruleTemplates.length ||
+        newIndex >= _diversionTemplates.ruleTemplates.length) {
+      return;
+    }
+    var item = _diversionTemplates.ruleTemplates.removeAt(oldIndex);
+    _diversionTemplates.ruleTemplates.insert(newIndex, item);
   }
 }
