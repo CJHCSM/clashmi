@@ -345,7 +345,8 @@ class _ProfilesSettingsEditScreenState
       context,
       MaterialPageRoute(
         settings: ProxyGroupsScreen.routSettings(),
-        builder: (context) => ProxyGroupsScreen(nodes: newNodes),
+        builder: (context) =>
+            ProxyGroupsScreen(profile: current, nodes: newNodes),
       ),
     );
   }

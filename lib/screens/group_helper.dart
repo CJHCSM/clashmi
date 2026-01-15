@@ -1247,7 +1247,7 @@ class GroupHelper {
           onDone: (context) async {
             final profile = ProfileManager.getCurrent();
             final currentPatch = ProfilePatchManager.getCurrent();
-            final content = await ClashSettingManager.getPatchContent(
+            final result = await ClashSettingManager.getPatchContent(
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
               profile != null && profile.overwriteRules
@@ -1262,13 +1262,17 @@ class GroupHelper {
             if (!context.mounted) {
               return false;
             }
+            if (result.error != null) {
+              DialogUtils.showAlertDialog(context, result.error!.message);
+              return false;
+            }
             Navigator.push(
               context,
               MaterialPageRoute(
                 settings: FileViewScreen.routSettings(),
                 builder: (context) => FileViewScreen(
                   title: PathUtils.serviceCorePatchFinalFileName(),
-                  content: content,
+                  content: result.data!,
                 ),
               ),
             );

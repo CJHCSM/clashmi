@@ -1,5 +1,6 @@
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
+import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/proxygroup_select_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
@@ -12,8 +13,13 @@ class ProxyGroupsScreen extends LasyRenderingStatefulWidget {
     return RouteSettings(name: "ProxyGroupsScreen");
   }
 
+  final ProfileSetting profile;
   final List<ClashProxiesNode> nodes;
-  const ProxyGroupsScreen({super.key, required this.nodes});
+  const ProxyGroupsScreen({
+    super.key,
+    required this.profile,
+    required this.nodes,
+  });
 
   @override
   State<ProxyGroupsScreen> createState() => _ProxyGroupsScreenState();
@@ -180,13 +186,20 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
       }
     }
     nodes.addAll(widget.nodes);
-
-    Navigator.push(
+    widget.profile.proxyGroups[name] ??= ProfileSettingProxyGroup();
+    final pg = await Navigator.push(
       context,
       MaterialPageRoute(
         settings: ProxyGroupScreenScreen.routSettings(),
-        builder: (context) => ProxyGroupScreenScreen(name: name, nodes: nodes),
+        builder: (context) => ProxyGroupScreenScreen(
+          name: name,
+          proxies: widget.profile.proxyGroups[name]!.proxies,
+          nodes: nodes,
+        ),
       ),
     );
+    if (pg != null) {
+      widget.profile.proxyGroups[name]?.proxies = pg;
+    }
   }
 }

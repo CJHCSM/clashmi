@@ -13,6 +13,7 @@ import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:clashmi/i18n/strings.g.dart';
 import 'package:flutter/services.dart';
 
 import 'package:libclash_vpn_service/proxy_manager.dart';
@@ -381,7 +382,7 @@ class ClashSettingManager {
     }
   }
 
-  static Future<String> getPatchContent(
+  static Future<ReturnResult<String>> getPatchContent(
     bool overwrite,
     Map<String, String>? overwriteRule,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
@@ -406,25 +407,15 @@ class ClashSettingManager {
       _setting.OverWriteRuleProviders = true;
       _setting.OverWriteRules = true;
       _setting.OverWriteSubRules = true;
-      if (overwriteProxyGroups != null && overwriteProxyGroups.isNotEmpty) {
-        _setting.OverWriteProxyGroups = true;
-        final pgTemplates = DiversionTemplateManager.getProxyGroupTemplates();
-        _setting.ProxyGroups ??= [];
-        for (var template in pgTemplates) {
-          final pg = overwriteProxyGroups[template.name];
-          if (pg != null) {
-            var newTemplate = template.clone();
-            newTemplate.proxies = pg.proxies;
-            _setting.ProxyGroups!.add(newTemplate.toJson());
-          }
-        }
-      }
+
       List<RuleProvider> newAllProviders = [];
       final allProviders = DiversionTemplateManager.getRuleProviders();
       final templates = DiversionTemplateManager.getRuleTemplates();
+      Set<String> targets = {};
       for (var template in templates) {
         final target = overwriteRule[template.name];
         if (target != null && target.isNotEmpty) {
+          targets.add(target);
           _setting.Rules ??= [];
           final providers = allProviders.where((ele) {
             return template.getProviders().contains(ele.name);
@@ -451,6 +442,31 @@ class ClashSettingManager {
           _setting.RuleProviders![provider.name] = provider.toJsonNoName();
         }
       }
+      if (overwriteProxyGroups != null && overwriteProxyGroups.isNotEmpty) {
+        _setting.OverWriteProxyGroups = true;
+        final pgTemplates = DiversionTemplateManager.getProxyGroupTemplates();
+        _setting.ProxyGroups ??= [];
+        for (var template in pgTemplates) {
+          final pg = overwriteProxyGroups[template.name];
+          if (pg == null) {
+            return ReturnResult(
+              error: ReturnResultError(
+                "${t.meta.proxyGroups} [${template.name}]: not exist",
+              ),
+            );
+          }
+          if (pg.proxies.isEmpty) {
+            return ReturnResult(
+              error: ReturnResultError(
+                "${t.meta.proxyGroups} [${template.name}]: proxy list is empty",
+              ),
+            );
+          }
+          var newTemplate = template.clone();
+          newTemplate.proxies = pg.proxies;
+          _setting.ProxyGroups!.add(newTemplate.toJson());
+        }
+      }
     }
     if (overwrite) {
       final map = _setting.toJson();
@@ -458,9 +474,9 @@ class ClashSettingManager {
 
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');
       String content = encoder.convert(map);
-      return content;
+      return ReturnResult(data: content);
     }
-    return getPatchFinalContent();
+    return ReturnResult(data: getPatchFinalContent());
   }
 
   static String getPatchFinalContent() {
@@ -472,20 +488,26 @@ class ClashSettingManager {
     return content;
   }
 
-  static Future<void> saveCorePatchFinal(
+  static Future<ReturnResultError?> saveCorePatchFinal(
     bool overwrite,
     Map<String, String>? overwriteRule,
     Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
   ) async {
-    final content = await getPatchContent(
+    final result = await getPatchContent(
       overwrite,
       overwriteRule,
       overwriteProxyGroups,
     );
+    if (result.error != null) {
+      return result.error;
+    }
     String filePath = await PathUtils.serviceCorePatchFinalPath();
     try {
-      await File(filePath).writeAsString(content, flush: true);
-    } catch (err, stacktrace) {}
+      await File(filePath).writeAsString(result.data!, flush: true);
+    } catch (err, stacktrace) {
+      return ReturnResultError(err.toString());
+    }
+    return null;
   }
 
   static Future<void> load() async {

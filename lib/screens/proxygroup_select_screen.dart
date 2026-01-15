@@ -1,6 +1,7 @@
 // ignore_for_file: unused_catch_stack
 
 import 'package:clashmi/app/clash/clash_http_api.dart';
+import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
@@ -14,10 +15,12 @@ class ProxyGroupScreenScreen extends LasyRenderingStatefulWidget {
   }
 
   final String name;
+  final List<String> proxies;
   final List<ClashProxiesNode> nodes;
   const ProxyGroupScreenScreen({
     super.key,
     required this.name,
+    required this.proxies,
     required this.nodes,
   });
 
@@ -29,9 +32,10 @@ class _ProxyGroupScreenScreenState
     extends LasyRenderingState<ProxyGroupScreenScreen> {
   final _searchController = TextEditingController();
   List<ClashProxiesNode> _searchedData = [];
-  Set<String> _checked = {};
+  List<String> _checked = [];
   @override
   void initState() {
+    _checked = widget.proxies.toList();
     _loadSearch(null);
     super.initState();
   }
@@ -79,7 +83,7 @@ class _ProxyGroupScreenScreenState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => Navigator.pop(context, _checked),
                       child: const SizedBox(
                         width: 50,
                         height: 30,
@@ -195,13 +199,16 @@ class _ProxyGroupScreenScreenState
                       children: [
                         Row(
                           children: [
-                            Text(
-                              (index + 1).toString(),
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                            SizedBox(
+                              width: 40,
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(
+                                  fontSize: ThemeConfig.kFontSizeGroupItem,
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 10),
+
                             SizedBox(
                               width: windowSize.width - 120,
                               child: Column(
@@ -240,7 +247,8 @@ class _ProxyGroupScreenScreenState
                               tristate: true,
                               value: _checked.contains(current.name),
                               onChanged: (bool? value) {
-                                if (value != true) {
+                                bool value1 = _checked.contains(current.name);
+                                if (value1 != true) {
                                   _checked.add(current.name);
                                 } else {
                                   _checked.remove(current.name);
