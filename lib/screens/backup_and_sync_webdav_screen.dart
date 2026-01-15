@@ -452,7 +452,7 @@ class _BackupAndSyncWebdavScreenState
           textFormFieldOptions: GroupItemTextFieldOptions(
             name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
             keyboardType: TextInputType.url,
-            hint: "${tcontext.meta.required}[https://xxxx/webdav]",
+            hint: "https://xxxx/webdav[${tcontext.meta.required}]",
             textWidthPercent: 0.6,
             controller: _urlController,
             autoFocus: true,

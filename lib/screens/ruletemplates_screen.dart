@@ -79,7 +79,12 @@ class _RuleTemplatesScreenState
                 ),
               ),
               const SizedBox(height: 10),
-              Expanded(child: _loadListView()),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                  child: _loadListView(),
+                ),
+              ),
             ],
           ),
         ),
@@ -90,15 +95,24 @@ class _RuleTemplatesScreenState
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     final ruleTemplates = DiversionTemplateManager.getRuleTemplates();
+
+    List<Widget> widgets = [];
+    for (int i = 0; i < ruleTemplates.length; ++i) {
+      widgets.add(
+        SizedBox(
+          key: Key(i.toString()),
+          child: createWidget(i, ruleTemplates[i], windowSize),
+        ),
+      );
+    }
+
     return Scrollbar(
-      child: ListView.separated(
-        itemCount: ruleTemplates.length,
-        itemBuilder: (BuildContext context, int index) {
-          var current = ruleTemplates[index];
-          return createWidget(index, current, windowSize);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(height: 1, thickness: 0.3);
+      child: ReorderableListView(
+        children: widgets,
+        onReorder: (int oldIndex, int newIndex) {
+          DiversionTemplateManager.reorderRuleTemplates(oldIndex, newIndex);
+          DiversionTemplateManager.save();
+          setState(() {});
         },
       ),
     );
@@ -106,7 +120,7 @@ class _RuleTemplatesScreenState
 
   Widget createWidget(int index, RuleTemplate current, Size windowSize) {
     const double rightWidth = 30.0;
-    double centerWidth = windowSize.width - rightWidth - 20;
+    double centerWidth = windowSize.width - rightWidth - 20 - 20 * 2;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 2),

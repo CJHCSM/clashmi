@@ -292,6 +292,15 @@ class _ProfilesSettingsEditScreenState
     ];
 
     List<GroupItemOptions> options1 = [
+      /*GroupItemOptions(
+        pushOptions: GroupItemPushOptions(
+          name: "Proxy Groups",
+          tips: "proxy-groups",
+          onPush: () async {
+            showClashSettingsProxyGroups();
+          },
+        ),
+      ),*/
       GroupItemOptions(
         pushOptions: GroupItemPushOptions(
           name: tcontext.meta.rule,
@@ -307,6 +316,10 @@ class _ProfilesSettingsEditScreenState
     groupOptions.add(GroupItem(options: options1));
 
     return groupOptions;
+  }
+
+  Future<void> showClashSettingsProxyGroups() async {
+    final tcontext = Translations.of(context);
   }
 
   Future<void> showClashSettingsRules() async {
