@@ -111,6 +111,7 @@
         "diversionTemplates": "Diversion Template",
         "ruleProviders": "Rule Providers",
         "ruleTemplates": "Rule Templates",
+        "proxyGroups": "Proxy Group Template",
         "externalController": "External Controller",
         "secret": "Secret",
         "tcpConcurrent": "TCP Concurrent Handshake",

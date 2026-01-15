@@ -111,6 +111,7 @@
         "diversionTemplates": "分流模板",
         "ruleProviders": "规则提供者",
         "ruleTemplates": "规则模板",
+        "proxyGroups": "代理组模板",
         "externalController": "外部控制",
         "secret": "Secret",
         "tcpConcurrent": "TCP并发握手",

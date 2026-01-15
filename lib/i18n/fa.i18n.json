@@ -111,6 +111,7 @@
         "diversionTemplates": "الگوی تریاژ",
         "ruleProviders": "ارائه دهنده قانون",
         "ruleTemplates": "الگوی قانون",
+        "proxyGroups": "الگوی گروه نمایندگان",
         "externalController": "کنترل خارجی",
         "secret": "Secret",
         "tcpConcurrent": "دست دادن همزمان TCP",

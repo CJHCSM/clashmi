@@ -111,6 +111,7 @@
         "diversionTemplates": "نموذج الفرز",
         "ruleProviders": "موفر القواعد",
         "ruleTemplates": "نموذج القاعدة",
+        "proxyGroups": "نموذج مجموعة الوكلاء",
         "externalController": "الرقابة الخارجية",
         "secret": "Secret",
         "tcpConcurrent": "مصافحة TCP المتزامنة",

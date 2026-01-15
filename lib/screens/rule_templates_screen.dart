@@ -1,6 +1,6 @@
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
-import 'package:clashmi/screens/ruletemplates_add_or_edit_screen.dart';
+import 'package:clashmi/screens/rule_templates_add_or_edit_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';

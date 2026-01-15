@@ -33,8 +33,9 @@ import 'package:clashmi/screens/list_add_screen.dart';
 import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
-import 'package:clashmi/screens/ruleproviders_screen.dart';
-import 'package:clashmi/screens/ruletemplates_screen.dart';
+import 'package:clashmi/screens/rule_providers_screen.dart';
+import 'package:clashmi/screens/rule_templates_screen.dart';
+import 'package:clashmi/screens/proxygroup_templates_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/version_update_screen.dart';
@@ -2155,6 +2156,21 @@ class GroupHelper {
                 MaterialPageRoute(
                   settings: RuleTemplatesScreen.routSettings(),
                   builder: (context) => RuleTemplatesScreen(),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.proxyGroups,
+            tips: "proxy-groups",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: ProxyGroupsTemplatesScreen.routSettings(),
+                  builder: (context) => ProxyGroupsTemplatesScreen(),
                 ),
               );
             },

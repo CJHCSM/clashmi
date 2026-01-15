@@ -3,7 +3,7 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
-import 'package:clashmi/screens/ruletemplates_rule_add_or_edit_screen.dart';
+import 'package:clashmi/screens/rule_templates_rule_add_or_edit_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
