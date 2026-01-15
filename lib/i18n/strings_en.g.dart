@@ -426,6 +426,9 @@ class TranslationsMetaEn {
 	/// en: 'Proxy Group'
 	String get proxyGroups => 'Proxy Group';
 
+	/// en: 'Proxy Node list'
+	String get proxyNodeList => 'Proxy Node list';
+
 	/// en: 'External Controller'
 	String get externalController => 'External Controller';
 
@@ -1095,6 +1098,7 @@ extension on Translations {
 			'meta.ruleTemplates' => 'Rule Templates',
 			'meta.proxyGroupsTemplates' => 'Proxy Group Template',
 			'meta.proxyGroups' => 'Proxy Group',
+			'meta.proxyNodeList' => 'Proxy Node list',
 			'meta.externalController' => 'External Controller',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP Concurrent Handshake',

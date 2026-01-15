@@ -113,6 +113,7 @@
         "ruleTemplates": "نموذج القاعدة",
         "proxyGroupsTemplates": "نموذج مجموعة الوكلاء",
         "proxyGroups": "مجموعة الوكلاء",
+        "proxyNodeList": "قائمة عقد الوكيل",
         "externalController": "الرقابة الخارجية",
         "secret": "Secret",
         "tcpConcurrent": "مصافحة TCP المتزامنة",

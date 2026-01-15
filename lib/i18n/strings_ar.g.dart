@@ -221,6 +221,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get ruleTemplates => 'نموذج القاعدة';
 	@override String get proxyGroupsTemplates => 'نموذج مجموعة الوكلاء';
 	@override String get proxyGroups => 'مجموعة الوكلاء';
+	@override String get proxyNodeList => 'قائمة عقد الوكيل';
 	@override String get externalController => 'الرقابة الخارجية';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'مصافحة TCP المتزامنة';
@@ -559,6 +560,7 @@ extension on TranslationsAr {
 			'meta.ruleTemplates' => 'نموذج القاعدة',
 			'meta.proxyGroupsTemplates' => 'نموذج مجموعة الوكلاء',
 			'meta.proxyGroups' => 'مجموعة الوكلاء',
+			'meta.proxyNodeList' => 'قائمة عقد الوكيل',
 			'meta.externalController' => 'الرقابة الخارجية',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'مصافحة TCP المتزامنة',

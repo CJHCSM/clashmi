@@ -113,6 +113,7 @@
         "ruleTemplates": "规则模板",
         "proxyGroupsTemplates": "代理组模板",
         "proxyGroups": "代理组",
+        "proxyNodeList": "代理节点列表",
         "externalController": "外部控制",
         "secret": "Secret",
         "tcpConcurrent": "TCP并发握手",

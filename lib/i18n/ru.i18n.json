@@ -113,6 +113,7 @@
         "ruleTemplates": "Шаблон правила",
         "proxyGroupsTemplates": "Шаблон группы агентов",
         "proxyGroups": "Группа агентов",
+        "proxyNodeList": "Список прокси-узлов",
         "externalController": "Внешнее управление",
         "secret": "Пароль",
         "tcpConcurrent": "Параллельное TCP-подтверждение",

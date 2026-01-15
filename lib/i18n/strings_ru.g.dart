@@ -221,6 +221,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get ruleTemplates => 'Шаблон правила';
 	@override String get proxyGroupsTemplates => 'Шаблон группы агентов';
 	@override String get proxyGroups => 'Группа агентов';
+	@override String get proxyNodeList => 'Список прокси-узлов';
 	@override String get externalController => 'Внешнее управление';
 	@override String get secret => 'Пароль';
 	@override String get tcpConcurrent => 'Параллельное TCP-подтверждение';
@@ -559,6 +560,7 @@ extension on TranslationsRu {
 			'meta.ruleTemplates' => 'Шаблон правила',
 			'meta.proxyGroupsTemplates' => 'Шаблон группы агентов',
 			'meta.proxyGroups' => 'Группа агентов',
+			'meta.proxyNodeList' => 'Список прокси-узлов',
 			'meta.externalController' => 'Внешнее управление',
 			'meta.secret' => 'Пароль',
 			'meta.tcpConcurrent' => 'Параллельное TCP-подтверждение',

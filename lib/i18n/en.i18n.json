@@ -113,6 +113,7 @@
         "ruleTemplates": "Rule Templates",
         "proxyGroupsTemplates": "Proxy Group Template",
         "proxyGroups": "Proxy Group",
+        "proxyNodeList": "Proxy Node list",
         "externalController": "External Controller",
         "secret": "Secret",
         "tcpConcurrent": "TCP Concurrent Handshake",

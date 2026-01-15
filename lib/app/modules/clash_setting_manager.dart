@@ -458,7 +458,7 @@ class ClashSettingManager {
           if (pg.proxies.isEmpty) {
             return ReturnResult(
               error: ReturnResultError(
-                "${t.meta.proxyGroups} [${template.name}]: proxy list is empty",
+                "${t.meta.proxyGroups} [${template.name}]->[${t.meta.proxyNodeList}] is empty",
               ),
             );
           }

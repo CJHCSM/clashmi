@@ -113,6 +113,7 @@
         "ruleTemplates": "الگوی قانون",
         "proxyGroupsTemplates": "الگوی گروه نمایندگان",
         "proxyGroups": "گروه نمایندگان",
+        "proxyNodeList": "فهرست گره‌های پروکسی",
         "externalController": "کنترل خارجی",
         "secret": "Secret",
         "tcpConcurrent": "دست دادن همزمان TCP",

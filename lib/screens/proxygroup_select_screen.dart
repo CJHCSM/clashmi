@@ -93,7 +93,7 @@ class _ProxyGroupScreenScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        "选择节点", //todo
+                        tcontext.meta.proxyNodeList,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
