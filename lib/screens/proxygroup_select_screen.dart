@@ -1,7 +1,6 @@
 // ignore_for_file: unused_catch_stack
 
 import 'package:clashmi/app/clash/clash_http_api.dart';
-import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
