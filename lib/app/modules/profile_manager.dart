@@ -60,6 +60,7 @@ class ProfileSetting {
   bool overwriteRules = false;
   Map<String, ProfileSettingProxyGroup> proxyGroups = {};
   Map<String, String> rules = {};
+  Map<String, String> rulesForProxyGroups = {};
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -75,8 +76,9 @@ class ProfileSetting {
     'expire': expire,
     'overwrite_rules': overwriteRules,
     'overwrite_proxy_groups': overwriteProxyGroups,
-    'rules': rules,
     'proxy_groups': proxyGroups,
+    'rules': rules,
+    'rules_for_proxy_groups': rulesForProxyGroups,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -116,6 +118,11 @@ class ProfileSetting {
     }
     rules = ConvertUtils.convertMap(map["rules"]) ?? {};
     rules.removeWhere((key, value) {
+      return key.isEmpty || value.isEmpty;
+    });
+    rulesForProxyGroups =
+        ConvertUtils.convertMap(map["rules_for_proxy_groups"]) ?? {};
+    rulesForProxyGroups.removeWhere((key, value) {
       return key.isEmpty || value.isEmpty;
     });
   }

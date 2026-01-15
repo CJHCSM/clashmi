@@ -352,7 +352,6 @@ class _ProfilesSettingsEditScreenState
                 ? null
                 : (bool value) async {
                     _profile.overwriteProxyGroups = value;
-                    _profile.rules.clear();
                     setState(() {});
                   },
           ),
@@ -361,7 +360,9 @@ class _ProfilesSettingsEditScreenState
       List<GroupItemOptions> options1 = [];
       final names = DiversionTemplateManager.getRuleTemplatesNames();
       for (var name in names) {
-        final target = _profile.rules[name];
+        final target = _profile.overwriteProxyGroups
+            ? _profile.rulesForProxyGroups[name]
+            : _profile.rules[name];
         options1.add(
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -463,10 +464,19 @@ class _ProfilesSettingsEditScreenState
                     Text(subtitle, style: TextStyle(color: color)),
                   ],
                 ),
-          selected: node.name == _profile.rules[ruleName],
+          selected:
+              (_profile.overwriteProxyGroups &&
+                  node.name == _profile.rulesForProxyGroups[ruleName]) ||
+              (!_profile.overwriteProxyGroups &&
+                  node.name == _profile.rules[ruleName]),
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
-            _profile.rules[ruleName] = node.name;
+            if (_profile.overwriteProxyGroups) {
+              _profile.rulesForProxyGroups[ruleName] = node.name;
+            } else {
+              _profile.rules[ruleName] = node.name;
+            }
+
             Navigator.of(context).pop();
             setstate?.call();
           },
