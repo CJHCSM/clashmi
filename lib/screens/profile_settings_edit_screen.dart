@@ -10,6 +10,8 @@ import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/group_screen.dart';
+
+import 'package:clashmi/screens/proxygroup_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -323,8 +325,34 @@ class _ProfilesSettingsEditScreenState
   }
 
   Future<void> showClashSettingsProxyGroups() async {
-    final tcontext = Translations.of(context);
-    //todo
+    final connected = await VPNService.getStarted();
+    if (!mounted) {
+      return;
+    }
+    if (!connected) {
+      DialogUtils.showAlertDialog(
+        context,
+        "Please open the connection before trying again.",
+      );
+      return;
+    }
+    if (_nodes.isEmpty) {
+      _nodes = await getProxies();
+    }
+    var newNodes = _nodes.toList();
+    newNodes.removeWhere((ClashProxiesNode node) {
+      return ClashProtocolType.toList().contains(node.type);
+    });
+    if (!mounted) {
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: ProxyGroupsScreen.routSettings(),
+        builder: (context) => ProxyGroupsScreen(nodes: newNodes),
+      ),
+    );
   }
 
   Future<void> showClashSettingsRules() async {

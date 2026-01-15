@@ -1250,8 +1250,14 @@ class GroupHelper {
             final content = await ClashSettingManager.getPatchContent(
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
-              profile != null && profile.overwriteRules ? profile.rules : null,
-              profile != null && profile.overwriteProxyGroups,
+              profile != null && profile.overwriteRules
+                  ? (profile.overwriteProxyGroups
+                        ? profile.rulesForProxyGroups
+                        : profile.rules)
+                  : null,
+              profile != null && profile.overwriteProxyGroups
+                  ? profile.proxyGroups
+                  : null,
             );
             if (!context.mounted) {
               return false;

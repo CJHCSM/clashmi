@@ -1203,7 +1203,7 @@ class RawConfig {
   @JsonKey(name: 'overwrite-proxy-groups')
   bool? OverWriteProxyGroups;
   @JsonKey(name: 'proxy-groups')
-  Map<String, dynamic>? ProxyGroups;
+  List<dynamic>? ProxyGroups;
   //map[string]map[string]any ProxyProvider  `yaml:"proxy-providers" json:"proxy-providers"`
   //[]map[string]any Proxy                   `yaml:"proxies" json:"proxies"`
   //[]map[string]any ProxyGroup              `yaml:"proxy-groups" json:"proxy-groups"`

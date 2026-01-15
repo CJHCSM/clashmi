@@ -600,7 +600,7 @@ RawConfig _$RawConfigFromJson(Map<String, dynamic> json) => RawConfig(
       json['overwrite-sub-rules'] as bool?,
       (json['sub-rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['overwrite-proxy-groups'] as bool?,
-      json['proxy-groups'] as Map<String, dynamic>?,
+      json['proxy-groups'] as List<dynamic>?,
       json['listeners'] as Map<String, dynamic>?,
       json['hosts'] as Map<String, dynamic>?,
       json['dns'] == null

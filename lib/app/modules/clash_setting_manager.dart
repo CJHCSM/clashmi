@@ -8,6 +8,7 @@ import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
+import 'package:clashmi/app/modules/profile_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
@@ -383,7 +384,7 @@ class ClashSettingManager {
   static Future<String> getPatchContent(
     bool overwrite,
     Map<String, String>? overwriteRule,
-    bool overWriteProxyGroups,
+    Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
   ) async {
     if (Platform.isIOS || Platform.isMacOS) {
       _setting.Tun?.Stack = ClashTunStack.gvisor.name;
@@ -405,9 +406,18 @@ class ClashSettingManager {
       _setting.OverWriteRuleProviders = true;
       _setting.OverWriteRules = true;
       _setting.OverWriteSubRules = true;
-      if (overWriteProxyGroups) {
+      if (overwriteProxyGroups != null && overwriteProxyGroups.isNotEmpty) {
         _setting.OverWriteProxyGroups = true;
-        //todo
+        final pgTemplates = DiversionTemplateManager.getProxyGroupTemplates();
+        _setting.ProxyGroups ??= [];
+        for (var template in pgTemplates) {
+          final pg = overwriteProxyGroups[template.name];
+          if (pg != null) {
+            var newTemplate = template.clone();
+            newTemplate.proxies = pg.proxies;
+            _setting.ProxyGroups!.add(newTemplate.toJson());
+          }
+        }
       }
       List<RuleProvider> newAllProviders = [];
       final allProviders = DiversionTemplateManager.getRuleProviders();
@@ -465,12 +475,12 @@ class ClashSettingManager {
   static Future<void> saveCorePatchFinal(
     bool overwrite,
     Map<String, String>? overwriteRule,
-    bool overWriteProxyGroups,
+    Map<String, ProfileSettingProxyGroup>? overwriteProxyGroups,
   ) async {
     final content = await getPatchContent(
       overwrite,
       overwriteRule,
-      overWriteProxyGroups,
+      overwriteProxyGroups,
     );
     String filePath = await PathUtils.serviceCorePatchFinalPath();
     try {
