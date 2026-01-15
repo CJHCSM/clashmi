@@ -137,6 +137,7 @@ class _ProxyGroupsScreenState
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             width: double.infinity,
+            height: ThemeConfig.kListItemHeight2 - 2,
             child: Row(
               children: [
                 Row(
@@ -149,17 +150,28 @@ class _ProxyGroupsScreenState
                           children: [
                             SizedBox(
                               width: centerWidth,
-                              child: Text(
-                                current.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeGroupItem,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    current.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem,
+                                    ),
+                                  ),
+                                  Text(
+                                    ProxyGroupTemplate.toClashProtocolTypeString(
+                                      current.type,
+                                    ),
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
                               ),
                             ),
                             SizedBox(
                               width: rightWidth,
-                              height: ThemeConfig.kListItemHeight2 - 2,
                               child: InkWell(
                                 onTap: () async {
                                   onTapDelete(current.name);

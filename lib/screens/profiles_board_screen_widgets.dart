@@ -347,7 +347,13 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
         title: Text(tcontext.meta.remove),
         onTap: () async {
           Navigator.of(context).pop();
-          ProfileManager.remove(setting.id);
+          bool? del = await DialogUtils.showConfirmDialog(
+            context,
+            tcontext.meta.removeConfirm,
+          );
+          if (del == true) {
+            ProfileManager.remove(setting.id);
+          }
         },
       ),
     ];

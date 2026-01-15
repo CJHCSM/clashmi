@@ -134,12 +134,24 @@ class _ProxyGroupsScreenState extends LasyRenderingState<ProxyGroupsScreen> {
                           children: [
                             SizedBox(
                               width: centerWidth,
-                              child: Text(
-                                current.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeGroupItem,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    current.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem,
+                                    ),
+                                  ),
+                                  Text(
+                                    ProxyGroupTemplate.toClashProtocolTypeString(
+                                      current.type,
+                                    ),
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

@@ -2170,7 +2170,7 @@ class GroupHelper {
         ),
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-            name: tcontext.meta.proxyGroups,
+            name: tcontext.meta.proxyGroupsTemplates,
             tips: "proxy-groups",
             onPush: () async {
               await Navigator.push(
