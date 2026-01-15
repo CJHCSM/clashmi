@@ -207,28 +207,39 @@ class RuleTemplate {
 }
 
 class ProxyGroupTemplate {
-  ProxyGroupTemplate({this.name = "", this.rules = const []});
+  ProxyGroupTemplate({
+    this.name = "",
+    this.icon = "",
+    this.type = "",
+    this.proxies = const [],
+  });
   String name = "";
-  List<String> rules = [];
+  String icon = "";
+  String type = getTypes().first;
+  //String proxyRegExps;
+  List<String> proxies = [];
 
-  Map<String, dynamic> toJson() => {'name': name, 'rules': rules};
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'icon': icon,
+    'type': type,
+    'proxies': proxies,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
     }
     name = map['name'] ?? '';
-    rules = List<String>.from(map['rules'] ?? []);
+    icon = map['icon'] ?? '';
+    type = map['type'] ?? '';
+    proxies = List<String>.from(map['proxies'] ?? []);
+    if (!ProxyGroupTemplate.getTypes().contains(type)) {
+      type = ProxyGroupTemplate.getTypes().first;
+    }
   }
 
-  void reorder(int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
-    if (oldIndex >= rules.length || newIndex >= rules.length) {
-      return;
-    }
-    var item = rules.removeAt(oldIndex);
-    rules.insert(newIndex, item);
+  static List<String> getTypes() {
+    return ["select", "url-test", "load-balance", "fallback"];
   }
 }
 
