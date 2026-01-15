@@ -201,23 +201,10 @@ class ProfileSetting {
   }
 
   ProfileSetting clone() {
-    ProfileSetting ps = ProfileSetting();
-    ps.id = id;
-    ps.remark = remark;
-    ps.patch = patch;
-    ps.updateInterval = updateInterval;
-    ps.update = update;
-    ps.url = url;
-    ps.userAgent = userAgent;
-    ps.upload = upload;
-    ps.download = download;
-    ps.total = total;
-    ps.expire = expire;
-    ps.overwriteRules = overwriteRules;
+    ProfileSetting ps = this;
     rules.forEach((key, value) {
       ps.rules[key] = value;
     });
-
     return ps;
   }
 }

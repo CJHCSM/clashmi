@@ -5,7 +5,6 @@ import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 class ProxyScreenProxiesNodeWidgetController {
   void Function()? onTesting;
@@ -150,35 +149,36 @@ class _ProxyScreenProxiesNodeWidget
     );
   }
 
-  void showNodeSelect(ClashProxiesNode node) {
+  void showNodeSelect(ClashProxiesNode selectNode) {
     Size windowSize = MediaQuery.of(context).size;
     var widgets = [];
-    final theme = Theme.of(context);
-    List<Tuple2<String, int>> nodeDelays = [];
-    int kNullDelay = 99999;
-    for (var name in node.all) {
-      int delay = kNullDelay;
-      for (var n in _nodes) {
-        if (n.name == name) {
-          delay = n.delay ?? kNullDelay;
-          break;
-        }
+
+    List<ClashProxiesNode> newNodes = [];
+    for (var n in _nodes) {
+      if (selectNode.all.contains(n.name)) {
+        newNodes.add(n);
       }
-      nodeDelays.add(Tuple2(name, delay));
     }
 
     if (SettingManager.getConfig().ui.delayTestSort) {
-      nodeDelays.sort((a, b) => a.item2 - b.item2);
+      newNodes.sort((a, b) {
+        if (a.delay == null || b.delay == null) {
+          return 1;
+        }
+
+        return a.delay! - b.delay!;
+      });
     }
-    for (var nodeDelay in nodeDelays) {
+    for (int i = 0; i < newNodes.length; ++i) {
+      final node = newNodes[i];
       String subtitle = "";
       Color? color;
-      if (nodeDelay.item2 != kNullDelay && nodeDelay.item2 > 0) {
-        subtitle = "${nodeDelay.item2} ms";
-        if (nodeDelay.item2 < 800) {
+      if (node.delay != null && node.delay! > 0) {
+        subtitle = "(${node.delay} ms)";
+        if (node.delay! < 800) {
           color = ThemeDefine.kColorGreenBright;
-        } else if (nodeDelay.item2 < 1500) {
-          color = theme.colorScheme.secondary;
+        } else if (node.delay! < 1500) {
+          color = Colors.black;
         } else {
           color = Colors.red;
         }
@@ -186,16 +186,22 @@ class _ProxyScreenProxiesNodeWidget
 
       widgets.add(
         ListTile(
-          title: Text(nodeDelay.item1),
-          subtitle: nodeDelay.item2 == kNullDelay
-              ? null
-              : Text(subtitle, style: TextStyle(color: color)),
-          selected: node.now == nodeDelay.item1,
+          title: Text("${i + 1} ${node.name}"),
+          subtitle: subtitle.isEmpty
+              ? Text(node.type)
+              : Row(
+                  children: [
+                    Text(node.type),
+                    SizedBox(width: 5),
+                    Text(subtitle, style: TextStyle(color: color)),
+                  ],
+                ),
+          selected: selectNode.now == node.name,
           selectedColor: ThemeDefine.kColorBlue,
           onTap: () async {
             var error = await ClashHttpApi.setProxiesNode(
+              selectNode.name,
               node.name,
-              nodeDelay.item1,
             );
             if (!mounted) {
               return;
@@ -205,7 +211,7 @@ class _ProxyScreenProxiesNodeWidget
               return;
             }
 
-            node.now = nodeDelay.item1;
+            selectNode.now = node.name;
             Navigator.of(context).pop();
             setState(() {});
           },

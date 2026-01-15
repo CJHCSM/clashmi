@@ -3,9 +3,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart' as path;
+
+import 'package:clashmi/app/clash/clash_config.dart' show ClashProtocolType;
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:path/path.dart' as path;
 
 class RuleProviderHttp {
   RuleProviderHttp({
@@ -251,16 +253,26 @@ class ProxyGroupTemplate {
   }
 
   ProxyGroupTemplate clone() {
-    return ProxyGroupTemplate(
-      name: name,
-      icon: icon,
-      type: type,
-      //proxyRegExps: proxyRegExps.toList(),
-    );
+    ProxyGroupTemplate ps = this;
+    return ps;
   }
 
   static List<String> getTypes() {
     return ["select", "url-test", "load-balance", "fallback"];
+  }
+
+  static String toClashProtocolTypeString(String type) {
+    switch (type) {
+      case "url-test":
+        return ClashProtocolType.urltest.name;
+      case "select":
+        return ClashProtocolType.selector.name;
+      case "load-balance":
+        return ClashProtocolType.loadBalance.name;
+      case "fallback":
+        return ClashProtocolType.fallback.name;
+    }
+    return "";
   }
 }
 

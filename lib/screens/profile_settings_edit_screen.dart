@@ -420,16 +420,25 @@ class _ProfilesSettingsEditScreenState
     if (_nodes.isEmpty) {
       _nodes = await getProxies();
     }
-    var nodes = _nodes.toList();
+    var newNodes = _nodes.toList();
     if (_profile.overwriteProxyGroups) {
-      nodes.removeWhere((ClashProxiesNode node) {
+      newNodes.removeWhere((ClashProxiesNode node) {
         return ClashProtocolType.toList().contains(node.type);
       });
+      List<ClashProxiesNode> pgNodes = [];
+      final pgs = DiversionTemplateManager.getProxyGroupTemplates();
+      for (var pg in pgs) {
+        ClashProxiesNode cn = ClashProxiesNode();
+        cn.name = pg.name;
+        cn.type = ProxyGroupTemplate.toClashProtocolTypeString(pg.type);
+        pgNodes.add(cn);
+      }
+      newNodes.insertAll(0, pgNodes);
     }
 
     var widgets = [];
-    for (int i = 0; i < nodes.length; ++i) {
-      final node = nodes[i];
+    for (int i = 0; i < newNodes.length; ++i) {
+      final node = newNodes[i];
       String subtitle = "";
       Color? color;
       if (node.delay != null && node.delay! > 0) {
