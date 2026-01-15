@@ -1,3 +1,4 @@
+import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
@@ -335,12 +336,25 @@ class _ProfilesSettingsEditScreenState
       List<GroupItemOptions> options = [
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-            name: tcontext.meta.overwrite,
+            name: "${tcontext.meta.overwrite} [${tcontext.meta.rule}]",
             switchValue: _profile.overwriteRules,
             onSwitch: (bool value) async {
               _profile.overwriteRules = value;
               setState(() {});
             },
+          ),
+        ),
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: "${tcontext.meta.overwrite} [${tcontext.meta.proxyGroups}]",
+            switchValue: _profile.overwriteProxyGroups,
+            onSwitch: !_profile.overwriteRules
+                ? null
+                : (bool value) async {
+                    _profile.overwriteProxyGroups = value;
+                    _profile.rules.clear();
+                    setState(() {});
+                  },
           ),
         ),
       ];
@@ -353,61 +367,11 @@ class _ProfilesSettingsEditScreenState
             pushOptions: GroupItemPushOptions(
               name: name,
               text: target,
-              onPush: () async {
-                final connected = await VPNService.getStarted();
-                if (!context.mounted) {
-                  return;
-                }
-                if (!connected) {
-                  DialogUtils.showAlertDialog(
-                    context,
-                    "Please open the connection before trying again.",
-                  );
-                  return;
-                }
-                if (_nodes.isEmpty) {
-                  _nodes = await getProxies();
-                }
-                var widgets = [];
-                for (var node in _nodes) {
-                  widgets.add(
-                    ListTile(
-                      title: Text(node.name),
-                      subtitle: Text(node.type),
-                      selected: node.name == _profile.rules[name],
-                      selectedColor: ThemeDefine.kColorBlue,
-                      onTap: () async {
-                        _profile.rules[name] = node.name;
-                        Navigator.of(context).pop();
-                        setstate?.call();
-                      },
-                    ),
-                  );
-                }
-                if (!context.mounted) {
-                  return;
-                }
-                showSheet(
-                  context: context,
-                  body: SizedBox(
-                    height: 400,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Scrollbar(
-                        child: ListView.separated(
-                          itemBuilder: (BuildContext context, int index) {
-                            return widgets[index];
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const Divider(height: 1, thickness: 0.3);
-                          },
-                          itemCount: widgets.length,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+              onPush: !_profile.overwriteRules
+                  ? null
+                  : () async {
+                      onTapRule(name, setstate);
+                    },
             ),
           ),
         );
@@ -439,5 +403,89 @@ class _ProfilesSettingsEditScreenState
     }
 
     return nodes;
+  }
+
+  Future<void> onTapRule(String ruleName, SetStateCallback? setstate) async {
+    final connected = await VPNService.getStarted();
+    if (!mounted) {
+      return;
+    }
+    if (!connected) {
+      DialogUtils.showAlertDialog(
+        context,
+        "Please open the connection before trying again.",
+      );
+      return;
+    }
+    if (_nodes.isEmpty) {
+      _nodes = await getProxies();
+    }
+    var nodes = _nodes.toList();
+    if (_profile.overwriteProxyGroups) {
+      nodes.removeWhere((ClashProxiesNode node) {
+        return ClashProtocolType.toList().contains(node.type);
+      });
+    }
+
+    var widgets = [];
+    for (int i = 0; i < nodes.length; ++i) {
+      final node = nodes[i];
+      String subtitle = "";
+      Color? color;
+      if (node.delay != null && node.delay! > 0) {
+        subtitle = "(${node.delay} ms)";
+        if (node.delay! < 800) {
+          color = ThemeDefine.kColorGreenBright;
+        } else if (node.delay! < 1500) {
+          color = Colors.black;
+        } else {
+          color = Colors.red;
+        }
+      }
+      widgets.add(
+        ListTile(
+          title: Text("${i + 1} ${node.name}"),
+          subtitle: subtitle.isEmpty
+              ? Text(node.type)
+              : Row(
+                  children: [
+                    Text(node.type),
+                    SizedBox(width: 5),
+                    Text(subtitle, style: TextStyle(color: color)),
+                  ],
+                ),
+          selected: node.name == _profile.rules[ruleName],
+          selectedColor: ThemeDefine.kColorBlue,
+          onTap: () async {
+            _profile.rules[ruleName] = node.name;
+            Navigator.of(context).pop();
+            setstate?.call();
+          },
+        ),
+      );
+    }
+    if (!mounted) {
+      return;
+    }
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
