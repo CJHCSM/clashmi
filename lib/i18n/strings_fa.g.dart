@@ -219,7 +219,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get diversionTemplates => 'الگوی تریاژ';
 	@override String get ruleProviders => 'ارائه دهنده قانون';
 	@override String get ruleTemplates => 'الگوی قانون';
-	@override String get proxyGroups => 'الگوی گروه نمایندگان';
+	@override String get proxyGroupsTemplates => 'الگوی گروه نمایندگان';
+	@override String get proxyGroups => 'گروه نمایندگان';
 	@override String get externalController => 'کنترل خارجی';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'دست دادن همزمان TCP';
@@ -556,7 +557,8 @@ extension on TranslationsFa {
 			'meta.diversionTemplates' => 'الگوی تریاژ',
 			'meta.ruleProviders' => 'ارائه دهنده قانون',
 			'meta.ruleTemplates' => 'الگوی قانون',
-			'meta.proxyGroups' => 'الگوی گروه نمایندگان',
+			'meta.proxyGroupsTemplates' => 'الگوی گروه نمایندگان',
+			'meta.proxyGroups' => 'گروه نمایندگان',
 			'meta.externalController' => 'کنترل خارجی',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'دست دادن همزمان TCP',

@@ -219,7 +219,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get diversionTemplates => 'نموذج الفرز';
 	@override String get ruleProviders => 'موفر القواعد';
 	@override String get ruleTemplates => 'نموذج القاعدة';
-	@override String get proxyGroups => 'نموذج مجموعة الوكلاء';
+	@override String get proxyGroupsTemplates => 'نموذج مجموعة الوكلاء';
+	@override String get proxyGroups => 'مجموعة الوكلاء';
 	@override String get externalController => 'الرقابة الخارجية';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'مصافحة TCP المتزامنة';
@@ -556,7 +557,8 @@ extension on TranslationsAr {
 			'meta.diversionTemplates' => 'نموذج الفرز',
 			'meta.ruleProviders' => 'موفر القواعد',
 			'meta.ruleTemplates' => 'نموذج القاعدة',
-			'meta.proxyGroups' => 'نموذج مجموعة الوكلاء',
+			'meta.proxyGroupsTemplates' => 'نموذج مجموعة الوكلاء',
+			'meta.proxyGroups' => 'مجموعة الوكلاء',
 			'meta.externalController' => 'الرقابة الخارجية',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'مصافحة TCP المتزامنة',

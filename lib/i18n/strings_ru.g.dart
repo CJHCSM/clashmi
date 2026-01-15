@@ -219,7 +219,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get diversionTemplates => 'Шаблон сортировки пациентов';
 	@override String get ruleProviders => 'Поставщик правил';
 	@override String get ruleTemplates => 'Шаблон правила';
-	@override String get proxyGroups => 'Шаблон группы агентов';
+	@override String get proxyGroupsTemplates => 'Шаблон группы агентов';
+	@override String get proxyGroups => 'Группа агентов';
 	@override String get externalController => 'Внешнее управление';
 	@override String get secret => 'Пароль';
 	@override String get tcpConcurrent => 'Параллельное TCP-подтверждение';
@@ -556,7 +557,8 @@ extension on TranslationsRu {
 			'meta.diversionTemplates' => 'Шаблон сортировки пациентов',
 			'meta.ruleProviders' => 'Поставщик правил',
 			'meta.ruleTemplates' => 'Шаблон правила',
-			'meta.proxyGroups' => 'Шаблон группы агентов',
+			'meta.proxyGroupsTemplates' => 'Шаблон группы агентов',
+			'meta.proxyGroups' => 'Группа агентов',
 			'meta.externalController' => 'Внешнее управление',
 			'meta.secret' => 'Пароль',
 			'meta.tcpConcurrent' => 'Параллельное TCP-подтверждение',
