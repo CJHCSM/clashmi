@@ -25,8 +25,8 @@ class ProfilesSettingsEditScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "ProfilesSettingsEditScreen");
   }
 
-  final String profileid;
-  const ProfilesSettingsEditScreen({super.key, required this.profileid});
+  final ProfileSetting profile;
+  const ProfilesSettingsEditScreen({super.key, required this.profile});
 
   @override
   State<ProfilesSettingsEditScreen> createState() =>
@@ -42,13 +42,7 @@ class _ProfilesSettingsEditScreenState
 
   @override
   void initState() {
-    final exist = ProfileManager.getProfile(widget.profileid);
-    if (exist != null) {
-      _profile = exist.clone();
-    } else {
-      _profile = ProfileSetting(updateInterval: const Duration(hours: 24));
-    }
-
+    _profile = widget.profile.clone();
     _profile.userAgent = _profile.userAgent.isEmpty
         ? SettingManager.getConfig().userAgent()
         : _profile.userAgent;
@@ -325,14 +319,15 @@ class _ProfilesSettingsEditScreenState
   }
 
   Future<void> showClashSettingsProxyGroups() async {
+    final current = ProfileManager.getCurrent();
     final connected = await VPNService.getStarted();
     if (!mounted) {
       return;
     }
-    if (!connected) {
+    if (!connected || current == null || current.id != _profile.id) {
       DialogUtils.showAlertDialog(
         context,
-        "Please open the connection before trying again.",
+        "Please activate this profile and start the connection before trying again.",
       );
       return;
     }
@@ -435,14 +430,15 @@ class _ProfilesSettingsEditScreenState
   }
 
   Future<void> onTapRule(String ruleName, SetStateCallback? setstate) async {
+    final current = ProfileManager.getCurrent();
     final connected = await VPNService.getStarted();
     if (!mounted) {
       return;
     }
-    if (!connected) {
+    if (!connected || current == null || current.id != _profile.id) {
       DialogUtils.showAlertDialog(
         context,
-        "Please open the connection before trying again.",
+        "Please activate this profile and start the connection before trying again.",
       );
       return;
     }

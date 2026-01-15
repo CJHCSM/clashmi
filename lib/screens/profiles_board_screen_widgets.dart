@@ -337,7 +337,7 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
             MaterialPageRoute(
               settings: ProfilesSettingsEditScreen.routSettings(),
               builder: (context) =>
-                  ProfilesSettingsEditScreen(profileid: setting.id),
+                  ProfilesSettingsEditScreen(profile: setting),
             ),
           );
           setState(() {});
