@@ -12,7 +12,6 @@ class RuleProviderHttp {
     this.url = "",
     this.format = "",
     this.behavior = "",
-
     this.interval = const Duration(hours: 12),
   });
 
@@ -110,6 +109,21 @@ class RuleProvider {
     http = RuleProviderHttp.fromJsonStatic(map);
   }
 
+  RuleProvider clone() {
+    return RuleProvider(
+      name: name,
+      type: type,
+      http: http == null
+          ? null
+          : RuleProviderHttp(
+              url: http!.url,
+              format: http!.format,
+              behavior: http!.behavior,
+              interval: http!.interval,
+            ),
+    );
+  }
+
   static List<String> getTypes() {
     return ["http"];
   }
@@ -149,6 +163,10 @@ class RuleTemplate {
     }
     var item = rules.removeAt(oldIndex);
     rules.insert(newIndex, item);
+  }
+
+  RuleTemplate clone() {
+    return RuleTemplate(name: name, rules: rules.toList());
   }
 
   static List<String> getTypes() {
@@ -236,6 +254,15 @@ class ProxyGroupTemplate {
     if (!ProxyGroupTemplate.getTypes().contains(type)) {
       type = ProxyGroupTemplate.getTypes().first;
     }
+  }
+
+  ProxyGroupTemplate clone() {
+    return ProxyGroupTemplate(
+      name: name,
+      icon: icon,
+      type: type,
+      proxies: proxies.toList(),
+    );
   }
 
   static List<String> getTypes() {
@@ -409,7 +436,7 @@ class DiversionTemplateManager {
     return null;
   }
 
-  static ProxyGroupTemplate? getProxyGroupByName(String name) {
+  static ProxyGroupTemplate? getProxyGroupTemplateByName(String name) {
     for (var template in _diversionTemplates.proxyGroupTemplates) {
       if (template.name == name) {
         return template;

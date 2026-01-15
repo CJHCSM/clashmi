@@ -719,7 +719,7 @@ class ProfileManager {
   static ProfileSetting? getProfile(String id) {
     for (var profile in _config.profiles) {
       if (id == profile.id) {
-        return profile.clone();
+        return profile;
       }
     }
     return null;

@@ -30,7 +30,7 @@ class _RuleTemplatesAddOrEditScreenState
     if (widget.name.isNotEmpty) {
       final exist = DiversionTemplateManager.getRuleTemplateByName(widget.name);
       if (exist != null) {
-        _data = RuleTemplate(name: exist.name, rules: exist.rules);
+        _data = exist.clone();
       } else {
         _data = RuleTemplate(rules: []);
       }

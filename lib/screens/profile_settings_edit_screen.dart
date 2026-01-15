@@ -39,9 +39,12 @@ class _ProfilesSettingsEditScreenState
 
   @override
   void initState() {
-    _profile =
-        ProfileManager.getProfile(widget.profileid) ??
-        ProfileSetting(updateInterval: const Duration(hours: 24));
+    final exist = ProfileManager.getProfile(widget.profileid);
+    if (exist != null) {
+      _profile = exist.clone();
+    } else {
+      _profile = ProfileSetting(updateInterval: const Duration(hours: 24));
+    }
 
     _profile.userAgent = _profile.userAgent.isEmpty
         ? SettingManager.getConfig().userAgent()

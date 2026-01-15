@@ -32,11 +32,7 @@ class _RuleProvidersAddOrEditScreenState
     if (widget.name.isNotEmpty) {
       final exist = DiversionTemplateManager.getRuleProviderByName(widget.name);
       if (exist != null) {
-        _data = RuleProvider(
-          name: exist.name,
-          type: exist.type,
-          http: exist.type != "http" ? null : (exist.http ?? httpDefault),
-        );
+        _data = exist.clone();
       } else {
         _data = RuleProvider(name: "", type: "http", http: httpDefault);
       }
