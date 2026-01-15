@@ -15,6 +15,7 @@ class ThemeDataDark {
       colorScheme: scheme,
       platform: TargetPlatform.iOS,
       scaffoldBackgroundColor: scheme.surface,
+      cardTheme: CardThemeData(color: mainColor),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: mainBgColor.withValues(alpha: 0.5),
         filled: true,
