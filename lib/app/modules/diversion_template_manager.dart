@@ -225,23 +225,17 @@ class RuleTemplate {
 }
 
 class ProxyGroupTemplate {
-  ProxyGroupTemplate({
-    this.name = "",
-    this.icon = "",
-    this.type = "",
-    this.proxies = const [],
-  });
+  ProxyGroupTemplate({this.name = "", this.icon = "", this.type = ""});
   String name = "";
   String icon = "";
   String type = getTypes().first;
   //String proxyRegExps;
-  List<String> proxies = [];
 
   Map<String, dynamic> toJson() => {
     'name': name,
     'icon': icon,
     'type': type,
-    'proxies': proxies,
+    // 'proxyRegExps': proxyRegExps,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -250,7 +244,7 @@ class ProxyGroupTemplate {
     name = map['name'] ?? '';
     icon = map['icon'] ?? '';
     type = map['type'] ?? '';
-    proxies = List<String>.from(map['proxies'] ?? []);
+    //proxyRegExps = List<String>.from(map['proxyRegExps'] ?? []);
     if (!ProxyGroupTemplate.getTypes().contains(type)) {
       type = ProxyGroupTemplate.getTypes().first;
     }
@@ -261,7 +255,7 @@ class ProxyGroupTemplate {
       name: name,
       icon: icon,
       type: type,
-      proxies: proxies.toList(),
+      //proxyRegExps: proxyRegExps.toList(),
     );
   }
 
@@ -403,7 +397,7 @@ class DiversionTemplateManager {
     await save();
   }
 
-  static void removeProxyGroupByName(String name) async {
+  static void removeProxyGroupTemplateByName(String name) async {
     for (int i = 0; i < _diversionTemplates.proxyGroupTemplates.length; ++i) {
       if (name == _diversionTemplates.proxyGroupTemplates[i].name) {
         _diversionTemplates.proxyGroupTemplates.removeAt(i);

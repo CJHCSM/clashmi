@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class RuleTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleTemplateAddOrEditScreen ");
+    return RouteSettings(name: "RuleTemplateAddOrEditScreen");
   }
 
   final String name;

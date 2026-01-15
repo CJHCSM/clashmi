@@ -194,7 +194,7 @@ class _RuleTemplatesScreenState
 
   void onTapDelete(String name) async {
     DiversionTemplateManager.removeRuleTemplateByName(name);
-    await DiversionTemplateManager.save();
+    DiversionTemplateManager.save();
     setState(() {});
   }
 

@@ -193,7 +193,7 @@ class _RuleProvidersScreenState
 
   void onTapDelete(String name) async {
     DiversionTemplateManager.removeRuleProviderByName(name);
-    await DiversionTemplateManager.save();
+    DiversionTemplateManager.save();
     setState(() {});
   }
 

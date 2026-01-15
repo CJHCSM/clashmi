@@ -1,5 +1,6 @@
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
 import 'package:clashmi/i18n/strings.g.dart';
+import 'package:clashmi/screens/proxygroup_templates_add_or_edit_screen.dart';
 
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
@@ -185,30 +186,30 @@ class _ProxyGroupsScreenState
   }
 
   void onTapAdd() async {
-    /* await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ProxyGroupsAddOrEditScreen.routSettings(),
-        builder: (context) => ProxyGroupsAddOrEditScreen(),
+        settings: ProxyGroupTemplatesAddOrEditScreen.routSettings(),
+        builder: (context) => ProxyGroupTemplatesAddOrEditScreen(),
       ),
-    );*/
+    );
     setState(() {});
   }
 
   void onTapDelete(String name) async {
-    DiversionTemplateManager.removeRuleTemplateByName(name);
-    await DiversionTemplateManager.save();
+    DiversionTemplateManager.removeProxyGroupTemplateByName(name);
+    DiversionTemplateManager.save();
     setState(() {});
   }
 
   void onTapEdit(String name) async {
-    /* await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ProxyGroupsAddOrEditScreen.routSettings(),
-        builder: (context) => ProxyGroupsAddOrEditScreen(name: name),
+        settings: ProxyGroupTemplatesAddOrEditScreen.routSettings(),
+        builder: (context) => ProxyGroupTemplatesAddOrEditScreen(name: name),
       ),
-    );*/
+    );
     setState(() {});
   }
 }
