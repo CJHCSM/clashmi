@@ -1251,6 +1251,7 @@ class GroupHelper {
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
               profile != null && profile.overwriteRules ? profile.rules : null,
+              profile != null && profile.overwriteProxyGroups,
             );
             if (!context.mounted) {
               return false;

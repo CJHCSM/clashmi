@@ -599,6 +599,8 @@ RawConfig _$RawConfigFromJson(Map<String, dynamic> json) => RawConfig(
       (json['rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['overwrite-sub-rules'] as bool?,
       (json['sub-rules'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      json['overwrite-proxy-groups'] as bool?,
+      json['proxy-groups'] as Map<String, dynamic>?,
       json['listeners'] as Map<String, dynamic>?,
       json['hosts'] as Map<String, dynamic>?,
       json['dns'] == null
@@ -693,6 +695,8 @@ Map<String, dynamic> _$RawConfigToJson(RawConfig instance) => <String, dynamic>{
       'rules': instance.Rules,
       'overwrite-sub-rules': instance.OverWriteSubRules,
       'sub-rules': instance.SubRules,
+      'overwrite-proxy-groups': instance.OverWriteProxyGroups,
+      'proxy-groups': instance.ProxyGroups,
       'listeners': instance.Listeners,
       'overwrite-hosts': instance.OverWriteHosts,
       'hosts': instance.Hosts,

@@ -383,6 +383,7 @@ class ClashSettingManager {
   static Future<String> getPatchContent(
     bool overwrite,
     Map<String, String>? overwriteRule,
+    bool overWriteProxyGroups,
   ) async {
     if (Platform.isIOS || Platform.isMacOS) {
       _setting.Tun?.Stack = ClashTunStack.gvisor.name;
@@ -398,10 +399,16 @@ class ClashSettingManager {
     _setting.OverWriteSubRules = false;
     _setting.Rules = null;
     _setting.RuleProviders = null;
+    _setting.ProxyGroups = null;
+
     if (overwriteRule != null && overwriteRule.isNotEmpty) {
       _setting.OverWriteRuleProviders = true;
       _setting.OverWriteRules = true;
       _setting.OverWriteSubRules = true;
+      if (overWriteProxyGroups) {
+        _setting.OverWriteProxyGroups = true;
+        //todo
+      }
       List<RuleProvider> newAllProviders = [];
       final allProviders = DiversionTemplateManager.getRuleProviders();
       final templates = DiversionTemplateManager.getRuleTemplates();
@@ -458,8 +465,13 @@ class ClashSettingManager {
   static Future<void> saveCorePatchFinal(
     bool overwrite,
     Map<String, String>? overwriteRule,
+    bool overWriteProxyGroups,
   ) async {
-    final content = await getPatchContent(overwrite, overwriteRule);
+    final content = await getPatchContent(
+      overwrite,
+      overwriteRule,
+      overWriteProxyGroups,
+    );
     String filePath = await PathUtils.serviceCorePatchFinalPath();
     try {
       await File(filePath).writeAsString(content, flush: true);

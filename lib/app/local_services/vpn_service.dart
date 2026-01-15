@@ -172,6 +172,7 @@ class VPNService {
     await ClashSettingManager.saveCorePatchFinal(
       overwrite,
       profile.overwriteRules ? profile.rules : null,
+      profile.overwriteProxyGroups,
     );
 
     var excludePorts = [controlPort];
