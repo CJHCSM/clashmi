@@ -32,6 +32,12 @@ class ProfileSettingProxyGroup {
     }
     proxies = List<String>.from(map['proxies'] ?? []);
   }
+
+  ProfileSettingProxyGroup clone() {
+    ProfileSettingProxyGroup ps = ProfileSettingProxyGroup();
+    ps.proxies = proxies.toList();
+    return ps;
+  }
 }
 
 class ProfileSetting {
@@ -208,9 +214,28 @@ class ProfileSetting {
   }
 
   ProfileSetting clone() {
-    ProfileSetting ps = this;
+    ProfileSetting ps = ProfileSetting();
+    ps.id = id;
+    ps.remark = remark;
+    ps.patch = patch;
+    ps.updateInterval = updateInterval;
+    ps.update = update;
+    ps.url = url;
+    ps.userAgent = userAgent;
+    ps.upload = upload;
+    ps.download = download;
+    ps.total = total;
+    ps.expire = expire;
+    ps.overwriteProxyGroups = overwriteProxyGroups;
+    ps.overwriteRules = overwriteRules;
+    proxyGroups.forEach((key, value) {
+      ps.proxyGroups[key] = value.clone();
+    });
     rules.forEach((key, value) {
       ps.rules[key] = value;
+    });
+    rulesForProxyGroups.forEach((key, value) {
+      ps.rulesForProxyGroups[key] = value;
     });
     return ps;
   }

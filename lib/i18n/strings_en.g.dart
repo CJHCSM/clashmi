@@ -429,6 +429,9 @@ class TranslationsMetaEn {
 	/// en: 'Proxy Node list'
 	String get proxyNodeList => 'Proxy Node list';
 
+	/// en: 'The following proxy nodes have expired and have been automatically removed: $p'
+	String proxyNodeFailure({required Object p}) => 'The following proxy nodes have expired and have been automatically removed: ${p}';
+
 	/// en: 'External Controller'
 	String get externalController => 'External Controller';
 
@@ -1099,6 +1102,7 @@ extension on Translations {
 			'meta.proxyGroupsTemplates' => 'Proxy Group Template',
 			'meta.proxyGroups' => 'Proxy Group',
 			'meta.proxyNodeList' => 'Proxy Node list',
+			'meta.proxyNodeFailure' => ({required Object p}) => 'The following proxy nodes have expired and have been automatically removed: ${p}',
 			'meta.externalController' => 'External Controller',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP Concurrent Handshake',

@@ -114,6 +114,7 @@
         "proxyGroupsTemplates": "Шаблон группы агентов",
         "proxyGroups": "Группа агентов",
         "proxyNodeList": "Список прокси-узлов",
+        "proxyNodeFailure": "Срок действия следующих прокси-узлов истек, и они были автоматически удалены: $p",
         "externalController": "Внешнее управление",
         "secret": "Пароль",
         "tcpConcurrent": "Параллельное TCP-подтверждение",

@@ -222,6 +222,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get proxyGroupsTemplates => '代理组模板';
 	@override String get proxyGroups => '代理组';
 	@override String get proxyNodeList => '代理节点列表';
+	@override String proxyNodeFailure({required Object p}) => '下列代理节点已失效,已自动移除:${p}';
 	@override String get externalController => '外部控制';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'TCP并发握手';
@@ -561,6 +562,7 @@ extension on TranslationsZhCn {
 			'meta.proxyGroupsTemplates' => '代理组模板',
 			'meta.proxyGroups' => '代理组',
 			'meta.proxyNodeList' => '代理节点列表',
+			'meta.proxyNodeFailure' => ({required Object p}) => '下列代理节点已失效,已自动移除:${p}',
 			'meta.externalController' => '外部控制',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP并发握手',

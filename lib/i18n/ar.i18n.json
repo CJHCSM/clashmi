@@ -114,6 +114,7 @@
         "proxyGroupsTemplates": "نموذج مجموعة الوكلاء",
         "proxyGroups": "مجموعة الوكلاء",
         "proxyNodeList": "قائمة عقد الوكيل",
+        "proxyNodeFailure": "انتهت صلاحية عقد الوكيل التالية وتمت إزالتها تلقائيًا: $p",
         "externalController": "الرقابة الخارجية",
         "secret": "Secret",
         "tcpConcurrent": "مصافحة TCP المتزامنة",

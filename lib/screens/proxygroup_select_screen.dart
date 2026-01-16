@@ -1,7 +1,11 @@
 // ignore_for_file: unused_catch_stack
 
+import 'dart:async';
+
+import 'package:after_layout/after_layout.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/i18n/strings.g.dart';
+import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -28,15 +32,48 @@ class ProxyGroupScreenScreen extends LasyRenderingStatefulWidget {
 }
 
 class _ProxyGroupScreenScreenState
-    extends LasyRenderingState<ProxyGroupScreenScreen> {
+    extends LasyRenderingState<ProxyGroupScreenScreen>
+    with AfterLayoutMixin {
   final _searchController = TextEditingController();
   List<ClashProxiesNode> _searchedData = [];
-  List<String> _checked = [];
+  final List<String> _checked = [];
+  List<String> _notExist = [];
   @override
   void initState() {
-    _checked = widget.proxies.toList();
+    Set<String> nodeNames = {};
+    for (var node in widget.nodes) {
+      nodeNames.add(node.name);
+    }
+
+    for (var proxy in widget.proxies) {
+      if (nodeNames.contains(proxy)) {
+        _checked.add(proxy);
+      } else {
+        _notExist.add(proxy);
+      }
+    }
     _loadSearch(null);
     super.initState();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    if (_notExist.isNotEmpty) {
+      bool tooMuch = _notExist.length > 5;
+      if (tooMuch) {
+        _notExist = _notExist.sublist(0, 5);
+      }
+      String err = "\n[${_notExist.join("\n")}${tooMuch ? "\n..." : ""}]";
+      DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.proxyNodeFailure(p: err),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
+    }
+    _notExist.clear();
   }
 
   @override

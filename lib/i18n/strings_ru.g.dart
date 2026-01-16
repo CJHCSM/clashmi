@@ -222,6 +222,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get proxyGroupsTemplates => 'Шаблон группы агентов';
 	@override String get proxyGroups => 'Группа агентов';
 	@override String get proxyNodeList => 'Список прокси-узлов';
+	@override String proxyNodeFailure({required Object p}) => 'Срок действия следующих прокси-узлов истек, и они были автоматически удалены: ${p}';
 	@override String get externalController => 'Внешнее управление';
 	@override String get secret => 'Пароль';
 	@override String get tcpConcurrent => 'Параллельное TCP-подтверждение';
@@ -561,6 +562,7 @@ extension on TranslationsRu {
 			'meta.proxyGroupsTemplates' => 'Шаблон группы агентов',
 			'meta.proxyGroups' => 'Группа агентов',
 			'meta.proxyNodeList' => 'Список прокси-узлов',
+			'meta.proxyNodeFailure' => ({required Object p}) => 'Срок действия следующих прокси-узлов истек, и они были автоматически удалены: ${p}',
 			'meta.externalController' => 'Внешнее управление',
 			'meta.secret' => 'Пароль',
 			'meta.tcpConcurrent' => 'Параллельное TCP-подтверждение',

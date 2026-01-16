@@ -227,7 +227,12 @@ class RuleTemplate {
 }
 
 class ProxyGroupTemplate {
-  ProxyGroupTemplate({this.name = "", this.icon = "", this.type = ""});
+  ProxyGroupTemplate({
+    this.name = "",
+    this.icon = "",
+    this.type = "",
+    this.proxies = const [],
+  });
   String name = "";
   String icon = "";
   String type = getTypes().first;
@@ -256,9 +261,13 @@ class ProxyGroupTemplate {
   }
 
   ProxyGroupTemplate clone() {
-    ProxyGroupTemplate ps = this;
-    ps.proxies = proxies.toList();
-    return ps;
+    return ProxyGroupTemplate(
+      name: name,
+      icon: icon,
+      type: type,
+      proxies: proxies.toList(),
+      //proxyRegExps: proxyRegExps.toList(),
+    );
   }
 
   static List<String> getTypes() {
