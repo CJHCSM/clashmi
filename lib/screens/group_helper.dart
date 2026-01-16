@@ -33,8 +33,9 @@ import 'package:clashmi/screens/list_add_screen.dart';
 import 'package:clashmi/screens/map_string_and_string_add_screen.dart';
 import 'package:clashmi/screens/perapp_android_screen.dart';
 import 'package:clashmi/screens/profiles_patch_board_screen.dart';
-import 'package:clashmi/screens/ruleproviders_screen.dart';
-import 'package:clashmi/screens/ruletemplates_screen.dart';
+import 'package:clashmi/screens/rule_providers_screen.dart';
+import 'package:clashmi/screens/rule_templates_screen.dart';
+import 'package:clashmi/screens/proxygroup_templates_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/themes.dart';
 import 'package:clashmi/screens/version_update_screen.dart';
@@ -1246,12 +1247,23 @@ class GroupHelper {
           onDone: (context) async {
             final profile = ProfileManager.getCurrent();
             final currentPatch = ProfilePatchManager.getCurrent();
-            final content = await ClashSettingManager.getPatchContent(
+            final result = await ClashSettingManager.getPatchContent(
               currentPatch.id.isEmpty ||
                   currentPatch.id == kProfilePatchBuildinOverwrite,
-              profile != null && profile.overwriteRules ? profile.rules : null,
+              profile != null && profile.overwriteRules
+                  ? (profile.overwriteProxyGroups
+                        ? profile.rulesForProxyGroups
+                        : profile.rules)
+                  : null,
+              profile != null && profile.overwriteProxyGroups
+                  ? profile.proxyGroups
+                  : null,
             );
             if (!context.mounted) {
+              return false;
+            }
+            if (result.error != null) {
+              DialogUtils.showAlertDialog(context, result.error!.message);
               return false;
             }
             Navigator.push(
@@ -1260,7 +1272,7 @@ class GroupHelper {
                 settings: FileViewScreen.routSettings(),
                 builder: (context) => FileViewScreen(
                   title: PathUtils.serviceCorePatchFinalFileName(),
-                  content: content,
+                  content: result.data!,
                 ),
               ),
             );
@@ -2155,6 +2167,21 @@ class GroupHelper {
                 MaterialPageRoute(
                   settings: RuleTemplatesScreen.routSettings(),
                   builder: (context) => RuleTemplatesScreen(),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.proxyGroupsTemplates,
+            tips: "proxy-groups",
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: ProxyGroupsTemplatesScreen.routSettings(),
+                  builder: (context) => ProxyGroupsTemplatesScreen(),
                 ),
               );
             },

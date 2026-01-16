@@ -3,47 +3,41 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
+
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-class RuleProvidersAddOrEditScreen extends LasyRenderingStatefulWidget {
+class ProxyGroupTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleProvidersAddOrEditScreen ");
+    return RouteSettings(name: "ProxyGroupTemplateAddOrEditScreen");
   }
 
   final String name;
-  const RuleProvidersAddOrEditScreen({super.key, this.name = ""});
+  const ProxyGroupTemplatesAddOrEditScreen({super.key, this.name = ""});
 
   @override
-  State<RuleProvidersAddOrEditScreen> createState() =>
-      _RuleProvidersAddOrEditScreenState();
+  State<ProxyGroupTemplatesAddOrEditScreen> createState() =>
+      _ProxyGroupTemplatesAddOrEditScreenState();
 }
 
-class _RuleProvidersAddOrEditScreenState
-    extends LasyRenderingState<RuleProvidersAddOrEditScreen> {
-  late RuleProvider _data;
+class _ProxyGroupTemplatesAddOrEditScreenState
+    extends LasyRenderingState<ProxyGroupTemplatesAddOrEditScreen> {
+  late ProxyGroupTemplate _data;
   @override
   void initState() {
-    final httpDefault = RuleProviderHttp(
-      format: RuleProviderHttp.getFormats().first,
-      behavior: RuleProviderHttp.getBehaviors().first,
-    );
     if (widget.name.isNotEmpty) {
-      final exist = DiversionTemplateManager.getRuleProviderByName(widget.name);
+      final exist = DiversionTemplateManager.getProxyGroupTemplateByName(
+        widget.name,
+      );
       if (exist != null) {
-        _data = RuleProvider(
-          name: exist.name,
-          type: exist.type,
-          http: exist.type != "http" ? null : (exist.http ?? httpDefault),
-        );
+        _data = exist.clone();
       } else {
-        _data = RuleProvider(name: "", type: "http", http: httpDefault);
+        _data = ProxyGroupTemplate(type: ProxyGroupTemplate.getTypes().first);
       }
     } else {
-      _data = RuleProvider(name: "", type: "http", http: httpDefault);
+      _data = ProxyGroupTemplate(type: ProxyGroupTemplate.getTypes().first);
     }
-
     super.initState();
   }
 
@@ -79,7 +73,7 @@ class _RuleProvidersAddOrEditScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.meta.ruleProviders,
+                        tcontext.meta.rule,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -88,6 +82,7 @@ class _RuleProvidersAddOrEditScreenState
                         ),
                       ),
                     ),
+
                     InkWell(
                       onTap: () {
                         onTapSave();
@@ -142,7 +137,7 @@ class _RuleProvidersAddOrEditScreenState
       return;
     }
 
-    final names = DiversionTemplateManager.getRuleProvidersNames();
+    final names = DiversionTemplateManager.getProxyGroupTemplatesNames();
     if (widget.name.isEmpty) {
       if (names.contains(_data.name)) {
         DialogUtils.showAlertDialog(
@@ -160,45 +155,28 @@ class _RuleProvidersAddOrEditScreenState
         return;
       }
     }
-    if (_data.http != null) {
-      if (_data.http!.url.isEmpty) {
-        DialogUtils.showAlertDialog(context, "url can not be empty");
-        return;
-      }
-      final url = Uri.tryParse(_data.http!.url);
-      if (url == null) {
-        DialogUtils.showAlertDialog(
-          context,
-          "url:${_data.http!.url} is invalid",
-        );
-        return;
-      }
-    }
 
     if (widget.name.isNotEmpty) {
-      DiversionTemplateManager.updateRuleProvider(widget.name, _data);
+      DiversionTemplateManager.updateProxyGroupTemplate(widget.name, _data);
     } else {
-      DiversionTemplateManager.addRuleProvider(_data);
+      DiversionTemplateManager.addProxyGroupTemplate(_data);
     }
 
-    await DiversionTemplateManager.save();
-    if (!mounted) {
-      return;
-    }
+    DiversionTemplateManager.save();
     Navigator.pop(context);
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
 
-    List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.meta.name,
           text: _data.name,
+          tips: "name",
           textWidthPercent: 0.7,
-          hint: tcontext.meta.required,
+          hint: "[${tcontext.meta.required}]",
           onChanged: (String value) {
             _data.name = value.trim();
           },
@@ -209,77 +187,30 @@ class _RuleProvidersAddOrEditScreenState
           name: "Type",
           tips: "type",
           selected: _data.type,
-          strings: RuleProvider.getTypes(),
+          strings: ProxyGroupTemplate.getTypes(),
           onPicker: (String? selected) async {
-            _data.type = selected ?? RuleProvider.getTypes().first;
+            _data.type = selected ?? ProxyGroupTemplate.getTypes().first;
             setState(() {});
           },
         ),
       ),
-
-      if (_data.http != null) ...[
-        GroupItemOptions(
-          textFormFieldOptions: GroupItemTextFieldOptions(
-            name: "url",
-            tips: "url",
-            text: _data.http!.url,
-            hint: "https://e.com/rule.mrs[${tcontext.meta.required}]",
-            textWidthPercent: 0.7,
-            onChanged: (String value) {
-              _data.http!.url = value.trim();
-            },
-          ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: "Icon",
+          text: _data.icon,
+          tips: "icon",
+          textWidthPercent: 0.7,
+          hint: "http://a.com/a.png",
+          onChanged: (String value) {
+            final uri = Uri.tryParse(value.trim());
+            if (uri != null) {
+              _data.icon = value.trim();
+            }
+          },
         ),
-        GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-            name: "Format",
-            tips: "format",
-            selected: _data.http!.format,
-            strings: RuleProviderHttp.getFormats(),
-            onPicker: (String? selected) async {
-              _data.http!.format =
-                  selected ?? RuleProviderHttp.getFormats().first;
-              setState(() {});
-            },
-          ),
-        ),
-        GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-            name: "Behavior",
-            tips: "behavior",
-            selected: _data.http!.behavior,
-            strings: RuleProviderHttp.getBehaviors(),
-            onPicker: (String? selected) async {
-              _data.http!.behavior =
-                  selected ?? RuleProviderHttp.getBehaviors().first;
-              setState(() {});
-            },
-          ),
-        ),
-        GroupItemOptions(
-          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-            name: tcontext.meta.updateInterval,
-            tips: "interval",
-            duration: _data.http!.interval,
-            showDays: true,
-            showHours: true,
-            showMinutes: true,
-            showSeconds: false,
-            showDisable: true,
-            onPicker: (bool canceled, Duration? duration) async {
-              if (canceled) {
-                return;
-              }
-              _data.http!.interval = duration;
-              setState(() {});
-            },
-          ),
-        ),
-      ],
+      ),
     ];
 
-    groupOptions.add(GroupItem(options: options));
-
-    return groupOptions;
+    return [GroupItem(options: options)];
   }
 }

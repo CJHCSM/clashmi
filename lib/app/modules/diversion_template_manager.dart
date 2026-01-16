@@ -3,16 +3,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart' as path;
+
+import 'package:clashmi/app/clash/clash_config.dart' show ClashProtocolType;
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:path/path.dart' as path;
 
 class RuleProviderHttp {
   RuleProviderHttp({
     this.url = "",
     this.format = "",
     this.behavior = "",
-
     this.interval = const Duration(hours: 12),
   });
 
@@ -110,6 +111,21 @@ class RuleProvider {
     http = RuleProviderHttp.fromJsonStatic(map);
   }
 
+  RuleProvider clone() {
+    return RuleProvider(
+      name: name,
+      type: type,
+      http: http == null
+          ? null
+          : RuleProviderHttp(
+              url: http!.url,
+              format: http!.format,
+              behavior: http!.behavior,
+              interval: http!.interval,
+            ),
+    );
+  }
+
   static List<String> getTypes() {
     return ["http"];
   }
@@ -151,6 +167,10 @@ class RuleTemplate {
     rules.insert(newIndex, item);
   }
 
+  RuleTemplate clone() {
+    return RuleTemplate(name: name, rules: rules.toList());
+  }
+
   static List<String> getTypes() {
     return [
       "RULE-SET",
@@ -173,7 +193,7 @@ class RuleTemplate {
   }
 
   static bool needValue(String value) {
-    final types = [
+    final types = {
       "RULE-SET",
       "GEOSITE",
       "GEOIP",
@@ -189,8 +209,13 @@ class RuleTemplate {
       "AND",
       "OR",
       "NOT",
-    ];
+    };
     return types.contains(value);
+  }
+
+  static bool supportNoResolve(String type) {
+    final types = {"RULE-SET", "GEOIP", "IP-ASN", "IP-CIDR", "IP-CIDR6"};
+    return types.contains(type);
   }
 
   static List<String> parseRule(String rule) {
@@ -201,13 +226,69 @@ class RuleTemplate {
   }
 }
 
+class ProxyGroupTemplate {
+  ProxyGroupTemplate({this.name = "", this.icon = "", this.type = ""});
+  String name = "";
+  String icon = "";
+  String type = getTypes().first;
+  List<String> proxies = [];
+  //String proxyRegExps;
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'icon': icon,
+    'type': type,
+    'proxies': proxies,
+    // 'proxyRegExps': proxyRegExps,
+  };
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    name = map['name'] ?? '';
+    icon = map['icon'] ?? '';
+    type = map['type'] ?? '';
+    proxies = List<String>.from(map['proxies'] ?? []);
+    //proxyRegExps = List<String>.from(map['proxyRegExps'] ?? []);
+    if (!ProxyGroupTemplate.getTypes().contains(type)) {
+      type = ProxyGroupTemplate.getTypes().first;
+    }
+  }
+
+  ProxyGroupTemplate clone() {
+    ProxyGroupTemplate ps = this;
+    ps.proxies = proxies.toList();
+    return ps;
+  }
+
+  static List<String> getTypes() {
+    return ["select", "url-test", "load-balance", "fallback"];
+  }
+
+  static String toClashProtocolTypeString(String type) {
+    switch (type) {
+      case "url-test":
+        return ClashProtocolType.urltest.name;
+      case "select":
+        return ClashProtocolType.selector.name;
+      case "load-balance":
+        return ClashProtocolType.loadBalance.name;
+      case "fallback":
+        return ClashProtocolType.fallback.name;
+    }
+    return "";
+  }
+}
+
 class DiversionTemplates {
   List<RuleProvider> ruleProviders = [];
   List<RuleTemplate> ruleTemplates = [];
+  List<ProxyGroupTemplate> proxyGroupTemplates = [];
 
   Map<String, dynamic> toJson() => {
     'rule-providers': ruleProviders,
     'rule-templates': ruleTemplates,
+    'proxygroup-templates': proxyGroupTemplates,
   };
 
   void fromJson(Map<String, dynamic>? map) {
@@ -231,6 +312,14 @@ class DiversionTemplates {
         ruleTemplates.add(rt);
       }
     }
+    final g = map['proxygroup-templates'];
+    if (g is List) {
+      for (var value in g) {
+        ProxyGroupTemplate rt = ProxyGroupTemplate();
+        rt.fromJson(value);
+        proxyGroupTemplates.add(rt);
+      }
+    }
   }
 }
 
@@ -241,6 +330,8 @@ class DiversionTemplateManager {
   static final List<void Function(String)> onEventRuleProviderRemove = [];
   static final List<void Function(String)> onEventRuleTemplateAdd = [];
   static final List<void Function(String)> onEventRuleTemplateRemove = [];
+  static final List<void Function(String)> onEventProxyGroupAdd = [];
+  static final List<void Function(String)> onEventProxyGroupRemove = [];
   static bool _saving = false;
 
   static Future<void> init() async {
@@ -251,6 +342,7 @@ class DiversionTemplateManager {
   static Future<void> reload() async {
     _diversionTemplates.ruleProviders.clear();
     _diversionTemplates.ruleTemplates.clear();
+    _diversionTemplates.proxyGroupTemplates.clear();
     await load();
   }
 
@@ -321,6 +413,21 @@ class DiversionTemplateManager {
     await save();
   }
 
+  static void removeProxyGroupTemplateByName(String name) async {
+    for (int i = 0; i < _diversionTemplates.proxyGroupTemplates.length; ++i) {
+      if (name == _diversionTemplates.proxyGroupTemplates[i].name) {
+        _diversionTemplates.proxyGroupTemplates.removeAt(i);
+        break;
+      }
+    }
+
+    for (var event in onEventProxyGroupRemove) {
+      event(name);
+    }
+
+    await save();
+  }
+
   static RuleProvider? getRuleProviderByName(String name) {
     for (var provider in _diversionTemplates.ruleProviders) {
       if (provider.name == name) {
@@ -339,6 +446,15 @@ class DiversionTemplateManager {
     return null;
   }
 
+  static ProxyGroupTemplate? getProxyGroupTemplateByName(String name) {
+    for (var template in _diversionTemplates.proxyGroupTemplates) {
+      if (template.name == name) {
+        return template;
+      }
+    }
+    return null;
+  }
+
   static List<RuleProvider> getRuleProviders() {
     return _diversionTemplates.ruleProviders;
   }
@@ -347,8 +463,24 @@ class DiversionTemplateManager {
     return _diversionTemplates.ruleTemplates;
   }
 
+  static List<ProxyGroupTemplate> getProxyGroupTemplates() {
+    return _diversionTemplates.proxyGroupTemplates;
+  }
+
   static Set<String> getRuleProvidersNames() {
     return _diversionTemplates.ruleProviders
+        .map((element) => element.name)
+        .toSet();
+  }
+
+  static Set<String> getRuleTemplatesNames() {
+    return _diversionTemplates.ruleTemplates
+        .map((element) => element.name)
+        .toSet();
+  }
+
+  static Set<String> getProxyGroupTemplatesNames() {
+    return _diversionTemplates.proxyGroupTemplates
         .map((element) => element.name)
         .toSet();
   }
@@ -359,6 +491,10 @@ class DiversionTemplateManager {
 
   static void addRuleTemplate(RuleTemplate template) {
     _diversionTemplates.ruleTemplates.add(template);
+  }
+
+  static void addProxyGroupTemplate(ProxyGroupTemplate template) {
+    _diversionTemplates.proxyGroupTemplates.add(template);
   }
 
   static void updateRuleProvider(String name, RuleProvider provider) {
@@ -379,10 +515,16 @@ class DiversionTemplateManager {
     }
   }
 
-  static Set<String> getRuleTemplatesNames() {
-    return _diversionTemplates.ruleTemplates
-        .map((element) => element.name)
-        .toSet();
+  static void updateProxyGroupTemplate(
+    String name,
+    ProxyGroupTemplate template,
+  ) {
+    for (int i = 0; i < _diversionTemplates.proxyGroupTemplates.length; ++i) {
+      if (name == _diversionTemplates.proxyGroupTemplates[i].name) {
+        _diversionTemplates.proxyGroupTemplates[i] = template;
+        break;
+      }
+    }
   }
 
   static void reorderRuleProvider(int oldIndex, int newIndex) {
@@ -407,5 +549,17 @@ class DiversionTemplateManager {
     }
     var item = _diversionTemplates.ruleTemplates.removeAt(oldIndex);
     _diversionTemplates.ruleTemplates.insert(newIndex, item);
+  }
+
+  static void reorderProxyGroupTemplates(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    if (oldIndex >= _diversionTemplates.proxyGroupTemplates.length ||
+        newIndex >= _diversionTemplates.proxyGroupTemplates.length) {
+      return;
+    }
+    var item = _diversionTemplates.proxyGroupTemplates.removeAt(oldIndex);
+    _diversionTemplates.proxyGroupTemplates.insert(newIndex, item);
   }
 }

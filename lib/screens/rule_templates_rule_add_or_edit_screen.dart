@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class RuleTemplatesRuleAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleTemplateAddOrEditScreen ");
+    return RouteSettings(name: "RuleTemplateAddOrEditScreen");
   }
 
   final String rule;
@@ -172,79 +172,22 @@ class _RuleTemplatesRuleAddOrEditScreenState
     ];
 
     groupOptions.add(GroupItem(options: options));
+    final supportResolve = RuleTemplate.supportNoResolve(_type);
+    List<GroupItemOptions> options1 = [];
+
     if (_type == "RULE-SET") {
-      groupOptions.add(
-        GroupItem(
-          options: [
-            GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                name: "NO-RESOLVE",
-                switchValue: _noResolve,
-                onSwitch: (bool value) async {
-                  _noResolve = value;
-                  setState(() {});
-                },
-              ),
-            ),
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.ruleProviders,
-                text: _value,
-                onPush: () async {
-                  final ruleProviders =
-                      DiversionTemplateManager.getRuleProvidersNames();
-                  var widgets = [];
-                  for (var provider in ruleProviders) {
-                    widgets.add(
-                      ListTile(
-                        title: Text(
-                          provider,
-                          style: TextStyle(
-                            color: provider == _value
-                                ? ThemeDefine.kColorBlue
-                                : null,
-                          ),
-                        ),
-                        onTap: () async {
-                          Navigator.pop(context);
-                          _value = provider;
-                          setState(() {});
-                        },
-                      ),
-                    );
-                  }
-                  showSheet(
-                    context: context,
-                    body: SizedBox(
-                      height: 400,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Scrollbar(
-                          child: ListView.separated(
-                            itemBuilder: (BuildContext context, int index) {
-                              return widgets[index];
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                                  return const Divider(
-                                    height: 1,
-                                    thickness: 0.3,
-                                  );
-                                },
-                            itemCount: widgets.length,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+      options1.add(
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.ruleProviders,
+            text: _value,
+            onPush: () async {
+              onTapRuleset();
+            },
+          ),
         ),
       );
-    } else if (_type == "MATCH") {
-    } else {
+    } else if (_type != "MATCH") {
       String hint = "";
       if (_type == "GEOSITE" || _type == "GEOIP") {
         hint = "CN[${tcontext.meta.required}]";
@@ -253,41 +196,82 @@ class _RuleTemplatesRuleAddOrEditScreenState
       } else {
         hint = tcontext.meta.required;
       }
-      groupOptions.add(
-        GroupItem(
-          options: [
-            if (_type == "GEOIP" ||
-                _type == "IP-ASN" ||
-                _type == "IP-CIDR" ||
-                _type == "IP-CIDR6") ...[
-              GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                  name: "NO-RESOLVE",
-                  switchValue: _noResolve,
-                  onSwitch: (bool value) async {
-                    _noResolve = value;
-                    setState(() {});
-                  },
-                ),
-              ),
-            ],
-            GroupItemOptions(
-              textFormFieldOptions: GroupItemTextFieldOptions(
-                name: _type,
-                text: _value,
-                hint: hint,
-                textWidthPercent: 0.6,
-                textInputAction: TextInputAction.next,
-                onChanged: (String value) {
-                  _value = value;
-                },
-              ),
-            ),
-          ],
+      options1.add(
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: _type,
+            text: _value,
+            hint: hint,
+            textWidthPercent: 0.6,
+            textInputAction: TextInputAction.next,
+            onChanged: (String value) {
+              _value = value;
+            },
+          ),
         ),
       );
     }
 
+    if (options1.isNotEmpty) {
+      if (supportResolve) {
+        options1.add(
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: "NO-RESOLVE",
+              switchValue: _noResolve,
+              onSwitch: (bool value) async {
+                _noResolve = value;
+                setState(() {});
+              },
+            ),
+          ),
+        );
+      }
+      groupOptions.add(GroupItem(options: options1));
+    }
+
     return groupOptions;
+  }
+
+  void onTapRuleset() {
+    final ruleProviders = DiversionTemplateManager.getRuleProvidersNames();
+    var widgets = [];
+    for (var provider in ruleProviders) {
+      widgets.add(
+        ListTile(
+          title: Text(
+            provider,
+            style: TextStyle(
+              color: provider == _value ? ThemeDefine.kColorBlue : null,
+            ),
+          ),
+          onTap: () async {
+            Navigator.pop(context);
+            _value = provider;
+            setState(() {});
+          },
+        ),
+      );
+    }
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

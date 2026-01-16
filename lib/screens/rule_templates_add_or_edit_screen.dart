@@ -3,7 +3,7 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
-import 'package:clashmi/screens/ruletemplates_rule_add_or_edit_screen.dart';
+import 'package:clashmi/screens/rule_templates_rule_add_or_edit_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class RuleTemplatesAddOrEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return RouteSettings(name: "RuleTemplateAddOrEditScreen ");
+    return RouteSettings(name: "RuleTemplateAddOrEditScreen");
   }
 
   final String name;
@@ -30,7 +30,7 @@ class _RuleTemplatesAddOrEditScreenState
     if (widget.name.isNotEmpty) {
       final exist = DiversionTemplateManager.getRuleTemplateByName(widget.name);
       if (exist != null) {
-        _data = RuleTemplate(name: exist.name, rules: exist.rules);
+        _data = exist.clone();
       } else {
         _data = RuleTemplate(rules: []);
       }

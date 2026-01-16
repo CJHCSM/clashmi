@@ -1,3 +1,4 @@
+import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/clash/clash_http_api.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/diversion_template_manager.dart';
@@ -9,6 +10,8 @@ import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/group_item_creator.dart';
 import 'package:clashmi/screens/group_item_options.dart';
 import 'package:clashmi/screens/group_screen.dart';
+
+import 'package:clashmi/screens/proxygroup_screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/framework.dart';
@@ -22,8 +25,8 @@ class ProfilesSettingsEditScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "ProfilesSettingsEditScreen");
   }
 
-  final String profileid;
-  const ProfilesSettingsEditScreen({super.key, required this.profileid});
+  final ProfileSetting profile;
+  const ProfilesSettingsEditScreen({super.key, required this.profile});
 
   @override
   State<ProfilesSettingsEditScreen> createState() =>
@@ -39,10 +42,7 @@ class _ProfilesSettingsEditScreenState
 
   @override
   void initState() {
-    _profile =
-        ProfileManager.getProfile(widget.profileid) ??
-        ProfileSetting(updateInterval: const Duration(hours: 24));
-
+    _profile = widget.profile.clone();
     _profile.userAgent = _profile.userAgent.isEmpty
         ? SettingManager.getConfig().userAgent()
         : _profile.userAgent;
@@ -292,15 +292,15 @@ class _ProfilesSettingsEditScreenState
     ];
 
     List<GroupItemOptions> options1 = [
-      /*GroupItemOptions(
+      GroupItemOptions(
         pushOptions: GroupItemPushOptions(
-          name: "Proxy Groups",
+          name: tcontext.meta.proxyGroups,
           tips: "proxy-groups",
           onPush: () async {
             showClashSettingsProxyGroups();
           },
         ),
-      ),*/
+      ),
       GroupItemOptions(
         pushOptions: GroupItemPushOptions(
           name: tcontext.meta.rule,
@@ -319,7 +319,36 @@ class _ProfilesSettingsEditScreenState
   }
 
   Future<void> showClashSettingsProxyGroups() async {
-    final tcontext = Translations.of(context);
+    final current = ProfileManager.getCurrent();
+    final connected = await VPNService.getStarted();
+    if (!mounted) {
+      return;
+    }
+    if (!connected || current == null || current.id != _profile.id) {
+      DialogUtils.showAlertDialog(
+        context,
+        "Please activate this profile and start the connection before trying again.",
+      );
+      return;
+    }
+    if (_nodes.isEmpty) {
+      _nodes = await getProxies();
+    }
+    var newNodes = _nodes.toList();
+    newNodes.removeWhere((ClashProxiesNode node) {
+      return ClashProtocolType.toList().contains(node.type);
+    });
+    if (!mounted) {
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: ProxyGroupsScreen.routSettings(),
+        builder: (context) =>
+            ProxyGroupsScreen(profile: current, nodes: newNodes),
+      ),
+    );
   }
 
   Future<void> showClashSettingsRules() async {
@@ -331,7 +360,7 @@ class _ProfilesSettingsEditScreenState
       List<GroupItemOptions> options = [
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-            name: tcontext.meta.overwrite,
+            name: "${tcontext.meta.overwrite} [${tcontext.meta.rule}]",
             switchValue: _profile.overwriteRules,
             onSwitch: (bool value) async {
               _profile.overwriteRules = value;
@@ -339,71 +368,35 @@ class _ProfilesSettingsEditScreenState
             },
           ),
         ),
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: "${tcontext.meta.overwrite} [${tcontext.meta.proxyGroups}]",
+            switchValue: _profile.overwriteProxyGroups,
+            onSwitch: !_profile.overwriteRules
+                ? null
+                : (bool value) async {
+                    _profile.overwriteProxyGroups = value;
+                    setState(() {});
+                  },
+          ),
+        ),
       ];
       List<GroupItemOptions> options1 = [];
       final names = DiversionTemplateManager.getRuleTemplatesNames();
       for (var name in names) {
-        final target = _profile.rules[name];
+        final target = _profile.overwriteProxyGroups
+            ? _profile.rulesForProxyGroups[name]
+            : _profile.rules[name];
         options1.add(
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
               name: name,
               text: target,
-              onPush: () async {
-                final connected = await VPNService.getStarted();
-                if (!context.mounted) {
-                  return;
-                }
-                if (!connected) {
-                  DialogUtils.showAlertDialog(
-                    context,
-                    "Please open the connection before trying again.",
-                  );
-                  return;
-                }
-                if (_nodes.isEmpty) {
-                  _nodes = await getProxies();
-                }
-                var widgets = [];
-                for (var node in _nodes) {
-                  widgets.add(
-                    ListTile(
-                      title: Text(node.name),
-                      subtitle: Text(node.type),
-                      selected: node.name == _profile.rules[name],
-                      selectedColor: ThemeDefine.kColorBlue,
-                      onTap: () async {
-                        _profile.rules[name] = node.name;
-                        Navigator.of(context).pop();
-                        setstate?.call();
-                      },
-                    ),
-                  );
-                }
-                if (!context.mounted) {
-                  return;
-                }
-                showSheet(
-                  context: context,
-                  body: SizedBox(
-                    height: 400,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Scrollbar(
-                        child: ListView.separated(
-                          itemBuilder: (BuildContext context, int index) {
-                            return widgets[index];
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const Divider(height: 1, thickness: 0.3);
-                          },
-                          itemCount: widgets.length,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+              onPush: !_profile.overwriteRules
+                  ? null
+                  : () async {
+                      onTapRule(name, setstate);
+                    },
             ),
           ),
         );
@@ -435,5 +428,108 @@ class _ProfilesSettingsEditScreenState
     }
 
     return nodes;
+  }
+
+  Future<void> onTapRule(String ruleName, SetStateCallback? setstate) async {
+    final current = ProfileManager.getCurrent();
+    final connected = await VPNService.getStarted();
+    if (!mounted) {
+      return;
+    }
+    if (!connected || current == null || current.id != _profile.id) {
+      DialogUtils.showAlertDialog(
+        context,
+        "Please activate this profile and start the connection before trying again.",
+      );
+      return;
+    }
+    if (_nodes.isEmpty) {
+      _nodes = await getProxies();
+    }
+    var newNodes = _nodes.toList();
+    if (_profile.overwriteProxyGroups) {
+      newNodes.removeWhere((ClashProxiesNode node) {
+        return ClashProtocolType.toList().contains(node.type);
+      });
+      List<ClashProxiesNode> pgNodes = [];
+      final pgs = DiversionTemplateManager.getProxyGroupTemplates();
+      for (var pg in pgs) {
+        ClashProxiesNode cn = ClashProxiesNode();
+        cn.name = pg.name;
+        cn.type = ProxyGroupTemplate.toClashProtocolTypeString(pg.type);
+        pgNodes.add(cn);
+      }
+      newNodes.insertAll(0, pgNodes);
+    }
+
+    var widgets = [];
+    for (int i = 0; i < newNodes.length; ++i) {
+      final node = newNodes[i];
+      String subtitle = "";
+      Color? color;
+      if (node.delay != null && node.delay! > 0) {
+        subtitle = "(${node.delay} ms)";
+        if (node.delay! < 800) {
+          color = ThemeDefine.kColorGreenBright;
+        } else if (node.delay! < 1500) {
+          color = Colors.black;
+        } else {
+          color = Colors.red;
+        }
+      }
+      widgets.add(
+        ListTile(
+          title: Text("${i + 1} ${node.name}"),
+          subtitle: subtitle.isEmpty
+              ? Text(node.type)
+              : Row(
+                  children: [
+                    Text(node.type),
+                    SizedBox(width: 5),
+                    Text(subtitle, style: TextStyle(color: color)),
+                  ],
+                ),
+          selected:
+              (_profile.overwriteProxyGroups &&
+                  node.name == _profile.rulesForProxyGroups[ruleName]) ||
+              (!_profile.overwriteProxyGroups &&
+                  node.name == _profile.rules[ruleName]),
+          selectedColor: ThemeDefine.kColorBlue,
+          onTap: () async {
+            if (_profile.overwriteProxyGroups) {
+              _profile.rulesForProxyGroups[ruleName] = node.name;
+            } else {
+              _profile.rules[ruleName] = node.name;
+            }
+
+            Navigator.of(context).pop();
+            setstate?.call();
+          },
+        ),
+      );
+    }
+    if (!mounted) {
+      return;
+    }
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

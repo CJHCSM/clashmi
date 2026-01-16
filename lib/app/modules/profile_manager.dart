@@ -8,6 +8,7 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
+import 'package:clashmi/app/utils/convert_utils.dart';
 import 'package:clashmi/app/utils/date_time_utils.dart';
 import 'package:clashmi/app/utils/download_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
@@ -15,12 +16,23 @@ import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:intl/intl.dart';
-import 'package:libclash_vpn_service/http_request.dart' as ConvertUtils;
+
 import 'package:libclash_vpn_service/state.dart';
 import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 
 const int kRemarkMaxLength = 32;
+
+class ProfileSettingProxyGroup {
+  List<String> proxies = [];
+  Map<String, dynamic> toJson() => {'proxies': proxies};
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    proxies = List<String>.from(map['proxies'] ?? []);
+  }
+}
 
 class ProfileSetting {
   ProfileSetting({
@@ -43,8 +55,13 @@ class ProfileSetting {
   num download = 0;
   num total = 0;
   String expire = "";
+
+  bool overwriteProxyGroups = false;
   bool overwriteRules = false;
+  Map<String, ProfileSettingProxyGroup> proxyGroups = {};
   Map<String, String> rules = {};
+  Map<String, String> rulesForProxyGroups = {};
+
   Map<String, dynamic> toJson() => {
     'id': id,
     'remark': remark,
@@ -58,7 +75,10 @@ class ProfileSetting {
     'total': total,
     'expire': expire,
     'overwrite_rules': overwriteRules,
+    'overwrite_proxy_groups': overwriteProxyGroups,
+    'proxy_groups': proxyGroups,
     'rules': rules,
+    'rules_for_proxy_groups': rulesForProxyGroups,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -86,9 +106,23 @@ class ProfileSetting {
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
+    overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
     overwriteRules = map['overwrite_rules'] ?? false;
-    rules = ConvertUtils.convertMap(map["rules"]);
+    final pgs = map["proxy_groups"];
+    if (pgs is Map) {
+      pgs.forEach((key, value) {
+        ProfileSettingProxyGroup pg = ProfileSettingProxyGroup();
+        pg.fromJson(value);
+        proxyGroups[key] = pg;
+      });
+    }
+    rules = ConvertUtils.convertMap(map["rules"]) ?? {};
     rules.removeWhere((key, value) {
+      return key.isEmpty || value.isEmpty;
+    });
+    rulesForProxyGroups =
+        ConvertUtils.convertMap(map["rules_for_proxy_groups"]) ?? {};
+    rulesForProxyGroups.removeWhere((key, value) {
       return key.isEmpty || value.isEmpty;
     });
   }
@@ -174,23 +208,10 @@ class ProfileSetting {
   }
 
   ProfileSetting clone() {
-    ProfileSetting ps = ProfileSetting();
-    ps.id = id;
-    ps.remark = remark;
-    ps.patch = patch;
-    ps.updateInterval = updateInterval;
-    ps.update = update;
-    ps.url = url;
-    ps.userAgent = userAgent;
-    ps.upload = upload;
-    ps.download = download;
-    ps.total = total;
-    ps.expire = expire;
-    ps.overwriteRules = overwriteRules;
+    ProfileSetting ps = this;
     rules.forEach((key, value) {
       ps.rules[key] = value;
     });
-
     return ps;
   }
 }
@@ -719,7 +740,7 @@ class ProfileManager {
   static ProfileSetting? getProfile(String id) {
     for (var profile in _config.profiles) {
       if (id == profile.id) {
-        return profile.clone();
+        return profile;
       }
     }
     return null;

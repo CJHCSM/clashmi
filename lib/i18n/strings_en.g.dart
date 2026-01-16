@@ -420,6 +420,15 @@ class TranslationsMetaEn {
 	/// en: 'Rule Templates'
 	String get ruleTemplates => 'Rule Templates';
 
+	/// en: 'Proxy Group Template'
+	String get proxyGroupsTemplates => 'Proxy Group Template';
+
+	/// en: 'Proxy Group'
+	String get proxyGroups => 'Proxy Group';
+
+	/// en: 'Proxy Node list'
+	String get proxyNodeList => 'Proxy Node list';
+
 	/// en: 'External Controller'
 	String get externalController => 'External Controller';
 
@@ -1087,6 +1096,9 @@ extension on Translations {
 			'meta.diversionTemplates' => 'Diversion Template',
 			'meta.ruleProviders' => 'Rule Providers',
 			'meta.ruleTemplates' => 'Rule Templates',
+			'meta.proxyGroupsTemplates' => 'Proxy Group Template',
+			'meta.proxyGroups' => 'Proxy Group',
+			'meta.proxyNodeList' => 'Proxy Node list',
 			'meta.externalController' => 'External Controller',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'TCP Concurrent Handshake',

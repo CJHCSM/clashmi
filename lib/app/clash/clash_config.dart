@@ -1200,6 +1200,10 @@ class RawConfig {
   bool? OverWriteSubRules;
   @JsonKey(name: 'sub-rules')
   List<String>? SubRules;
+  @JsonKey(name: 'overwrite-proxy-groups')
+  bool? OverWriteProxyGroups;
+  @JsonKey(name: 'proxy-groups')
+  List<dynamic>? ProxyGroups;
   //map[string]map[string]any ProxyProvider  `yaml:"proxy-providers" json:"proxy-providers"`
   //[]map[string]any Proxy                   `yaml:"proxies" json:"proxies"`
   //[]map[string]any ProxyGroup              `yaml:"proxy-groups" json:"proxy-groups"`
@@ -1286,6 +1290,8 @@ class RawConfig {
     this.Rules,
     this.OverWriteSubRules,
     this.SubRules,
+    this.OverWriteProxyGroups,
+    this.ProxyGroups,
     this.Listeners,
     this.Hosts,
     required this.DNS,
@@ -1353,6 +1359,8 @@ class RawConfig {
     this.Rules,
     this.OverWriteSubRules,
     this.SubRules,
+    this.OverWriteProxyGroups,
+    this.ProxyGroups,
     this.Listeners,
     this.Hosts,
     this.DNS,
