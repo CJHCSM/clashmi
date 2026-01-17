@@ -222,6 +222,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get proxyGroupsTemplates => 'نموذج مجموعة الوكلاء';
 	@override String get proxyGroups => 'مجموعة الوكلاء';
 	@override String get proxyNodeList => 'قائمة عقد الوكيل';
+	@override String proxyNodeFailure({required Object p}) => 'انتهت صلاحية عقد الوكيل التالية وتمت إزالتها تلقائيًا: ${p}';
 	@override String get externalController => 'الرقابة الخارجية';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'مصافحة TCP المتزامنة';
@@ -561,6 +562,7 @@ extension on TranslationsAr {
 			'meta.proxyGroupsTemplates' => 'نموذج مجموعة الوكلاء',
 			'meta.proxyGroups' => 'مجموعة الوكلاء',
 			'meta.proxyNodeList' => 'قائمة عقد الوكيل',
+			'meta.proxyNodeFailure' => ({required Object p}) => 'انتهت صلاحية عقد الوكيل التالية وتمت إزالتها تلقائيًا: ${p}',
 			'meta.externalController' => 'الرقابة الخارجية',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'مصافحة TCP المتزامنة',

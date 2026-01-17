@@ -96,8 +96,13 @@ class ProfilePatchSetting {
   }
 
   ProfilePatchSetting clone() {
-    ProfilePatchSetting ps = this;
-    return ps;
+    return ProfilePatchSetting(
+      id: id,
+      remark: remark,
+      updateInterval: updateInterval,
+      update: update,
+      url: url,
+    );
   }
 }
 

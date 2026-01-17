@@ -114,6 +114,7 @@
         "proxyGroupsTemplates": "الگوی گروه نمایندگان",
         "proxyGroups": "گروه نمایندگان",
         "proxyNodeList": "فهرست گره‌های پروکسی",
+        "proxyNodeFailure": "گره‌های پروکسی زیر منقضی شده و به طور خودکار حذف شده‌اند: $p",
         "externalController": "کنترل خارجی",
         "secret": "Secret",
         "tcpConcurrent": "دست دادن همزمان TCP",

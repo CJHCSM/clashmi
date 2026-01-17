@@ -222,6 +222,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get proxyGroupsTemplates => 'الگوی گروه نمایندگان';
 	@override String get proxyGroups => 'گروه نمایندگان';
 	@override String get proxyNodeList => 'فهرست گره‌های پروکسی';
+	@override String proxyNodeFailure({required Object p}) => 'گره‌های پروکسی زیر منقضی شده و به طور خودکار حذف شده‌اند: ${p}';
 	@override String get externalController => 'کنترل خارجی';
 	@override String get secret => 'Secret';
 	@override String get tcpConcurrent => 'دست دادن همزمان TCP';
@@ -561,6 +562,7 @@ extension on TranslationsFa {
 			'meta.proxyGroupsTemplates' => 'الگوی گروه نمایندگان',
 			'meta.proxyGroups' => 'گروه نمایندگان',
 			'meta.proxyNodeList' => 'فهرست گره‌های پروکسی',
+			'meta.proxyNodeFailure' => ({required Object p}) => 'گره‌های پروکسی زیر منقضی شده و به طور خودکار حذف شده‌اند: ${p}',
 			'meta.externalController' => 'کنترل خارجی',
 			'meta.secret' => 'Secret',
 			'meta.tcpConcurrent' => 'دست دادن همزمان TCP',

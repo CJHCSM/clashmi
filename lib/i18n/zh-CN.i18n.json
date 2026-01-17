@@ -114,6 +114,7 @@
         "proxyGroupsTemplates": "代理组模板",
         "proxyGroups": "代理组",
         "proxyNodeList": "代理节点列表",
+        "proxyNodeFailure": "下列代理节点已失效,已自动移除:$p",
         "externalController": "外部控制",
         "secret": "Secret",
         "tcpConcurrent": "TCP并发握手",

@@ -114,6 +114,7 @@
         "proxyGroupsTemplates": "Proxy Group Template",
         "proxyGroups": "Proxy Group",
         "proxyNodeList": "Proxy Node list",
+        "proxyNodeFailure": "The following proxy nodes have expired and have been automatically removed: $p",
         "externalController": "External Controller",
         "secret": "Secret",
         "tcpConcurrent": "TCP Concurrent Handshake",
