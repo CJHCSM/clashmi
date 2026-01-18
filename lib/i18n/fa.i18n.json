@@ -276,6 +276,7 @@
         "enhancedMode": "حالت پیشرفته",
         "fakeIPFilterMode": "حالت فیلتر @:{dns.fakeIp}",
         "fakeIPFilter": "فیلتر @:{dns.fakeIp}",
+        "respectRules": "Соблюдайте правила.",
         "nameServer": "سرور DNS",
         "defaultNameServer": "@:{meta.byDefault} @:{dns.nameServer}",
         "proxyNameServer": "@:{meta.proxy} @:{dns.nameServer}",

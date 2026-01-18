@@ -927,6 +927,9 @@ class TranslationsDnsEn {
 	/// en: 'fake-ip Filter'
 	String get fakeIPFilter => 'fake-ip Filter';
 
+	/// en: 'Respect Rules'
+	String get respectRules => 'Respect Rules';
+
 	/// en: 'NameServer'
 	String get nameServer => 'NameServer';
 
@@ -1256,6 +1259,7 @@ extension on Translations {
 			'dns.enhancedMode' => 'Enhanced Mode',
 			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} Filter Mode',
 			'dns.fakeIPFilter' => 'fake-ip Filter',
+			'dns.respectRules' => 'Respect Rules',
 			'dns.nameServer' => 'NameServer',
 			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
 			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',

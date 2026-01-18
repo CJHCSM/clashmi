@@ -412,6 +412,7 @@ class _TranslationsDnsZhCn implements TranslationsDnsEn {
 	@override String get enhancedMode => '增强模式';
 	@override String get fakeIPFilterMode => '${_root.dns.fakeIp} 过滤模式';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} 过滤';
+	@override String get respectRules => '遵守[rules]规则';
 	@override String get nameServer => '域名解析服务器';
 	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
 	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
@@ -716,6 +717,7 @@ extension on TranslationsZhCn {
 			'dns.enhancedMode' => '增强模式',
 			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} 过滤模式',
 			'dns.fakeIPFilter' => '${_root.dns.fakeIp} 过滤',
+			'dns.respectRules' => '遵守[rules]规则',
 			'dns.nameServer' => '域名解析服务器',
 			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
 			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',

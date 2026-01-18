@@ -276,6 +276,7 @@
         "enhancedMode": "Enhanced Mode",
         "fakeIPFilterMode": "@:{dns.fakeIp} Filter Mode",
         "fakeIPFilter": "fake-ip Filter",
+        "respectRules": "Respect Rules",
         "nameServer": "NameServer",
         "defaultNameServer": "@:{meta.byDefault} @:{dns.nameServer}",
         "proxyNameServer": "@:{meta.proxy} @:{dns.nameServer}",

@@ -412,6 +412,7 @@ class _TranslationsDnsAr implements TranslationsDnsEn {
 	@override String get enhancedMode => 'الوضع المحسّن';
 	@override String get fakeIPFilterMode => 'وضع التصفية ${_root.dns.fakeIp}';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} التصفية';
+	@override String get respectRules => 'اتبع القواعد';
 	@override String get nameServer => 'خادم DNS';
 	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
 	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
@@ -716,6 +717,7 @@ extension on TranslationsAr {
 			'dns.enhancedMode' => 'الوضع المحسّن',
 			'dns.fakeIPFilterMode' => 'وضع التصفية ${_root.dns.fakeIp}',
 			'dns.fakeIPFilter' => '${_root.dns.fakeIp} التصفية',
+			'dns.respectRules' => 'اتبع القواعد',
 			'dns.nameServer' => 'خادم DNS',
 			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
 			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',
