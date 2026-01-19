@@ -35,7 +35,7 @@ struct clashmiWidgetControl: ControlWidget {
                 isOn: value,
                 action: StartVPNServiceIntent()
             ) { isRunning in
-                Label("", image: "control_widget")
+                Label(isRunning ? "ON" : "OFF", image: "control_widget")
             }
         }
         .displayName("ON/OFF")
