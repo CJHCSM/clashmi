@@ -91,7 +91,7 @@ class RemoteConfig {
   static const String kDefaultTelegram = "https://t.me/ClashMiApp";
   static const String kDefaultFollow = "https://github.com/KaringX/clashmi";
   static const String kDefaultDonate = "http://$kDefaultHost/donate";
-  static const String kDefaultHtmlTools = "https://html-tools-d0l.pages.dev/";
+  static const String kDefaultHtmlTools = "https://tools.karing.app/";
 
   String latestCheck = "";
 

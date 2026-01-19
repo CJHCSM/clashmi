@@ -26,11 +26,13 @@ class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
   final String url;
   final String remark;
   final bool? overwrite;
+  final bool? xhwid;
   const AddProfileByUrlScreen({
     super.key,
     this.url = "",
     this.remark = "",
     this.overwrite,
+    this.xhwid,
   });
 
   @override
@@ -59,6 +61,7 @@ class _AddProfileByUrlScreenState
     } else if (widget.overwrite == false) {
       _patch = kProfilePatchBuildinNoOverwrite;
     }
+    _xhwid = widget.xhwid == true;
     super.initState();
   }
 

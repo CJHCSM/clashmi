@@ -71,6 +71,7 @@ class SchemeHandler {
     String? name;
     String? url;
     bool? overwrite;
+    bool? xhwid;
 
     if (!context.mounted) {
       return null;
@@ -84,6 +85,14 @@ class SchemeHandler {
           overwrite = true;
         } else if (ow == "false" || ow == "0" || ow == "no") {
           overwrite = false;
+        }
+      }
+      String? xh = uri.queryParameters["xhwid"];
+      if (xh != null) {
+        if (xh == "true" || xh == "1" || xh == "yes") {
+          xhwid = true;
+        } else if (xh == "false" || xh == "0" || xh == "no") {
+          xhwid = false;
         }
       }
     } catch (err) {
@@ -120,6 +129,7 @@ class SchemeHandler {
       url,
       name ?? "",
       overwrite,
+      xhwid,
     );
 
     return result;
@@ -130,6 +140,7 @@ class SchemeHandler {
     String url,
     String name,
     bool? overwrite,
+    bool? xhwid,
   ) async {
     int kMaxPush = 1;
     if (AddProfileByUrlScreen.pushed >= kMaxPush) {
@@ -144,8 +155,12 @@ class SchemeHandler {
       context,
       MaterialPageRoute(
         settings: AddProfileByUrlScreen.routSettings(),
-        builder: (context) =>
-            AddProfileByUrlScreen(url: url, remark: name, overwrite: overwrite),
+        builder: (context) => AddProfileByUrlScreen(
+          url: url,
+          remark: name,
+          overwrite: overwrite,
+          xhwid: xhwid,
+        ),
       ),
     );
     if (ok != true) {
