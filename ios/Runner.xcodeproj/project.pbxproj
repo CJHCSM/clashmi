@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,9 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		A09092BFE381CEB1C2F0E45C /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */; };
+		CE20CEA72F1DBB2E00FF3ECC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20CEA62F1DBB2E00FF3ECC /* WidgetKit.framework */; };
+		CE20CEA92F1DBB2E00FF3ECC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20CEA82F1DBB2E00FF3ECC /* SwiftUI.framework */; };
+		CE20CEBA2F1DBB3100FF3ECC /* clashmiWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CE20CEA52F1DBB2E00FF3ECC /* clashmiWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE85581F2AF49C5E0024DA42 /* Libclash.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C5332AF1F21D005C5724 /* Libclash.xcframework */; };
 		CE8558212AF49F430024DA42 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */; };
 		CE8558262AF4A0450024DA42 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C53B2AF1FF75005C5724 /* libresolv.tbd */; };
@@ -29,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CE20CEB82F1DBB3100FF3ECC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE20CEA42F1DBB2E00FF3ECC;
+			remoteInfo = clashmiWidgetExtension;
+		};
 		CE8558232AF49F430024DA42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
@@ -89,6 +99,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				CE20CEBA2F1DBB3100FF3ECC /* clashmiWidgetExtension.appex in Embed Foundation Extensions */,
 				CED44C9329F7AE560051B3B6 /* clashmiService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -113,6 +124,9 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6C270C051245E8F21A1FF5B /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE20CEA52F1DBB2E00FF3ECC /* clashmiWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = clashmiWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE20CEA62F1DBB2E00FF3ECC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CE20CEA82F1DBB2E00FF3ECC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		CE4B133229ED20B8006E81E6 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		CE65C5332AF1F21D005C5724 /* Libclash.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libclash.xcframework; path = ../bind/apple/Libclash.xcframework; sourceTree = "<group>"; };
 		CE65C53B2AF1FF75005C5724 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -130,6 +144,20 @@
 		FE6A74A85E74F14B2A4D639E /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE20CEBE2F1DBB3100FF3ECC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CE20CEA42F1DBB2E00FF3ECC /* clashmiWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (CE20CEBE2F1DBB3100FF3ECC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = clashmiWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -137,6 +165,15 @@
 			files = (
 				CEE0DC342AF49B5F00C4E874 /* LibVpnCore.framework in Frameworks */,
 				A09092BFE381CEB1C2F0E45C /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE20CEA22F1DBB2E00FF3ECC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE20CEA92F1DBB2E00FF3ECC /* SwiftUI.framework in Frameworks */,
+				CE20CEA72F1DBB2E00FF3ECC /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +205,8 @@
 				CE65C5332AF1F21D005C5724 /* Libclash.xcframework */,
 				AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */,
 				CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */,
+				CE20CEA62F1DBB2E00FF3ECC /* WidgetKit.framework */,
+				CE20CEA82F1DBB2E00FF3ECC /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -201,6 +240,7 @@
 				97C146F01CF9000F007C117D /* Runner */,
 				CED44C8C29F7AE560051B3B6 /* clashmiService */,
 				CEE0DC2F2AF49B5F00C4E874 /* LibVpnCore */,
+				CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
 				8A8013CBC2AB011D85AD9B81 /* Pods */,
 				26D481E5F3BF75FC5947265A /* Frameworks */,
@@ -213,6 +253,7 @@
 				97C146EE1CF9000F007C117D /* Clash Mi.app */,
 				CED44C8A29F7AE560051B3B6 /* clashmiService.appex */,
 				CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */,
+				CE20CEA52F1DBB2E00FF3ECC /* clashmiWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,11 +329,34 @@
 			dependencies = (
 				CED44C9229F7AE560051B3B6 /* PBXTargetDependency */,
 				CEE0DC332AF49B5F00C4E874 /* PBXTargetDependency */,
+				CE20CEB92F1DBB3100FF3ECC /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Clash Mi.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CE20CEA42F1DBB2E00FF3ECC /* clashmiWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE20CEBF2F1DBB3100FF3ECC /* Build configuration list for PBXNativeTarget "clashmiWidgetExtension" */;
+			buildPhases = (
+				CE20CEA12F1DBB2E00FF3ECC /* Sources */,
+				CE20CEA22F1DBB2E00FF3ECC /* Frameworks */,
+				CE20CEA32F1DBB2E00FF3ECC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */,
+			);
+			name = clashmiWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = clashmiWidgetExtension;
+			productReference = CE20CEA52F1DBB2E00FF3ECC /* clashmiWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		CED44C8929F7AE560051B3B6 /* clashmiService */ = {
 			isa = PBXNativeTarget;
@@ -337,13 +401,16 @@
 		97C146E61CF9000F007C117D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
+					};
+					CE20CEA42F1DBB2E00FF3ECC = {
+						CreatedOnToolsVersion = 26.1.1;
 					};
 					CED44C8929F7AE560051B3B6 = {
 						CreatedOnToolsVersion = 14.3;
@@ -371,6 +438,7 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				CED44C8929F7AE560051B3B6 /* clashmiService */,
 				CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */,
+				CE20CEA42F1DBB2E00FF3ECC /* clashmiWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -384,6 +452,13 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE20CEA32F1DBB2E00FF3ECC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +565,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE20CEA12F1DBB2E00FF3ECC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CED44C8629F7AE560051B3B6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +594,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CE20CEB92F1DBB3100FF3ECC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE20CEA42F1DBB2E00FF3ECC /* clashmiWidgetExtension */;
+			targetProxy = CE20CEB82F1DBB3100FF3ECC /* PBXContainerItemProxy */;
+		};
 		CE8558242AF49F430024DA42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */;
@@ -825,6 +912,139 @@
 			};
 			name = Release;
 		};
+		CE20CEBB2F1DBB3100FF3ECC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = clashmiWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = clashmiWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE20CEBC2F1DBB3100FF3ECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = clashmiWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = clashmiWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CE20CEBD2F1DBB3100FF3ECC /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = clashmiWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = clashmiWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
 		CED44C9529F7AE570051B3B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1131,6 +1351,16 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE20CEBF2F1DBB3100FF3ECC /* Build configuration list for PBXNativeTarget "clashmiWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE20CEBB2F1DBB3100FF3ECC /* Debug */,
+				CE20CEBC2F1DBB3100FF3ECC /* Release */,
+				CE20CEBD2F1DBB3100FF3ECC /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

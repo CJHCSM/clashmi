@@ -54,6 +54,8 @@ app.*.map.json
 /bind/apple/Libclash.xcframework
 /bind/android
 /bind/windows
+/bind/linux
+ios/clashmiWidget/VpnServiceHandler.swift
 /.idea/workspace.xml
 /lib/app/private
 /android/app/build
@@ -61,4 +63,3 @@ app.*.map.json
 /.vscode
 /private
 *.hprof
-/bind/linux/core
