@@ -87,7 +87,7 @@ class SchemeHandler {
           overwrite = false;
         }
       }
-      String? xh = uri.queryParameters["xhwid"];
+      String? xh = uri.queryParameters["xhwid"] ?? uri.queryParameters["hwid"];
       if (xh != null) {
         if (xh == "true" || xh == "1" || xh == "yes") {
           xhwid = true;
