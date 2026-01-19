@@ -12,7 +12,18 @@ class HwidUtils {
     Map<String, String> headers = {};
     final hwid = await getHwid();
     headers["x-hwid"] = hwid.toLowerCase();
-    headers['x-device-os'] = Platform.operatingSystem;
+    if (Platform.isIOS) {
+      headers['x-device-os'] = "iOS";
+    } else if (Platform.isMacOS) {
+      headers['x-device-os'] = "macOS";
+    } else if (Platform.isWindows) {
+      headers['x-device-os'] = "Windows";
+    } else if (Platform.isLinux) {
+      headers['x-device-os'] = "Linux";
+    } else if (Platform.isAndroid) {
+      headers['x-device-os'] = "Android";
+    }
+
     //headers['x-ver-os'];
     //headers['x-device-model'];
     return headers;
