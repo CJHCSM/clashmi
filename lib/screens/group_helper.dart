@@ -470,7 +470,21 @@ class GroupHelper {
         ),
       ];
 
-      return [GroupItem(options: options)];
+      List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.htmlTools,
+            onPush: () async {
+              var remoteConfig = RemoteConfigManager.getConfig();
+              await UrlLauncherUtils.loadUrl(
+                remoteConfig.htmlTools,
+                mode: LaunchMode.externalApplication,
+              );
+            },
+          ),
+        ),
+      ];
+      return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     final tcontext = Translations.of(context);

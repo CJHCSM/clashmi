@@ -18,20 +18,6 @@ abstract class AppleUtils {
     return _findChannelByName(config.channels, name)?.url ?? "";
   }
 
-  static Future<String> getRateUrl() async {
-    if (Platform.isIOS) {
-      final config = RemoteConfigManager.getConfig();
-      final channelName = await InstallReferrerUtils.getString();
-      return _findChannelByNameAndPlatfom(
-            config.channels,
-            channelName,
-            Platform.operatingSystem,
-          )?.rateUrl ??
-          "";
-    }
-    return "";
-  }
-
   static RemoteConfigChannel? _findChannelByName(
     List<RemoteConfigChannel> channels,
     String name,

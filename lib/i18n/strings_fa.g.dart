@@ -163,6 +163,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get ok => 'خُب';
 	@override String get cancel => 'لغو';
 	@override String get faq => 'سوالات متداول';
+	@override String get htmlTools => 'مجموعه ابزارهای HTML';
 	@override String get download => 'دانلود';
 	@override String get loading => 'درحال بارگذاری…';
 	@override String get days => 'روز';
@@ -504,6 +505,7 @@ extension on TranslationsFa {
 			'meta.ok' => 'خُب',
 			'meta.cancel' => 'لغو',
 			'meta.faq' => 'سوالات متداول',
+			'meta.htmlTools' => 'مجموعه ابزارهای HTML',
 			'meta.download' => 'دانلود',
 			'meta.loading' => 'درحال بارگذاری…',
 			'meta.days' => 'روز',

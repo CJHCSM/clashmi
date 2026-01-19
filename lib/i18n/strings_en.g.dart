@@ -252,6 +252,9 @@ class TranslationsMetaEn {
 	/// en: 'FAQ'
 	String get faq => 'FAQ';
 
+	/// en: 'HTML Toolset'
+	String get htmlTools => 'HTML Toolset';
+
 	/// en: 'Download'
 	String get download => 'Download';
 
@@ -1046,6 +1049,7 @@ extension on Translations {
 			'meta.ok' => 'Ok',
 			'meta.cancel' => 'Cancel',
 			'meta.faq' => 'FAQ',
+			'meta.htmlTools' => 'HTML Toolset',
 			'meta.download' => 'Download',
 			'meta.loading' => 'Loading...',
 			'meta.days' => 'Days',

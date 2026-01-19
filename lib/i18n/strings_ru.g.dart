@@ -163,6 +163,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get ok => 'Ок';
 	@override String get cancel => 'Закрыть';
 	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
+	@override String get htmlTools => 'HTML Toolset';
 	@override String get download => 'Скачать';
 	@override String get loading => 'Загрузка...';
 	@override String get days => 'дни';
@@ -504,6 +505,7 @@ extension on TranslationsRu {
 			'meta.ok' => 'Ок',
 			'meta.cancel' => 'Закрыть',
 			'meta.faq' => 'Часто задаваемые вопросы (FAQ)',
+			'meta.htmlTools' => 'HTML Toolset',
 			'meta.download' => 'Скачать',
 			'meta.loading' => 'Загрузка...',
 			'meta.days' => 'дни',

@@ -142,14 +142,14 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
 
     if (!Platform.isIOS &&
         !Platform.isMacOS &&
-        remoteConfig.donateUrl.isNotEmpty) {
+        remoteConfig.donate.isNotEmpty) {
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.donate,
             onPush: () async {
               String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                remoteConfig.donateUrl,
+                remoteConfig.donate,
               );
               if (!mounted) {
                 return;
