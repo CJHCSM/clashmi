@@ -253,12 +253,12 @@ class _ProfilesSettingsEditScreenState
         ),
       ),
       GroupItemOptions(
-        textFormFieldOptions: GroupItemTextFieldOptions(
+        switchOptions: GroupItemSwitchOptions(
           name: "X-HWID",
-          text: _profile.xhwid,
-          textWidthPercent: 0.6,
-          onChanged: (String value) {
+          switchValue: _profile.xhwid,
+          onSwitch: (bool value) async {
             _profile.xhwid = value;
+            setState(() {});
           },
         ),
       ),

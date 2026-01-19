@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:clashmi/app/utils/hwid_utils.dart';
 import 'package:http/io_client.dart';
 
 import 'package:clashmi/app/runtime/return_result.dart';
@@ -70,7 +71,7 @@ abstract final class HttpUtils {
     List<Tuple2<Uri, String>> uris,
     int? proxyPort,
     String? userAgent,
-    String? xhwid,
+    bool xhwid,
     Duration? timeout,
   ) async {
     if (uris.isEmpty) {
@@ -107,7 +108,7 @@ abstract final class HttpUtils {
     String path,
     int? proxyPort,
     String? userAgent,
-    String? xhwid,
+    bool xhwid,
     Duration? timeout,
   ) async {
     timeout ??= const Duration(seconds: 60);
@@ -125,8 +126,9 @@ abstract final class HttpUtils {
     try {
       HttpClientRequest request = await client.getUrl(uri).timeout(timeout);
       request.headers.set(HttpHeaders.acceptHeader, "*/*");
-      if (xhwid != null && xhwid.isNotEmpty) {
-        request.headers.set("x-hwid", xhwid);
+      if (xhwid) {
+        final hwidHeaders = await HwidUtils.getHwidHeaders();
+        hwidHeaders.forEach((key, value) => request.headers.set(key, value));
       }
       //request.cookies.add(Cookie("expire_in", "1689576560"));
       HttpClientResponse? response = await Future.any([

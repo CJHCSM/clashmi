@@ -47,7 +47,7 @@ class ProfileSetting {
     this.updateInterval,
     this.update,
     this.url = "",
-    this.xhwid = "",
+    this.xhwid = false,
     this.userAgent = "",
     this.patch = "",
   });
@@ -58,7 +58,7 @@ class ProfileSetting {
   DateTime? update;
   String url;
   String userAgent;
-  String xhwid;
+  bool xhwid = false;
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -111,7 +111,7 @@ class ProfileSetting {
     }
     url = map['url'] ?? '';
     userAgent = map['user_agent'] ?? '';
-    xhwid = map['xhwid'] ?? '';
+    xhwid = map['xhwid'] ?? false;
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
@@ -537,7 +537,7 @@ class ProfileManager {
     String remark = "",
     String patch = "",
     String userAgent = "",
-    String xhwid = "",
+    bool xhwid = false,
     Duration? updateInterval,
   }) async {
     final uri = Uri.tryParse(url);
