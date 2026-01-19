@@ -412,6 +412,7 @@ class _TranslationsDnsFa implements TranslationsDnsEn {
 	@override String get enhancedMode => 'حالت پیشرفته';
 	@override String get fakeIPFilterMode => 'حالت فیلتر ${_root.dns.fakeIp}';
 	@override String get fakeIPFilter => 'فیلتر ${_root.dns.fakeIp}';
+	@override String get respectRules => 'Соблюдайте правила.';
 	@override String get nameServer => 'سرور DNS';
 	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
 	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
@@ -716,6 +717,7 @@ extension on TranslationsFa {
 			'dns.enhancedMode' => 'حالت پیشرفته',
 			'dns.fakeIPFilterMode' => 'حالت فیلتر ${_root.dns.fakeIp}',
 			'dns.fakeIPFilter' => 'فیلتر ${_root.dns.fakeIp}',
+			'dns.respectRules' => 'Соблюдайте правила.',
 			'dns.nameServer' => 'سرور DNS',
 			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
 			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',

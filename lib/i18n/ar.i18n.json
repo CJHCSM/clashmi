@@ -276,6 +276,7 @@
         "enhancedMode": "الوضع المحسّن",
         "fakeIPFilterMode": "وضع التصفية @:{dns.fakeIp}",
         "fakeIPFilter": "@:{dns.fakeIp} التصفية",
+        "respectRules": "اتبع القواعد",
         "nameServer": "خادم DNS",
         "defaultNameServer": "@:{meta.byDefault} @:{dns.nameServer}",
         "proxyNameServer": "@:{meta.proxy} @:{dns.nameServer}",

@@ -412,6 +412,7 @@ class _TranslationsDnsRu implements TranslationsDnsEn {
 	@override String get enhancedMode => 'Расширенный режим';
 	@override String get fakeIPFilterMode => '${_root.dns.fakeIp} режим фильтра';
 	@override String get fakeIPFilter => '${_root.dns.fakeIp} фильтрация';
+	@override String get respectRules => 'Соблюдайте правила.';
 	@override String get nameServer => 'DNS-сервер';
 	@override String get defaultNameServer => '${_root.meta.byDefault} ${_root.dns.nameServer}';
 	@override String get proxyNameServer => '${_root.meta.proxy} ${_root.dns.nameServer}';
@@ -716,6 +717,7 @@ extension on TranslationsRu {
 			'dns.enhancedMode' => 'Расширенный режим',
 			'dns.fakeIPFilterMode' => '${_root.dns.fakeIp} режим фильтра',
 			'dns.fakeIPFilter' => '${_root.dns.fakeIp} фильтрация',
+			'dns.respectRules' => 'Соблюдайте правила.',
 			'dns.nameServer' => 'DNS-сервер',
 			'dns.defaultNameServer' => '${_root.meta.byDefault} ${_root.dns.nameServer}',
 			'dns.proxyNameServer' => '${_root.meta.proxy} ${_root.dns.nameServer}',

@@ -1708,6 +1708,18 @@ class GroupHelper {
       ];
       List<GroupItemOptions> options2 = [
         GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.dns.respectRules,
+            tips: "respect-rules",
+            switchValue: dns.RespectRules,
+            onSwitch: dns.OverWrite != true || dns.Enable != true
+                ? null
+                : (bool value) async {
+                    dns.RespectRules = value;
+                  },
+          ),
+        ),
+        GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.dns.defaultNameServer,
             tips: "default-nameserver",

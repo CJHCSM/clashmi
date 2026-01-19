@@ -276,6 +276,7 @@
         "enhancedMode": "增强模式",
         "fakeIPFilterMode": "@:{dns.fakeIp} 过滤模式",
         "fakeIPFilter": "@:{dns.fakeIp} 过滤",
+        "respectRules": "遵守[rules]规则",
         "nameServer": "域名解析服务器",
         "defaultNameServer": "@:{meta.byDefault} @:{dns.nameServer}",
         "proxyNameServer": "@:{meta.proxy} @:{dns.nameServer}",
