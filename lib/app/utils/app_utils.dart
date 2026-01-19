@@ -48,6 +48,6 @@ abstract final class AppUtils {
   }
 
   static String getCoreVersion() {
-    return "1.19.18";
+    return "1.19.19";
   }
 }
