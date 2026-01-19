@@ -432,6 +432,7 @@ class ProfilePatchManager {
       uri,
       savePath,
       userAgent,
+      "",
       null,
       timeout: const Duration(seconds: 30),
     );
@@ -521,6 +522,7 @@ class ProfilePatchManager {
       uri,
       savePathTmp,
       userAgent,
+      "",
       null,
       timeout: const Duration(seconds: 30),
     );

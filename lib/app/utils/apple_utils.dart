@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:collection/collection.dart';
 
 import 'package:clashmi/app/modules/remote_config.dart';
@@ -23,15 +22,5 @@ abstract class AppleUtils {
     String name,
   ) {
     return channels.firstWhereOrNull((channel) => channel.channel == name);
-  }
-
-  static RemoteConfigChannel? _findChannelByNameAndPlatfom(
-    List<RemoteConfigChannel> channels,
-    String name,
-    String platform,
-  ) {
-    return channels.firstWhereOrNull(
-      (channel) => (channel.channel == name) && (channel.platform == platform),
-    );
   }
 }

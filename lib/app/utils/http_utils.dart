@@ -70,6 +70,7 @@ abstract final class HttpUtils {
     List<Tuple2<Uri, String>> uris,
     int? proxyPort,
     String? userAgent,
+    String? xhwid,
     Duration? timeout,
   ) async {
     if (uris.isEmpty) {
@@ -82,14 +83,21 @@ abstract final class HttpUtils {
           uris[0].item2,
           proxyPort,
           userAgent,
+          xhwid,
           timeout,
         ),
       ];
     }
     return Future.wait(
       uris.map(
-        (item) =>
-            httpDownload(item.item1, item.item2, proxyPort, userAgent, timeout),
+        (item) => httpDownload(
+          item.item1,
+          item.item2,
+          proxyPort,
+          userAgent,
+          xhwid,
+          timeout,
+        ),
       ),
     );
   }
@@ -99,6 +107,7 @@ abstract final class HttpUtils {
     String path,
     int? proxyPort,
     String? userAgent,
+    String? xhwid,
     Duration? timeout,
   ) async {
     timeout ??= const Duration(seconds: 60);
@@ -116,6 +125,9 @@ abstract final class HttpUtils {
     try {
       HttpClientRequest request = await client.getUrl(uri).timeout(timeout);
       request.headers.set(HttpHeaders.acceptHeader, "*/*");
+      if (xhwid != null && xhwid.isNotEmpty) {
+        request.headers.set("x-hwid", xhwid);
+      }
       //request.cookies.add(Cookie("expire_in", "1689576560"));
       HttpClientResponse? response = await Future.any([
         waitResponseDone(request, path),

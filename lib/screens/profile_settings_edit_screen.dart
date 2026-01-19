@@ -253,6 +253,16 @@ class _ProfilesSettingsEditScreenState
         ),
       ),
       GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: "X-HWID",
+          text: _profile.xhwid,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _profile.xhwid = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
         stringPickerOptions: GroupItemStringPickerOptions(
           name: tcontext.meta.coreOverwrite,
           selected: _profile.patch,

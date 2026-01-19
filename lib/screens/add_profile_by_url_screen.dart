@@ -44,6 +44,7 @@ class _AddProfileByUrlScreenState
   final _textControllerRemark = TextEditingController();
   Duration? _updateInterval = const Duration(hours: 24);
   String _userAgent = "";
+  String _xhwid = "";
   String _patch = "";
   bool _loading = false;
   @override
@@ -84,6 +85,7 @@ class _AddProfileByUrlScreenState
       remark: remark,
       patch: _patch,
       userAgent: _userAgent,
+      xhwid: _xhwid,
       updateInterval: _updateInterval,
     );
 
@@ -325,6 +327,16 @@ class _AddProfileByUrlScreenState
           textWidthPercent: 0.6,
           onChanged: (String value) {
             _userAgent = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: "X-HWID",
+          text: _xhwid,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _xhwid = value;
           },
         ),
       ),

@@ -105,6 +105,7 @@ class BackupHelper {
       filePath,
       null,
       null,
+      null,
       const Duration(seconds: 10),
     );
 
