@@ -346,7 +346,7 @@ class _ProfilesSettingsEditScreenState
     }
     var newNodes = _nodes.toList();
     newNodes.removeWhere((ClashProxiesNode node) {
-      return ClashProtocolType.toList().contains(node.type);
+      return ClashProtocolType.NotGroupToList().contains(node.type);
     });
     if (!mounted) {
       return;

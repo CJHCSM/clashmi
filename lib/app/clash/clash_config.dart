@@ -123,6 +123,16 @@ enum ClashProtocolType {
       ClashProtocolType.rejectDrop.name,
     ];
   }
+
+  static List<String> NotGroupToList() {
+    return [
+      ClashProtocolType.direct.name,
+      ClashProtocolType.compatible.name,
+      ClashProtocolType.pass.name,
+      ClashProtocolType.reject.name,
+      ClashProtocolType.rejectDrop.name,
+    ];
+  }
 }
 
 enum ClashDnsEnhancedMode {
