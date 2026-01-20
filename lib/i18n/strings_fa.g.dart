@@ -452,8 +452,8 @@ class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    بازکردن    ';
-	@override String get menuExit => '    بستن    ';
+	@override String get menuOpen => 'بازکردن';
+	@override String get menuExit => 'بستن';
 }
 
 /// The flat map containing all translations for locale <fa>.
@@ -481,8 +481,8 @@ extension on TranslationsFa {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'نسخه جدید [${p}] آماده است',
 			'VersionUpdateScreen.update' => 'راه‌اندازی مجدد برای به‌روزرسانی',
 			'VersionUpdateScreen.cancel' => 'الان‌ نه',
-			'main.tray.menuOpen' => '    بازکردن    ',
-			'main.tray.menuExit' => '    بستن    ',
+			'main.tray.menuOpen' => 'بازکردن',
+			'main.tray.menuExit' => 'بستن',
 			'meta.enable' => 'فعال‌سازی',
 			'meta.disable' => 'غیرفعال',
 			'meta.open' => 'باز کن',

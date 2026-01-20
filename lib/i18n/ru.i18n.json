@@ -28,8 +28,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    Открыть    ",
-            "menuExit": "    Выйти    "
+            "menuOpen": "Открыть",
+            "menuExit": "Выйти"
         }
     },
     "meta": {

@@ -28,8 +28,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    بازکردن    ",
-            "menuExit": "    بستن    "
+            "menuOpen": "بازکردن",
+            "menuExit": "بستن"
         }
     },
     "meta": {

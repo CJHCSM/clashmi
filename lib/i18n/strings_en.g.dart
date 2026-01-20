@@ -993,11 +993,11 @@ class TranslationsMainTrayEn {
 
 	// Translations
 
-	/// en: ' Open '
-	String get menuOpen => '    Open    ';
+	/// en: 'Open'
+	String get menuOpen => 'Open';
 
-	/// en: ' Exit '
-	String get menuExit => '    Exit    ';
+	/// en: 'Exit'
+	String get menuExit => 'Exit';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -1025,8 +1025,8 @@ extension on Translations {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'The new version[${p}] is ready',
 			'VersionUpdateScreen.update' => 'Restart To Update',
 			'VersionUpdateScreen.cancel' => 'Not Now',
-			'main.tray.menuOpen' => '    Open    ',
-			'main.tray.menuExit' => '    Exit    ',
+			'main.tray.menuOpen' => 'Open',
+			'main.tray.menuExit' => 'Exit',
 			'meta.enable' => 'Enable',
 			'meta.disable' => 'Disable',
 			'meta.open' => 'Open',

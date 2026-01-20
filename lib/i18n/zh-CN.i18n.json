@@ -28,8 +28,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    打开    ",
-            "menuExit": "    退出    "
+            "menuOpen": "打开",
+            "menuExit": "退出"
         }
     },
     "meta": {

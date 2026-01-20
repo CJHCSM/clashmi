@@ -452,8 +452,8 @@ class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    يفتح    ';
-	@override String get menuExit => '    مخرج    ';
+	@override String get menuOpen => 'يفتح';
+	@override String get menuExit => 'مخرج';
 }
 
 /// The flat map containing all translations for locale <ar>.
@@ -481,8 +481,8 @@ extension on TranslationsAr {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'الإصدار الجديد [${p}] جاهز',
 			'VersionUpdateScreen.update' => 'أعد التشغيل للتحديث',
 			'VersionUpdateScreen.cancel' => 'ليس الآن',
-			'main.tray.menuOpen' => '    يفتح    ',
-			'main.tray.menuExit' => '    مخرج    ',
+			'main.tray.menuOpen' => 'يفتح',
+			'main.tray.menuExit' => 'مخرج',
 			'meta.enable' => 'يُمكَِن',
 			'meta.disable' => 'إبطال',
 			'meta.open' => 'يفتح',

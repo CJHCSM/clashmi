@@ -452,8 +452,8 @@ class _TranslationsMainTrayZhCn implements TranslationsMainTrayEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    打开    ';
-	@override String get menuExit => '    退出    ';
+	@override String get menuOpen => '打开';
+	@override String get menuExit => '退出';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -481,8 +481,8 @@ extension on TranslationsZhCn {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => '新版本[${p}]已就绪',
 			'VersionUpdateScreen.update' => '重启更新',
 			'VersionUpdateScreen.cancel' => '暂不更新',
-			'main.tray.menuOpen' => '    打开    ',
-			'main.tray.menuExit' => '    退出    ',
+			'main.tray.menuOpen' => '打开',
+			'main.tray.menuExit' => '退出',
 			'meta.enable' => '启用',
 			'meta.disable' => '禁用',
 			'meta.open' => '打开',

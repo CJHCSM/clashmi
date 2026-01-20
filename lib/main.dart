@@ -4,9 +4,11 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:clashmi/app/clash/clash_config.dart';
 import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/auto_update_manager.dart';
 import 'package:clashmi/app/modules/biz.dart';
+import 'package:clashmi/app/modules/clash_setting_manager.dart';
 import 'package:clashmi/app/modules/remote_config_manager.dart';
 import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/utils/app_args.dart';
@@ -22,6 +24,7 @@ import 'package:clashmi/screens/home_screen.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
+import 'package:clashmi/screens/vpn_action_handler.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -192,6 +195,11 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, WindowListener, TrayListener {
+  static const kMenuConnect = "connect";
+  static const kMenuDisconnect = "disconnect";
+  static const kMenuModeRule = "mode_rule";
+  static const kMenuModeGlobal = "mode_global";
+  static const kMenuModeDirect = "mode_direct";
   static const kMenuOpen = "show_window";
   static const kMenuExit = "exit_app";
   bool _launchAtStartup = false;
@@ -461,18 +469,44 @@ class MyAppState extends State<MyApp>
       if (!Platform.isLinux) {
         await trayManager.setToolTip(AppUtils.getName());
       } else {
-        _setTrayMenu();
+        _setTrayMenu(grey);
       }
     });
   }
 
-  void _setTrayMenu() async {
+  void _setTrayMenu(bool grey) async {
     if (!PlatformUtils.isPC()) {
       return;
     }
+
     List<MenuItem> items = [
-      MenuItem(key: kMenuOpen, label: t.main.tray.menuOpen),
-      MenuItem(key: kMenuExit, label: t.main.tray.menuExit),
+      if (grey) ...[
+        MenuItem(key: kMenuConnect, label: "   ${t.meta.connect}   "),
+      ],
+      if (!grey) ...[
+        MenuItem(key: kMenuDisconnect, label: "   ${t.meta.disconnect}   "),
+      ],
+      MenuItem.separator(),
+      MenuItem.checkbox(
+        key: kMenuModeRule,
+        checked: ClashSettingManager.getConfigsMode() == ClashConfigsMode.rule,
+        label: "   ${t.meta.rule}   ",
+      ),
+      MenuItem.checkbox(
+        key: kMenuModeGlobal,
+        checked:
+            ClashSettingManager.getConfigsMode() == ClashConfigsMode.global,
+        label: "   ${t.meta.global}   ",
+      ),
+      MenuItem.checkbox(
+        key: kMenuModeDirect,
+        checked:
+            ClashSettingManager.getConfigsMode() == ClashConfigsMode.direct,
+        label: "   ${t.meta.direct}   ",
+      ),
+      MenuItem.separator(),
+      MenuItem(key: kMenuOpen, label: "   ${t.main.tray.menuOpen}   "),
+      MenuItem(key: kMenuExit, label: "   ${t.main.tray.menuExit}   "),
     ];
 
     await trayManager.setContextMenu(Menu(items: items));
@@ -493,12 +527,22 @@ class MyAppState extends State<MyApp>
 
   @override
   void onTrayIconRightMouseDown() async {
-    _setTrayMenu();
+    _setTrayMenu(_trayGrey);
   }
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == kMenuExit) {
+    if (menuItem.key == kMenuConnect) {
+      VpnActionHandler.vpnConnect?.call("menu", false);
+    } else if (menuItem.key == kMenuDisconnect) {
+      VpnActionHandler.vpnDisconnect?.call("menu", false);
+    } else if (menuItem.key == kMenuModeRule) {
+      await ClashSettingManager.setConfigsMode(ClashConfigsMode.rule);
+    } else if (menuItem.key == kMenuModeGlobal) {
+      await ClashSettingManager.setConfigsMode(ClashConfigsMode.global);
+    } else if (menuItem.key == kMenuModeDirect) {
+      await ClashSettingManager.setConfigsMode(ClashConfigsMode.direct);
+    } else if (menuItem.key == kMenuExit) {
       await _quit();
     } else if (menuItem.key == kMenuOpen) {
       if (await windowManager.isMinimized()) {

@@ -28,8 +28,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    يفتح    ",
-            "menuExit": "    مخرج    "
+            "menuOpen": "يفتح",
+            "menuExit": "مخرج"
         }
     },
     "meta": {

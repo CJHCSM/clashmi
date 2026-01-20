@@ -20,6 +20,7 @@ import 'package:libclash_vpn_service/proxy_manager.dart';
 import 'package:path/path.dart' as path;
 
 class ClashSettingManager {
+  static final List<void Function()> onEventModeChanged = [];
   static const _gateWay = "172.19.0";
   static const _gateWay6 = "fdfe:dcbe:9876::1";
   static const dnsHijack = "0.0.0.0:53";
@@ -585,6 +586,9 @@ class ClashSettingManager {
   ) async {
     _setting.Mode = mode.name;
     await save();
+    for (var callback in onEventModeChanged) {
+      callback();
+    }
 
     bool run = await VPNService.getStarted();
     if (!run) {

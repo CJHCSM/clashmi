@@ -5,13 +5,11 @@ import 'package:clashmi/app/utils/system_scheme_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 import 'package:clashmi/screens/add_profile_by_url_screen.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
+import 'package:clashmi/screens/vpn_action_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SchemeHandler {
-  static void Function(bool)? vpnConnect;
-  static void Function(bool)? vpnDisconnect;
-  static void Function(bool)? vpnReconnect;
   static Future<ReturnResultError?> handle(
     BuildContext context,
     String url,
@@ -29,30 +27,30 @@ class SchemeHandler {
       if (uri.host == AppSchemeActions.installConfigAction()) {
         return await _installConfig(context, uri);
       } else if (uri.host == AppSchemeActions.connectAction()) {
-        if (vpnConnect != null) {
+        if (VpnActionHandler.vpnConnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnConnect!.call(background);
+          VpnActionHandler.vpnConnect!.call("scheme", background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.disconnectAction()) {
-        if (vpnDisconnect != null) {
+        if (VpnActionHandler.vpnDisconnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnDisconnect!.call(background);
+          VpnActionHandler.vpnDisconnect!.call("scheme", background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.reconnectAction()) {
-        if (vpnReconnect != null) {
+        if (VpnActionHandler.vpnReconnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnReconnect!.call(background);
+          VpnActionHandler.vpnReconnect!.call("scheme", background);
         }
         return null;
       }
