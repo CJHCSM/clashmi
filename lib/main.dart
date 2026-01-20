@@ -24,7 +24,7 @@ import 'package:clashmi/screens/home_screen.dart';
 import 'package:clashmi/screens/launch_failed_screen.dart';
 import 'package:clashmi/screens/theme_data_dark.dart';
 import 'package:clashmi/screens/themes.dart';
-import 'package:clashmi/screens/vpn_action_handler.dart';
+import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/screens/widgets/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

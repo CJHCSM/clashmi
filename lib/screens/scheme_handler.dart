@@ -5,7 +5,7 @@ import 'package:clashmi/app/utils/system_scheme_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 import 'package:clashmi/screens/add_profile_by_url_screen.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
-import 'package:clashmi/screens/vpn_action_handler.dart';
+import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 

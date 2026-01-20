@@ -30,7 +30,7 @@ import 'package:clashmi/screens/proxy_board_screen.dart';
 import 'package:clashmi/screens/richtext_viewer.screen.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
-import 'package:clashmi/screens/vpn_action_handler.dart';
+import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/segmented_elevated_button.dart';
 import 'package:flutter/material.dart';
