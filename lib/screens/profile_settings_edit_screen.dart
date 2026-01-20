@@ -346,7 +346,7 @@ class _ProfilesSettingsEditScreenState
     }
     var newNodes = _nodes.toList();
     newNodes.removeWhere((ClashProxiesNode node) {
-      return ClashProtocolType.NotGroupToList().contains(node.type);
+      return ClashProtocolType.GroupToList().contains(node.type);
     });
     if (!mounted) {
       return;
@@ -459,7 +459,7 @@ class _ProfilesSettingsEditScreenState
     var newNodes = _nodes.toList();
     if (_profile.overwriteProxyGroups) {
       newNodes.removeWhere((ClashProxiesNode node) {
-        return ClashProtocolType.toList().contains(node.type);
+        return ClashProtocolType.GroupToList().contains(node.type);
       });
       List<ClashProxiesNode> pgNodes = [];
       final pgs = DiversionTemplateManager.getProxyGroupTemplates();

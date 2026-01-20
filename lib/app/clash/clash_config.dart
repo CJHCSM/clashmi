@@ -124,13 +124,12 @@ enum ClashProtocolType {
     ];
   }
 
-  static List<String> NotGroupToList() {
+  static List<String> GroupToList() {
     return [
-      ClashProtocolType.direct.name,
-      ClashProtocolType.compatible.name,
-      ClashProtocolType.pass.name,
-      ClashProtocolType.reject.name,
-      ClashProtocolType.rejectDrop.name,
+      ClashProtocolType.urltest.name,
+      ClashProtocolType.selector.name,
+      ClashProtocolType.loadBalance.name,
+      ClashProtocolType.fallback.name,
     ];
   }
 }
