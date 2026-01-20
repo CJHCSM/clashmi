@@ -73,7 +73,7 @@ class _ProxyGroupTemplatesAddOrEditScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.meta.rule,
+                        tcontext.meta.proxyGroups,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
