@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:collection/collection.dart';
 
 import 'package:clashmi/app/modules/remote_config.dart';
@@ -18,34 +17,10 @@ abstract class AppleUtils {
     return _findChannelByName(config.channels, name)?.url ?? "";
   }
 
-  static Future<String> getRateUrl() async {
-    if (Platform.isIOS) {
-      final config = RemoteConfigManager.getConfig();
-      final channelName = await InstallReferrerUtils.getString();
-      return _findChannelByNameAndPlatfom(
-            config.channels,
-            channelName,
-            Platform.operatingSystem,
-          )?.rateUrl ??
-          "";
-    }
-    return "";
-  }
-
   static RemoteConfigChannel? _findChannelByName(
     List<RemoteConfigChannel> channels,
     String name,
   ) {
     return channels.firstWhereOrNull((channel) => channel.channel == name);
-  }
-
-  static RemoteConfigChannel? _findChannelByNameAndPlatfom(
-    List<RemoteConfigChannel> channels,
-    String name,
-    String platform,
-  ) {
-    return channels.firstWhereOrNull(
-      (channel) => (channel.channel == name) && (channel.platform == platform),
-    );
   }
 }

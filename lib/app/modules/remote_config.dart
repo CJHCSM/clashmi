@@ -7,13 +7,11 @@ class RemoteConfigChannel {
   String platform = "";
   String channel = "";
   String url = "";
-  String rateUrl = "";
 
   Map<String, dynamic> toJson() => {
     'platform': platform,
     'channel': channel,
     "url": url,
-    "rate_url": rateUrl,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -22,7 +20,6 @@ class RemoteConfigChannel {
     platform = map["platform"] ?? "";
     channel = map["channel"] ?? "";
     url = map["url"] ?? "";
-    rateUrl = map["rate_url"] ?? "";
   }
 
   static RemoteConfigChannel fromJsonStatic(Map<String, dynamic>? map) {
@@ -94,6 +91,7 @@ class RemoteConfig {
   static const String kDefaultTelegram = "https://t.me/ClashMiApp";
   static const String kDefaultFollow = "https://github.com/KaringX/clashmi";
   static const String kDefaultDonate = "http://$kDefaultHost/donate";
+  static const String kDefaultHtmlTools = "https://tools.karing.app/";
 
   String latestCheck = "";
 
@@ -109,7 +107,8 @@ class RemoteConfig {
   String download = kDefaultDownload;
   String telegram = kDefaultTelegram;
   String follow = kDefaultFollow;
-  String donateUrl = kDefaultDonate;
+  String donate = kDefaultDonate;
+  String htmlTools = kDefaultHtmlTools;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -135,8 +134,11 @@ class RemoteConfig {
     if (follow != kDefaultFollow) {
       ret["follow"] = follow;
     }
-    if (donateUrl != kDefaultDonate) {
-      ret["donate_url"] = donateUrl;
+    if (donate != kDefaultDonate) {
+      ret["donate_url"] = donate;
+    }
+    if (htmlTools != kDefaultHtmlTools) {
+      ret["htmltools"] = htmlTools;
     }
 
     return ret;
@@ -170,10 +172,11 @@ class RemoteConfig {
     download = map["download"] ?? kDefaultDownload;
     telegram = map["telegram"] ?? kDefaultTelegram;
     follow = map["follow"] ?? kDefaultFollow;
-    donateUrl = map["donate_url"] ?? kDefaultDonate;
-    if (!isSelfHost(donateUrl, host)) {
-      donateUrl = "";
+    donate = map["donate_url"] ?? kDefaultDonate;
+    if (!isSelfHost(donate, host)) {
+      donate = "";
     }
+    htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
   }
 
   static bool isSelfHost(String url, String host) {

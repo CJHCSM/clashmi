@@ -5,7 +5,7 @@ import Libclash
 import NetworkExtension
 
 #if os(iOS)
-// import WidgetKit
+import WidgetKit
 #endif
 // #if os(iOS)
 // import UIKit
@@ -65,7 +65,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         }
 #if os(iOS)
         if #available(iOS 18.0, *) {
-            //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
     }
@@ -75,7 +75,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
     ) {
 #if os(iOS)
         if #available(iOS 18.0, *) {
-            //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+            ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
         completionHandler() // completionHandler faster than syn
@@ -108,7 +108,7 @@ open class ExtensionProvider: NEPacketTunnelProvider {
         }
 #if os(iOS)
         if #available(iOS 18.0, *) {
-           //ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
+           ControlCenter.shared.reloadControls(ofKind: ExtensionProvider.controlKind)
         }
 #endif
         if messageResponse.err != nil {

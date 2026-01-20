@@ -163,6 +163,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get ok => 'نعم';
 	@override String get cancel => 'يلغي';
 	@override String get faq => 'أسئلة مكررة';
+	@override String get htmlTools => 'مجموعة أدوات HTML';
 	@override String get download => 'تحميل';
 	@override String get loading => 'تحميل...';
 	@override String get days => 'أيام';
@@ -504,6 +505,7 @@ extension on TranslationsAr {
 			'meta.ok' => 'نعم',
 			'meta.cancel' => 'يلغي',
 			'meta.faq' => 'أسئلة مكررة',
+			'meta.htmlTools' => 'مجموعة أدوات HTML',
 			'meta.download' => 'تحميل',
 			'meta.loading' => 'تحميل...',
 			'meta.days' => 'أيام',

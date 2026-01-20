@@ -163,6 +163,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get ok => '确定';
 	@override String get cancel => '取消';
 	@override String get faq => '常见问题';
+	@override String get htmlTools => 'HTML工具集';
 	@override String get download => '下载';
 	@override String get loading => '加载中...';
 	@override String get days => '天';
@@ -504,6 +505,7 @@ extension on TranslationsZhCn {
 			'meta.ok' => '确定',
 			'meta.cancel' => '取消',
 			'meta.faq' => '常见问题',
+			'meta.htmlTools' => 'HTML工具集',
 			'meta.download' => '下载',
 			'meta.loading' => '加载中...',
 			'meta.days' => '天',

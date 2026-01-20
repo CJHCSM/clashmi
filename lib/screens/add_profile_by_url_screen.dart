@@ -26,11 +26,13 @@ class AddProfileByUrlScreen extends LasyRenderingStatefulWidget {
   final String url;
   final String remark;
   final bool? overwrite;
+  final bool? xhwid;
   const AddProfileByUrlScreen({
     super.key,
     this.url = "",
     this.remark = "",
     this.overwrite,
+    this.xhwid,
   });
 
   @override
@@ -44,6 +46,7 @@ class _AddProfileByUrlScreenState
   final _textControllerRemark = TextEditingController();
   Duration? _updateInterval = const Duration(hours: 24);
   String _userAgent = "";
+  bool _xhwid = false;
   String _patch = "";
   bool _loading = false;
   @override
@@ -58,6 +61,7 @@ class _AddProfileByUrlScreenState
     } else if (widget.overwrite == false) {
       _patch = kProfilePatchBuildinNoOverwrite;
     }
+    _xhwid = widget.xhwid == true;
     super.initState();
   }
 
@@ -84,6 +88,7 @@ class _AddProfileByUrlScreenState
       remark: remark,
       patch: _patch,
       userAgent: _userAgent,
+      xhwid: _xhwid,
       updateInterval: _updateInterval,
     );
 
@@ -325,6 +330,16 @@ class _AddProfileByUrlScreenState
           textWidthPercent: 0.6,
           onChanged: (String value) {
             _userAgent = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: "X-HWID",
+          switchValue: _xhwid,
+          onSwitch: (bool value) async {
+            _xhwid = value;
+            setState(() {});
           },
         ),
       ),

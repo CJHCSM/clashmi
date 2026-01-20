@@ -15,7 +15,7 @@ abstract final class DownloadUtils {
     List<int?> ports = await VPNService.getPortsByPrefer(true);
     late ReturnResult<HttpHeaders> result;
     for (var port in ports) {
-      result = await downloadWithPort(uri, downloadPath, null, port);
+      result = await downloadWithPort(uri, downloadPath, null, false, port);
       if (result.error == null) {
         return result;
       }
@@ -30,6 +30,7 @@ abstract final class DownloadUtils {
     Uri uri,
     String downloadPath,
     String? useAgent,
+    bool xhwid,
     int? port, {
     Duration? timeout,
   }) async {
@@ -45,6 +46,7 @@ abstract final class DownloadUtils {
       downloadPathTemp,
       port,
       useAgent,
+      xhwid,
       timeout,
     );
 

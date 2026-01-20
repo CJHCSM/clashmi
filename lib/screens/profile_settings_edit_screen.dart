@@ -253,6 +253,16 @@ class _ProfilesSettingsEditScreenState
         ),
       ),
       GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: "X-HWID",
+          switchValue: _profile.xhwid,
+          onSwitch: (bool value) async {
+            _profile.xhwid = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
         stringPickerOptions: GroupItemStringPickerOptions(
           name: tcontext.meta.coreOverwrite,
           selected: _profile.patch,

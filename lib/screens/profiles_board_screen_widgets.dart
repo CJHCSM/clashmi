@@ -9,6 +9,7 @@ import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/dialog_utils.dart';
 import 'package:clashmi/screens/file_view_screen.dart';
 import 'package:clashmi/screens/profile_settings_edit_screen.dart';
+import 'package:clashmi/screens/qrcode_screen.dart';
 import 'package:clashmi/screens/theme_define.dart';
 import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
@@ -294,40 +295,50 @@ class _ProfilesBoardScreenWidget extends State<ProfilesBoardScreenWidget> {
           );
         },
       ),
-      setting.isRemote()
-          ? ListTile(
-              title: Text(tcontext.meta.update),
-              onTap: () async {
-                Navigator.of(context).pop();
-                ReturnResultError? err = await ProfileManager.update(
-                  setting.id,
-                );
-                if (err != null) {
-                  if (!mounted) {
-                    return;
-                  }
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.message,
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
-                }
-              },
-            )
-          : const SizedBox.shrink(),
-      setting.isRemote()
-          ? ListTile(
-              title: Text(tcontext.meta.copyUrl),
-              onTap: () async {
-                Navigator.of(context).pop();
-                try {
-                  Clipboard.setData(ClipboardData(text: setting.url));
-                } catch (e) {}
-              },
-            )
-          : const SizedBox.shrink(),
+      if (setting.isRemote()) ...[
+        ListTile(
+          title: Text(tcontext.meta.update),
+          onTap: () async {
+            Navigator.of(context).pop();
+            ReturnResultError? err = await ProfileManager.update(setting.id);
+            if (err != null) {
+              if (!mounted) {
+                return;
+              }
+              DialogUtils.showAlertDialog(
+                context,
+                err.message,
+                showCopy: true,
+                showFAQ: true,
+                withVersion: true,
+              );
+            }
+          },
+        ),
+        ListTile(
+          title: Text(tcontext.meta.copyUrl),
+          onTap: () async {
+            Navigator.of(context).pop();
+            try {
+              Clipboard.setData(ClipboardData(text: setting.url));
+            } catch (e) {}
+          },
+        ),
+        ListTile(
+          title: Text(tcontext.meta.qrcode),
+          onTap: () async {
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                settings: QrcodeScreen.routSettings(),
+                builder: (context) => QrcodeScreen(content: setting.url),
+              ),
+            );
+          },
+        ),
+      ],
+
       ListTile(
         title: Text(tcontext.meta.profileEdit),
         onTap: () async {
