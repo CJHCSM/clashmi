@@ -42,7 +42,6 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
   @override
   void initState() {
     super.initState();
-
     Future.delayed(const Duration(seconds: 1), () {
       String languageTag = "";
 
