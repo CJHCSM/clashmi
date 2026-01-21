@@ -21,8 +21,13 @@ abstract final class AppUtils {
     return "${v[0]}.${v[1]}.${v[2]}+${v[3]}";
   }
 
+  static String getNextBuildinVersion() {
+    List<String> v = getBuildinVersion().split(".");
+    return "${v[0]}.${v[1]}.${v[2]}.${int.parse(v[3]) + 1}";
+  }
+
   static String getBuildinVersion() {
-    return "1.0.16.209";
+    return "1.0.16.210";
   }
 
   static String getId() {

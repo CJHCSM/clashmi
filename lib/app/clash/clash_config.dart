@@ -99,11 +99,13 @@ enum ClashConfigsMode {
 enum ClashProtocolType {
   urltest(name: "URLTest"),
   selector(name: "Selector"),
+  loadBalance(name: "LoadBalance"),
   fallback(name: "Fallback"),
   direct(name: "Direct"),
+  compatible(name: "Compatible"),
   pass(name: "Pass"),
-  loadBalance(name: "LoadBalance"),
-  reject(name: "RejectDrop");
+  reject(name: "Reject"),
+  rejectDrop(name: "RejectDrop");
 
   const ClashProtocolType({required this.name});
   final String name;
@@ -112,11 +114,22 @@ enum ClashProtocolType {
     return [
       ClashProtocolType.urltest.name,
       ClashProtocolType.selector.name,
+      ClashProtocolType.loadBalance.name,
       ClashProtocolType.fallback.name,
       ClashProtocolType.direct.name,
+      ClashProtocolType.compatible.name,
       ClashProtocolType.pass.name,
-      ClashProtocolType.loadBalance.name,
       ClashProtocolType.reject.name,
+      ClashProtocolType.rejectDrop.name,
+    ];
+  }
+
+  static List<String> GroupToList() {
+    return [
+      ClashProtocolType.urltest.name,
+      ClashProtocolType.selector.name,
+      ClashProtocolType.loadBalance.name,
+      ClashProtocolType.fallback.name,
     ];
   }
 }

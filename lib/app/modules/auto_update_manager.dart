@@ -50,8 +50,9 @@ class AutoUpdateCheckVersion {
     return config;
   }
 
-  Future<String> getDownloadPath() async {
+  String getExtension() {
     String ext = "";
+    final channelName = InstallReferrerUtils.getBuildChannelName();
     if (Platform.isAndroid) {
       ext = ".apk";
     } else if (Platform.isWindows) {
@@ -59,16 +60,21 @@ class AutoUpdateCheckVersion {
     } else if (Platform.isMacOS) {
       ext = ".dmg";
     } else if (Platform.isLinux) {
-      final channelName = InstallReferrerUtils.getBuildChannelName();
       if (channelName.toLowerCase().contains("deb")) {
         ext = ".deb";
       } else if (channelName.toLowerCase().contains("rpm")) {
         ext = ".rpm";
       } else if (channelName.toLowerCase().contains("appimage")) {
-        ext = ".appImage";
-      } else {
-        ext = ".deb";
+        return "";
       }
+    }
+    return ext;
+  }
+
+  Future<String> getDownloadPath() async {
+    String ext = getExtension();
+    if (ext.isEmpty) {
+      return "";
     }
     final newPath = path.join(await PathUtils.cacheDir(), version);
     return "$newPath$ext";
@@ -111,9 +117,11 @@ class AutoUpdateManager {
       if (_versionCheck.version.isNotEmpty) {
         if (isSupport()) {
           String downloadPath = await _versionCheck.getDownloadPath();
-          Future.delayed(const Duration(seconds: 10), () async {
-            FileUtils.deletePath(downloadPath);
-          });
+          if (downloadPath.isNotEmpty) {
+            Future.delayed(const Duration(seconds: 10), () async {
+              FileUtils.deletePath(downloadPath);
+            });
+          }
         }
       }
 
@@ -194,7 +202,9 @@ class AutoUpdateManager {
     }
     String version = AppUtils.getBuildinVersion();
     String downloadPath = await _versionCheck.getDownloadPath();
-
+    if (downloadPath.isEmpty) {
+      return null;
+    }
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) <
         0) {
       var file = File(downloadPath);
@@ -226,14 +236,18 @@ class AutoUpdateManager {
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) <
         0) {
       String downloadPath = await _versionCheck.getDownloadPath();
+      if (downloadPath.isEmpty) {
+        return;
+      }
       if (await File(downloadPath).exists()) {
         return;
       }
       String dir = await PathUtils.cacheDir();
-      var files = FileUtils.recursionFile(
-        dir,
-        extensionFilter: {".exe", ".apk", ".dmg", ".deb", ".rpm", ".appImage"},
-      );
+      final ext = _versionCheck.getExtension();
+      if (ext.isEmpty) {
+        return;
+      }
+      var files = FileUtils.recursionFile(dir, extensionFilter: {ext});
       for (var file in files) {
         await FileUtils.deletePath(file);
       }
@@ -281,7 +295,7 @@ class AutoUpdateManager {
     }
     var autoUpdateChannel = SettingManager.getConfig().autoUpdateChannel;
     if (!updateChannels().contains(autoUpdateChannel)) {
-      autoUpdateChannel = "beta";
+      autoUpdateChannel = "stable";
     }
     _versionCheck.latestCheck = now.toString();
     _checking = true;

@@ -250,21 +250,57 @@ class ClashProxies {
 
   List<ClashProxiesNode> toList() {
     List<ClashProxiesNode> nodes = [];
-    var global = proxies["GLOBAL"];
+    final global = proxies["GLOBAL"];
+
     if (global == null) {
       return nodes;
     }
+    var direct = proxies["DIRECT"];
+    var compatible = proxies["COMPATIBLE"];
+    var pass = proxies["PASS"];
+    var reject = proxies["REJECT"];
+    var rejectDrop = proxies["REJECT-DROP"];
     for (int i = 0; i < global.all.length; ++i) {
       var node = proxies[global.all[i]];
       if (node != null) {
+        if (node.name == "DIRECT") {
+          direct = null;
+        }
+        if (node.name == "COMPATIBLE") {
+          compatible = null;
+        }
+        if (node.name == "PASS") {
+          pass = null;
+        }
+        if (node.name == "REJECT") {
+          reject = null;
+        }
+        if (node.name == "REJECT-DROP") {
+          rejectDrop = null;
+        }
         nodes.add(node);
       } else {
         global.all.removeAt(i);
         --i;
       }
     }
-
     nodes.add(global);
+    if (direct != null) {
+      nodes.add(direct);
+    }
+    if (compatible != null) {
+      nodes.add(compatible);
+    }
+    if (pass != null) {
+      nodes.add(pass);
+    }
+    if (reject != null) {
+      nodes.add(reject);
+    }
+    if (rejectDrop != null) {
+      nodes.add(rejectDrop);
+    }
+
     return nodes;
   }
 }

@@ -28,9 +28,9 @@ import 'package:clashmi/screens/group_helper.dart';
 import 'package:clashmi/screens/profiles_board_screen.dart';
 import 'package:clashmi/screens/proxy_board_screen.dart';
 import 'package:clashmi/screens/richtext_viewer.screen.dart';
-import 'package:clashmi/screens/scheme_handler.dart';
 import 'package:clashmi/screens/theme_config.dart';
 import 'package:clashmi/screens/theme_define.dart';
+import 'package:clashmi/app/utils/vpn_action_handler.dart';
 import 'package:clashmi/screens/webview_helper.dart';
 import 'package:clashmi/screens/widgets/segmented_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +83,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         }
       }
       await _onInitAllFinish();
+    });
+    ClashSettingManager.onEventModeChanged.add(() async {
+      setState(() {});
     });
   }
 
@@ -579,9 +582,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   }
 
   Future<void> _onInitAllFinish() async {
-    SchemeHandler.vpnConnect = _vpnSchemeConnect;
-    SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
-    SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
+    VpnActionHandler.vpnConnect = _vpnConnect;
+    VpnActionHandler.vpnDisconnect = _vpnDisconnect;
+    VpnActionHandler.vpnReconnect = _vpnReconnect;
     initQuickAction();
     if (PlatformUtils.isPC()) {
       if (SettingManager.getConfig().autoConnectAfterLaunch) {
@@ -669,9 +672,9 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     return true;
   }
 
-  Future<void> _vpnSchemeConnect(bool background) async {
+  Future<void> _vpnConnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
-      bool ok = await start("scheme");
+      bool ok = await start(from);
       if (ok) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
@@ -682,7 +685,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     });
   }
 
-  Future<void> _vpnSchemeDisconnect(bool background) async {
+  Future<void> _vpnDisconnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
       await stop();
       if (background) {
@@ -693,10 +696,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     });
   }
 
-  Future<void> _vpnSchemeReconnect(bool background) async {
+  Future<void> _vpnReconnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
       await stop();
-      bool ok = await start("scheme");
+      bool ok = await start(from);
       if (ok) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(

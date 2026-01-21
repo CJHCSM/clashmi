@@ -452,8 +452,8 @@ class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    Открыть    ';
-	@override String get menuExit => '    Выйти    ';
+	@override String get menuOpen => 'Открыть';
+	@override String get menuExit => 'Выйти';
 }
 
 /// The flat map containing all translations for locale <ru>.
@@ -481,8 +481,8 @@ extension on TranslationsRu {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
 			'VersionUpdateScreen.update' => 'Перезапустить',
 			'VersionUpdateScreen.cancel' => 'Не сейчас',
-			'main.tray.menuOpen' => '    Открыть    ',
-			'main.tray.menuExit' => '    Выйти    ',
+			'main.tray.menuOpen' => 'Открыть',
+			'main.tray.menuExit' => 'Выйти',
 			'meta.enable' => 'Включить',
 			'meta.disable' => 'Запретить',
 			'meta.open' => 'Открыть',
