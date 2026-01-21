@@ -473,6 +473,18 @@ class GroupHelper {
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.doc,
+            onPush: () async {
+              var remoteConfig = RemoteConfigManager.getConfig();
+              await UrlLauncherUtils.loadUrl(
+                remoteConfig.doc,
+                mode: LaunchMode.externalApplication,
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
             name: tcontext.meta.htmlTools,
             onPush: () async {
               var remoteConfig = RemoteConfigManager.getConfig();
