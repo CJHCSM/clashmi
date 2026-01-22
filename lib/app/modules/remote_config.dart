@@ -91,6 +91,7 @@ class RemoteConfig {
   static const String kDefaultTelegram = "https://t.me/ClashMiApp";
   static const String kDefaultFollow = "https://github.com/KaringX/clashmi";
   static const String kDefaultDonate = "http://$kDefaultHost/donate";
+  static const String kDefaultDoc = "https://wiki.metacubex.one/config/";
   static const String kDefaultHtmlTools = "https://tools.karing.app/";
 
   String latestCheck = "";
@@ -108,6 +109,7 @@ class RemoteConfig {
   String telegram = kDefaultTelegram;
   String follow = kDefaultFollow;
   String donate = kDefaultDonate;
+  String doc = kDefaultDoc;
   String htmlTools = kDefaultHtmlTools;
 
   Map<String, dynamic> toJson() {
@@ -136,6 +138,9 @@ class RemoteConfig {
     }
     if (donate != kDefaultDonate) {
       ret["donate_url"] = donate;
+    }
+    if (doc != kDefaultDoc) {
+      ret["doc"] = doc;
     }
     if (htmlTools != kDefaultHtmlTools) {
       ret["htmltools"] = htmlTools;
@@ -176,6 +181,7 @@ class RemoteConfig {
     if (!isSelfHost(donate, host)) {
       donate = "";
     }
+    doc = map["doc"] ?? kDefaultDoc;
     htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
   }
 
