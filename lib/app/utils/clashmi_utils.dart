@@ -20,9 +20,10 @@ class ClashMiAutoupdateItem {
   List<String> abis = [];
   String version = "";
   String url = "";
+  String sha256 = "";
   String fileName = "";
   List<String> updateChannel = []; //stable, beta
-  bool force = false;
+
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -40,12 +41,12 @@ class ClashMiAutoupdateItem {
     }
     version = map["version"] ?? "";
     url = map["url"] ?? "";
+    sha256 = map["sha256"] ?? "";
     fileName = map["file_name"] ?? "";
     var _versionChannel = map["version_channel"] ?? [];
     for (var i in _versionChannel) {
       updateChannel.add(i as String);
     }
-    force = map["force"] ?? false;
   }
 }
 
