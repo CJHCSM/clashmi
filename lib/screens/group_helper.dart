@@ -71,7 +71,7 @@ class GroupHelper {
           context,
           MaterialPageRoute(
             settings: VersionUpdateScreen.routSettings(),
-            builder: (context) => const VersionUpdateScreen(force: false),
+            builder: (context) => const VersionUpdateScreen(),
           ),
         );
       } else {
