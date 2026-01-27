@@ -68,6 +68,9 @@ class _ProxyScreenProxiesNodeWidget
           node.type != ClashProtocolType.loadBalance.name) {
         continue;
       }
+      if (node.hidden) {
+        continue;
+      }
       String subtitle = "";
       Color? color;
       if (node.delay != null && node.delay! > 0) {
@@ -154,9 +157,12 @@ class _ProxyScreenProxiesNodeWidget
     var widgets = [];
 
     List<ClashProxiesNode> newNodes = [];
-    for (var n in _nodes) {
-      if (selectNode.all.contains(n.name)) {
-        newNodes.add(n);
+    for (var p in selectNode.all) {
+      for (var n in _nodes) {
+        if (n.name == p) {
+          newNodes.add(n);
+          break;
+        }
       }
     }
 
