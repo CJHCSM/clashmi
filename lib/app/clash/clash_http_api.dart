@@ -163,6 +163,7 @@ class ClashProxiesNode {
   String name = "";
   String now = "";
   String type = "";
+  String icon = "";
   int? delay;
   bool hidden = false;
 
@@ -171,6 +172,7 @@ class ClashProxiesNode {
     'name': name,
     'now': now,
     'type': type,
+    'icon': icon,
     'delay': delay,
     'hidden': hidden,
   };
@@ -179,15 +181,11 @@ class ClashProxiesNode {
       return;
     }
 
-    var a = map['all'];
-    if (a is List) {
-      for (var aa in a) {
-        all.add(aa as String);
-      }
-    }
     name = map['name'] ?? "";
     now = map['now'] ?? "";
     type = map['type'] ?? "";
+    icon = map['icon'] ?? "";
+    all = List.from(map['all'] ?? []);
     hidden = map['hidden'] ?? false;
     var history = map['history'];
     if (history is List) {
@@ -204,30 +202,48 @@ class ClashProxiesNode {
 //https://yacd.haishan.me/#/proxies
 //http://127.0.0.1:9090/proxies  GET application/json
 class ClashProxies {
-  Map<String, ClashProxiesNode> proxies = {};
+  List<ClashProxiesNode> proxies = [];
 
-  Map<String, dynamic> toJson() => {'proxies': proxies};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
     }
+
     var p = map['proxies'];
     if (p is Map) {
+      Set<String> toRemove = {};
       p.forEach((key, value) {
         var node = ClashProxiesNode();
         node.fromJson(value);
-        proxies[key] = node;
+        if (node.type.toLowerCase() != "dns") {
+          proxies.add(node);
+        } else {
+          toRemove.add(node.name);
+        }
       });
-      proxies.forEach((key, value) {
-        value.delay = updateGroupDelay(proxies, value);
-      });
+      List<String> globalAll = [];
+      for (int i = 0; i < proxies.length; ++i) {
+        proxies[i].all.removeWhere((ele) => toRemove.contains(ele));
+        proxies[i].delay = updateGroupDelay(proxies[i]);
+        if (proxies[i].name == "GLOBAL") {
+          globalAll = proxies[i].all;
+        }
+      }
+      List<ClashProxiesNode> globalAllProxies = [];
+      for (var tag in globalAll) {
+        for (int i = 0; i < proxies.length; ++i) {
+          if (tag == proxies[i].name) {
+            globalAllProxies.add(proxies[i]);
+            proxies.removeAt(i);
+            break;
+          }
+        }
+      }
+      proxies.insertAll(0, globalAllProxies);
     }
   }
 
-  int? updateGroupDelay(
-    Map<String, ClashProxiesNode> proxies,
-    ClashProxiesNode node,
-  ) {
+  int? updateGroupDelay(ClashProxiesNode node) {
     if (node.type != ClashProtocolType.urltest.name &&
         node.type != ClashProtocolType.selector.name &&
         node.type != ClashProtocolType.fallback.name &&
@@ -237,71 +253,22 @@ class ClashProxies {
     if (node.now.isEmpty) {
       return node.delay;
     }
-    final nextNode = proxies[node.now];
+    ClashProxiesNode? nextNode;
+    for (var proxy in proxies) {
+      if (proxy.name == node.now) {
+        nextNode = proxy;
+        break;
+      }
+    }
+
     if (nextNode == null) {
       return node.delay;
     }
-    final delay = updateGroupDelay(proxies, nextNode);
+    final delay = updateGroupDelay(nextNode);
     if (delay != null) {
       return delay;
     }
     return node.delay;
-  }
-
-  List<ClashProxiesNode> toList() {
-    List<ClashProxiesNode> nodes = [];
-    final global = proxies["GLOBAL"];
-
-    if (global == null) {
-      return nodes;
-    }
-    var direct = proxies["DIRECT"];
-    var compatible = proxies["COMPATIBLE"];
-    var pass = proxies["PASS"];
-    var reject = proxies["REJECT"];
-    var rejectDrop = proxies["REJECT-DROP"];
-    for (int i = 0; i < global.all.length; ++i) {
-      var node = proxies[global.all[i]];
-      if (node != null) {
-        if (node.name == "DIRECT") {
-          direct = null;
-        }
-        if (node.name == "COMPATIBLE") {
-          compatible = null;
-        }
-        if (node.name == "PASS") {
-          pass = null;
-        }
-        if (node.name == "REJECT") {
-          reject = null;
-        }
-        if (node.name == "REJECT-DROP") {
-          rejectDrop = null;
-        }
-        nodes.add(node);
-      } else {
-        global.all.removeAt(i);
-        --i;
-      }
-    }
-    nodes.add(global);
-    if (direct != null) {
-      nodes.add(direct);
-    }
-    if (compatible != null) {
-      nodes.add(compatible);
-    }
-    if (pass != null) {
-      nodes.add(pass);
-    }
-    if (reject != null) {
-      nodes.add(reject);
-    }
-    if (rejectDrop != null) {
-      nodes.add(rejectDrop);
-    }
-
-    return nodes;
   }
 }
 
@@ -402,7 +369,7 @@ class ClashHttpApi {
       var decodedResponse = jsonDecode(result.data!);
       ClashProxies proxies = ClashProxies();
       proxies.fromJson(decodedResponse);
-      return ReturnResult(data: proxies.toList());
+      return ReturnResult(data: proxies.proxies);
     } catch (err) {
       return ReturnResult(error: ReturnResultError(err.toString()));
     }
