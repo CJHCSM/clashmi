@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -146,7 +146,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CE20CEBE2F1DBB3100FF3ECC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		CE20CEBE2F1DBB3100FF3ECC /* Exceptions for "clashmiWidget" folder in "clashmiWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -156,7 +156,18 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (CE20CEBE2F1DBB3100FF3ECC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = clashmiWidget; sourceTree = "<group>"; };
+		CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE20CEBE2F1DBB3100FF3ECC /* Exceptions for "clashmiWidget" folder in "clashmiWidgetExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = clashmiWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,8 +365,6 @@
 				CE20CEAA2F1DBB2E00FF3ECC /* clashmiWidget */,
 			);
 			name = clashmiWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = clashmiWidgetExtension;
 			productReference = CE20CEA52F1DBB2E00FF3ECC /* clashmiWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -505,13 +514,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1063,7 +1068,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 300;
+				CURRENT_PROJECT_VERSION = 400;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1078,7 +1083,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.17;
+				MARKETING_VERSION = 1.0.18;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiService;
@@ -1108,7 +1113,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 300;
+				CURRENT_PROJECT_VERSION = 400;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1123,7 +1128,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.17;
+				MARKETING_VERSION = 1.0.18;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1149,7 +1154,7 @@
 				CODE_SIGN_ENTITLEMENTS = clashmiService/clashmiService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 300;
+				CURRENT_PROJECT_VERSION = 400;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1164,7 +1169,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.17;
+				MARKETING_VERSION = 1.0.18;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.clashmi.clashmiService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
