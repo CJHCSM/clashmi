@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "مكدس الشبكة",
+        "inet4Address": "نطاق عناوين IPv4",
+        "inet6Address": "نطاق عناوين IPv6",
         "dnsHijack": "اختطاف DNS",
         "strictRoute": "التوجيه الصارم",
         "icmpForward": "توجيه رسائل ICMP",

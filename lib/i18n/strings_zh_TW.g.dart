@@ -394,6 +394,8 @@ class _TranslationsTunZhTw implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => '網絡棧';
+	@override String get inet4Address => 'IPv4位址段';
+	@override String get inet6Address => 'IPv6位址段';
 	@override String get dnsHijack => 'DNS劫持';
 	@override String get strictRoute => '嚴格路由';
 	@override String get icmpForward => 'ICMP 轉發';
@@ -710,6 +712,8 @@ extension on TranslationsZhTw {
 			'tls.privateKey' => '私鑰',
 			'tls.customTrustCert' => '自定義證書',
 			'tun.stack' => '網絡棧',
+			'tun.inet4Address' => 'IPv4位址段',
+			'tun.inet6Address' => 'IPv6位址段',
 			'tun.dnsHijack' => 'DNS劫持',
 			'tun.strictRoute' => '嚴格路由',
 			'tun.icmpForward' => 'ICMP 轉發',

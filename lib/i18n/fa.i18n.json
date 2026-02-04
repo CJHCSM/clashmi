@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "پشته شبکه",
+        "inet4Address": "محدوده آدرس IPv4",
+        "inet6Address": "محدوده آدرس IPv6",
         "dnsHijack": "ربودن DNS",
         "strictRoute": "مسیریابی دقیق",
         "icmpForward": "ارسال ICMP",

@@ -394,6 +394,8 @@ class _TranslationsTunZhCn implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => '网络栈';
+	@override String get inet4Address => 'IPv4地址段';
+	@override String get inet6Address => 'IPv6地址段';
 	@override String get dnsHijack => 'DNS劫持';
 	@override String get strictRoute => '严格路由';
 	@override String get icmpForward => 'ICMP 转发';
@@ -710,6 +712,8 @@ extension on TranslationsZhCn {
 			'tls.privateKey' => '私钥',
 			'tls.customTrustCert' => '自定义证书',
 			'tun.stack' => '网络栈',
+			'tun.inet4Address' => 'IPv4地址段',
+			'tun.inet6Address' => 'IPv6地址段',
 			'tun.dnsHijack' => 'DNS劫持',
 			'tun.strictRoute' => '严格路由',
 			'tun.icmpForward' => 'ICMP 转发',

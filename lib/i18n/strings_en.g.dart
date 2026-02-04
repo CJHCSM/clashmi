@@ -885,6 +885,12 @@ class TranslationsTunEn {
 	/// en: 'Network stack'
 	String get stack => 'Network stack';
 
+	/// en: 'IPv4 Gateway Address'
+	String get inet4Address => 'IPv4 Gateway Address';
+
+	/// en: 'IPv6 Gateway Address'
+	String get inet6Address => 'IPv6 Gateway Address';
+
 	/// en: 'DNS Hijack'
 	String get dnsHijack => 'DNS Hijack';
 
@@ -1256,6 +1262,8 @@ extension on Translations {
 			'tls.privateKey' => 'Private Key',
 			'tls.customTrustCert' => 'Custom Certifactes',
 			'tun.stack' => 'Network stack',
+			'tun.inet4Address' => 'IPv4 Gateway Address',
+			'tun.inet6Address' => 'IPv6 Gateway Address',
 			'tun.dnsHijack' => 'DNS Hijack',
 			'tun.strictRoute' => 'Strict Route',
 			'tun.icmpForward' => 'ICMP Forwarding',

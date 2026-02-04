@@ -394,6 +394,8 @@ class _TranslationsTunFa implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'پشته شبکه';
+	@override String get inet4Address => 'محدوده آدرس IPv4';
+	@override String get inet6Address => 'محدوده آدرس IPv6';
 	@override String get dnsHijack => 'ربودن DNS';
 	@override String get strictRoute => 'مسیریابی دقیق';
 	@override String get icmpForward => 'ارسال ICMP';
@@ -710,6 +712,8 @@ extension on TranslationsFa {
 			'tls.privateKey' => 'کلید خصوصی',
 			'tls.customTrustCert' => 'گواهی های سفارشی',
 			'tun.stack' => 'پشته شبکه',
+			'tun.inet4Address' => 'محدوده آدرس IPv4',
+			'tun.inet6Address' => 'محدوده آدرس IPv6',
 			'tun.dnsHijack' => 'ربودن DNS',
 			'tun.strictRoute' => 'مسیریابی دقیق',
 			'tun.icmpForward' => 'ارسال ICMP',

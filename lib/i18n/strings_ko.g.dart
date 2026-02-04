@@ -394,6 +394,8 @@ class _TranslationsTunKo implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => '네트워크 스택';
+	@override String get inet4Address => 'IPv4 주소 범위';
+	@override String get inet6Address => 'IPv6 주소 범위';
 	@override String get dnsHijack => 'DNS 하이제킹';
 	@override String get strictRoute => '엄격한 경로';
 	@override String get icmpForward => 'ICMP 전달';
@@ -710,6 +712,8 @@ extension on TranslationsKo {
 			'tls.privateKey' => '개인 키',
 			'tls.customTrustCert' => '사용자 정의 인증서',
 			'tun.stack' => '네트워크 스택',
+			'tun.inet4Address' => 'IPv4 주소 범위',
+			'tun.inet6Address' => 'IPv6 주소 범위',
 			'tun.dnsHijack' => 'DNS 하이제킹',
 			'tun.strictRoute' => '엄격한 경로',
 			'tun.icmpForward' => 'ICMP 전달',

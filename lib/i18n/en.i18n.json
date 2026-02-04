@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "Network stack",
+        "inet4Address": "IPv4 Gateway Address",
+        "inet6Address": "IPv6 Gateway Address",
         "dnsHijack": "DNS Hijack",
         "strictRoute": "Strict Route",
         "icmpForward": "ICMP Forwarding",

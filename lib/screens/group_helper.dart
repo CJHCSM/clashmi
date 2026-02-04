@@ -16,6 +16,7 @@ import 'package:clashmi/app/modules/zashboard.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/backup_and_sync_utils.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
+import 'package:clashmi/app/utils/network_utils.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
 import 'package:clashmi/app/utils/platform_utils.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
@@ -1410,6 +1411,23 @@ class GroupHelper {
                 : (bool value) async {
                     tun.Enable = value;
                   },
+          ),
+        ),
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.tun.inet4Address,
+            text: tun.Inet4Address?.first ?? ClashSettingManager.iNet4Address,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              final parts = value.split('/');
+              if (parts.length != 2) {
+                return;
+              }
+              if (!NetworkUtils.isIpv4(parts[0])) {
+                return;
+              }
+              tun.Inet4Address = [value];
+            },
           ),
         ),
         GroupItemOptions(

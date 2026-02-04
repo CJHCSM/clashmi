@@ -394,6 +394,8 @@ class _TranslationsTunJa implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'ネットワークスタック';
+	@override String get inet4Address => 'IPv4アドレス範囲';
+	@override String get inet6Address => 'IPv6アドレス範囲';
 	@override String get dnsHijack => 'DNSハイジャック';
 	@override String get strictRoute => '厳格なルート';
 	@override String get icmpForward => 'ICMP転送';
@@ -710,6 +712,8 @@ extension on TranslationsJa {
 			'tls.privateKey' => '秘密鍵',
 			'tls.customTrustCert' => 'カスタム証明書',
 			'tun.stack' => 'ネットワークスタック',
+			'tun.inet4Address' => 'IPv4アドレス範囲',
+			'tun.inet6Address' => 'IPv6アドレス範囲',
 			'tun.dnsHijack' => 'DNSハイジャック',
 			'tun.strictRoute' => '厳格なルート',
 			'tun.icmpForward' => 'ICMP転送',

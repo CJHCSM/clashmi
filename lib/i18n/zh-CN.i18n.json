@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "网络栈",
+        "inet4Address": "IPv4地址段",
+        "inet6Address": "IPv6地址段",
         "dnsHijack": "DNS劫持",
         "strictRoute": "严格路由",
         "icmpForward": "ICMP 转发",

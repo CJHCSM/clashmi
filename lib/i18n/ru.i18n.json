@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "Сетевой стек",
+        "inet4Address": "Диапазон IPv4-адресов",
+        "inet6Address": "Диапазон IPv6-адресов",
         "dnsHijack": "Перехват DNS",
         "strictRoute": "Строгая маршрутизация",
         "icmpForward": "Пересылка ICMP",

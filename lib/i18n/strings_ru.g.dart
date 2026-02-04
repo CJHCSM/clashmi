@@ -394,6 +394,8 @@ class _TranslationsTunRu implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'Сетевой стек';
+	@override String get inet4Address => 'Диапазон IPv4-адресов';
+	@override String get inet6Address => 'Диапазон IPv6-адресов';
 	@override String get dnsHijack => 'Перехват DNS';
 	@override String get strictRoute => 'Строгая маршрутизация';
 	@override String get icmpForward => 'Пересылка ICMP';
@@ -710,6 +712,8 @@ extension on TranslationsRu {
 			'tls.privateKey' => 'Закрытый ключ',
 			'tls.customTrustCert' => 'Индивидуальные сертификаты',
 			'tun.stack' => 'Сетевой стек',
+			'tun.inet4Address' => 'Диапазон IPv4-адресов',
+			'tun.inet6Address' => 'Диапазон IPv6-адресов',
 			'tun.dnsHijack' => 'Перехват DNS',
 			'tun.strictRoute' => 'Строгая маршрутизация',
 			'tun.icmpForward' => 'Пересылка ICMP',

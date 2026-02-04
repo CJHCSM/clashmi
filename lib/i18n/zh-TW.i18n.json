@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "網絡棧",
+        "inet4Address": "IPv4位址段",
+        "inet6Address": "IPv6位址段",
         "dnsHijack": "DNS劫持",
         "strictRoute": "嚴格路由",
         "icmpForward": "ICMP 轉發",

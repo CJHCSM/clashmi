@@ -394,6 +394,8 @@ class _TranslationsTunAr implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'مكدس الشبكة';
+	@override String get inet4Address => 'نطاق عناوين IPv4';
+	@override String get inet6Address => 'نطاق عناوين IPv6';
 	@override String get dnsHijack => 'اختطاف DNS';
 	@override String get strictRoute => 'التوجيه الصارم';
 	@override String get icmpForward => 'توجيه رسائل ICMP';
@@ -710,6 +712,8 @@ extension on TranslationsAr {
 			'tls.privateKey' => 'المفتاح الخاص',
 			'tls.customTrustCert' => 'شهادات مخصصة',
 			'tun.stack' => 'مكدس الشبكة',
+			'tun.inet4Address' => 'نطاق عناوين IPv4',
+			'tun.inet6Address' => 'نطاق عناوين IPv6',
 			'tun.dnsHijack' => 'اختطاف DNS',
 			'tun.strictRoute' => 'التوجيه الصارم',
 			'tun.icmpForward' => 'توجيه رسائل ICMP',
