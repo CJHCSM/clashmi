@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "المجالات المسموح لها بتجاوز وكيل HTTP"
     },
     "dns": {
+        "listen": "كلمة الاستماع",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "أولوية DoH H3",

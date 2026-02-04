@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "Домены, которым разрешено обходить HTTP-прокси"
     },
     "dns": {
+        "listen": "Аудиторское обращение",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "Приоритет DoH H3",

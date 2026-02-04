@@ -411,6 +411,7 @@ class _TranslationsDnsZhTw implements TranslationsDnsEn {
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => '監聽地址';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'DoH H3優先';
@@ -720,6 +721,7 @@ extension on TranslationsZhTw {
 			'tun.allowBypass' => '允許應用繞過VPN',
 			'tun.appendHttpProxy' => '附加HTTP代理到VPN',
 			'tun.bypassHttpProxyDomain' => '允許繞過HTTP代理的域名',
+			'dns.listen' => '監聽地址',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'DoH H3優先',

@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "HTTPプロキシをバイパスすることを許可するドメイン"
     },
     "dns": {
+        "listen": "リスニングアドレス",
         "fakeIp": "fake-ip",
         "fallback": "フォールバック",
         "preferH3": "DoH H3を優先",

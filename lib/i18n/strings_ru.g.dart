@@ -411,6 +411,7 @@ class _TranslationsDnsRu implements TranslationsDnsEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'Аудиторское обращение';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'Приоритет DoH H3';
@@ -720,6 +721,7 @@ extension on TranslationsRu {
 			'tun.allowBypass' => 'Разрешить приложениям обходить VPN',
 			'tun.appendHttpProxy' => 'Подключите HTTP-прокси к VPN',
 			'tun.bypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
+			'dns.listen' => 'Аудиторское обращение',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'Приоритет DoH H3',

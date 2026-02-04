@@ -918,6 +918,9 @@ class TranslationsDnsEn {
 
 	// Translations
 
+	/// en: 'Listen'
+	String get listen => 'Listen';
+
 	/// en: 'fake-ip'
 	String get fakeIp => 'fake-ip';
 
@@ -1270,6 +1273,7 @@ extension on Translations {
 			'tun.allowBypass' => 'Allow Apps to Bypass VPN',
 			'tun.appendHttpProxy' => 'Append HTTP Proxy to VPN',
 			'tun.bypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
+			'dns.listen' => 'Listen',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'Prefer DoH H3',

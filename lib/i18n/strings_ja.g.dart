@@ -411,6 +411,7 @@ class _TranslationsDnsJa implements TranslationsDnsEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'リスニングアドレス';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'フォールバック';
 	@override String get preferH3 => 'DoH H3を優先';
@@ -720,6 +721,7 @@ extension on TranslationsJa {
 			'tun.allowBypass' => 'アプリがVPNをバイパスすることを許可する',
 			'tun.appendHttpProxy' => 'VPNにHTTPプロキシを追加する',
 			'tun.bypassHttpProxyDomain' => 'HTTPプロキシをバイパスすることを許可するドメイン',
+			'dns.listen' => 'リスニングアドレス',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'フォールバック',
 			'dns.preferH3' => 'DoH H3を優先',

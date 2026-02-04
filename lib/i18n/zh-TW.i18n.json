@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "允許繞過HTTP代理的域名"
     },
     "dns": {
+        "listen": "監聽地址",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "DoH H3優先",

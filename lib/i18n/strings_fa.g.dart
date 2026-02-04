@@ -411,6 +411,7 @@ class _TranslationsDnsFa implements TranslationsDnsEn {
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'آدرس گوش دادن';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'اولویت DoH H3';
@@ -720,6 +721,7 @@ extension on TranslationsFa {
 			'tun.allowBypass' => 'به برنامه‌ها اجازه دهید VPN را دور بزنند',
 			'tun.appendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
 			'tun.bypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',
+			'dns.listen' => 'آدرس گوش دادن',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'اولویت DoH H3',

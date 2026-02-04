@@ -1610,6 +1610,20 @@ class GroupHelper {
           ),
         ),
         GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.dns.listen,
+            text: dns.Listen,
+            textWidthPercent: 0.5,
+            hint: "0.0.0.0:53",
+            readOnly: dns.OverWrite != true || dns.Enable != true,
+            tips: "listen",
+            onChanged: (String value) {
+              dns.Listen = value;
+            },
+          ),
+        ),
+
+        GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
             name: tcontext.dns.preferH3,
             tips: "prefer-h3",

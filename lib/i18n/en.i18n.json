@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "Domains allowed to bypass HTTP proxy"
     },
     "dns": {
+        "listen": "Listen",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "Prefer DoH H3",

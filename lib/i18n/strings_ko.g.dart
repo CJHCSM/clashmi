@@ -411,6 +411,7 @@ class _TranslationsDnsKo implements TranslationsDnsEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => '청취 연설';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => '폴백(Fallback)';
 	@override String get preferH3 => 'DoH H3 우선';
@@ -720,6 +721,7 @@ extension on TranslationsKo {
 			'tun.allowBypass' => '앱이 VPN을 우회하도록 허용',
 			'tun.appendHttpProxy' => 'VPN에 HTTP 프록시 추가',
 			'tun.bypassHttpProxyDomain' => 'HTTP 프록시를 우회하도록 허용된 도메인',
+			'dns.listen' => '청취 연설',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => '폴백(Fallback)',
 			'dns.preferH3' => 'DoH H3 우선',

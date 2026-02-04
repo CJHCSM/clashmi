@@ -411,6 +411,7 @@ class _TranslationsDnsAr implements TranslationsDnsEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'كلمة الاستماع';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'أولوية DoH H3';
@@ -720,6 +721,7 @@ extension on TranslationsAr {
 			'tun.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
 			'tun.appendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
 			'tun.bypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',
+			'dns.listen' => 'كلمة الاستماع',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'أولوية DoH H3',

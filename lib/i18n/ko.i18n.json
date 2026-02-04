@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "HTTP 프록시를 우회하도록 허용된 도메인"
     },
     "dns": {
+        "listen": "청취 연설",
         "fakeIp": "fake-ip",
         "fallback": "폴백(Fallback)",
         "preferH3": "DoH H3 우선",

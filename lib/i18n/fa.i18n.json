@@ -272,6 +272,7 @@
         "bypassHttpProxyDomain": "دامنه ها مجاز به دور زدن پروکسی HTTP هستند"
     },
     "dns": {
+        "listen": "آدرس گوش دادن",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "اولویت DoH H3",
