@@ -885,6 +885,12 @@ class TranslationsTunEn {
 	/// en: 'Network stack'
 	String get stack => 'Network stack';
 
+	/// en: 'IPv4 Gateway Address'
+	String get inet4Address => 'IPv4 Gateway Address';
+
+	/// en: 'IPv6 Gateway Address'
+	String get inet6Address => 'IPv6 Gateway Address';
+
 	/// en: 'DNS Hijack'
 	String get dnsHijack => 'DNS Hijack';
 
@@ -911,6 +917,9 @@ class TranslationsDnsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Listen'
+	String get listen => 'Listen';
 
 	/// en: 'fake-ip'
 	String get fakeIp => 'fake-ip';
@@ -1256,12 +1265,15 @@ extension on Translations {
 			'tls.privateKey' => 'Private Key',
 			'tls.customTrustCert' => 'Custom Certifactes',
 			'tun.stack' => 'Network stack',
+			'tun.inet4Address' => 'IPv4 Gateway Address',
+			'tun.inet6Address' => 'IPv6 Gateway Address',
 			'tun.dnsHijack' => 'DNS Hijack',
 			'tun.strictRoute' => 'Strict Route',
 			'tun.icmpForward' => 'ICMP Forwarding',
 			'tun.allowBypass' => 'Allow Apps to Bypass VPN',
 			'tun.appendHttpProxy' => 'Append HTTP Proxy to VPN',
 			'tun.bypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
+			'dns.listen' => 'Listen',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'Prefer DoH H3',

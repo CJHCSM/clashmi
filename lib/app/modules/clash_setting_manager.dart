@@ -21,8 +21,8 @@ import 'package:path/path.dart' as path;
 
 class ClashSettingManager {
   static final List<void Function()> onEventModeChanged = [];
-  static const _gateWay = "172.19.0";
-  static const _gateWay6 = "fdfe:dcbe:9876::1";
+  static const iNet4Address = "172.19.0.1/30";
+  static const iNet6Address = "fdfe:dcbe:9876::1/126";
   static const dnsHijack = "0.0.0.0:53";
   static RawConfig _setting = defaultConfig();
 
@@ -152,8 +152,8 @@ class ClashSettingManager {
       Enable: !Platform.isWindows,
       Stack: ClashTunStack.gvisor.name,
       MTU: 4064,
-      Inet4Address: ["$_gateWay.1/30"],
-      Inet6Address: ["$_gateWay6/126"],
+      Inet4Address: [iNet4Address],
+      Inet6Address: [iNet6Address],
       //RouteAddress: routeAddress,
       DNSHijack: [dnsHijack],
     );
@@ -247,6 +247,7 @@ class ClashSettingManager {
       "+.market.xiaomi.com",
       "WORKGROUP",
     ];
+
     return RawDNS.by(
       OverWrite: true,
       Enable: true,
@@ -261,7 +262,7 @@ class ClashSettingManager {
       FallbackFilter: RawFallbackFilter.by(GeoIP: null),
       Listen: null,
       EnhancedMode: ClashDnsEnhancedMode.fakeIp.name,
-      FakeIPRange: "$_gateWay.1/16",
+      FakeIPRange: "${iNet4Address.split('/')[0]}/16",
       FakeIPFilter: fakeIPFilter,
       FakeIPFilterMode: ClashFakeIPFilterMode.blacklist.name,
       DefaultNameserver: defaultNameserver,
@@ -393,10 +394,20 @@ class ClashSettingManager {
     }
     _setting.DNS?.IPv6 = _setting.IPv6;
     if (_setting.IPv6 == true) {
-      _setting.Tun?.Inet6Address = ["$_gateWay6/126"];
+      _setting.Tun?.Inet6Address = [iNet6Address];
     } else {
       _setting.Tun?.Inet6Address = null;
     }
+    if (_setting.Tun?.Inet4Address == null ||
+        _setting.Tun!.Inet4Address!.isEmpty ||
+        !_setting.Tun!.Inet4Address!.first.contains("/")) {
+      _setting.Tun?.Inet4Address = [iNet4Address];
+    }
+    final parts = _setting.Tun?.Inet4Address!.first.split('/');
+    if (parts != null && parts.length == 2) {
+      _setting.DNS?.FakeIPRange = "${parts[0]}/16";
+    }
+
     _setting.OverWriteRuleProviders = false;
     _setting.OverWriteRules = false;
     _setting.OverWriteSubRules = false;

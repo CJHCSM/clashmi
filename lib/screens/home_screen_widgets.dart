@@ -304,7 +304,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
               return;
             }
             if (error != null) {
-              DialogUtils.showAlertDialog(context, error.message);
+              DialogUtils.showAlertDialog(
+                context,
+                error.message,
+                withVersion: true,
+              );
               return;
             }
             _updateProxyNow();
@@ -425,7 +429,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
               final uri = Uri.tryParse(setting.boardUrl);
               if (uri == null) {
                 final msg = "${tcontext.meta.urlInvalid}:${setting.boardUrl}";
-                DialogUtils.showAlertDialog(context, msg);
+                DialogUtils.showAlertDialog(context, msg, withVersion: true);
                 return;
               }
               final shortUrl = Uri(
@@ -457,7 +461,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
               if (!context.mounted) {
                 return;
               }
-              DialogUtils.showAlertDialog(context, result.error!.message);
+              DialogUtils.showAlertDialog(
+                context,
+                result.error!.message,
+                withVersion: true,
+              );
               return;
             }
             String url = result.data!;
@@ -633,7 +641,11 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
           if (!mounted) {
             return false;
           }
-          DialogUtils.showAlertDialog(context, result.message);
+          DialogUtils.showAlertDialog(
+            context,
+            result.message,
+            withVersion: true,
+          );
           setState(() {});
           return false;
         }
@@ -665,7 +677,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
         err.message += "\n${t.meta.tunModeRunAsAdmin}";
       }
 
-      DialogUtils.showAlertDialog(context, err.message);
+      DialogUtils.showAlertDialog(context, err.message, withVersion: true);
       return false;
     }
 
@@ -766,7 +778,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.message);
+      DialogUtils.showAlertDialog(context, err.message, withVersion: true);
     }
   }
 

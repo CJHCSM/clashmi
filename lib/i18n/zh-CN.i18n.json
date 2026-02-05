@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "网络栈",
+        "inet4Address": "IPv4地址段",
+        "inet6Address": "IPv6地址段",
         "dnsHijack": "DNS劫持",
         "strictRoute": "严格路由",
         "icmpForward": "ICMP 转发",
@@ -270,6 +272,7 @@
         "bypassHttpProxyDomain": "允许绕过HTTP代理的域名"
     },
     "dns": {
+        "listen": "监听地址",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "DoH H3优先",

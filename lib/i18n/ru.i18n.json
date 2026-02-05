@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "Сетевой стек",
+        "inet4Address": "Диапазон IPv4-адресов",
+        "inet6Address": "Диапазон IPv6-адресов",
         "dnsHijack": "Перехват DNS",
         "strictRoute": "Строгая маршрутизация",
         "icmpForward": "Пересылка ICMP",
@@ -270,6 +272,7 @@
         "bypassHttpProxyDomain": "Домены, которым разрешено обходить HTTP-прокси"
     },
     "dns": {
+        "listen": "Аудиторское обращение",
         "fakeIp": "fake-ip",
         "fallback": "Fallback",
         "preferH3": "Приоритет DoH H3",

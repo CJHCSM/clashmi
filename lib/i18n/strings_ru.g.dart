@@ -394,6 +394,8 @@ class _TranslationsTunRu implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'Сетевой стек';
+	@override String get inet4Address => 'Диапазон IPv4-адресов';
+	@override String get inet6Address => 'Диапазон IPv6-адресов';
 	@override String get dnsHijack => 'Перехват DNS';
 	@override String get strictRoute => 'Строгая маршрутизация';
 	@override String get icmpForward => 'Пересылка ICMP';
@@ -409,6 +411,7 @@ class _TranslationsDnsRu implements TranslationsDnsEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'Аудиторское обращение';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'Приоритет DoH H3';
@@ -710,12 +713,15 @@ extension on TranslationsRu {
 			'tls.privateKey' => 'Закрытый ключ',
 			'tls.customTrustCert' => 'Индивидуальные сертификаты',
 			'tun.stack' => 'Сетевой стек',
+			'tun.inet4Address' => 'Диапазон IPv4-адресов',
+			'tun.inet6Address' => 'Диапазон IPv6-адресов',
 			'tun.dnsHijack' => 'Перехват DNS',
 			'tun.strictRoute' => 'Строгая маршрутизация',
 			'tun.icmpForward' => 'Пересылка ICMP',
 			'tun.allowBypass' => 'Разрешить приложениям обходить VPN',
 			'tun.appendHttpProxy' => 'Подключите HTTP-прокси к VPN',
 			'tun.bypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
+			'dns.listen' => 'Аудиторское обращение',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'Приоритет DoH H3',

@@ -3,7 +3,6 @@ import FlutterMacOS
 
 @main
 class AppDelegate: FlutterAppDelegate {
-    var token: NSObjectProtocol! // disable App Nap
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
     }
@@ -23,14 +22,9 @@ class AppDelegate: FlutterAppDelegate {
     }
 
     override func applicationDidFinishLaunching(_ notify: Notification) {
-        token = ProcessInfo.processInfo.beginActivity(options: .userInitiated, reason: "Clash Mi VPN Service")
     }
 
     override func applicationWillTerminate(_ notify: Notification) {
-        if let activityToken = token {
-            ProcessInfo.processInfo.endActivity(activityToken)
-            token = nil
-        }
     }
 
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {

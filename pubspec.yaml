@@ -2,7 +2,7 @@ name: clashmi
 description: clashmi
 
 publish_to: none 
-version: 1.0.18+400
+version: 1.0.18+401
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -15,10 +15,8 @@ dependencies:
   intl: any
 
   cupertino_icons: 1.0.8
-  dash_flags: 0.1.1
-  connectivity_plus: 7.0.0
+  device_info_plus: 11.1.1
   package_info_plus: 9.0.0
-  class_to_string: 1.2.0
   ffi: 2.1.5
   url_launcher: 6.3.2
   flutter_inappwebview:
@@ -27,7 +25,6 @@ dependencies:
       url: https://github.com/KaringX/flutter_inappwebview.git
       ref: 3a5ead04885537489f3226a04cd0481a90183bbe #v6.2.0-beta.3
       path: flutter_inappwebview
-  web_socket_channel: 3.0.3 #flutter_test
   path_provider: 2.1.5
   flutter_secure_storage: 9.2.4
   protocol_handler: 0.1.6 #0.2.0 cause windows jam when exit
@@ -40,12 +37,10 @@ dependencies:
   qr_code_scanner_plus: 2.0.14
   screen_capturer: 0.2.3
   contextmenu: 3.0.0
-  image: 4.7.2 
   uuid: 4.5.2 #flutter_test 
   slang: 4.11.2
   slang_flutter: 4.11.0
   watcher: 1.2.1
-  string_validator: 1.2.0
   punycode_converter: 0.2.1
   scrollview_observer: 1.26.3
   after_layout: 1.2.0

@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "ネットワークスタック",
+        "inet4Address": "IPv4アドレス範囲",
+        "inet6Address": "IPv6アドレス範囲",
         "dnsHijack": "DNSハイジャック",
         "strictRoute": "厳格なルート",
         "icmpForward": "ICMP転送",
@@ -270,6 +272,7 @@
         "bypassHttpProxyDomain": "HTTPプロキシをバイパスすることを許可するドメイン"
     },
     "dns": {
+        "listen": "リスニングアドレス",
         "fakeIp": "fake-ip",
         "fallback": "フォールバック",
         "preferH3": "DoH H3を優先",

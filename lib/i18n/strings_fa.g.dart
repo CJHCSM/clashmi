@@ -394,6 +394,8 @@ class _TranslationsTunFa implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'پشته شبکه';
+	@override String get inet4Address => 'محدوده آدرس IPv4';
+	@override String get inet6Address => 'محدوده آدرس IPv6';
 	@override String get dnsHijack => 'ربودن DNS';
 	@override String get strictRoute => 'مسیریابی دقیق';
 	@override String get icmpForward => 'ارسال ICMP';
@@ -409,6 +411,7 @@ class _TranslationsDnsFa implements TranslationsDnsEn {
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'آدرس گوش دادن';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'اولویت DoH H3';
@@ -710,12 +713,15 @@ extension on TranslationsFa {
 			'tls.privateKey' => 'کلید خصوصی',
 			'tls.customTrustCert' => 'گواهی های سفارشی',
 			'tun.stack' => 'پشته شبکه',
+			'tun.inet4Address' => 'محدوده آدرس IPv4',
+			'tun.inet6Address' => 'محدوده آدرس IPv6',
 			'tun.dnsHijack' => 'ربودن DNS',
 			'tun.strictRoute' => 'مسیریابی دقیق',
 			'tun.icmpForward' => 'ارسال ICMP',
 			'tun.allowBypass' => 'به برنامه‌ها اجازه دهید VPN را دور بزنند',
 			'tun.appendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
 			'tun.bypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',
+			'dns.listen' => 'آدرس گوش دادن',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'اولویت DoH H3',

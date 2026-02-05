@@ -262,6 +262,8 @@
     },
     "tun": {
         "stack": "네트워크 스택",
+        "inet4Address": "IPv4 주소 범위",
+        "inet6Address": "IPv6 주소 범위",
         "dnsHijack": "DNS 하이제킹",
         "strictRoute": "엄격한 경로",
         "icmpForward": "ICMP 전달",
@@ -270,6 +272,7 @@
         "bypassHttpProxyDomain": "HTTP 프록시를 우회하도록 허용된 도메인"
     },
     "dns": {
+        "listen": "청취 연설",
         "fakeIp": "fake-ip",
         "fallback": "폴백(Fallback)",
         "preferH3": "DoH H3 우선",

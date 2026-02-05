@@ -394,6 +394,8 @@ class _TranslationsTunKo implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => '네트워크 스택';
+	@override String get inet4Address => 'IPv4 주소 범위';
+	@override String get inet6Address => 'IPv6 주소 범위';
 	@override String get dnsHijack => 'DNS 하이제킹';
 	@override String get strictRoute => '엄격한 경로';
 	@override String get icmpForward => 'ICMP 전달';
@@ -409,6 +411,7 @@ class _TranslationsDnsKo implements TranslationsDnsEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => '청취 연설';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => '폴백(Fallback)';
 	@override String get preferH3 => 'DoH H3 우선';
@@ -710,12 +713,15 @@ extension on TranslationsKo {
 			'tls.privateKey' => '개인 키',
 			'tls.customTrustCert' => '사용자 정의 인증서',
 			'tun.stack' => '네트워크 스택',
+			'tun.inet4Address' => 'IPv4 주소 범위',
+			'tun.inet6Address' => 'IPv6 주소 범위',
 			'tun.dnsHijack' => 'DNS 하이제킹',
 			'tun.strictRoute' => '엄격한 경로',
 			'tun.icmpForward' => 'ICMP 전달',
 			'tun.allowBypass' => '앱이 VPN을 우회하도록 허용',
 			'tun.appendHttpProxy' => 'VPN에 HTTP 프록시 추가',
 			'tun.bypassHttpProxyDomain' => 'HTTP 프록시를 우회하도록 허용된 도메인',
+			'dns.listen' => '청취 연설',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => '폴백(Fallback)',
 			'dns.preferH3' => 'DoH H3 우선',

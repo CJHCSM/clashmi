@@ -394,6 +394,8 @@ class _TranslationsTunJa implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'ネットワークスタック';
+	@override String get inet4Address => 'IPv4アドレス範囲';
+	@override String get inet6Address => 'IPv6アドレス範囲';
 	@override String get dnsHijack => 'DNSハイジャック';
 	@override String get strictRoute => '厳格なルート';
 	@override String get icmpForward => 'ICMP転送';
@@ -409,6 +411,7 @@ class _TranslationsDnsJa implements TranslationsDnsEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'リスニングアドレス';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'フォールバック';
 	@override String get preferH3 => 'DoH H3を優先';
@@ -710,12 +713,15 @@ extension on TranslationsJa {
 			'tls.privateKey' => '秘密鍵',
 			'tls.customTrustCert' => 'カスタム証明書',
 			'tun.stack' => 'ネットワークスタック',
+			'tun.inet4Address' => 'IPv4アドレス範囲',
+			'tun.inet6Address' => 'IPv6アドレス範囲',
 			'tun.dnsHijack' => 'DNSハイジャック',
 			'tun.strictRoute' => '厳格なルート',
 			'tun.icmpForward' => 'ICMP転送',
 			'tun.allowBypass' => 'アプリがVPNをバイパスすることを許可する',
 			'tun.appendHttpProxy' => 'VPNにHTTPプロキシを追加する',
 			'tun.bypassHttpProxyDomain' => 'HTTPプロキシをバイパスすることを許可するドメイン',
+			'dns.listen' => 'リスニングアドレス',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'フォールバック',
 			'dns.preferH3' => 'DoH H3を優先',

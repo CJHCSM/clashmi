@@ -394,6 +394,8 @@ class _TranslationsTunAr implements TranslationsTunEn {
 
 	// Translations
 	@override String get stack => 'مكدس الشبكة';
+	@override String get inet4Address => 'نطاق عناوين IPv4';
+	@override String get inet6Address => 'نطاق عناوين IPv6';
 	@override String get dnsHijack => 'اختطاف DNS';
 	@override String get strictRoute => 'التوجيه الصارم';
 	@override String get icmpForward => 'توجيه رسائل ICMP';
@@ -409,6 +411,7 @@ class _TranslationsDnsAr implements TranslationsDnsEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
+	@override String get listen => 'كلمة الاستماع';
 	@override String get fakeIp => 'fake-ip';
 	@override String get fallback => 'Fallback';
 	@override String get preferH3 => 'أولوية DoH H3';
@@ -710,12 +713,15 @@ extension on TranslationsAr {
 			'tls.privateKey' => 'المفتاح الخاص',
 			'tls.customTrustCert' => 'شهادات مخصصة',
 			'tun.stack' => 'مكدس الشبكة',
+			'tun.inet4Address' => 'نطاق عناوين IPv4',
+			'tun.inet6Address' => 'نطاق عناوين IPv6',
 			'tun.dnsHijack' => 'اختطاف DNS',
 			'tun.strictRoute' => 'التوجيه الصارم',
 			'tun.icmpForward' => 'توجيه رسائل ICMP',
 			'tun.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
 			'tun.appendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
 			'tun.bypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',
+			'dns.listen' => 'كلمة الاستماع',
 			'dns.fakeIp' => 'fake-ip',
 			'dns.fallback' => 'Fallback',
 			'dns.preferH3' => 'أولوية DoH H3',
