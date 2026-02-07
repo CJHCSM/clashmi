@@ -64,6 +64,7 @@ android {
                         keyPassword = prop.getProperty("keyPassword.release")
                     }
             ndk {
+                abiFilters.clear()
                 abiFilters += listOf("armeabi-v7a", "arm64-v8a")
                 // debugSymbolLevel = 'FULL'
             }
