@@ -59,6 +59,9 @@
 - **MacOS/Android/Windows/Linux**:
   - https://clashmi.app/download
   - https://github.com/KaringX/clashmi/releases/latest
+  - ```sh
+    brew install clash-mi
+    ```
 
 
 ### 系统要求
