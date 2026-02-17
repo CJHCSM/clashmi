@@ -162,6 +162,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get more => '更多';
 	@override String get tips => '提示';
 	@override String get copy => '拷贝';
+	@override String get paste => '粘贴';
+	@override String get cut => '剪切';
 	@override String get save => '保存';
 	@override String get ok => '确定';
 	@override String get cancel => '取消';
@@ -508,6 +510,8 @@ extension on TranslationsZhCn {
 			'meta.more' => '更多',
 			'meta.tips' => '提示',
 			'meta.copy' => '拷贝',
+			'meta.paste' => '粘贴',
+			'meta.cut' => '剪切',
 			'meta.save' => '保存',
 			'meta.ok' => '确定',
 			'meta.cancel' => '取消',

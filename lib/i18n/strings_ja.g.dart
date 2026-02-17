@@ -162,6 +162,8 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 	@override String get more => '詳細';
 	@override String get tips => '情報';
 	@override String get copy => 'コピー';
+	@override String get paste => '貼り付け';
+	@override String get cut => '切り取り';
 	@override String get save => '保存';
 	@override String get ok => 'OK';
 	@override String get cancel => 'キャンセル';
@@ -508,6 +510,8 @@ extension on TranslationsJa {
 			'meta.more' => '詳細',
 			'meta.tips' => '情報',
 			'meta.copy' => 'コピー',
+			'meta.paste' => '貼り付け',
+			'meta.cut' => '切り取り',
 			'meta.save' => '保存',
 			'meta.ok' => 'OK',
 			'meta.cancel' => 'キャンセル',

@@ -162,6 +162,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
 	@override String get copy => 'Скопировать';
+	@override String get paste => 'Вставить';
+	@override String get cut => 'Вырезать';
 	@override String get save => 'сохранять';
 	@override String get ok => 'Ок';
 	@override String get cancel => 'Закрыть';
@@ -508,6 +510,8 @@ extension on TranslationsRu {
 			'meta.more' => 'Больше',
 			'meta.tips' => 'Инфо',
 			'meta.copy' => 'Скопировать',
+			'meta.paste' => 'Вставить',
+			'meta.cut' => 'Вырезать',
 			'meta.save' => 'сохранять',
 			'meta.ok' => 'Ок',
 			'meta.cancel' => 'Закрыть',

@@ -162,6 +162,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get more => 'أكثر';
 	@override String get tips => 'معلومات';
 	@override String get copy => 'ينسخ';
+	@override String get paste => 'لصق';
+	@override String get cut => 'يقطع';
 	@override String get save => 'يحفظ';
 	@override String get ok => 'نعم';
 	@override String get cancel => 'يلغي';
@@ -508,6 +510,8 @@ extension on TranslationsAr {
 			'meta.more' => 'أكثر',
 			'meta.tips' => 'معلومات',
 			'meta.copy' => 'ينسخ',
+			'meta.paste' => 'لصق',
+			'meta.cut' => 'يقطع',
 			'meta.save' => 'يحفظ',
 			'meta.ok' => 'نعم',
 			'meta.cancel' => 'يلغي',

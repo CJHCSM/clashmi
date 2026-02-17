@@ -31,12 +31,14 @@ class FileViewScreen extends StatefulWidget {
 
 class _FileViewScreenState extends State<FileViewScreen> {
   late CodeLineEditingController _controller;
+  late final SelectionToolbarController _toolbarController;
   final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _controller = CodeLineEditingController.fromText(widget.content);
+    _toolbarController = ContextMenuControllerImpl(widget.onSave == true);
     _focusNode.onKeyEvent = ((_, event) {
       final keys = HardwareKeyboard.instance.logicalKeysPressed;
       final key = event.logicalKey;
@@ -63,6 +65,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
 
   @override
   void dispose() {
+    _toolbarController.hide(context);
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -182,6 +185,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
                     shortcutsActivatorsBuilder:
                         DefaultCodeShortcutsActivatorsBuilder(),
                     controller: _controller,
+                    toolbarController: _toolbarController,
                     style: CodeEditorStyle(
                       fontSize: 14,
                       codeTheme: CodeHighlightTheme(
@@ -199,6 +203,65 @@ class _FileViewScreenState extends State<FileViewScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ContextMenuItemWidget extends PopupMenuItem<void>
+    implements PreferredSizeWidget {
+  ContextMenuItemWidget({
+    super.key,
+    required String text,
+    required VoidCallback super.onTap,
+  }) : super(child: Text(text));
+
+  @override
+  Size get preferredSize => const Size(150, 25);
+}
+
+class ContextMenuControllerImpl implements SelectionToolbarController {
+  bool readOnly = false;
+  ContextMenuControllerImpl(this.readOnly);
+
+  @override
+  void hide(BuildContext context) {}
+
+  @override
+  void show({
+    required BuildContext context,
+    required CodeLineEditingController controller,
+    required TextSelectionToolbarAnchors anchors,
+    Rect? renderRect,
+    required LayerLink layerLink,
+    required ValueNotifier<bool> visibility,
+  }) {
+    final tcontext = Translations.of(context);
+    showMenu(
+      context: context,
+      position: RelativeRect.fromSize(
+        anchors.primaryAnchor & const Size(150, double.infinity),
+        MediaQuery.of(context).size,
+      ),
+      items: [
+        ContextMenuItemWidget(
+          text: tcontext.meta.copy,
+          onTap: () {
+            controller.copy();
+          },
+        ),
+        ContextMenuItemWidget(
+          text: tcontext.meta.paste,
+          onTap: () {
+            controller.paste();
+          },
+        ),
+        ContextMenuItemWidget(
+          text: tcontext.meta.cut,
+          onTap: () {
+            controller.cut();
+          },
+        ),
+      ],
     );
   }
 }

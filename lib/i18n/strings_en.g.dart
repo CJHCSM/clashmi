@@ -243,6 +243,12 @@ class TranslationsMetaEn {
 	/// en: 'Copy'
 	String get copy => 'Copy';
 
+	/// en: 'Paste'
+	String get paste => 'Paste';
+
+	/// en: 'Cut'
+	String get cut => 'Cut';
+
 	/// en: 'Save'
 	String get save => 'Save';
 
@@ -1060,6 +1066,8 @@ extension on Translations {
 			'meta.more' => 'More',
 			'meta.tips' => 'Info',
 			'meta.copy' => 'Copy',
+			'meta.paste' => 'Paste',
+			'meta.cut' => 'Cut',
 			'meta.save' => 'Save',
 			'meta.ok' => 'Ok',
 			'meta.cancel' => 'Cancel',
