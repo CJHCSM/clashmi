@@ -1,5 +1,6 @@
 import 'package:clashmi/i18n/strings.g.dart';
 import 'package:clashmi/screens/theme_config.dart';
+import 'package:clashmi/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:re_editor/re_editor.dart';
@@ -38,7 +39,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
   void initState() {
     super.initState();
     _controller = CodeLineEditingController.fromText(widget.content);
-    _toolbarController = ContextMenuControllerImpl(widget.onSave == true);
+    _toolbarController = ContextMenuControllerImpl(widget.onSave == null);
     _focusNode.onKeyEvent = ((_, event) {
       final keys = HardwareKeyboard.instance.logicalKeysPressed;
       final key = event.logicalKey;
@@ -207,18 +208,6 @@ class _FileViewScreenState extends State<FileViewScreen> {
   }
 }
 
-class ContextMenuItemWidget extends PopupMenuItem<void>
-    implements PreferredSizeWidget {
-  ContextMenuItemWidget({
-    super.key,
-    required String text,
-    required VoidCallback super.onTap,
-  }) : super(child: Text(text));
-
-  @override
-  Size get preferredSize => const Size(150, 25);
-}
-
 class ContextMenuControllerImpl implements SelectionToolbarController {
   bool readOnly = false;
   ContextMenuControllerImpl(this.readOnly);
@@ -236,32 +225,50 @@ class ContextMenuControllerImpl implements SelectionToolbarController {
     required ValueNotifier<bool> visibility,
   }) {
     final tcontext = Translations.of(context);
-    showMenu(
-      context: context,
-      position: RelativeRect.fromSize(
-        anchors.primaryAnchor & const Size(150, double.infinity),
-        MediaQuery.of(context).size,
+    var widgets = [
+      ListTile(
+        title: Text(tcontext.meta.copy),
+        onTap: () async {
+          controller.copy();
+          Navigator.of(context).pop();
+        },
       ),
-      items: [
-        ContextMenuItemWidget(
-          text: tcontext.meta.copy,
-          onTap: () {
-            controller.copy();
-          },
-        ),
-        ContextMenuItemWidget(
-          text: tcontext.meta.paste,
-          onTap: () {
+      if (!readOnly) ...[
+        ListTile(
+          title: Text(tcontext.meta.paste),
+          onTap: () async {
             controller.paste();
+            Navigator.of(context).pop();
           },
         ),
-        ContextMenuItemWidget(
-          text: tcontext.meta.cut,
-          onTap: () {
+        ListTile(
+          title: Text(tcontext.meta.cut),
+          onTap: () async {
             controller.cut();
+            Navigator.of(context).pop();
           },
         ),
       ],
+    ];
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
