@@ -164,7 +164,7 @@ class _TranslationsMetaZhTw implements TranslationsMetaEn {
 	@override String get copy => '複製';
 	@override String get paste => '貼上';
 	@override String get cut => '剪切';
-	@override String get save => '保存';
+	@override String get save => '儲存';
 	@override String get ok => '確定';
 	@override String get cancel => '取消';
 	@override String get faq => '常見問題';
@@ -512,7 +512,7 @@ extension on TranslationsZhTw {
 			'meta.copy' => '複製',
 			'meta.paste' => '貼上',
 			'meta.cut' => '剪切',
-			'meta.save' => '保存',
+			'meta.save' => '儲存',
 			'meta.ok' => '確定',
 			'meta.cancel' => '取消',
 			'meta.faq' => '常見問題',
