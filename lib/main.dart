@@ -51,7 +51,7 @@ void main(List<String> args) async {
   await RemoteConfigManager.init();
   await SettingManager.init();
 
-  SemanticsBinding.instance.ensureSemantics();
+  //SemanticsBinding.instance.ensureSemantics();
 
   await run(args);
 }
@@ -293,7 +293,7 @@ class MyAppState extends State<MyApp>
               SingleActivator(LogicalKeyboardKey.select): ActivateIntent(),
             },
             child: MaterialApp(
-              showSemanticsDebugger: false,
+              //showSemanticsDebugger: false,
               debugShowCheckedModeBanner: false,
               locale: TranslationProvider.of(context).flutterLocale,
               supportedLocales: AppLocaleUtils.supportedLocales,

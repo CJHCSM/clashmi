@@ -162,6 +162,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get more => 'بیشتر';
 	@override String get tips => 'اطلاعات';
 	@override String get copy => 'کپی';
+	@override String get paste => 'چسباندن';
+	@override String get cut => 'برش';
 	@override String get save => 'ذخیره کنید';
 	@override String get ok => 'خُب';
 	@override String get cancel => 'لغو';
@@ -508,6 +510,8 @@ extension on TranslationsFa {
 			'meta.more' => 'بیشتر',
 			'meta.tips' => 'اطلاعات',
 			'meta.copy' => 'کپی',
+			'meta.paste' => 'چسباندن',
+			'meta.cut' => 'برش',
 			'meta.save' => 'ذخیره کنید',
 			'meta.ok' => 'خُب',
 			'meta.cancel' => 'لغو',
