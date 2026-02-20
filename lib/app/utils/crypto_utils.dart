@@ -5,28 +5,35 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 
 abstract final class CryptoUtils {
+  static const int _chunkSize = 1024 * 1024;
+
+  /// Calculates the SHA256 hash of a file.
+  /// Returns the hash value as a hexadecimal string, or null if the file does not exist.
   static Future<String?> getFileSha256(String path) async {
     final file = File(path);
-    bool exists = await file.exists();
-    if (!exists) {
+    if (!await file.exists()) {
       return null;
     }
-    final reader = ChunkedStreamReader(file.openRead());
-    const chunkSize = 1024 * 1024 * 1;
-    AccumulatorSink<Digest> output = AccumulatorSink<Digest>();
-    ByteConversionSink input = sha256.startChunkedConversion(output);
+
     try {
-      while (true) {
-        List<int> chunk = await reader.readChunk(chunkSize);
-        if (chunk.isEmpty) {
-          break;
+      final output = AccumulatorSink<Digest>();
+      final input = sha256.startChunkedConversion(output);
+      final reader = ChunkedStreamReader(file.openRead());
+
+      try {
+        while (true) {
+          final chunk = await reader.readChunk(_chunkSize);
+          if (chunk.isEmpty) break;
+          input.add(chunk);
         }
-        input.add(chunk);
+      } finally {
+        await reader.cancel();
       }
-    } finally {
-      reader.cancel();
+
+      input.close();
+      return output.events.single.toString();
+    } catch (e) {
+      return null;
     }
-    input.close();
-    return output.events.single.toString();
   }
 }
