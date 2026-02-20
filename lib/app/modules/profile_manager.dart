@@ -45,6 +45,7 @@ class ProfileSetting {
     this.id = "",
     this.remark = "",
     this.updateInterval,
+    this.updateIntervalByProfile,
     this.update,
     this.url = "",
     this.xhwid = false,
@@ -55,6 +56,7 @@ class ProfileSetting {
   String remark = "";
   String patch = "";
   Duration? updateInterval;
+  Duration? updateIntervalByProfile;
   DateTime? update;
   String url;
   String userAgent;
@@ -75,6 +77,7 @@ class ProfileSetting {
     'remark': remark,
     'patch': patch,
     'update_interval': updateInterval?.inSeconds,
+    'update_interval_by_profile': updateIntervalByProfile?.inSeconds,
     'update': update.toString(),
     'url': url,
     'user_agent': userAgent,
@@ -104,6 +107,13 @@ class ProfileSetting {
         updateIntervalTime = 24 * 60;
       }
       updateInterval = Duration(seconds: updateIntervalTime);
+    }
+    var updateIntervalByProfileTime = map['update_interval_by_profile'];
+    if (updateIntervalByProfileTime is int) {
+      if (updateIntervalByProfileTime < 3600) {
+        updateIntervalByProfileTime = 3600;
+      }
+      updateIntervalByProfile = Duration(seconds: updateIntervalByProfileTime);
     }
     final updateTime = map['update'];
     if (updateTime is String) {
@@ -566,6 +576,24 @@ class ProfileManager {
       FileUtils.deletePath(savePath);
       return ReturnResult(error: err);
     }
+    Duration? updateIntervalByProfile;
+    if (result.data != null) {
+      //final announce = result.data!.value("announce");
+      //final supportUrl = result.data!.value("support-url");
+      //final xhwidLimit = result.data!.value("x-hwid-limit");
+      final profileUpdateInterval = result.data!.value(
+        "profile-update-interval",
+      );
+      if (profileUpdateInterval != null) {
+        var pui = int.tryParse(profileUpdateInterval);
+        if (pui != null) {
+          if (pui < 1) {
+            pui = 1;
+          }
+          updateIntervalByProfile = Duration(hours: pui);
+        }
+      }
+    }
 
     await FileUtils.append(savePath, "\n$urlComment$url\n");
     if (remark.isEmpty) {
@@ -576,7 +604,6 @@ class ProfileManager {
         remark = result.data!;
       }
     }
-
     int index = _config.profiles.indexWhere((value) {
       return value.id == id;
     });
@@ -584,6 +611,7 @@ class ProfileManager {
       id: id,
       remark: remark,
       updateInterval: updateInterval ?? const Duration(days: 1),
+      updateIntervalByProfile: updateIntervalByProfile,
       update: DateTime.now(),
       url: url,
       userAgent: userAgent,
