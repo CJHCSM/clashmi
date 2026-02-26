@@ -767,6 +767,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     _stopStateCheckTimer();
     _disconnectToCore(resetUI: false);
   }
+
   Future<void> _onStateHidden() async {
     _stopStateCheckTimer();
     _disconnectToCore(resetUI: false);
