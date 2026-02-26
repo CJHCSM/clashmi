@@ -29,7 +29,7 @@ class AppLifecycleStateNofity {
     }
   }
 
-  static void onSatetInactive(int? hashcode, void Function()? callback) {
+  static void onStateInactive(int? hashcode, void Function()? callback) {
     if (hashcode == null) {
       if (callback != null) {
         _onStateInactive[_hashCode++] = callback;

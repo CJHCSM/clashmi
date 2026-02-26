@@ -71,6 +71,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     VPNService.onEventStateChanged.add(_onStateChanged);
     AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
+    AppLifecycleStateNofity.onStateInactive(hashCode, _onStateHidden);
     ProfileManager.onEventCurrentChanged.add(_onCurrentChanged);
     ProfileManager.onEventUpdate.add(_onUpdate);
     if (!AppLifecycleStateNofity.isPaused()) {
@@ -763,6 +764,10 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
   }
 
   Future<void> _onStatePaused() async {
+    _stopStateCheckTimer();
+    _disconnectToCore(resetUI: false);
+  }
+  Future<void> _onStateHidden() async {
     _stopStateCheckTimer();
     _disconnectToCore(resetUI: false);
   }

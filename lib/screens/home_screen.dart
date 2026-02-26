@@ -179,9 +179,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     };
     VPNService.onEventStateChanged.add(_onStateChanged);
 
-    AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
-    AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
-
     if (Platform.isWindows) {
       bool reg = SystemSchemeUtils.isRegistered(
         SystemSchemeUtils.getClashScheme(),
@@ -194,9 +191,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _onInitAllFinished = true;
 
     setState(() {});
-    if (!AppLifecycleStateNofity.isPaused()) {
-      _onStateResumed();
-    }
 
     if (_initUrl.isNotEmpty) {
       await SchemeHandler.handle(context, _initUrl);
@@ -223,10 +217,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     setState(() {});
   }
-
-  Future<void> _onStateResumed() async {}
-
-  Future<void> _onStatePaused() async {}
 
   @override
   void onProtocolUrlReceived(String url) {
