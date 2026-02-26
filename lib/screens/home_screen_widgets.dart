@@ -553,7 +553,7 @@ class _HomeScreenWidgetPart1 extends State<HomeScreenWidgetPart1> {
     return SizedBox(
       child: Text(
         value,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: const TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
       ),
     );
