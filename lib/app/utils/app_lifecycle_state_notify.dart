@@ -77,6 +77,9 @@ class AppLifecycleStateNofity {
   }
 
   static void stateInactive(String detail) {
+    _isPaused = true;
+    Log.d("stateInactive:$detail");
+
     Future.delayed(const Duration(milliseconds: 10), () {
       _onStateInactive.forEach((key, value) {
         value();
