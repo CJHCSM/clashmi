@@ -29,7 +29,7 @@ class AppLifecycleStateNofity {
     }
   }
 
-  static void onSatetInactive(int? hashcode, void Function()? callback) {
+  static void onStateInactive(int? hashcode, void Function()? callback) {
     if (hashcode == null) {
       if (callback != null) {
         _onStateInactive[_hashCode++] = callback;
@@ -77,6 +77,9 @@ class AppLifecycleStateNofity {
   }
 
   static void stateInactive(String detail) {
+    _isPaused = true;
+    Log.d("stateInactive:$detail");
+
     Future.delayed(const Duration(milliseconds: 10), () {
       _onStateInactive.forEach((key, value) {
         value();

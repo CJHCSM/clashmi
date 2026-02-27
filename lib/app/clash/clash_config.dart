@@ -414,18 +414,22 @@ class RawExtension {
   RawExtensionTun Tun;
   @JsonKey(name: 'pprof-addr')
   String? PprofAddr;
+  @JsonKey(name: 'proxy-group-replace')
+  String? ProxyGroupReplace;
   @JsonKey(name: 'runtime-profile-save-path')
   String? RuntimeProfileSavePath;
   RawExtension.by({
     required this.Ruleset,
     required this.Tun,
     this.PprofAddr,
+    this.ProxyGroupReplace,
     this.RuntimeProfileSavePath,
   });
   RawExtension(
     this.Ruleset,
     this.Tun,
     this.PprofAddr,
+    this.ProxyGroupReplace,
     this.RuntimeProfileSavePath,
   );
   factory RawExtension.fromJson(Map<String, dynamic> json) =>
@@ -1307,16 +1311,16 @@ class RawConfig {
     this.ProxyGroups,
     this.Listeners,
     this.Hosts,
-    required this.DNS,
-    required this.NTP,
-    required this.Tun,
+    this.DNS,
+    this.NTP,
+    this.Tun,
     this.TuicServer,
     this.IPTables,
     this.Experimental,
     this.Profile,
     this.GeoXUrl,
-    required this.Sniffer,
-    required this.TLS,
+    this.Sniffer,
+    this.TLS,
     this.ClashForAndroid,
     required this.Extension,
   });

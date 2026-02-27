@@ -86,6 +86,7 @@ RawExtension _$RawExtensionFromJson(Map<String, dynamic> json) => RawExtension(
           json['geo-rule-set'] as Map<String, dynamic>),
       RawExtensionTun.fromJson(json['tun'] as Map<String, dynamic>),
       json['pprof-addr'] as String?,
+      json['proxy-group-replace'] as String?,
       json['runtime-profile-save-path'] as String?,
     );
 
@@ -94,6 +95,7 @@ Map<String, dynamic> _$RawExtensionToJson(RawExtension instance) =>
       'geo-rule-set': instance.Ruleset.toJson(),
       'tun': instance.Tun.toJson(),
       'pprof-addr': instance.PprofAddr,
+      'proxy-group-replace': instance.ProxyGroupReplace,
       'runtime-profile-save-path': instance.RuntimeProfileSavePath,
     };
 

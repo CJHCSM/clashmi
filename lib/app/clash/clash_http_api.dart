@@ -506,12 +506,3 @@ class ClashHttpApi {
     return "$value B";
   }
 }
-//ws://127.0.0.1:9090/traffic?token=e6bf7c4db057a75f
-//http://127.0.0.1:9090/providers/proxies GET application/json
-//http://127.0.0.1:9090/proxies/%F0%9F%90%9F%20%E6%BC%8F%E7%BD%91%E4%B9%8B%E9%B1%BC
-//ws://127.0.0.1:9090/logs?token=e6bf7c4db057a75f&level=info
-//http://127.0.0.1:9090/configs?reload=true 
-/* {
-  "path": "",
-  "payload": ""
-}*/
