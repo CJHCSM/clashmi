@@ -581,14 +581,14 @@ class ProfileManager {
     }
     final err = await validFileContentFormat(savePath);
     if (err != null) {
-      FileUtils.deletePath(savePath);
+      await FileUtils.deletePath(savePath);
       return ReturnResult(error: err);
     }
     Duration? updateIntervalByProfile;
     if (result.data != null) {
       final err = await decryptProfile(result.data, savePath, decryptPassword);
       if (err != null) {
-        FileUtils.deletePath(savePath);
+        await FileUtils.deletePath(savePath);
         return ReturnResult(error: err);
       }
       //final announce = result.data!.value("announce");
