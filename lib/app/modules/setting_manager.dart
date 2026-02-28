@@ -319,7 +319,7 @@ class SettingManager {
     _saving = false;
   }
 
-  static void reset() async {
+  static void reset() {
     final languageTag = _config.languageTag;
     _config = SettingConfig();
     _config.languageTag = languageTag;

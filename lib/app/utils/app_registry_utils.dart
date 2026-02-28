@@ -14,81 +14,60 @@ abstract final class AppRegistryUtils {
     if (PathUtils.portableMode()) {
       return null;
     }
-    return _getAsString(_registryValueNameDid);
+    return _getValue<String>(_registryValueNameDid, RegistryValueType.string);
   }
 
   static void saveDid(String did) {
     if (PathUtils.portableMode()) {
       return;
     }
-    _saveAsString(_registryValueNameDid, did);
+    _setValue(_registryValueNameDid, RegistryValueType.string, did);
   }
 
   static bool getAccessibility() {
-    return _getAsInt32(_registryValueNameAccessibility) == 1;
+    final value = _getValue<int>(
+      _registryValueNameAccessibility,
+      RegistryValueType.int32,
+    );
+    return value == 1;
   }
 
   static void saveAccessibility(bool accessibility) {
-    _saveAsInt32(_registryValueNameAccessibility, accessibility ? 1 : 0);
+    _setValue(
+      _registryValueNameAccessibility,
+      RegistryValueType.int32,
+      accessibility ? 1 : 0,
+    );
   }
 
-  static String? _getAsString(String name) {
+  /// Generic method to retrieve a registry value with type checking
+  static T? _getValue<T>(String name, RegistryValueType expectedType) {
     if (!Platform.isWindows) {
       return null;
     }
 
     try {
-      RegistryValue? value = Registry.currentUser.getValue(
-        name,
-        path: _registryPath,
-      );
-      if (value == null || value.type != RegistryValueType.string) {
+      final value = Registry.currentUser.getValue(name, path: _registryPath);
+      if (value == null || value.type != expectedType) {
         return null;
       }
-      String file = value.data as String;
-      return file;
-    } catch (err) {}
-    return null;
-  }
-
-  static void _saveAsString(String name, String value) {
-    if (!Platform.isWindows) {
-      return;
-    }
-
-    try {
-      var key = Registry.currentUser.createKey(_registryPath);
-      key.createValue(RegistryValue(name, RegistryValueType.string, value));
-    } catch (err) {}
-  }
-
-  static int? _getAsInt32(String name) {
-    if (!Platform.isWindows) {
+      return value.data as T;
+    } catch (_) {
       return null;
     }
-
-    try {
-      RegistryValue? value = Registry.currentUser.getValue(
-        name,
-        path: _registryPath,
-      );
-      if (value == null || value.type != RegistryValueType.int32) {
-        return null;
-      }
-      int file = value.data as int;
-      return file;
-    } catch (err) {}
-    return null;
   }
 
-  static void _saveAsInt32(String name, int value) {
+  /// Generic method to save a registry value
+  static void _setValue<T>(String name, RegistryValueType type, T value) {
     if (!Platform.isWindows) {
       return;
     }
 
     try {
-      var key = Registry.currentUser.createKey(_registryPath);
-      key.createValue(RegistryValue(name, RegistryValueType.int32, value));
-    } catch (err) {}
+      final key = Registry.currentUser.createKey(_registryPath);
+      key.createValue(RegistryValue(name, type, value as Object));
+    } catch (_) {
+      // Handle other errors silently
+    }
   }
 }

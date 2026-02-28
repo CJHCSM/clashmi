@@ -9,7 +9,7 @@ import 'package:clashmi/app/modules/setting_manager.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
 import 'package:clashmi/app/utils/app_utils.dart';
-import 'package:clashmi/app/utils/clashmi_utils.dart';
+import 'package:clashmi/app/utils/auto_update_utils.dart';
 import 'package:clashmi/app/utils/crypto_utils.dart';
 import 'package:clashmi/app/utils/download_utils.dart';
 import 'package:clashmi/app/utils/error_reporter_utils.dart';
@@ -177,7 +177,7 @@ class AutoUpdateManager {
     } catch (err, stacktrace) {}
   }
 
-  static void save() async {
+  static Future<void> save() async {
     String filePath = await PathUtils.autoUpdateFilePath();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String content = encoder.convert(_versionCheck.toJson());
@@ -222,6 +222,7 @@ class AutoUpdateManager {
     if (!isSupport()) {
       return;
     }
+
     if (_versionCheck.version.isEmpty || _versionCheck.url.isEmpty) {
       return;
     }
@@ -308,8 +309,8 @@ class AutoUpdateManager {
       bool body =
           _lastCheck == null ||
           DateTime.now().difference(_lastCheck!).inHours > 12;
-      ReturnResult<List<ClashMiAutoupdateItem>> items =
-          await ClashMiUtils.getAutoupdate(body);
+      ReturnResult<List<AutoupdateItem>> items =
+          await AutoupdateUtils.getAutoupdate(body);
       _lastCheck = DateTime.now();
       if (items.error != null) {
         _checking = false;

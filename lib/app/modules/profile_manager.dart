@@ -760,13 +760,7 @@ class ProfileManager {
   }
 
   static Future<void> remove(String id) async {
-    for (int i = 0; i < _config.profiles.length; ++i) {
-      if (id == _config.profiles[i].id) {
-        _config.profiles.removeAt(i);
-        --i;
-      }
-    }
-
+    _config.profiles.removeWhere((p) => p.id == id);
     for (var event in onEventRemove) {
       event(id);
     }
