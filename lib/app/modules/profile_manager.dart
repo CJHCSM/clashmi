@@ -15,6 +15,7 @@ import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:clashmi/app/utils/profile_decrypt_utils.dart';
 import 'package:intl/intl.dart';
 
 import 'package:libclash_vpn_service/state.dart';
@@ -585,6 +586,11 @@ class ProfileManager {
     }
     Duration? updateIntervalByProfile;
     if (result.data != null) {
+      final err = await decryptProfile(result.data, savePath, decryptPassword);
+      if (err != null) {
+        FileUtils.deletePath(savePath);
+        return ReturnResult(error: err);
+      }
       //final announce = result.data!.value("announce");
       //final supportUrl = result.data!.value("support-url");
       //final xhwidLimit = result.data!.value("x-hwid-limit");
@@ -732,6 +738,16 @@ class ProfileManager {
         );
       }
 
+      final err1 = await decryptProfile(
+        result.data,
+        savePath,
+        profile.decryptPassword,
+      );
+      if (err1 != null) {
+        await FileUtils.deletePath(savePath);
+        return err1;
+      }
+
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
       if (profile.remark.isEmpty) {
         final result = await HttpUtils.httpGetTitle(profile.url, userAgent);
@@ -834,5 +850,39 @@ class ProfileManager {
         break;
       }
     }
+  }
+
+  static Future<ReturnResultError?> decryptProfile(
+    HttpHeaders? headers,
+    String filePath,
+    String password,
+  ) async {
+    if (headers == null) {
+      return null;
+    }
+    final subscriptionEncryption = headers['subscription-encryption'];
+    if (subscriptionEncryption == null ||
+        subscriptionEncryption.isEmpty ||
+        subscriptionEncryption.first.trim() != "true") {
+      return null;
+    }
+    if (password.isEmpty) {
+      return ReturnResultError("profile is encrypted but no password provided");
+    }
+    final file = File(filePath);
+    if (!await file.exists()) {
+      return null;
+    }
+    final content = await file.readAsString();
+    final decodedContent = ProfileDecryptUtils.decryptProfileContent(
+      password,
+      content,
+    );
+    if (decodedContent == null) {
+      return ReturnResultError("decrypt profile failed");
+    }
+
+    await file.writeAsString(decodedContent);
+    return null;
   }
 }
