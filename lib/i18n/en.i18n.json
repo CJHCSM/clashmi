@@ -95,6 +95,7 @@
         "user": "User",
         "account": "Account",
         "password": "Password",
+        "decryptPassword": "Decrypt Password",
         "required": "Required",
         "sudoPassword": "sudo password (required for TUN mode)",
         "other": "Other",

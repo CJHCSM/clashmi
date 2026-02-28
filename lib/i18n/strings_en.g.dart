@@ -375,6 +375,9 @@ class TranslationsMetaEn {
 	/// en: 'Password'
 	String get password => 'Password';
 
+	/// en: 'Decrypt Password'
+	String get decryptPassword => 'Decrypt Password';
+
 	/// en: 'Required'
 	String get required => 'Required';
 
@@ -1110,6 +1113,7 @@ extension on Translations {
 			'meta.user' => 'User',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
+			'meta.decryptPassword' => 'Decrypt Password',
 			'meta.required' => 'Required',
 			'meta.sudoPassword' => 'sudo password (required for TUN mode)',
 			'meta.other' => 'Other',

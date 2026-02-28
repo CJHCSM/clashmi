@@ -206,6 +206,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get user => '用户';
 	@override String get account => '账号';
 	@override String get password => '密码';
+	@override String get decryptPassword => '解密密码';
 	@override String get required => '必填';
 	@override String get sudoPassword => 'sudo 密码(TUN模式需要)';
 	@override String get other => '其他';
@@ -554,6 +555,7 @@ extension on TranslationsZhCn {
 			'meta.user' => '用户',
 			'meta.account' => '账号',
 			'meta.password' => '密码',
+			'meta.decryptPassword' => '解密密码',
 			'meta.required' => '必填',
 			'meta.sudoPassword' => 'sudo 密码(TUN模式需要)',
 			'meta.other' => '其他',

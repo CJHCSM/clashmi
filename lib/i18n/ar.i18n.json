@@ -95,6 +95,7 @@
         "user": "مستخدم",
         "account": "حساب",
         "password": "كلمة المرور",
+        "decryptPassword": "فك تشفير كلمة المرور",
         "required": "مطلوب",
         "sudoPassword": "كلمة مرور sudo (مطلوبة لوضع TUN)",
         "other": "آخر",

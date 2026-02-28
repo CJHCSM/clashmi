@@ -48,6 +48,7 @@ class _AddProfileByUrlScreenState
   Duration? _updateIntervalByProfile; //todo profile-update-interval
   String _userAgent = "";
   bool _xhwid = false;
+  String _decryptPassword = "";
   String _patch = "";
   bool _loading = false;
   @override
@@ -90,6 +91,7 @@ class _AddProfileByUrlScreenState
       patch: _patch,
       userAgent: _userAgent,
       xhwid: _xhwid,
+      decryptPassword: _decryptPassword,
       updateInterval: _updateInterval,
     );
 
@@ -340,6 +342,17 @@ class _AddProfileByUrlScreenState
           switchValue: _xhwid,
           onSwitch: (bool value) async {
             _xhwid = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPassword,
+          text: _decryptPassword,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _decryptPassword = value;
             setState(() {});
           },
         ),

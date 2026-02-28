@@ -263,6 +263,17 @@ class _ProfilesSettingsEditScreenState
         ),
       ),
       GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPassword,
+          text: _profile.decryptPassword,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _profile.decryptPassword = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
         stringPickerOptions: GroupItemStringPickerOptions(
           name: tcontext.meta.coreOverwrite,
           selected: _profile.patch,

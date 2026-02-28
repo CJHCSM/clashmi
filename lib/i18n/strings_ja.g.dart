@@ -206,6 +206,7 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 	@override String get user => 'ユーザー';
 	@override String get account => 'アカウント';
 	@override String get password => 'パスワード';
+	@override String get decryptPassword => '複号化パスワード';
 	@override String get required => '必須';
 	@override String get sudoPassword => 'sudo パスワード (TUNモードで必要)';
 	@override String get other => 'その他';
@@ -554,6 +555,7 @@ extension on TranslationsJa {
 			'meta.user' => 'ユーザー',
 			'meta.account' => 'アカウント',
 			'meta.password' => 'パスワード',
+			'meta.decryptPassword' => '複号化パスワード',
 			'meta.required' => '必須',
 			'meta.sudoPassword' => 'sudo パスワード (TUNモードで必要)',
 			'meta.other' => 'その他',

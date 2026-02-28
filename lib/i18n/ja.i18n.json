@@ -95,6 +95,7 @@
         "user": "ユーザー",
         "account": "アカウント",
         "password": "パスワード",
+        "decryptPassword": "複号化パスワード",
         "required": "必須",
         "sudoPassword": "sudo パスワード (TUNモードで必要)",
         "other": "その他",
