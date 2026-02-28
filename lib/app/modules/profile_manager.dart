@@ -579,11 +579,7 @@ class ProfileManager {
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
-    final err = await validFileContentFormat(savePath);
-    if (err != null) {
-      await FileUtils.deletePath(savePath);
-      return ReturnResult(error: err);
-    }
+
     Duration? updateIntervalByProfile;
     if (result.data != null) {
       final err = await decryptProfile(result.data, savePath, decryptPassword);
@@ -606,6 +602,11 @@ class ProfileManager {
           updateIntervalByProfile = Duration(hours: pui);
         }
       }
+    }
+    final err = await validFileContentFormat(savePath);
+    if (err != null) {
+      await FileUtils.deletePath(savePath);
+      return ReturnResult(error: err);
     }
 
     await FileUtils.append(savePath, "\n$urlComment$url\n");
@@ -699,6 +700,15 @@ class ProfileManager {
     );
     profile.update = DateTime.now();
     if (result.error == null) {
+      final err1 = await decryptProfile(
+        result.data,
+        savePathTmp,
+        profile.decryptPassword,
+      );
+      if (err1 != null) {
+        await FileUtils.deletePath(savePath);
+        return err1;
+      }
       final err = await validFileContentFormat(savePathTmp);
       if (err != null) {
         updating.remove(id);
@@ -736,16 +746,6 @@ class ProfileManager {
         return ReturnResultError(
           "Rename file from [$savePathTmp] to [$savePath] failed: $renameError",
         );
-      }
-
-      final err1 = await decryptProfile(
-        result.data,
-        savePath,
-        profile.decryptPassword,
-      );
-      if (err1 != null) {
-        await FileUtils.deletePath(savePath);
-        return err1;
       }
 
       await FileUtils.append(savePath, "\n$urlComment${profile.url}\n");
