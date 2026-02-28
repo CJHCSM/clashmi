@@ -49,6 +49,7 @@ class ProfileSetting {
     this.update,
     this.url = "",
     this.xhwid = false,
+    this.decryptPassword = "",
     this.userAgent = "",
     this.patch = "",
   });
@@ -61,6 +62,7 @@ class ProfileSetting {
   String url;
   String userAgent;
   bool xhwid = false;
+  String decryptPassword = "";
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -82,6 +84,7 @@ class ProfileSetting {
     'url': url,
     'user_agent': userAgent,
     'xhwid': xhwid,
+    'decrypt_password': decryptPassword,
     'upload': upload,
     'download': download,
     'total': total,
@@ -122,10 +125,12 @@ class ProfileSetting {
     url = map['url'] ?? '';
     userAgent = map['user_agent'] ?? '';
     xhwid = map['xhwid'] ?? false;
+    decryptPassword = map['decrypt_password'] ?? '';
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
+    decryptPassword = map['decrypt_password'] ?? "";
     overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
     overwriteRules = map['overwrite_rules'] ?? false;
     final pgs = map["proxy_groups"];
@@ -237,6 +242,7 @@ class ProfileSetting {
     ps.url = url;
     ps.userAgent = userAgent;
     ps.xhwid = xhwid;
+    ps.decryptPassword = decryptPassword;
     ps.upload = upload;
     ps.download = download;
     ps.total = total;
@@ -548,6 +554,7 @@ class ProfileManager {
     String patch = "",
     String userAgent = "",
     bool xhwid = false,
+    String decryptPassword = "",
     Duration? updateInterval,
   }) async {
     final uri = Uri.tryParse(url);
@@ -616,6 +623,7 @@ class ProfileManager {
       url: url,
       userAgent: userAgent,
       xhwid: xhwid,
+      decryptPassword: decryptPassword,
       patch: patch,
     );
 
