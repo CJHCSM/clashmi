@@ -190,6 +190,9 @@ class InAppWebViewScreen extends StatefulWidget {
   final String appendMoreKaringToUseragent;
   final Map<String, Function> javaScriptHandlers;
   final dynamic javaScriptHandlerArgument;
+  final Map<String, String>? headers;
+  final Map<String, String>? cookies;
+  final Map<String, String>? localStorage;
 
   InAppWebViewScreen({
     super.key,
@@ -204,6 +207,9 @@ class InAppWebViewScreen extends StatefulWidget {
     this.appendMoreKaringToUseragent = "",
     this.javaScriptHandlers = const {},
     this.javaScriptHandlerArgument,
+    this.headers,
+    this.cookies,
+    this.localStorage,
   }) {
     if (_inited != null && _notSupportSubmited) {
       _notSupportSubmited = false;
@@ -331,6 +337,31 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
           injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
         ),
       );
+    }
+
+    if (widget.cookies != null && widget.cookies!.isNotEmpty) {
+      String cookiesStr = widget.cookies!.entries
+          .map((e) => "${e.key}=${e.value}")
+          .join("; ");
+      String source = '''document.cookie = "$cookiesStr; path=/;";\n''';
+      _scripts.add(
+        UserScript(
+          source: source,
+          injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+        ),
+      );
+    }
+
+    if (widget.localStorage != null && widget.localStorage!.isNotEmpty) {
+      for (final entry in widget.localStorage!.entries) {
+        _scripts.add(
+          UserScript(
+            source:
+                '''localStorage.setItem("${entry.key}", "${entry.value}");\n''',
+            injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+          ),
+        );
+      }
     }
   }
 
@@ -461,6 +492,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                                         ._webViewEnvironment,
                                                 initialUrlRequest: URLRequest(
                                                   url: WebUri(widget.url),
+                                                  headers: widget.headers,
                                                 ),
                                                 // initialUrlRequest:
                                                 // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
@@ -563,11 +595,25 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                                       return NavigationActionPolicy
                                                           .ALLOW;
                                                     },
+
                                                 onLoadStop:
                                                     (controller, url) async {
                                                       _pullToRefreshController
                                                           ?.endRefreshing();
                                                       _url = url.toString();
+                                                      /*if (url != null) {
+                                                    final cookies =
+                                                        await CookieManager.instance(
+                                                          webViewEnvironment:
+                                                              InAppWebViewScreen
+                                                                  ._webViewEnvironment,
+                                                        ).getCookies(
+                                                          url: url,
+                                                          webViewController:
+                                                              controller,
+                                                        );
+                                                    print(cookies);
+                                                  }*/
                                                     },
                                                 onReceivedError:
                                                     (

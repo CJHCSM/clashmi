@@ -12,7 +12,7 @@ import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/url_launcher_utils.dart';
 
-class ClashMiAutoupdateItem {
+class AutoupdateItem {
   String platform = "";
 
   List<String> channels = [];
@@ -50,8 +50,8 @@ class ClashMiAutoupdateItem {
   }
 }
 
-abstract final class ClashMiUtils {
-  static Future<ReturnResult<List<ClashMiAutoupdateItem>>> getAutoupdate(
+abstract final class AutoupdateUtils {
+  static Future<ReturnResult<List<AutoupdateItem>>> getAutoupdate(
     bool withQueryParams,
   ) async {
     String url = RemoteConfigManager.getConfig().autoUpdate;
@@ -75,7 +75,7 @@ abstract final class ClashMiUtils {
         break;
       }
     }
-    List<ClashMiAutoupdateItem> items = [];
+    List<AutoupdateItem> items = [];
     if (response.error != null) {
       return ReturnResult(error: response.error);
     }
@@ -84,7 +84,7 @@ abstract final class ClashMiUtils {
         var decodedResponse = jsonDecode(response.data!);
         if (decodedResponse is List) {
           for (var i in decodedResponse) {
-            ClashMiAutoupdateItem item = ClashMiAutoupdateItem();
+            AutoupdateItem item = AutoupdateItem();
             item.fromJson(i);
             if (item.platform == Platform.operatingSystem) {
               items.add(item);
@@ -93,7 +93,7 @@ abstract final class ClashMiUtils {
         }
       }
     } catch (err, _) {
-      Log.i('ClashMiUtils getAutoupdate exception ${err.toString()}');
+      Log.i('AutoupdateUtils getAutoupdate exception ${err.toString()}');
     }
     return ReturnResult(data: items);
   }
@@ -126,7 +126,7 @@ abstract final class ClashMiUtils {
         rc.fromJson(decodedResponse);
       }
     } catch (err, _) {
-      Log.i('ClashMiUtils getRemoteConfig exception ${err.toString()}');
+      Log.i('AutoupdateUtils getRemoteConfig exception ${err.toString()}');
     }
     return ReturnResult(data: rc);
   }

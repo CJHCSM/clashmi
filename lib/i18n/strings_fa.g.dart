@@ -206,6 +206,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get user => 'کاربر';
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
+	@override String get decryptPassword => 'دکريپت رمز‌عبور';
 	@override String get required => 'الزامی';
 	@override String get sudoPassword => 'رمز عبور sudo (برای حالت TUN لازم است)';
 	@override String get other => 'دیگر';
@@ -554,6 +555,7 @@ extension on TranslationsFa {
 			'meta.user' => 'کاربر',
 			'meta.account' => 'نام‌کاربری',
 			'meta.password' => 'رمز‌عبور',
+			'meta.decryptPassword' => 'دکريپت رمز‌عبور',
 			'meta.required' => 'الزامی',
 			'meta.sudoPassword' => 'رمز عبور sudo (برای حالت TUN لازم است)',
 			'meta.other' => 'دیگر',

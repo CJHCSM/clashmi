@@ -8,7 +8,7 @@ import 'package:clashmi/app/local_services/vpn_service.dart';
 import 'package:clashmi/app/modules/remote_config.dart';
 import 'package:clashmi/app/runtime/return_result.dart';
 import 'package:clashmi/app/utils/app_lifecycle_state_notify.dart';
-import 'package:clashmi/app/utils/clashmi_utils.dart';
+import 'package:clashmi/app/utils/auto_update_utils.dart';
 import 'package:clashmi/app/utils/did.dart';
 import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
@@ -64,10 +64,6 @@ class RemoteConfigManager {
     try {
       String content = await file.readAsString();
       if (content.isNotEmpty) {
-        if (content.contains("karing.app")) {
-          FileUtils.deleteFile(file);
-          return;
-        }
         var config = jsonDecode(content);
         _config.fromJson(config);
       }
@@ -102,7 +98,8 @@ class RemoteConfigManager {
     _config.latestCheck = now.toString();
     _checking = true;
     try {
-      ReturnResult<RemoteConfig> gConfig = await ClashMiUtils.getRemoteConfig();
+      ReturnResult<RemoteConfig> gConfig =
+          await AutoupdateUtils.getRemoteConfig();
       if (gConfig.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);

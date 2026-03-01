@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -339,5 +340,57 @@ abstract final class FileUtils {
       }
     } catch (e) {}
     return null;
+  }
+
+  static Future<String?> readStringByMatchStartAndEnd(
+    String filePath,
+    bool Function(String) start,
+    bool Function(String) end,
+  ) async {
+    final file = File(filePath);
+    if (!await file.exists()) {
+      return null;
+    }
+
+    bool matched = false;
+    String content = "";
+    StreamSubscription<String>? subscription;
+    final completer = Completer<void>();
+    final stream = file
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(const LineSplitter());
+    subscription = stream.listen(
+      (line) {
+        if (!matched) {
+          if (start(line)) {
+            matched = true;
+            content += "$line\n";
+          }
+          return;
+        }
+        if (end(line)) {
+          subscription?.cancel();
+          completer.complete();
+          return;
+        }
+        content += "$line\n";
+      },
+      onError: (e) {
+        subscription?.cancel();
+        if (!completer.isCompleted) {
+          completer.completeError(e);
+        }
+      },
+      onDone: () {
+        subscription?.cancel();
+        if (!completer.isCompleted) {
+          completer.complete();
+        }
+      },
+      cancelOnError: true,
+    );
+    await completer.future;
+    return content.isEmpty ? null : content;
   }
 }

@@ -95,6 +95,7 @@
         "user": "用戶",
         "account": "賬號",
         "password": "密碼",
+        "decryptPassword": "解密密碼",
         "required": "必填",
         "sudoPassword": "sudo 密碼(TUN模式需要)",
         "other": "其他",

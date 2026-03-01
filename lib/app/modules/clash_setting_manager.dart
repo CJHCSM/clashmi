@@ -569,7 +569,7 @@ class ClashSettingManager {
         "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/asn") {
       _setting.Extension?.Ruleset.AsnUrl =
           "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/asn";
-      save();
+      await save();
     }
   }
 
@@ -623,9 +623,9 @@ class ClashSettingManager {
     return _setting;
   }
 
-  static void reset() {
+  static Future<void> reset() async {
     _setting = defaultConfig();
-    _initFixed();
+    await _initFixed();
   }
 
   static int getControlPort() {

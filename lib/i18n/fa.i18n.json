@@ -95,6 +95,7 @@
         "user": "کاربر",
         "account": "نام‌کاربری",
         "password": "رمز‌عبور",
+        "decryptPassword": "دکريپت رمز‌عبور",
         "required": "الزامی",
         "sudoPassword": "رمز عبور sudo (برای حالت TUN لازم است)",
         "other": "دیگر",

@@ -206,6 +206,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get user => 'مستخدم';
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
+	@override String get decryptPassword => 'فك تشفير كلمة المرور';
 	@override String get required => 'مطلوب';
 	@override String get sudoPassword => 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 	@override String get other => 'آخر';
@@ -554,6 +555,7 @@ extension on TranslationsAr {
 			'meta.user' => 'مستخدم',
 			'meta.account' => 'حساب',
 			'meta.password' => 'كلمة المرور',
+			'meta.decryptPassword' => 'فك تشفير كلمة المرور',
 			'meta.required' => 'مطلوب',
 			'meta.sudoPassword' => 'كلمة مرور sudo (مطلوبة لوضع TUN)',
 			'meta.other' => 'آخر',

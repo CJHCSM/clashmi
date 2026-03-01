@@ -206,6 +206,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get user => 'Пользователь';
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
+	@override String get decryptPassword => 'Пароль расшифровки';
 	@override String get required => 'Необходимо';
 	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
 	@override String get other => 'Другой';
@@ -554,6 +555,7 @@ extension on TranslationsRu {
 			'meta.user' => 'Пользователь',
 			'meta.account' => 'Аккаунт',
 			'meta.password' => 'Пароль',
+			'meta.decryptPassword' => 'Пароль расшифровки',
 			'meta.required' => 'Необходимо',
 			'meta.sudoPassword' => 'Пароль sudo (требуется для режима TUN)',
 			'meta.other' => 'Другой',

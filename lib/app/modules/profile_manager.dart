@@ -15,6 +15,7 @@ import 'package:clashmi/app/utils/file_utils.dart';
 import 'package:clashmi/app/utils/http_utils.dart';
 import 'package:clashmi/app/utils/log.dart';
 import 'package:clashmi/app/utils/path_utils.dart';
+import 'package:clashmi/app/utils/profile_decrypt_utils.dart';
 import 'package:intl/intl.dart';
 
 import 'package:libclash_vpn_service/state.dart';
@@ -49,6 +50,7 @@ class ProfileSetting {
     this.update,
     this.url = "",
     this.xhwid = false,
+    this.decryptPassword = "",
     this.userAgent = "",
     this.patch = "",
   });
@@ -61,6 +63,7 @@ class ProfileSetting {
   String url;
   String userAgent;
   bool xhwid = false;
+  String decryptPassword = "";
   num upload = 0;
   num download = 0;
   num total = 0;
@@ -82,6 +85,7 @@ class ProfileSetting {
     'url': url,
     'user_agent': userAgent,
     'xhwid': xhwid,
+    'decrypt_password': decryptPassword,
     'upload': upload,
     'download': download,
     'total': total,
@@ -122,10 +126,12 @@ class ProfileSetting {
     url = map['url'] ?? '';
     userAgent = map['user_agent'] ?? '';
     xhwid = map['xhwid'] ?? false;
+    decryptPassword = map['decrypt_password'] ?? '';
     upload = map['upload'] ?? 0;
     download = map['download'] ?? 0;
     total = map['total'] ?? 0;
     expire = map['expire'] ?? "";
+    decryptPassword = map['decrypt_password'] ?? "";
     overwriteProxyGroups = map['overwrite_proxy_groups'] ?? false;
     overwriteRules = map['overwrite_rules'] ?? false;
     final pgs = map["proxy_groups"];
@@ -237,6 +243,7 @@ class ProfileSetting {
     ps.url = url;
     ps.userAgent = userAgent;
     ps.xhwid = xhwid;
+    ps.decryptPassword = decryptPassword;
     ps.upload = upload;
     ps.download = download;
     ps.total = total;
@@ -548,6 +555,7 @@ class ProfileManager {
     String patch = "",
     String userAgent = "",
     bool xhwid = false,
+    String decryptPassword = "",
     Duration? updateInterval,
   }) async {
     final uri = Uri.tryParse(url);
@@ -571,13 +579,14 @@ class ProfileManager {
     if (result.error != null) {
       return ReturnResult(error: result.error);
     }
-    final err = await validFileContentFormat(savePath);
-    if (err != null) {
-      FileUtils.deletePath(savePath);
-      return ReturnResult(error: err);
-    }
+
     Duration? updateIntervalByProfile;
     if (result.data != null) {
+      final err = await decryptProfile(result.data, savePath, decryptPassword);
+      if (err != null) {
+        await FileUtils.deletePath(savePath);
+        return ReturnResult(error: err);
+      }
       //final announce = result.data!.value("announce");
       //final supportUrl = result.data!.value("support-url");
       //final xhwidLimit = result.data!.value("x-hwid-limit");
@@ -593,6 +602,11 @@ class ProfileManager {
           updateIntervalByProfile = Duration(hours: pui);
         }
       }
+    }
+    final err = await validFileContentFormat(savePath);
+    if (err != null) {
+      await FileUtils.deletePath(savePath);
+      return ReturnResult(error: err);
     }
 
     await FileUtils.append(savePath, "\n$urlComment$url\n");
@@ -616,6 +630,7 @@ class ProfileManager {
       url: url,
       userAgent: userAgent,
       xhwid: xhwid,
+      decryptPassword: decryptPassword,
       patch: patch,
     );
 
@@ -685,6 +700,15 @@ class ProfileManager {
     );
     profile.update = DateTime.now();
     if (result.error == null) {
+      final err1 = await decryptProfile(
+        result.data,
+        savePathTmp,
+        profile.decryptPassword,
+      );
+      if (err1 != null) {
+        await FileUtils.deletePath(savePath);
+        return err1;
+      }
       final err = await validFileContentFormat(savePathTmp);
       if (err != null) {
         updating.remove(id);
@@ -760,13 +784,7 @@ class ProfileManager {
   }
 
   static Future<void> remove(String id) async {
-    for (int i = 0; i < _config.profiles.length; ++i) {
-      if (id == _config.profiles[i].id) {
-        _config.profiles.removeAt(i);
-        --i;
-      }
-    }
-
+    _config.profiles.removeWhere((p) => p.id == id);
     for (var event in onEventRemove) {
       event(id);
     }
@@ -832,5 +850,39 @@ class ProfileManager {
         break;
       }
     }
+  }
+
+  static Future<ReturnResultError?> decryptProfile(
+    HttpHeaders? headers,
+    String filePath,
+    String password,
+  ) async {
+    if (headers == null) {
+      return null;
+    }
+    final subscriptionEncryption = headers['subscription-encryption'];
+    if (subscriptionEncryption == null ||
+        subscriptionEncryption.isEmpty ||
+        subscriptionEncryption.first.trim() != "true") {
+      return null;
+    }
+    if (password.isEmpty) {
+      return ReturnResultError("profile is encrypted but no password provided");
+    }
+    final file = File(filePath);
+    if (!await file.exists()) {
+      return null;
+    }
+    final content = await file.readAsString();
+    final decodedContent = ProfileDecryptUtils.decryptProfileContent(
+      password,
+      content,
+    );
+    if (decodedContent == null) {
+      return ReturnResultError("decrypt profile failed");
+    }
+
+    await file.writeAsString(decodedContent);
+    return null;
   }
 }
